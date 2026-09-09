@@ -12,6 +12,8 @@ execute:
 sphinx:
   extra_extensions:
     - sphinx_proof
+  config:
+    exclude_patterns: ["_build", ".venv", "**.ipynb_checkpoints", "Thumbs.db", ".DS_Store"]
 
 only_build_toc_files: true
 

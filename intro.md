@@ -2,6 +2,8 @@
 
 In this class you will get an introduction to fundamental processes of the climate system. On this website you will find interactive tutorials where we step by step build our own climate model. In the end we will use a comprehensive coupled ice-ocean model simulating the Baltic Sea.
 
+Note: This repository is a fork and adaptation of an original course; the material has been adapted for the Applied Hydroclimatology course at IIT Mandi. Where applicable, original authors and sources are credited in individual lectures and the literature section below.
+
 ## Lecture content 
 
 - Fundamental processes of the climate system (greenhouse effect, radiation balance, climate sensitivity, stability and feedbacks)

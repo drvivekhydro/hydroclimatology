@@ -4,3 +4,7 @@ xarray
 netcdf4
 ipywidgets
 scipy
+
+# Book build (classic Jupyter Book, not the v2 MyST rewrite)
+jupyter-book<2
+sphinx-proof

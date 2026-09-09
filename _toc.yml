@@ -6,14 +6,14 @@ root: intro
 parts:
   - caption: Lecture
     chapters:
-    - file: 2020-11-09-introduction_to_python
-    - file: 2020-11-11-energy-model
-    - file: 2020-11-12-non-linear-dynamics
-    - file: 2020-11-13-ice-albedo
-    - file: 2020-12-01-advection-diffusion
-    - file: 2020-12-02-heat-transport
+    - file: Lecture 1, Introduction to python
+    - file: Lecture 2, A zero-dimensional EBM
+    - file: Lecture 3, Snowball Earth, the ice-albedo feedback, and multiple equilibria
+    - file: Lecture 4_climate_vegetation_hydrology
+    - file: Lecture 5, Evolution in time and space
+    - file: Lecture 6, Heat transports
   - caption: Exercise
     chapters:
-    - file: 2020-11-14-climate-of-the-ocean-h1
-    - file: 2020-11-15-climate-of-the-ocean-h2
-    - file: 2022-01-20-climate-of-the-ocean-h3
+    - file: Exercise 1, policy goals under uncertainty
+    - file: Exercise 2, melting the snowball earth
+    - file: Exercise 3, analyzing the Baltic Sea
