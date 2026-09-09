@@ -31,14 +31,32 @@ semi-arid (steppe), subarctic, and tundra. India spans several of these, from ar
 western Rajasthan to the humid subtropical Indo-Gangetic plain to the alpine and polar
 climates of the high Himalaya.
 
-```{seealso}
-High-resolution present and future Köppen–Geiger maps:
-Beck, H. E. et al. (2018), *Present and future Köppen-Geiger climate classification
-maps at 1-km resolution*, **Scientific Data** 5, 180214.
-<https://www.nature.com/articles/sdata2018214>
+```{figure} images/koppen-geiger-1980-2016.png
+:alt: Köppen–Geiger climate classification world map, 1980–2016
+:name: fig-koppen
+:width: 100%
+
+Köppen–Geiger climate classification for 1980–2016. Note the dry belt through North
+Africa and Central Asia, the tropical band along the equator, and the continental
+interiors of Asia and North America.
+&nbsp; *Figure:* Beck, H. E. et al. (2018), *Present and future Köppen-Geiger climate
+classification maps at 1-km resolution*, **Scientific Data** 5, 180214, via
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:K%C3%B6ppen-Geiger_Climate_Classification_Map_(1980%E2%80%932016)_no_borders.png)
+— licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 ```
 
 ## The five components
+
+```{figure} images/climate-system-components.jpg
+:alt: The five components of the climate system
+:name: fig-climate-system
+:width: 80%
+
+The five components of the climate system and some of the exchanges between them.
+&nbsp; *Figure:* F. Nijsse, via
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Climate-system.jpg)
+— licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+```
 
 The climate system is usually described as five interacting components:
 
@@ -77,6 +95,20 @@ atmosphere, which radiate in the infrared; in the long-term mean, outgoing infra
 radiation balances absorbed sunlight. Lecture 4 turns exactly this sentence into an
 equation.
 
+```{figure} images/earth-energy-budget-nasa.png
+:alt: Earth's energy budget with individual flux estimates in W/m^2
+:name: fig-energy-budget
+:width: 100%
+
+Global-mean energy budget: incoming solar, reflected solar, and outgoing infrared
+fluxes in W m⁻². The large downward and upward infrared arrows at the surface are the
+greenhouse effect.
+&nbsp; *Figure:* Robert Simmon, NASA Earth Observatory, adapted from Trenberth et al.
+(2009), via
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Diagram_showing_the_Earth%27s_energy_budget,_which_includes_the_greenhouse_effect_(NASA).png)
+— public domain.
+```
+
 ### The greenhouse effect
 
 Greenhouse gases — water vapour, carbon dioxide, methane, nitrous oxide — are largely
@@ -84,6 +116,20 @@ transparent to sunlight but absorb and re-emit infrared radiation. This keeps th
 lower atmosphere and surface roughly 33 K warmer than they would be otherwise, which
 is what makes the planet habitable. The effect is natural; what is new is the
 **enhanced** greenhouse effect from human emissions.
+
+```{figure} images/greenhouse-effect-epa-2012.png
+:alt: Schematic of the greenhouse effect
+:name: fig-greenhouse
+:width: 90%
+
+The greenhouse effect: solar radiation is mostly absorbed at the surface, which
+re-emits infrared radiation; greenhouse gases absorb part of that infrared and
+re-radiate it in all directions, including back downward.
+&nbsp; *Figure:* U.S. EPA, *Climate Change Indicators in the United States* (2nd ed.,
+2012), via
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Earth%27s_greenhouse_effect_(US_EPA,_2012).png)
+— public domain (work of the U.S. federal government).
+```
 
 ## What is climate change?
 
@@ -126,17 +172,26 @@ system. The models in the following lectures are built on exactly this idea.
 
 ## Figures and sources
 
-The lecture slides use figures from the following open resources; they are linked here
-rather than reproduced.
+The four figures above are reproduced from openly licensed sources, each attributed in
+its caption:
 
+| Figure | Source | Licence |
+|---|---|---|
+| Köppen–Geiger map | Beck et al. (2018), *Scientific Data* 5, 180214 | CC BY-SA 4.0 |
+| Five components | F. Nijsse (Wikimedia Commons) | CC BY-SA 4.0 |
+| Energy budget | R. Simmon, NASA Earth Observatory (after Trenberth et al. 2009) | Public domain |
+| Greenhouse effect | U.S. EPA, *Climate Change Indicators* (2012) | Public domain |
+
+For further reading and additional figures:
+
+- **IPCC AR6 Working Group I** — the technical basis for climate change and its
+  figure archive: <https://www.ipcc.ch/report/ar6/wg1/>
 - **UCAR Center for Science Education** — climate system, energy budget, and albedo
   explainers: <https://scied.ucar.edu/learning-zone/how-climate-works>
 - **NASA — My NASA Data** — Earth as a system, climate-system components:
   <https://mynasadata.larc.nasa.gov/>
-- **IPCC AR6 Working Group I** — figures and the technical basis for climate change:
-  <https://www.ipcc.ch/report/ar6/wg1/>
-- **Köppen–Geiger maps** — Beck et al. (2018), *Scientific Data*:
-  <https://www.nature.com/articles/sdata2018214>
+- **Beck et al. (2018)** — *Present and future Köppen-Geiger climate classification
+  maps at 1-km resolution*: <https://www.nature.com/articles/sdata2018214>
 - **Brian Rose — *The Climate Laboratory***, "Models, budgets, and fun" and the
   energy-balance chapters:
   <https://brian-rose.github.io/ClimateLaboratoryBook/courseware/models-budgets-fun.html>
