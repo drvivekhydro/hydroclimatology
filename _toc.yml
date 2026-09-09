@@ -6,14 +6,14 @@ root: intro
 parts:
   - caption: Lecture
     chapters:
-    - file: Lecture 1, Introduction to python
-    - file: Lecture 2, A zero-dimensional EBM
-    - file: Lecture 3, Snowball Earth, the ice-albedo feedback, and multiple equilibria
-    - file: Lecture 4_climate_vegetation_hydrology
-    - file: Lecture 5, Evolution in time and space
-    - file: Lecture 6, Heat transports
+    - file: lecture-01-introduction-to-python
+    - file: lecture-02-zero-dimensional-ebm
+    - file: lecture-03-snowball-earth-ice-albedo-feedback
+    - file: lecture-04-climate-vegetation-hydrology
+    - file: lecture-05-evolution-in-time-and-space
+    - file: lecture-06-heat-transports
   - caption: Exercise
     chapters:
-    - file: Exercise 1, policy goals under uncertainty
-    - file: Exercise 2, melting the snowball earth
-    - file: Exercise 3, analyzing the Baltic Sea
+    - file: exercise-01-policy-goals-under-uncertainty
+    - file: exercise-02-melting-the-snowball-earth
+    - file: exercise-03-analyzing-the-baltic-sea
