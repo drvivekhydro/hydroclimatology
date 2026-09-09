@@ -1,26 +1,36 @@
-# Climate of the ocean
+# Applied Hydroclimatology (CE524) — IIT Mandi
 
-build with jupyter books
+Interactive course notebooks, built as a [Jupyter Book](https://jupyterbook.org).
 
-Copy and paste your book’s _build contents into a new folder¶
+**Live site:** https://drvivekhydro.github.io/hydroclimatology/
 
-The simplest way to host your book online is to simply copy everything that is inside _build and put it in a location where GitHub Pages knows to look. There are two places we recommend:
+## Contents
 
-In a separate branch
+- `lecture-0*.ipynb` — lecture notebooks (Module III: climate & hydrologic modeling)
+- `exercise-0*.ipynb` — exercises
+- `intro.md`, `_toc.yml`, `_config.yml` — book landing page, table of contents, settings
 
-    You can configure GitHub Pages to build any books that are in a branch that you specify. By default, this is gh-pages.
-In a docs/ folder of your main branch
+## Building locally
 
-    If you’d like to keep your built book alongside your book’s source files, you may paste them into a docs/ folder.
+```bash
+python -m venv .venv && . .venv/Scripts/activate   # Windows: .venv\Scripts\activate
+pip install "jupyter-book<2" sphinx-proof
+pip install -r requirements.txt
+jupyter-book build .
+```
 
-    Warning
+The rendered book appears in `_build/html/index.html`.
 
-    Note that copying all of your book’s build files into the same branch as your source files will cause your repository to become very large over time, especially if you have many images in your book.
+## Deployment
 
-In either case, follow these steps:
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the book and
+publishes it to the `gh-pages` branch. GitHub Pages serves that branch.
 
-    Copy the contents of _build/html directory into docs (or your other branch).
+## Credits
 
-    Add a file called .nojekyll alongside your book’s contents. This tells GitHub Pages to treat your files as a “static HTML website”.
-
-    Push your changes to GitHub, and configure it to start hosting your documentation.
+Adapted from the open course **"Climate of the Ocean"** by H. E. Markus Meier,
+Florian Börgel, and Sven Karsten (Leibniz Institute for Baltic Sea Research
+Warnemünde / University of Rostock) —
+<https://github.com/florianboergel/climateoftheocean> — which in turn builds on
+Henri Drake's MIT *Introduction to Computational Thinking* material and Brian Rose's
+*The Climate Laboratory*. See `intro.md` for the full acknowledgements.
