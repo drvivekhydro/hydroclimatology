@@ -1,7 +1,9 @@
 matplotlib
 numpy
+pandas
 xarray
 netcdf4
+pooch
 ipywidgets
 scipy
 

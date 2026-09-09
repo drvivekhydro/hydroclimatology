@@ -1,0 +1,7 @@
+# CMIP6 multi-model-mean global surface air temperature change [degC]
+# relative to 1850-1900, by SSP scenario and period.
+# Source: mathause/cmip_temperatures (CMIP6). CC BY-SA 4.0.
+period,SSP1-1.9,SSP1-2.6,SSP2-4.5,SSP3-7.0,SSP5-8.5
+2021-2040,1.53,1.61,1.64,1.6,1.73
+2041-2060,1.67,1.95,2.19,2.31,2.63
+2081-2100,1.53,2.06,3.01,4.04,4.99
