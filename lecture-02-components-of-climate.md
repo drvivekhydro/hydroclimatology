@@ -136,12 +136,165 @@ re-radiate it in all directions, including back downward.
 The IPCC defines climate change as *a change in the state of the climate that can be
 identified by changes in the mean and/or the variability of its properties, and that
 persists for an extended period, typically decades or longer*. The change can arise
-from **natural** causes — variations in solar output, volcanic eruptions, internal
-modes such as El Niño–Southern Oscillation — or from **anthropogenic** causes, chiefly
-greenhouse-gas emissions and land-use change. Attribution studies separate these
-contributions; at the global scale the observed warming since the mid-20th century is
-overwhelmingly anthropogenic, while at regional scales natural variability can be
-comparable to or larger than the forced signal.
+from **natural** causes or from **anthropogenic** causes. Attribution studies separate
+these contributions; at the global scale the observed warming since the mid-20th
+century is overwhelmingly anthropogenic, while at regional scales natural variability
+can be comparable to or larger than the forced signal.
+
+### Causes: radiative forcing
+
+The common currency for comparing causes of climate change is **radiative forcing**:
+the change, in W m⁻², that an agent imposes on Earth's energy balance at the top of
+the atmosphere before the climate has had time to respond. A positive forcing warms
+the planet, a negative forcing cools it, and forcings from different agents can be
+added.
+
+**Natural forcings.**
+
+- *Solar variability* — the Sun's output varies by about 0.1% over the 11-year sunspot
+  cycle, with larger changes on centennial scales. Its net forcing over the industrial
+  era is small (of order +0.01 W m⁻²).
+- *Volcanic eruptions* — large explosive eruptions inject sulphate aerosol into the
+  stratosphere, reflecting sunlight and cooling the surface by a few tenths of a
+  degree for two to three years.
+- *Orbital (Milankovitch) variations* — slow changes in the shape of Earth's orbit and
+  the tilt and precession of its axis redistribute sunlight by latitude and season and
+  pace the ice ages, but act on tens of thousands of years and are negligible over a
+  century.
+
+**Anthropogenic forcings.**
+
+- *Well-mixed greenhouse gases* — carbon dioxide is the largest single contributor,
+  its concentration having risen from about 280 ppm before industrialisation to over
+  420 ppm today, chiefly from fossil-fuel combustion and deforestation. Methane,
+  nitrous oxide, and halocarbons add substantially more.
+- *Aerosols* — sulphate and other particles from combustion scatter sunlight and seed
+  brighter clouds, producing a **negative** forcing that has masked part of the
+  greenhouse warming; this offset is shrinking as air-quality controls reduce
+  emissions.
+- *Land-use change* — clearing forests for cropland generally raises surface albedo (a
+  small negative forcing) while also releasing carbon.
+
+The net anthropogenic forcing since 1750 is roughly **+2.7 W m⁻²** (IPCC AR6), almost
+entirely from greenhouse gases partly offset by aerosols.
+
+```{figure} images/mauna-loa-co2.png
+:alt: Atmospheric CO2 concentration at Mauna Loa since 1958
+:name: fig-keeling
+:width: 90%
+
+The Keeling Curve: monthly-mean atmospheric CO₂ at Mauna Loa, Hawai‘i. The saw-tooth
+is the seasonal breathing of Northern-Hemisphere vegetation; the relentless rise is
+the anthropogenic signal.
+&nbsp; *Data:* NOAA Global Monitoring Laboratory / Scripps Institution of Oceanography
+(public domain); figure generated for this course.
+```
+
+### Observed impacts
+
+- **Surface warming** of about 1.1–1.2 °C since the late 19th century, faster over land
+  than ocean and fastest in the Arctic ("polar amplification").
+- **Ocean heat uptake** — more than 90% of the excess energy has gone into the ocean,
+  raising its heat content and stratifying the upper layers.
+- **Sea-level rise** of about 0.2 m since 1900 and accelerating, from thermal
+  expansion of sea water plus melting glaciers and ice sheets.
+- **Cryosphere loss** — shrinking Arctic sea ice, retreating mountain glaciers, and
+  mass loss from Greenland and Antarctica.
+- **Changing extremes** — heatwaves are more frequent and intense almost everywhere,
+  heavy-precipitation events have intensified, and the character of droughts has
+  shifted in many regions.
+
+```{figure} images/global-temperature-anomaly-nasa.jpg
+:alt: Map of 2023 global surface temperature anomalies relative to 1951-1980
+:name: fig-temp-anomaly
+:width: 100%
+
+Surface temperature anomaly for a recent year relative to the 1951–1980 average. Nearly
+the whole planet is warmer than the mid-20th-century baseline, with the largest
+anomalies over the Arctic.
+&nbsp; *Figure:* NASA Scientific Visualization Studio / GISS — public domain.
+```
+
+## Climate feedbacks
+
+A **feedback** is a process set in motion by a change in temperature that drives a
+further change in temperature. If it amplifies the original change it is **positive**;
+if it opposes it, **negative**. Feedbacks do not cause climate change on their own —
+a forcing does that — but they determine how much warming a given forcing produces.
+
+- **Planck feedback** (strongly negative) — a warmer surface radiates more infrared to
+  space, roughly as $T^4$. This is the fundamental stabiliser, and the reference
+  against which the others are measured.
+- **Water-vapour feedback** (positive, the largest amplifier) — warmer air holds more
+  water vapour (Clausius–Clapeyron again), and water vapour is itself a greenhouse
+  gas. On its own this roughly doubles the warming from CO₂ alone.
+- **Lapse-rate feedback** (negative) — in the tropics the upper troposphere warms
+  faster than the surface, which increases outgoing radiation and partly cancels the
+  water-vapour feedback.
+- **Surface-albedo (ice–albedo) feedback** (positive) — melting snow and ice expose
+  darker ocean and land, which absorb more sunlight and warm further. This feedback
+  drives polar amplification, and Lecture 5 makes it quantitative.
+- **Cloud feedback** (positive on balance, most uncertain) — warming changes the
+  height, coverage, and brightness of clouds; the net effect is a modest amplification
+  but it is the single largest source of spread among climate models.
+- **Carbon-cycle feedbacks** (mostly positive) — warming reduces the efficiency with
+  which the ocean and land take up CO₂, and thawing permafrost releases CO₂ and
+  methane, leaving more of each tonne of emissions in the atmosphere.
+
+Adding the feedbacks together, the climate system remains net-stabilising — the sum is
+negative, so temperature does not run away — but far less strongly than the Planck
+feedback alone. The practical measure of the result is the **equilibrium climate
+sensitivity**, the eventual global warming for a doubling of CO₂, assessed by IPCC AR6
+as about 3 °C (likely range 2.5–4 °C). Lectures 5 and 6 build small models in which
+the ice–albedo and vegetation feedbacks can be switched on and their effect seen
+directly.
+
+## Tipping points in the climate system
+
+Most of the climate's response to forcing is gradual and reversible: push a little
+harder and you get a little more warming; ease off and it relaxes back. A **tipping
+point** is a threshold beyond which some part of the system reorganises into a
+qualitatively different state — often abruptly, and often with **hysteresis**, meaning
+that simply reversing the forcing does not reverse the change.
+
+The Snowball Earth problem in Lecture 5 is a clean example: for the same solar input
+the planet has *two* stable climates, one ice-free and one frozen over, separated by an
+unstable threshold. Once the ice line pushes past a critical latitude, the ice–albedo
+feedback runs away and the planet flips state; getting back out requires a much larger
+change in forcing than the one that triggered the collapse.
+
+The real climate contains several such **tipping elements**:
+
+```{figure} images/climate-tipping-points.svg
+:alt: Map of potential tipping elements in the Earth's climate system
+:name: fig-tipping
+:width: 100%
+
+Potential tipping elements in the climate system, after Lenton et al. (2008).
+&nbsp; *Figure:* "CodeOne / DeWikiMan", via
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Climate-tipping-points-en.svg)
+— licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+```
+
+- **Ice sheets** — Greenland and West Antarctica hold enough water for several metres
+  of sea-level rise, and their loss above a temperature threshold is effectively
+  irreversible on human timescales.
+- **Atlantic Meridional Overturning Circulation (AMOC)** — the ocean circulation that
+  carries heat northward in the Atlantic; a slowdown or collapse would shift rainfall
+  belts, including the West African and South Asian monsoons.
+- **Amazon rainforest** — drying and deforestation could push it past a threshold into
+  savanna, releasing carbon and reducing continental moisture recycling.
+- **Permafrost** — thaw releases CO₂ and methane, a carbon-cycle feedback that can
+  itself behave like a tipping process.
+- **Monsoon systems and tropical coral reefs** are also discussed as candidate tipping
+  elements.
+
+For water resources the concern is that a tipping event would move a region's
+hydroclimate outside anything in the historical record, quickly and permanently. A
+useful early-warning idea, which connects directly to the dynamical-systems view in
+Lectures 5 and 6, is **critical slowing down**: as a system approaches a tipping
+threshold it recovers more and more sluggishly from small perturbations, so rising
+variance and autocorrelation in observations can signal that a threshold is near.
 
 ## Timescales, scale separation, and averaging
 
@@ -172,8 +325,8 @@ system. The models in the following lectures are built on exactly this idea.
 
 ## Figures and sources
 
-The four figures above are reproduced from openly licensed sources, each attributed in
-its caption:
+The figures above are reproduced from openly licensed sources, each attributed in its
+caption:
 
 | Figure | Source | Licence |
 |---|---|---|
@@ -181,6 +334,9 @@ its caption:
 | Five components | F. Nijsse (Wikimedia Commons) | CC BY-SA 4.0 |
 | Energy budget | R. Simmon, NASA Earth Observatory (after Trenberth et al. 2009) | Public domain |
 | Greenhouse effect | U.S. EPA, *Climate Change Indicators* (2012) | Public domain |
+| Keeling Curve | Data: NOAA GML / Scripps; figure made for this course | Public domain data |
+| Temperature anomaly map | NASA Scientific Visualization Studio / GISS | Public domain |
+| Tipping elements | CodeOne / DeWikiMan (Wikimedia), after Lenton et al. (2008) | CC BY-SA 4.0 |
 
 For further reading and additional figures:
 
