@@ -2,7 +2,7 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: Applied Hydroclimatology (CE524)
-author: "IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)"
+author: "Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)"
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

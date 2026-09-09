@@ -60,15 +60,21 @@ report writing.
 
 ## How the notebooks map to the syllabus
 
-The current notebooks support **Module III**:
+Lectures 1–2 are conceptual; Lectures 3–8 support **Module III** and are hands-on
+Python notebooks.
 
-- **Lecture 1** — Introduction to Python for data analysis.
-- **Lecture 2** — A zero-dimensional energy balance model of Earth's climate.
-- **Lecture 3** — Snowball Earth, the ice–albedo feedback, and multiple equilibria.
-- **Lecture 4** — Coupling vegetation and a hydrological cycle to a zero-dimensional
+- **Lecture 1** — Course introduction: what applied hydroclimatology is, how the
+  course is organised, and how it is assessed.
+- **Lecture 2** — Components of the climate system: weather vs climate, climate
+  classification, the five components and their couplings, energy balance, the
+  greenhouse effect, and characteristic timescales.
+- **Lecture 3** — Introduction to Python for data analysis.
+- **Lecture 4** — A zero-dimensional energy balance model of Earth's climate.
+- **Lecture 5** — Snowball Earth, the ice–albedo feedback, and multiple equilibria.
+- **Lecture 6** — Coupling vegetation and a hydrological cycle to a zero-dimensional
   climate model (after Svirezhev & von Bloh, 1998).
-- **Lecture 5** — Evolution in time and space: advection and diffusion in 1-D.
-- **Lecture 6** — Heat transports: two-dimensional advection–diffusion.
+- **Lecture 7** — Evolution in time and space: advection and diffusion in 1-D.
+- **Lecture 8** — Heat transports: two-dimensional advection–diffusion.
 
 The accompanying exercises build a simple energy balance model, melt the Snowball
 Earth, and analyse observations from the Baltic Sea.
@@ -80,7 +86,7 @@ without the work of the original authors. Please cite them when reusing this con
 
 - ***Climate of the Ocean*** — H. E. Markus Meier, Florian Börgel, and Sven Karsten,
   Leibniz Institute for Baltic Sea Research Warnemünde (IOW) / University of Rostock.
-  Lectures 1–3 and 5–6 and the exercises are adapted from this course.
+  Lectures 3–5 and 7–8 and the exercises are adapted from this course.
   Source: <https://github.com/florianboergel/climateoftheocean>
 - ***Introduction to Computational Thinking*** (MIT 18.S191 / 18.S190) — the energy
   balance model, Snowball Earth, and the advection–diffusion notebooks derive from
@@ -90,11 +96,12 @@ without the work of the original authors. Please cite them when reusing this con
   <https://brian-rose.github.io/ClimateLaboratoryBook/>
 - **Svirezhev, Y. M., & von Bloh, W. (1998).** A zero-dimensional climate–vegetation
   model containing global carbon and hydrological cycle. *Ecological Modelling, 106*,
-  119–127. (Basis for Lecture 4; further references are listed within that notebook.)
+  119–127. (Basis for Lecture 6; further references are listed within that notebook.)
 
-Adaptation for **CE524 Applied Hydroclimatology at IIT Mandi** by the course
-instructor. New material developed for this course is © its authors and shared for
-educational use; the adapted material retains the licence of its original source.
+Adaptation for **CE524 Applied Hydroclimatology at IIT Mandi** by Vivek Gupta, School
+of Civil and Environmental Engineering. New material developed for this course is
+© its authors and shared for educational use; the adapted material retains the licence
+of its original source.
 
 ## Literature
 

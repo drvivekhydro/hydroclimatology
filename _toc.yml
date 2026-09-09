@@ -6,12 +6,14 @@ root: intro
 parts:
   - caption: Lecture
     chapters:
-    - file: lecture-01-introduction-to-python
-    - file: lecture-02-zero-dimensional-ebm
-    - file: lecture-03-snowball-earth-ice-albedo-feedback
-    - file: lecture-04-climate-vegetation-hydrology
-    - file: lecture-05-evolution-in-time-and-space
-    - file: lecture-06-heat-transports
+    - file: lecture-01-course-introduction
+    - file: lecture-02-components-of-climate
+    - file: lecture-03-introduction-to-python
+    - file: lecture-04-zero-dimensional-ebm
+    - file: lecture-05-snowball-earth-ice-albedo-feedback
+    - file: lecture-06-climate-vegetation-hydrology
+    - file: lecture-07-evolution-in-time-and-space
+    - file: lecture-08-heat-transports
   - caption: Exercise
     chapters:
     - file: exercise-01-policy-goals-under-uncertainty
