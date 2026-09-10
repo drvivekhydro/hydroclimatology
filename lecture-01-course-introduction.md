@@ -8,6 +8,18 @@ you are expected to do in it. The conceptual lecture that follows (Lecture 2) th
 introduces the climate system itself, and from Lecture 3 onward the course becomes
 hands-on, building small climate and hydrological models in Python.
 
+```{note} Module I coverage
+Lectures 1 and 2 together cover **Module I — Introduction to hydroclimatology**:
+
+| Syllabus topic | Where it is covered |
+|---|---|
+| Concept and scope of hydroclimatology | L1 &mdash; *What is hydroclimatology?* and *What does "applied" add?* |
+| Climate change: causes and impacts | L2 &mdash; *What is climate change?* &rarr; *Causes: radiative forcing* and *Observed impacts* |
+| Climate feedbacks; tipping points | L2 &mdash; *Climate feedbacks* and *Tipping points in the climate system* |
+| Impact on the global hydrologic cycle | L1 &mdash; *The hydrological cycle* and *Climate change and the water cycle* |
+| Water management in a changing climate | L1 &mdash; *Water management in a changing climate* |
+```
+
 ## What is hydroclimatology?
 
 Hydroclimatology is the study of how the climate system and the hydrological cycle
