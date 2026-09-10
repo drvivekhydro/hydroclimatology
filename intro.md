@@ -29,7 +29,7 @@ hydroclimatic-extremes modules will be added over the course of the semester.
 |---|---|
 | Course number | CE524 |
 | Credit distribution | 3–0–0–3 |
-| Intended for | PG and Ph.D. students |
+| Intended for | Final-year undergraduate, PG, and Ph.D. students |
 | Prerequisite | None. Familiarity with any programming language (Python, R, MATLAB, …) is helpful. |
 
 ## Preamble
