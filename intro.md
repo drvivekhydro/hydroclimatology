@@ -95,6 +95,7 @@ without the work of the original authors. Please cite them when reusing this con
 - ***Climate of the Ocean*** — H. E. Markus Meier, Florian Börgel, and Sven Karsten,
   Leibniz Institute for Baltic Sea Research Warnemünde (IOW) / University of Rostock.
   Lectures 3–6, 9 and 10 and the exercises are adapted from this course.
+  Website: <https://florianboergel.github.io/climateoftheocean> ·
   Source: <https://github.com/florianboergel/climateoftheocean>
 - ***Introduction to Computational Thinking*** (MIT 18.S191 / 18.S190) — the energy
   balance model, Snowball Earth, and the advection–diffusion notebooks derive from
