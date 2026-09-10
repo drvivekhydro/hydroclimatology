@@ -63,7 +63,8 @@ Consulted for Lecture 4.
 | 9 — Advection and diffusion in 1-D | MIT 18.S191, via *Climate of the Ocean* | used essentially unchanged |
 | 10 — Advection and diffusion in a river | Vivek Gupta (reuses the Lecture 9 solver) | original |
 | 11 — Heat transports (2-D advection–diffusion) | MIT 18.S191, via *Climate of the Ocean* | adapted (renumbered; equation typography fixed) |
-| Exercises 1–3 | *Climate of the Ocean* | adapted |
+| Exercises 3, 4, 5, 9 | *Climate of the Ocean* exercises, reworked and heavily scaffolded (Exercise 9 retargeted from the Baltic Sea to the Indian Ocean) | adapted |
+| Exercises 7, 8, 10 | Vivek Gupta | original |
 
 ## Datasets and figures
 

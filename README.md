@@ -44,7 +44,7 @@ of the Earth up to advection and diffusion in space and a calibrated catchment m
 | **Lectures 4–6** | Zero-dimensional climate models: energy balance, ice–albedo feedback, a coupled vegetation–hydrology model |
 | **Lectures 7–8** | A lumped rainfall–runoff model and how to calibrate it, using real catchment data |
 | **Lectures 9–11** | Advection and diffusion: in 1-D, applied to river flood routing and transport, and in 2-D |
-| **Exercises 1–3** | Policy under uncertainty, melting the Snowball Earth, analysing observations |
+| **Exercises** | One scaffolded exercise notebook per hands-on lecture (3–5, 7–10); Exercise 9 analyses real Indian Ocean SST data |
 
 Material for the observation, data-processing, impacts and extremes modules will be
 added through the semester.

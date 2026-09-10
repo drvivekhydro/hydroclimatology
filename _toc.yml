@@ -19,6 +19,10 @@ parts:
     - file: lecture-11-heat-transports
   - caption: Exercise
     chapters:
-    - file: exercise-01-policy-goals-under-uncertainty
-    - file: exercise-02-melting-the-snowball-earth
-    - file: exercise-03-analyzing-the-baltic-sea
+    - file: exercise-03-introduction-to-python
+    - file: exercise-04-zero-dimensional-ebm
+    - file: exercise-05-snowball-earth
+    - file: exercise-07-lumped-hydrological-model
+    - file: exercise-08-hydrological-model-calibration
+    - file: exercise-09-indian-ocean-sst
+    - file: exercise-10-advection-diffusion-in-rivers

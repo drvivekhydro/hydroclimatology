@@ -87,8 +87,10 @@ hands-on Python notebooks.
   Module 7). 
 - **Lecture 11** — Heat transports: two-dimensional advection–diffusion.
 
-The accompanying exercises build a simple energy balance model, melt the Snowball
-Earth, and analyse observations from the Baltic Sea.
+Each hands-on lecture (3&ndash;5, 7&ndash;10) has a companion **exercise notebook** with
+the data, model and plotting written out and the analysis code left as marked
+fill-in-the-blanks. Exercise 9 works with real Indian Ocean sea-surface-temperature
+data (the seasonal cycle, the warming trend, and the Indian Ocean Dipole).
 
 ## Acknowledgements and credits
 
