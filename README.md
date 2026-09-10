@@ -6,7 +6,7 @@ Interactive course notebooks, built as a [Jupyter Book](https://jupyterbook.org)
 
 ## Contents
 
-- `lecture-0*.ipynb` — lecture notebooks (Module III: climate & hydrologic modeling)
+- `lecture-*.ipynb` — lecture notebooks (Module 2: climate & hydrologic modeling)
 - `exercise-0*.ipynb` — exercises
 - `intro.md`, `_toc.yml`, `_config.yml` — book landing page, table of contents, settings
 

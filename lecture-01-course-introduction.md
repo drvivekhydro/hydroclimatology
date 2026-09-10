@@ -8,8 +8,8 @@ you are expected to do in it. The conceptual lecture that follows (Lecture 2) th
 introduces the climate system itself, and from Lecture 3 onward the course becomes
 hands-on, building small climate and hydrological models in Python.
 
-```{note} Module I coverage
-Lectures 1 and 2 together cover **Module I — Introduction to hydroclimatology**:
+```{note} Module 1 coverage
+Lectures 1 and 2 together cover **Module 1 — Introduction to hydroclimatology**:
 
 | Syllabus topic | Where it is covered |
 |---|---|
@@ -163,21 +163,21 @@ models, and data analysis — needed to support these decisions.
 
 ## Course structure
 
-The syllabus is organised into eight modules; the full module list with lecture hours
-is on the [course home page](intro.md). In brief:
+The syllabus is organised into seven modules; the full list is on the
+[course home page](intro.md). In teaching order:
 
 | Module | Theme |
 |---|---|
-| I | Introduction to hydroclimatology |
-| II | Observation |
-| III | Modeling |
-| IV | Hydroclimatic data processing and analysis |
-| V | Impact on hydrology, agriculture, and ecosystems |
-| VII | Hydroclimatic extremes: droughts |
-| VIII | Hydroclimatic extremes: floods |
+| 1 | Introduction to hydroclimatology |
+| 2 | Modeling |
+| 3 | Observation |
+| 4 | Hydroclimatic data processing and analysis |
+| 5 | Impact on hydrology, agriculture, and ecosystems |
+| 6 | Hydroclimatic extremes: droughts |
+| 7 | Hydroclimatic extremes: floods |
 
 ```{note}
-The interactive notebooks on this site currently cover **Module III (Modeling)**.
+The interactive notebooks on this site currently cover **Module 2 (Modeling)**.
 They are introduced by two conceptual lectures — this one and *Components of the
 climate system* — and are then built up in Python from a zero-dimensional energy
 balance model to advection–diffusion in space. Material for the other modules will be

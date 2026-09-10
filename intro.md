@@ -19,7 +19,7 @@ Binder) — no local installation required.
 
 ```{note}
 The notebook collection is under active development and currently focuses on
-**Module III (Modeling)**. Material for the observation, data-processing, impacts, and
+**Module 2 (Modeling)**. Material for the observation, data-processing, impacts, and
 hydroclimatic-extremes modules will be added over the course of the semester.
 ```
 
@@ -48,20 +48,24 @@ report writing.
 
 ## Course modules
 
-| Module | Topics | Hours |
-|---|---|---|
-| **I — Introduction to hydroclimatology** | Climate change: causes and impacts; impact on the global hydrologic cycle; water management in a changing climate; concept and scope of hydroclimatology. | 4 |
-| **II — Observation** | Types of research data; qualitative and quantitative data; measurement of precipitation, temperature, humidity, wind speed, radiation, evapotranspiration, snow, streamflow, sediment, snow water equivalent; missing-data handling; hydroclimatic measurements in the Himalayan regions. | 4 |
-| **III — Modeling** | Fundamental principles in hydroclimatic modeling; types of climate models; simple climate models; simple energy balance climate models (zero-dimensional, single-layer, one-dimensional); general circulation models (GCM); hydrologic modeling; types and components of hydrological models; SWAT, VIC, HEC-HMS. | 8 |
-| **IV — Hydroclimatic data processing and analysis** | Gridding observed data; reanalysis data; satellite-derived data; radar data; climate data; paleoclimatology data; climate indices; overview of CMIP6; downscaling and bias correction of climate data; impact-assessment studies. | 8 |
-| **V — Impact on hydrology, agriculture, and ecosystem** | Climate-change impact on dams; weather and climate metrics for agriculture; heat-stress indices; impact on food security in India; energy limitation versus moisture limitation; ecosystem services; Himalayan ecosystem and climate-change impact. | 6 |
-| **VII — Hydroclimatic extremes: droughts** | Drought definitions (meteorological, hydrological, agricultural, socioeconomic); drought indicators; theory of runs; severity, duration, intensity; frequency analysis; impact of climate change on droughts; drought declaration and management in India. | 6 |
-| **VIII — Hydroclimatic extremes: floods** | Definitions; flood types; extreme-precipitation indices; flood analysis; flood frequency analysis; design flood; flood hazard and damage; glacial lake outburst floods (GLOF); impact of climate change on floods; flood-risk and floodplain management. | 6 |
+The modules are listed here in the order they are taught, which builds from
+understanding the system, to modelling it, to working with real data, and finally to
+impacts and extremes.
+
+| Module | Topics |
+|---|---|
+| **1 — Introduction to hydroclimatology** | Concept and scope of hydroclimatology; climate change: causes and impacts; impact on the global hydrologic cycle; water management in a changing climate. |
+| **2 — Modeling** | Fundamental principles in hydroclimatic modeling; types of climate models; simple climate models; simple energy balance climate models (zero-dimensional, single-layer, one-dimensional); general circulation models (GCM); hydrologic modeling; types and components of hydrological models; SWAT, VIC, HEC-HMS. |
+| **3 — Observation** | Types of research data; qualitative and quantitative data; measurement of precipitation, temperature, humidity, wind speed, radiation, evapotranspiration, snow, streamflow, sediment, snow water equivalent; missing-data handling; hydroclimatic measurements in the Himalayan regions. |
+| **4 — Hydroclimatic data processing and analysis** | Gridding observed data; reanalysis data; satellite-derived data; radar data; climate data; paleoclimatology data; climate indices; overview of CMIP6; downscaling and bias correction of climate data; impact-assessment studies. |
+| **5 — Impact on hydrology, agriculture, and ecosystems** | Climate-change impact on dams; weather and climate metrics for agriculture; heat-stress indices; impact on food security in India; energy limitation versus moisture limitation; ecosystem services; Himalayan ecosystem and climate-change impact. |
+| **6 — Hydroclimatic extremes: droughts** | Drought definitions (meteorological, hydrological, agricultural, socioeconomic); drought indicators; theory of runs; severity, duration, intensity; frequency analysis; impact of climate change on droughts; drought declaration and management in India. |
+| **7 — Hydroclimatic extremes: floods** | Definitions; flood types; extreme-precipitation indices; flood analysis; flood frequency analysis; design flood; flood hazard and damage; glacial lake outburst floods (GLOF); impact of climate change on floods; flood-risk and floodplain management. |
 
 ## How the notebooks map to the syllabus
 
-Lectures 1–2 are conceptual; Lectures 3–10 support **Module III** and are hands-on
-Python notebooks.
+Lectures 1–2 are conceptual; Lectures 3–10 support **Module 2 (Modeling)** and are
+hands-on Python notebooks.
 
 - **Lecture 1** — Course introduction: what applied hydroclimatology is, how the
   course is organised, and how it is assessed.
