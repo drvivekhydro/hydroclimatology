@@ -1,0 +1,1238 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 10, Advection and diffusion in a river &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-10-advection-diffusion-in-rivers';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 11, Heat transports" href="lecture-11-heat-transports.html" />
+    <link rel="prev" title="Lecture 9, Evolution in time and space" href="lecture-09-evolution-in-time-and-space.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-10-advection-diffusion-in-rivers.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-10-advection-diffusion-in-rivers.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-10-advection-diffusion-in-rivers.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-10-advection-diffusion-in-rivers.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 10, Advection and diffusion in a river</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-saint-venant-equations-to-advectiondiffusion">1) From the Saint-Venant equations to advection–diffusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-numerical-router">2) A numerical router</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-a-synthetic-flood-wave">3) Routing a synthetic flood wave</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-much-does-d-matter">How much does <span class="math notranslate nohighlight">\(D\)</span> matter?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-a-real-flood-the-chattooga-downstream">4) Routing a real flood: the Chattooga downstream</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-same-equation-for-a-pollutant-the-advectiondispersion-equation">5) The same equation for a pollutant: the advection–dispersion equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-these-results">6) How to read these results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-10-advection-and-diffusion-in-a-river">
+<h1>Lecture 10, Advection and diffusion in a river<a class="headerlink" href="#lecture-10-advection-and-diffusion-in-a-river" title="Link to this heading">#</a></h1>
+<p>Lecture 9 solved the one-dimensional advection–diffusion equation for the
+temperature of the ocean. The same equation, discretised with the same three-line
+update, answers two everyday questions in hydrology:</p>
+<ul class="simple">
+<li><p><strong>Flood routing</strong> — a flood wave leaves an upstream reach as a sharp hydrograph.
+What does it look like at a town, a gauge, or a reservoir tens of kilometres
+downstream? It arrives <em>later</em> (advection) and <em>lower and broader</em> (diffusion).</p></li>
+<li><p><strong>Solute transport</strong> — a tank truck spills into a stream. When does the plume
+reach the water-supply intake downstream, how concentrated is it when it gets there,
+and how long does it last?</p></li>
+</ul>
+<p>Lectures 7 and 8 produced a streamflow series at a catchment <em>outlet</em>. This lecture
+carries that water down the channel network. It is also the step from a <strong>lumped</strong>
+(zero-dimensional) description of a catchment to a model with one spatial dimension,
+and it is the theory behind the Muskingum–Cunge routing used in HEC-HMS.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Google Colab setup ---</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib scipy
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="from-the-saint-venant-equations-to-advectiondiffusion">
+<h2>1) From the Saint-Venant equations to advection–diffusion<a class="headerlink" href="#from-the-saint-venant-equations-to-advectiondiffusion" title="Link to this heading">#</a></h2>
+<p>Unsteady flow in an open channel is described by the <strong>Saint-Venant equations</strong>:
+conservation of mass, and a momentum balance with terms for local acceleration,
+convective acceleration, the water-surface slope, the bed slope <span class="math notranslate nohighlight">\(S_0\)</span> and the friction
+slope <span class="math notranslate nohighlight">\(S_f\)</span>. For a flood wave in a river of mild slope, the two acceleration terms and
+the water-surface-slope term are small compared with <span class="math notranslate nohighlight">\(S_0\)</span> and <span class="math notranslate nohighlight">\(S_f\)</span>. Dropping them
+leaves the <strong>diffusive-wave approximation</strong>, and combining it with mass conservation
+gives a single equation for the discharge <span class="math notranslate nohighlight">\(Q(x, t)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial Q}{\partial t} + c\,\frac{\partial Q}{\partial x}
+      = D\,\frac{\partial^{2} Q}{\partial x^{2}},\]</div>
+<p>where</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>symbol</p></th>
+<th class="head"><p>meaning</p></th>
+<th class="head"><p>typical value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(Q(x,t)\)</span></p></td>
+<td><p>discharge at distance <span class="math notranslate nohighlight">\(x\)</span> downstream, time <span class="math notranslate nohighlight">\(t\)</span></p></td>
+<td><p>m³ s⁻¹</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(c\)</span></p></td>
+<td><p><strong>kinematic wave celerity</strong>, the speed of the flood wave</p></td>
+<td><p>1–3 m s⁻¹</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(D\)</span></p></td>
+<td><p><strong>hydraulic diffusivity</strong>, <span class="math notranslate nohighlight">\(D = \dfrac{Q}{2\,B\,S_0}\)</span></p></td>
+<td><p>10²–10⁴ m² s⁻¹</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(B\)</span></p></td>
+<td><p>channel top width</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(S_0\)</span></p></td>
+<td><p>channel bed slope</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This is exactly the equation of Lecture 9 with temperature <span class="math notranslate nohighlight">\(T\)</span> replaced by discharge
+<span class="math notranslate nohighlight">\(Q\)</span>, advective velocity <span class="math notranslate nohighlight">\(U\)</span> replaced by the celerity <span class="math notranslate nohighlight">\(c\)</span>, and diffusivity <span class="math notranslate nohighlight">\(\kappa\)</span>
+replaced by <span class="math notranslate nohighlight">\(D\)</span>.</p>
+<p><strong>The wave is faster than the water.</strong> For a wide channel with Manning friction the
+celerity is <span class="math notranslate nohighlight">\(c = \tfrac{5}{3}\,V\)</span>, where <span class="math notranslate nohighlight">\(V\)</span> is the mean flow <em>velocity</em>. A flood wave
+travels downstream about <strong>1.67 times faster</strong> than the water particles themselves:
+raising the discharge everywhere raises the depth, and that extra depth propagates as a
+wave without any single parcel of water having to make the trip. We will see the
+consequence in Section 5, where a dissolved pollutant — which moves <em>with</em> the
+water at speed <span class="math notranslate nohighlight">\(V\)</span> — lags well behind the flood wave.</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(D = 0\)</span> the equation reduces to the <strong>kinematic wave</strong>: the hydrograph is carried
+downstream unchanged, only delayed. Peaks never attenuate.</p></li>
+<li><p>A non-zero <span class="math notranslate nohighlight">\(D\)</span> <strong>spreads</strong> the wave: the peak drops, the rising and falling limbs
+stretch out, and the total volume is conserved.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Channel geometry -&gt; celerity c and diffusivity D (wide channel, Manning friction)</span>
+<span class="n">S0</span>   <span class="o">=</span> <span class="mf">3e-4</span>      <span class="c1"># bed slope [-]</span>
+<span class="n">B</span>    <span class="o">=</span> <span class="mf">50.0</span>      <span class="c1"># channel width [m]</span>
+<span class="n">n_m</span>  <span class="o">=</span> <span class="mf">0.040</span>     <span class="c1"># Manning roughness [s m^-1/3]</span>
+<span class="n">Qref</span> <span class="o">=</span> <span class="mf">150.0</span>     <span class="c1"># reference discharge for linearisation [m3/s]</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">Qref</span> <span class="o">*</span> <span class="n">n_m</span> <span class="o">/</span> <span class="p">(</span><span class="n">B</span> <span class="o">*</span> <span class="n">S0</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.6</span>      <span class="c1"># normal depth [m]</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">Qref</span> <span class="o">/</span> <span class="p">(</span><span class="n">B</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>                             <span class="c1"># mean velocity [m/s]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="mf">5.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">V</span>                            <span class="c1"># kinematic wave celerity [m/s]</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">Qref</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">B</span> <span class="o">*</span> <span class="n">S0</span><span class="p">)</span>                      <span class="c1"># hydraulic diffusivity [m2/s]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"normal depth   h = </span><span class="si">{</span><span class="n">h</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean velocity  V = </span><span class="si">{</span><span class="n">V</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> m/s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"wave celerity  c = </span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> m/s   ( = 5/3 V )"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"diffusivity    D = </span><span class="si">{</span><span class="n">D</span><span class="si">:</span><span class="s2">5.0f</span><span class="si">}</span><span class="s2"> m2/s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">time for the wave to cross a 60 km reach: </span><span class="si">{</span><span class="mi">60_000</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3600</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"time for a water parcel to cross it:      </span><span class="si">{</span><span class="mi">60_000</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3600</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>normal depth   h =  3.19 m
+mean velocity  V =  0.94 m/s
+wave celerity  c =  1.57 m/s   ( = 5/3 V )
+diffusivity    D =  5000 m2/s
+
+time for the wave to cross a 60 km reach: 10.6 h
+time for a water parcel to cross it:      17.7 h
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-numerical-router">
+<h2>2) A numerical router<a class="headerlink" href="#a-numerical-router" title="Link to this heading">#</a></h2>
+<p>We discretise the reach into cells of length <span class="math notranslate nohighlight">\(\Delta x\)</span> and step forward in time by
+<span class="math notranslate nohighlight">\(\Delta t\)</span>, writing <span class="math notranslate nohighlight">\(Q_i^{\,k}\)</span> for the discharge in cell <span class="math notranslate nohighlight">\(i\)</span> at time step <span class="math notranslate nohighlight">\(k\)</span>. The two
+terms are treated exactly as in Lecture 9, with one change: because the flow is
+one-directional (downstream), we use a <strong>first-order upwind</strong> difference for advection
+instead of the centred difference. Upwind differencing looks only at the cell the water
+is <em>coming from</em>, which is both physically natural here and numerically stable:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial Q}{\partial x}\bigg|_i \approx \frac{Q_i^{\,k} - Q_{i-1}^{\,k}}{\Delta x},
+\qquad
+\frac{\partial^{2} Q}{\partial x^{2}}\bigg|_i \approx
+   \frac{Q_{i+1}^{\,k} - 2Q_i^{\,k} + Q_{i-1}^{\,k}}{\Delta x^{2}}.\]</div>
+<p>Substituting and solving for the new time level gives the update</p>
+<div class="math notranslate nohighlight">
+\[Q_i^{\,k+1} = Q_i^{\,k}
+   - C_r\left(Q_i^{\,k} - Q_{i-1}^{\,k}\right)
+   + N_e\left(Q_{i+1}^{\,k} - 2Q_i^{\,k} + Q_{i-1}^{\,k}\right),\]</div>
+<p>with the two dimensionless step numbers</p>
+<div class="math notranslate nohighlight">
+\[C_r = \frac{c\,\Delta t}{\Delta x}\ \ (\text{Courant number}),
+\qquad
+N_e = \frac{D\,\Delta t}{\Delta x^{2}}\ \ (\text{diffusion number}).\]</div>
+<p>The explicit scheme is stable only if <span class="math notranslate nohighlight">\(C_r \le 1\)</span> (a signal must not skip a cell in one
+step), <span class="math notranslate nohighlight">\(N_e \le \tfrac12\)</span>, and — because advection and diffusion are stepped
+together — <span class="math notranslate nohighlight">\(C_r + 2 N_e \le 1\)</span>. So that we can hand the router a hydrograph at any
+convenient reporting interval — minutes, or the daily values of Lecture 7 —
+it splits each reported step into as many equal <strong>sub-steps</strong> as that condition
+requires, ramping the upstream boundary linearly across them. Boundary conditions: the
+<strong>inflow hydrograph is prescribed</strong> at the upstream end (<span class="math notranslate nohighlight">\(x = 0\)</span>), and the downstream
+end is left open with a <strong>zero-gradient</strong> condition.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>First-order upwind advection introduces a small amount of <em>numerical</em> diffusion,
+<span class="math notranslate nohighlight">\(D_{\text{num}} = \tfrac{1}{2} c\,\Delta x\,(1 - C_r)\)</span>. The Muskingum–Cunge method
+turns this into a feature: it chooses <span class="math notranslate nohighlight">\(\Delta x\)</span> so that the numerical diffusion equals
+the physical <span class="math notranslate nohighlight">\(D\)</span>, and then routes with a simple mass-balance (Muskingum) equation. Here
+we keep the physical <span class="math notranslate nohighlight">\(D\)</span> explicit and just pick <span class="math notranslate nohighlight">\(\Delta x\)</span> small enough that the
+numerical part is negligible.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">route</span><span class="p">(</span><span class="n">inflow</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">celerity</span><span class="p">,</span> <span class="n">diffusivity</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">reach_length</span><span class="p">,</span>
+          <span class="n">q_init</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_field</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Route an inflow hydrograph down a uniform channel.</span>
+
+<span class="sd">    Solves  dQ/dt + c dQ/dx = D d2Q/dx2  with first-order upwind advection and</span>
+<span class="sd">    a centred diffusion term, explicit in time. Each reported step of length</span>
+<span class="sd">    `dt` is split into stable sub-steps internally.</span>
+
+<span class="sd">    inflow        discharge at the upstream end [m3/s], one value per reported step</span>
+<span class="sd">    dt            reporting interval [s]</span>
+<span class="sd">    celerity      c, kinematic wave celerity [m/s]</span>
+<span class="sd">    diffusivity   D, hydraulic diffusivity [m2/s]</span>
+<span class="sd">    dx            cell length [m]</span>
+<span class="sd">    reach_length  length of the routed reach [m]</span>
+
+<span class="sd">    Returns the outflow hydrograph at x = reach_length (same length as inflow),</span>
+<span class="sd">    or, with return_field=True, also the full (n_steps, n_cells) array Q(x, t).</span>
+<span class="sd">    """</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">Dd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">celerity</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">diffusivity</span><span class="p">)</span>
+    <span class="n">n_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">reach_length</span> <span class="o">/</span> <span class="n">dx</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># combined stability limit for upwind advection + centred diffusion:</span>
+    <span class="c1">#   Cr + 2 Ne &lt;= 1   with   Cr = c h / dx,  Ne = D h / dx^2</span>
+    <span class="n">dt_stable</span> <span class="o">=</span> <span class="mf">0.9</span> <span class="o">/</span> <span class="p">(</span><span class="n">c</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">Dd</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">n_sub</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">dt</span> <span class="o">/</span> <span class="n">dt_stable</span><span class="p">)))</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">n_sub</span>
+    <span class="n">Cr</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="n">dx</span>
+    <span class="n">Ne</span> <span class="o">=</span> <span class="n">Dd</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="n">inflow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">inflow</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">inflow</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">q_init</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">q_init</span><span class="p">))</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inflow</span><span class="p">))</span>
+    <span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">inflow</span><span class="p">),</span> <span class="n">n_x</span><span class="p">))</span> <span class="k">if</span> <span class="n">return_field</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inflow</span><span class="p">)):</span>
+        <span class="n">q_prev</span> <span class="o">=</span> <span class="n">inflow</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">inflow</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sub</span><span class="p">):</span>                            <span class="c1"># stable sub-steps</span>
+            <span class="n">Q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">q_prev</span> <span class="o">+</span> <span class="p">(</span><span class="n">inflow</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">q_prev</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_sub</span>
+            <span class="n">adv</span> <span class="o">=</span> <span class="o">-</span><span class="n">Cr</span> <span class="o">*</span> <span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Q</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>                <span class="c1"># upwind</span>
+            <span class="n">dif</span> <span class="o">=</span> <span class="n">Ne</span> <span class="o">*</span> <span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Q</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>   <span class="c1"># centred 2nd difference</span>
+            <span class="n">Q</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">adv</span> <span class="o">+</span> <span class="n">dif</span>
+            <span class="n">Q</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>                                 <span class="c1"># zero-gradient outflow</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">return_field</span><span class="p">:</span>
+            <span class="n">field</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span> <span class="k">if</span> <span class="n">return_field</span> <span class="k">else</span> <span class="n">out</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="routing-a-synthetic-flood-wave">
+<h2>3) Routing a synthetic flood wave<a class="headerlink" href="#routing-a-synthetic-flood-wave" title="Link to this heading">#</a></h2>
+<p>Start with a clean, single-peaked inflow hydrograph so that translation and attenuation
+are easy to see. The pulse below rises from a baseflow of 20 m³ s⁻¹ to a peak of
+180 m³ s⁻¹ four hours in, then recedes — a flashy response typical of a small
+upland catchment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">flood_pulse</span><span class="p">(</span><span class="n">t_h</span><span class="p">,</span> <span class="n">t_peak</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">peak</span><span class="o">=</span><span class="mf">180.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""A smooth single-peak inflow hydrograph, discharge [m3/s] vs time [h]."""</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">t_h</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">)</span> <span class="o">/</span> <span class="n">t_peak</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">tau</span> <span class="o">**</span> <span class="n">shape</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">shape</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">tau</span><span class="p">))</span>          <span class="c1"># = 1 at tau = 1</span>
+    <span class="k">return</span> <span class="n">base</span> <span class="o">+</span> <span class="p">(</span><span class="n">peak</span> <span class="o">-</span> <span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span>
+
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">60.0</span>                                    <span class="c1"># 1-minute reporting step</span>
+<span class="n">t_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">)</span>            <span class="c1"># 4 days</span>
+<span class="n">inflow</span> <span class="o">=</span> <span class="n">flood_pulse</span><span class="p">(</span><span class="n">t_h</span><span class="p">)</span>
+
+<span class="n">dx</span><span class="p">,</span> <span class="n">reach</span> <span class="o">=</span> <span class="mf">500.0</span><span class="p">,</span> <span class="mf">60_000.0</span>
+<span class="n">outflow</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">inflow</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">celerity</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">diffusivity</span><span class="o">=</span><span class="n">D</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">reach_length</span><span class="o">=</span><span class="n">reach</span><span class="p">)</span>
+
+<span class="n">i_in</span><span class="p">,</span> <span class="n">i_out</span> <span class="o">=</span> <span class="n">inflow</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">outflow</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"inflow  peak </span><span class="si">{</span><span class="n">inflow</span><span class="p">[</span><span class="n">i_in</span><span class="p">]</span><span class="si">:</span><span class="s2">6.1f</span><span class="si">}</span><span class="s2"> m3/s at t = </span><span class="si">{</span><span class="n">t_h</span><span class="p">[</span><span class="n">i_in</span><span class="p">]</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"outflow peak </span><span class="si">{</span><span class="n">outflow</span><span class="p">[</span><span class="n">i_out</span><span class="p">]</span><span class="si">:</span><span class="s2">6.1f</span><span class="si">}</span><span class="s2"> m3/s at t = </span><span class="si">{</span><span class="n">t_h</span><span class="p">[</span><span class="n">i_out</span><span class="p">]</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"peak attenuation : </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">outflow</span><span class="p">[</span><span class="n">i_out</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">inflow</span><span class="p">[</span><span class="n">i_in</span><span class="p">])</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> %"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"peak lag         : </span><span class="si">{</span><span class="n">t_h</span><span class="p">[</span><span class="n">i_out</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t_h</span><span class="p">[</span><span class="n">i_in</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h "</span>
+      <span class="sa">f</span><span class="s2">"(pure translation would give </span><span class="si">{</span><span class="n">reach</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3600</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h)"</span><span class="p">)</span>
+<span class="n">trapz</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="s2">"trapezoid"</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="s2">"trapz"</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"volume in  : </span><span class="si">{</span><span class="n">trapz</span><span class="p">(</span><span class="n">inflow</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e6</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Mm3"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"volume out : </span><span class="si">{</span><span class="n">trapz</span><span class="p">(</span><span class="n">outflow</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e6</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Mm3   (should match)"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_h</span><span class="p">,</span> <span class="n">inflow</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"inflow  (x = 0)"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_h</span><span class="p">,</span> <span class="n">outflow</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"outflow (x = </span><span class="si">{</span><span class="n">reach</span><span class="o">/</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> km)"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"time [h]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"discharge [m$^3$ s$^{-1}$]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Diffusive-wave routing of a synthetic flood"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inflow  peak  180.0 m3/s at t =  4.00 h
+outflow peak   96.2 m3/s at t = 13.33 h
+peak attenuation : 47 %
+peak lag         : 9.33 h (pure translation would give 10.65 h)
+volume in  : 9.30 Mm3
+volume out : 9.30 Mm3   (should match)
+</pre></div>
+</div>
+<img alt="_images/234cac002ac483b965f9b9df051b661ae2e7c6061920e64f77be8de176af2d20.png" src="_images/234cac002ac483b965f9b9df051b661ae2e7c6061920e64f77be8de176af2d20.png" />
+</div>
+</div>
+<p>The outflow peak arrives about <span class="math notranslate nohighlight">\(L/c\)</span> later and is markedly lower; the area under the
+two curves (the flood <em>volume</em>) is the same. Now watch the wave move along the whole
+reach at once.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outflow</span><span class="p">,</span> <span class="n">Qxt</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">inflow</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">celerity</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">diffusivity</span><span class="o">=</span><span class="n">D</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span>
+                     <span class="n">reach_length</span><span class="o">=</span><span class="n">reach</span><span class="p">,</span> <span class="n">return_field</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x_km</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">Qxt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">/</span> <span class="mi">1000</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">t_h</span> <span class="o">&lt;=</span> <span class="mi">30</span>                                   <span class="c1"># the window where the wave is in the reach</span>
+<span class="n">crest_x</span> <span class="o">=</span> <span class="n">x_km</span><span class="p">[</span><span class="n">Qxt</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>              <span class="c1"># position of the peak at each time</span>
+<span class="n">in_reach</span> <span class="o">=</span> <span class="p">(</span><span class="n">Qxt</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">35</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">crest_x</span> <span class="o">&lt;</span> <span class="n">x_km</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dx</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">hr</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">26</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_km</span><span class="p">,</span> <span class="n">Qxt</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">hr</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"t = </span><span class="si">{</span><span class="n">hr</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.6"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"distance downstream [km]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"discharge [m$^3$ s$^{-1}$]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"snapshots of the wave along the reach"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">x_km</span><span class="p">,</span> <span class="n">t_h</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">Qxt</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">shading</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">crest_x</span><span class="p">[</span><span class="n">in_reach</span><span class="p">],</span> <span class="n">t_h</span><span class="p">[</span><span class="n">in_reach</span><span class="p">],</span> <span class="s2">"w--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"crest (slope $=1/c$)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"distance downstream [km]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"time [h]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"$Q(x, t)$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"discharge [m$^3$ s$^{-1}$]"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bf1614c9037a378ee225ed54974043c30d1b8abbdeebd9e482e304f7b36353e2.png" src="_images/bf1614c9037a378ee225ed54974043c30d1b8abbdeebd9e482e304f7b36353e2.png" />
+</div>
+</div>
+<p>The dashed line in the space–time plot tracks the flood crest: it travels down the
+reach at very nearly the constant celerity <span class="math notranslate nohighlight">\(c\)</span> (a straight line of slope <span class="math notranslate nohighlight">\(1/c\)</span>), while
+the bright band around it fades and widens with distance — that is the diffusion
+<span class="math notranslate nohighlight">\(D\)</span> at work. (The time axis is cropped to the first 30 h; nothing happens afterwards
+but the slow drain of baseflow.)</p>
+<section id="how-much-does-d-matter">
+<h3>How much does <span class="math notranslate nohighlight">\(D\)</span> matter?<a class="headerlink" href="#how-much-does-d-matter" title="Link to this heading">#</a></h3>
+<p>Hold the channel geometry fixed and sweep the diffusivity from zero (pure kinematic
+translation) to several times its nominal value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_h</span><span class="p">,</span> <span class="n">inflow</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"inflow"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">inflow</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">celerity</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">diffusivity</span><span class="o">=</span><span class="n">factor</span> <span class="o">*</span> <span class="n">D</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">reach_length</span><span class="o">=</span><span class="n">reach</span><span class="p">)</span>
+    <span class="n">att</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">inflow</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_h</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"D = </span><span class="si">{</span><span class="n">factor</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> D0  (</span><span class="si">{</span><span class="n">att</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% lower)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"time [h]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"discharge [m$^3$ s$^{-1}$]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Outflow at </span><span class="si">{</span><span class="n">reach</span><span class="o">/</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> km for different diffusivities"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2d3ff58677f1eb691b839ba14246c1cbc540bd9742c2506b711a8a5eb888371f.png" src="_images/2d3ff58677f1eb691b839ba14246c1cbc540bd9742c2506b711a8a5eb888371f.png" />
+</div>
+</div>
+<p>The <span class="math notranslate nohighlight">\(D = 0\)</span> line is <em>mostly</em> a time shift: a pure kinematic wave carries the peak
+downstream almost undiminished. It still loses a little height here — that
+residual is the <strong>numerical diffusion</strong> of the upwind scheme from Section 2, not
+physics, and it shrinks if the grid is refined. Every real channel adds genuine
+<span class="math notranslate nohighlight">\(D &gt; 0\)</span>: friction and temporary storage in the channel and on its banks spread the wave
+and take the edge off the flood. A steeper channel (larger <span class="math notranslate nohighlight">\(S_0\)</span>) has a <em>smaller</em>
+<span class="math notranslate nohighlight">\(D = Q/(2 B S_0)\)</span> and passes the flood on with less attenuation, which is one reason
+steep headwater tributaries are so flashy.</p>
+</section>
+</section>
+<section id="routing-a-real-flood-the-chattooga-downstream">
+<h2>4) Routing a real flood: the Chattooga downstream<a class="headerlink" href="#routing-a-real-flood-the-chattooga-downstream" title="Link to this heading">#</a></h2>
+<p>Take the observed streamflow of the Chattooga River from Lecture 7, pick out the
+largest flood in the record, and route it down a hypothetical 40 km reach toward a
+downstream community.</p>
+<p>The record is a catchment-average depth in mm day⁻¹. Convert it to a discharge with the
+catchment area <span class="math notranslate nohighlight">\(A = 536\)</span> km²:</p>
+<div class="math notranslate nohighlight">
+\[Q\,[\text{m}^3\text{s}^{-1}] = q\,[\text{mm d}^{-1}]\times\frac{A\,[\text{km}^2]}{86.4}.\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/chattooga_daily.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span>
+                 <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"date"</span><span class="p">)</span>
+<span class="n">A_km2</span> <span class="o">=</span> <span class="mf">536.0</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"Q_cms"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"q_mm"</span><span class="p">]</span> <span class="o">*</span> <span class="n">A_km2</span> <span class="o">/</span> <span class="mf">86.4</span>
+
+<span class="n">peak_day</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"Q_cms"</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"largest flood on record: </span><span class="si">{</span><span class="n">peak_day</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">  "</span>
+      <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">peak_day</span><span class="p">,</span><span class="w"> </span><span class="s1">'Q_cms'</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> m3/s, </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">peak_day</span><span class="p">,</span><span class="w"> </span><span class="s1">'q_mm'</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm/day)"</span><span class="p">)</span>
+
+<span class="n">event</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">peak_day</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span> <span class="n">peak_day</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">25</span><span class="p">),</span> <span class="s2">"Q_cms"</span><span class="p">]</span>
+
+<span class="c1"># hand the router the daily series directly; it sub-steps internally</span>
+<span class="n">inflow_r</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">values</span>
+<span class="n">t_days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+
+<span class="n">dx_r</span><span class="p">,</span> <span class="n">reach_r</span> <span class="o">=</span> <span class="mf">2500.0</span><span class="p">,</span> <span class="mf">40_000.0</span>
+<span class="n">outflow_r</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">inflow_r</span><span class="p">,</span> <span class="mf">86400.0</span><span class="p">,</span> <span class="n">celerity</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">diffusivity</span><span class="o">=</span><span class="n">D</span><span class="p">,</span>
+                  <span class="n">dx</span><span class="o">=</span><span class="n">dx_r</span><span class="p">,</span> <span class="n">reach_length</span><span class="o">=</span><span class="n">reach_r</span><span class="p">)</span>
+
+<span class="n">pin</span><span class="p">,</span> <span class="n">pout</span> <span class="o">=</span> <span class="n">inflow_r</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">outflow_r</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+<span class="n">lag_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">t_days</span> <span class="o">*</span> <span class="n">outflow_r</span><span class="p">,</span> <span class="n">t_days</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">outflow_r</span><span class="p">,</span> <span class="n">t_days</span><span class="p">)</span> \
+      <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">t_days</span> <span class="o">*</span> <span class="n">inflow_r</span><span class="p">,</span> <span class="n">t_days</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">inflow_r</span><span class="p">,</span> <span class="n">t_days</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">inflow  peak </span><span class="si">{</span><span class="n">inflow_r</span><span class="p">[</span><span class="n">pin</span><span class="p">]</span><span class="si">:</span><span class="s2">6.0f</span><span class="si">}</span><span class="s2"> m3/s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"outflow peak </span><span class="si">{</span><span class="n">outflow_r</span><span class="p">[</span><span class="n">pout</span><span class="p">]</span><span class="si">:</span><span class="s2">6.0f</span><span class="si">}</span><span class="s2"> m3/s  "</span>
+      <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">outflow_r</span><span class="p">[</span><span class="n">pout</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">inflow_r</span><span class="p">[</span><span class="n">pin</span><span class="p">])</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% lower)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"centroid lag </span><span class="si">{</span><span class="n">lag_h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">24</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> h  (pure translation: </span><span class="si">{</span><span class="n">reach_r</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3600</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> h)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-&gt; that delay is the warning time the reach buys the town downstream"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_days</span><span class="p">,</span> <span class="n">inflow_r</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"upstream (gauge)"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_days</span><span class="p">,</span> <span class="n">outflow_r</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"40 km downstream (routed)"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"days from </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"discharge [m$^3$ s$^{-1}$]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Routing the </span><span class="si">{</span><span class="n">peak_day</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2"> Chattooga flood downstream"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>largest flood on record: 2004-09-17  (524 m3/s, 84 mm/day)
+
+inflow  peak    524 m3/s
+outflow peak    404 m3/s  (23% lower)
+centroid lag 4.3 h  (pure translation: 7.1 h)
+-&gt; that delay is the warning time the reach buys the town downstream
+</pre></div>
+</div>
+<img alt="_images/4736d48522eddc3a521c3a081ceff715192ac2882f0377a653c2a6abf4c5fc7a.png" src="_images/4736d48522eddc3a521c3a081ceff715192ac2882f0377a653c2a6abf4c5fc7a.png" />
+</div>
+</div>
+<p>The downstream hydrograph peaks lower and later. For a flood warning that delay is the
+useful product: it is the lead time a downstream town gains simply from the flood
+having to travel the channel. A distributed hydrological model (SWAT, VIC, HEC-HMS)
+does this routing on <em>every</em> channel segment of a river network; here we have done it
+for one reach, with the same equation.</p>
+</section>
+<section id="the-same-equation-for-a-pollutant-the-advectiondispersion-equation">
+<h2>5) The same equation for a pollutant: the advection–dispersion equation<a class="headerlink" href="#the-same-equation-for-a-pollutant-the-advectiondispersion-equation" title="Link to this heading">#</a></h2>
+<p>Replace discharge with the concentration <span class="math notranslate nohighlight">\(C(x, t)\)</span> of a dissolved substance, the wave
+celerity with the mean flow velocity <span class="math notranslate nohighlight">\(V\)</span>, and the hydraulic diffusivity with the
+<strong>longitudinal dispersion coefficient</strong> <span class="math notranslate nohighlight">\(D_L\)</span> (shear across the channel stretches a
+patch of tracer far faster than molecular diffusion):</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial t} + V\,\frac{\partial C}{\partial x}
+      = D_L\,\frac{\partial^{2} C}{\partial x^{2}}.\]</div>
+<p>For an <strong>instantaneous release</strong> of mass <span class="math notranslate nohighlight">\(M\)</span> into a stream of cross-sectional area <span class="math notranslate nohighlight">\(A\)</span>,
+this equation has the exact solution</p>
+<div class="math notranslate nohighlight">
+\[C(x, t) = \frac{M}{A\,\sqrt{4\pi D_L t}}\,
+            \exp\!\left(-\frac{(x - V t)^{2}}{4 D_L t}\right),\]</div>
+<p>a Gaussian plume whose centre of mass travels at <span class="math notranslate nohighlight">\(V\)</span>, whose width grows as
+<span class="math notranslate nohighlight">\(\sigma = \sqrt{2 D_L t}\)</span>, and whose peak concentration falls as <span class="math notranslate nohighlight">\(t^{-1/2}\)</span>. We can use
+this to <strong>check a numerical scheme</strong>: start it from the analytic plume at an early time
+and see whether it reproduces the analytic plume later.</p>
+<p>For the flood wave we used <em>upwind</em> advection, which is stable but adds a little
+numerical diffusion — harmless there because <span class="math notranslate nohighlight">\(D\)</span> is large anyway. A dilute plume
+is unforgiving: that numerical diffusion would masquerade as extra dispersion and
+flatten the peak. So here we use the <strong>centred</strong> advection difference of Lecture 9
+instead. Centred advection is only stable when the physical diffusion is strong enough
+relative to the grid, which is the condition that the <strong>cell Péclet number</strong> stay below
+about 2:</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{Pe}_{\Delta x} = \frac{V\,\Delta x}{D_L} \lesssim 2
+\qquad\Longrightarrow\qquad \Delta x \lesssim \frac{2 D_L}{V}.\]</div>
+<p>That is why solute-transport grids have to be fine.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plume_analytic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">DL</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">M</span> <span class="o">/</span> <span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">DL</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">V</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">DL</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">transport</span><span class="p">(</span><span class="n">C0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">velocity</span><span class="p">,</span> <span class="n">dispersion</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Advection-dispersion of a concentration profile: centred advection</span>
+<span class="sd">    (Lecture 9) + centred diffusion, explicit. Returns a list of profiles."""</span>
+    <span class="n">V</span><span class="p">,</span> <span class="n">DL</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">velocity</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">dispersion</span><span class="p">)</span>
+    <span class="n">Cr</span><span class="p">,</span> <span class="n">Ne</span> <span class="o">=</span> <span class="n">V</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">dx</span><span class="p">,</span> <span class="n">DL</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">C0</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">hist</span> <span class="o">=</span> <span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">):</span>
+        <span class="n">adv</span> <span class="o">=</span> <span class="o">-</span><span class="n">Cr</span> <span class="o">*</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">C</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="n">dif</span> <span class="o">=</span> <span class="n">Ne</span> <span class="o">*</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">adv</span> <span class="o">+</span> <span class="n">dif</span>
+        <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span> <span class="n">C</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">hist</span>
+
+<span class="n">M</span>   <span class="o">=</span> <span class="mf">1000.0</span>                     <span class="c1"># kg spilled</span>
+<span class="n">A_c</span> <span class="o">=</span> <span class="n">B</span> <span class="o">*</span> <span class="n">h</span>                      <span class="c1"># channel cross-section [m2]</span>
+<span class="n">DL</span>  <span class="o">=</span> <span class="mf">20.0</span>                       <span class="c1"># longitudinal dispersion [m2/s]</span>
+
+<span class="n">dx_s</span> <span class="o">=</span> <span class="mf">20.0</span>                      <span class="c1"># &lt;&lt; 2 DL / V, so the cell Peclet number is ~0.9</span>
+<span class="n">dt_s</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cell Peclet number Pe = </span><span class="si">{</span><span class="n">V</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dx_s</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">DL</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">   (needs to stay below ~2)"</span><span class="p">)</span>
+
+<span class="n">xg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25_000</span> <span class="o">+</span> <span class="n">dx_s</span><span class="p">,</span> <span class="n">dx_s</span><span class="p">)</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="mf">1200.0</span>                                       <span class="c1"># start 20 min after the release</span>
+<span class="n">C0</span> <span class="o">=</span> <span class="n">plume_analytic</span><span class="p">(</span><span class="n">xg</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">A_c</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">DL</span><span class="p">)</span>        <span class="c1"># initial condition = analytic plume</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">/</span> <span class="n">dt_s</span><span class="p">)</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">transport</span><span class="p">(</span><span class="n">C0</span><span class="p">,</span> <span class="n">dt_s</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">V</span><span class="p">,</span> <span class="n">dispersion</span><span class="o">=</span><span class="n">DL</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">dx_s</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="n">n_steps</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">hr</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">t0</span> <span class="k">if</span> <span class="n">hr</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">hr</span> <span class="o">*</span> <span class="mi">3600</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">hr</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">((</span><span class="n">tt</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span> <span class="o">/</span> <span class="n">dt_s</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xg</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">hist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"t = </span><span class="si">{</span><span class="n">tt</span><span class="o">/</span><span class="mi">3600</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xg</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">plume_analytic</span><span class="p">(</span><span class="n">xg</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">A_c</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">DL</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">"k:"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"distance downstream [km]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"concentration [mg L$^{-1}$]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Spill plume: numerical (coloured) vs analytic Gaussian (dotted)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cell Peclet number Pe = 0.94   (needs to stay below ~2)
+</pre></div>
+</div>
+<img alt="_images/532416b59a5bcb11f729d7387da990916ae9daa22b5f5245b19adf38de1b049d.png" src="_images/532416b59a5bcb11f729d7387da990916ae9daa22b5f5245b19adf38de1b049d.png" />
+</div>
+</div>
+<p>The numerical solution now tracks the analytic Gaussian closely — the centre of
+mass, the spreading rate and the falling peak all match (a faint ripple in the tail is
+the dispersive error of the centred scheme, shrinking as the grid is refined). The
+solver is trustworthy. Use it — or, since we have it, the exact solution —
+to answer the operational question: a <strong>water-supply intake sits 15 km downstream</strong>.
+What does the spill look like there?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_intake</span> <span class="o">=</span> <span class="mf">15_000.0</span>
+<span class="n">tg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">dt_s</span><span class="p">)</span>
+<span class="n">C_intake</span> <span class="o">=</span> <span class="n">plume_analytic</span><span class="p">(</span><span class="n">x_intake</span><span class="p">,</span> <span class="n">tg</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">A_c</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">DL</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>    <span class="c1"># mg/L</span>
+
+<span class="n">arrival</span> <span class="o">=</span> <span class="n">tg</span><span class="p">[</span><span class="n">C_intake</span><span class="o">.</span><span class="n">argmax</span><span class="p">()]</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.0</span>                                                  <span class="c1"># mg/L advisory level</span>
+<span class="n">above</span> <span class="o">=</span> <span class="n">tg</span><span class="p">[</span><span class="n">C_intake</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"flow velocity V       = </span><span class="si">{</span><span class="n">V</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m/s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"plume centre reaches the intake at t = </span><span class="si">{</span><span class="n">x_intake</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3600</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"peak concentration    = </span><span class="si">{</span><span class="n">C_intake</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mg/L  at t = </span><span class="si">{</span><span class="n">arrival</span><span class="o">/</span><span class="mi">3600</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">above</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"above </span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mg/L from t = </span><span class="si">{</span><span class="n">above</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h "</span>
+          <span class="sa">f</span><span class="s2">"to t = </span><span class="si">{</span><span class="n">above</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h  (</span><span class="si">{</span><span class="p">(</span><span class="n">above</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">above</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">3600</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> h window)"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tg</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">C_intake</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mg/L advisory"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">tg</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">C_intake</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">C_intake</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"time since spill [h]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"concentration [mg L$^{-1}$]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Breakthrough curve at a water-supply intake 15 km downstream"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>flow velocity V       = 0.94 m/s
+plume centre reaches the intake at t = 4.44 h
+peak concentration    = 3.13 mg/L  at t = 4.43 h
+above 1 mg/L from t = 4.09 h to t = 4.80 h  (0.71 h window)
+</pre></div>
+</div>
+<img alt="_images/2bd3d3d45281ea6ef8a6f512642a09aa561e719aee15651703e08726eb966df5.png" src="_images/2bd3d3d45281ea6ef8a6f512642a09aa561e719aee15651703e08726eb966df5.png" />
+</div>
+</div>
+<p><strong>Two different lead times.</strong> A flood wave in this channel travels at the celerity
+<span class="math notranslate nohighlight">\(c = \tfrac{5}{3}V \approx\)</span> 1.6 m s⁻¹; a dissolved contaminant drifts with the water at
+<span class="math notranslate nohighlight">\(V \approx\)</span> 0.9 m s⁻¹. The pollutant takes about <strong>1.7 times longer</strong> to reach the same
+point downstream. Flood forecasting and spill response are the same equation with
+different transport speeds — and the spill gives more warning, though it also
+lasts longer as it passes.</p>
+</section>
+<section id="how-to-read-these-results">
+<h2>6) How to read these results<a class="headerlink" href="#how-to-read-these-results" title="Link to this heading">#</a></h2>
+<p><strong>A routed hydrograph</strong> (Sections 3–4) shows two things at once:</p>
+<ul class="simple">
+<li><p><em>Translation</em> — how far the peak shifts along the time axis. Divided by the
+reach length this is the wave celerity, and it is the warning time a downstream
+location gains for free.</p></li>
+<li><p><em>Attenuation</em> — how much lower the outflow peak is than the inflow peak. It
+measures how much the channel and its floodplain store and release during the event.
+A reach with large <span class="math notranslate nohighlight">\(D\)</span> (mild slope, wide floodplain) is a natural flood buffer; a
+steep reach passes the flood on almost intact. The area under the curve does not
+change — routing moves and reshapes a flood, it does not make water disappear.</p></li>
+</ul>
+<p><strong>A breakthrough curve</strong> (Section 5) is read in three parts:</p>
+<ul class="simple">
+<li><p><em>Arrival</em> — the leading edge, set by advection at speed <span class="math notranslate nohighlight">\(V\)</span>: the earliest a
+problem can appear at the intake.</p></li>
+<li><p><em>Peak</em> — the worst concentration and when it occurs; it falls as <span class="math notranslate nohighlight">\(t^{-1/2}\)</span>
+with distance, so a spill dilutes as it travels.</p></li>
+<li><p><em>Tail</em> — how long the concentration stays above an advisory level, i.e. how
+long an intake must stay closed.</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<p>Worked, scaffolded exercises for this lecture — the data, model and plots are provided and the code to fill in is marked — are in <strong><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html"><span class="doc std std-doc">Exercise 10</span></a></strong>.</p>
+</section>
+<section id="sources">
+<h2>Sources<a class="headerlink" href="#sources" title="Link to this heading">#</a></h2>
+<p>This notebook is written for this course. It applies the one-dimensional
+advection–diffusion solver of Lecture 9 (adapted there from <em>Climate of the
+Ocean</em> and the MIT <em>Computational Thinking</em> material) to two hydrological problems.</p>
+<p><strong>Theory.</strong>
+Chow, V. T., Maidment, D. R., &amp; Mays, L. W. (1988). <em>Applied Hydrology</em>, Ch. 9
+(distributed flow routing; diffusive-wave and Muskingum–Cunge methods).
+Cunge, J. A. (1969). On the subject of a flood propagation computation method
+(Muskingum method). <em>Journal of Hydraulic Research, 7</em>(2), 205–230.
+Fischer, H. B., List, E. J., Koh, R. C. Y., Imberger, J., &amp; Brooks, N. H. (1979).
+<em>Mixing in Inland and Coastal Waters</em> (longitudinal dispersion).
+Ogata, A., &amp; Banks, R. B. (1961). A solution of the differential equation of
+longitudinal dispersion in porous media. <em>USGS Professional Paper 411-A</em>.</p>
+<p><strong>Data.</strong> Chattooga River streamflow as in Lecture 7: U.S. Geological Survey NWIS gauge
+02177000 (public domain); the reach geometry and spill scenario are illustrative.</p>
+<p><strong>Licensing.</strong> Original teaching material for this course; text under CC BY-SA 4.0, code additionally under the MIT License, consistent with the rest of the book. See <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-09-evolution-in-time-and-space.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 9, Evolution in time and space</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-11-heat-transports.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 11, Heat transports</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-saint-venant-equations-to-advectiondiffusion">1) From the Saint-Venant equations to advection–diffusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-numerical-router">2) A numerical router</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-a-synthetic-flood-wave">3) Routing a synthetic flood wave</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-much-does-d-matter">How much does <span class="math notranslate nohighlight">\(D\)</span> matter?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-a-real-flood-the-chattooga-downstream">4) Routing a real flood: the Chattooga downstream</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-same-equation-for-a-pollutant-the-advectiondispersion-equation">5) The same equation for a pollutant: the advection–dispersion equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-these-results">6) How to read these results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

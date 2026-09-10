@@ -1,0 +1,1115 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Exercise 7, the lumped hydrological model &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercise-07-lumped-hydrological-model';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercise 8, calibrating a hydrological model" href="exercise-08-hydrological-model-calibration.html" />
+    <link rel="prev" title="Exercise 5, Snowball Earth and the ice–albedo feedback" href="exercise-05-snowball-earth.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/exercise-07-lumped-hydrological-model.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/exercise-07-lumped-hydrological-model.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Fexercise-07-lumped-hydrological-model.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/exercise-07-lumped-hydrological-model.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercise 7, the lumped hydrological model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-given-just-run-it">Setup (given — just run it)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-add-a-snow-store">Exercise 1 — add a snow store</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calibrate-to-a-signature-not-the-hydrograph">Exercise 2 — calibrate to a signature, not the hydrograph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-are-calibrated-parameters-climate-transferable">Exercise 3 — are calibrated parameters climate-transferable?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-goes-next">Where this goes next</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-7-the-lumped-hydrological-model">
+<h1>Exercise 7, the lumped hydrological model<a class="headerlink" href="#exercise-7-the-lumped-hydrological-model" title="Link to this heading">#</a></h1>
+<p>These exercises go with <strong>Lecture 7 — A lumped hydrological model</strong>. Keep that
+notebook open beside this one: you will reuse its <code class="docutils literal notranslate"><span class="pre">Catchment</span></code> class and the Chattooga
+data throughout.</p>
+<p>Each exercise has the same shape:</p>
+<ul>
+<li><p>a short <strong>background</strong> recap so the exercise is self-contained,</p></li>
+<li><p>a <strong>task</strong> broken into numbered steps,</p></li>
+<li><p><strong>hints</strong>, and</p></li>
+<li><p>code cells that are already wired up — the data loading, the model, and every
+plot are written for you. You only fill in the cells marked</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==== YOUR CODE ====</span>
+</pre></div>
+</div>
+<p>following the comments inside them. Cells below your code will not run correctly
+until you have filled it in.</p>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: installs the packages this notebook uses (runs only on Colab).</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">scipy</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">pooch</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="setup-given-just-run-it">
+<h2>Setup (given — just run it)<a class="headerlink" href="#setup-given-just-run-it" title="Link to this heading">#</a></h2>
+<p>This cell reproduces the model and data from Lecture 7. Run it and move on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Catchment</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The lumped daily rainfall-runoff model from Lecture 7.</span>
+
+<span class="sd">    One soil-moisture store feeds a fast pathway (two linear reservoirs in series)</span>
+<span class="sd">    and a slow pathway (one linear reservoir).</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smax</span><span class="o">=</span><span class="mf">250.0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">kperc</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">kf</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ks</span><span class="o">=</span><span class="mf">0.015</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smax</span> <span class="o">=</span> <span class="n">smax</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">kperc</span> <span class="o">=</span> <span class="n">kperc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kf</span> <span class="o">=</span> <span class="n">kf</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ks</span> <span class="o">=</span> <span class="n">ks</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prcp</span><span class="p">,</span> <span class="n">pet</span><span class="p">,</span> <span class="n">s0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">return_stores</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">smax</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">kperc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kperc</span>
+        <span class="n">kf</span><span class="p">,</span> <span class="n">ks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ks</span>
+        <span class="n">prcp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">prcp</span><span class="p">,</span> <span class="nb">float</span><span class="p">);</span> <span class="n">pet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pet</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">s0</span> <span class="o">*</span> <span class="n">smax</span>
+        <span class="n">F1</span> <span class="o">=</span> <span class="n">F2</span> <span class="o">=</span> <span class="n">R</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prcp</span><span class="p">);</span> <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> <span class="n">total_store</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">p</span><span class="p">,</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">prcp</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">pet</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">smax</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">runoff</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">s</span> <span class="o">**</span> <span class="n">beta</span>
+            <span class="n">aet</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">*</span> <span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span>
+            <span class="n">S</span> <span class="o">=</span> <span class="n">S</span> <span class="o">+</span> <span class="n">p</span> <span class="o">-</span> <span class="n">runoff</span> <span class="o">-</span> <span class="n">aet</span>
+            <span class="k">if</span> <span class="n">S</span> <span class="o">&gt;</span> <span class="n">smax</span><span class="p">:</span>
+                <span class="n">runoff</span> <span class="o">+=</span> <span class="n">S</span> <span class="o">-</span> <span class="n">smax</span><span class="p">;</span> <span class="n">S</span> <span class="o">=</span> <span class="n">smax</span>
+            <span class="k">if</span> <span class="n">S</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="n">aet</span> <span class="o">+=</span> <span class="n">S</span><span class="p">;</span> <span class="n">S</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">perc</span> <span class="o">=</span> <span class="n">kperc</span> <span class="o">*</span> <span class="n">S</span> <span class="o">*</span> <span class="n">s</span> <span class="o">**</span> <span class="mi">3</span>
+            <span class="n">S</span> <span class="o">-=</span> <span class="n">perc</span>
+            <span class="n">F1</span> <span class="o">+=</span> <span class="n">runoff</span><span class="p">;</span> <span class="n">R</span> <span class="o">+=</span> <span class="n">perc</span>
+            <span class="n">o1</span> <span class="o">=</span> <span class="n">kf</span> <span class="o">*</span> <span class="n">F1</span><span class="p">;</span> <span class="n">F1</span> <span class="o">-=</span> <span class="n">o1</span><span class="p">;</span> <span class="n">F2</span> <span class="o">+=</span> <span class="n">o1</span>
+            <span class="n">o2</span> <span class="o">=</span> <span class="n">kf</span> <span class="o">*</span> <span class="n">F2</span><span class="p">;</span> <span class="n">F2</span> <span class="o">-=</span> <span class="n">o2</span>
+            <span class="n">qs</span> <span class="o">=</span> <span class="n">ks</span> <span class="o">*</span> <span class="n">R</span><span class="p">;</span> <span class="n">R</span> <span class="o">-=</span> <span class="n">qs</span>
+            <span class="n">q</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">o2</span> <span class="o">+</span> <span class="n">qs</span>
+            <span class="n">total_store</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span> <span class="o">+</span> <span class="n">F1</span> <span class="o">+</span> <span class="n">F2</span> <span class="o">+</span> <span class="n">R</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">total_store</span><span class="p">)</span> <span class="k">if</span> <span class="n">return_stores</span> <span class="k">else</span> <span class="n">q</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prcp</span><span class="p">,</span> <span class="n">pet</span><span class="p">,</span> <span class="n">s0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Like run(), but returns (q_fast, q_slow) as separate arrays."""</span>
+        <span class="n">smax</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">kperc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kperc</span>
+        <span class="n">kf</span><span class="p">,</span> <span class="n">ks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ks</span>
+        <span class="n">prcp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">prcp</span><span class="p">,</span> <span class="nb">float</span><span class="p">);</span> <span class="n">pet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pet</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">s0</span> <span class="o">*</span> <span class="n">smax</span><span class="p">;</span> <span class="n">F1</span> <span class="o">=</span> <span class="n">F2</span> <span class="o">=</span> <span class="n">R</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prcp</span><span class="p">);</span> <span class="n">qf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">p</span><span class="p">,</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">prcp</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">pet</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">smax</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">runoff</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">s</span> <span class="o">**</span> <span class="n">beta</span>
+            <span class="n">aet</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">*</span> <span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span>
+            <span class="n">S</span> <span class="o">=</span> <span class="n">S</span> <span class="o">+</span> <span class="n">p</span> <span class="o">-</span> <span class="n">runoff</span> <span class="o">-</span> <span class="n">aet</span>
+            <span class="k">if</span> <span class="n">S</span> <span class="o">&gt;</span> <span class="n">smax</span><span class="p">:</span>
+                <span class="n">runoff</span> <span class="o">+=</span> <span class="n">S</span> <span class="o">-</span> <span class="n">smax</span><span class="p">;</span> <span class="n">S</span> <span class="o">=</span> <span class="n">smax</span>
+            <span class="k">if</span> <span class="n">S</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="n">aet</span> <span class="o">+=</span> <span class="n">S</span><span class="p">;</span> <span class="n">S</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">perc</span> <span class="o">=</span> <span class="n">kperc</span> <span class="o">*</span> <span class="n">S</span> <span class="o">*</span> <span class="n">s</span> <span class="o">**</span> <span class="mi">3</span><span class="p">;</span> <span class="n">S</span> <span class="o">-=</span> <span class="n">perc</span>
+            <span class="n">F1</span> <span class="o">+=</span> <span class="n">runoff</span><span class="p">;</span> <span class="n">R</span> <span class="o">+=</span> <span class="n">perc</span>
+            <span class="n">o1</span> <span class="o">=</span> <span class="n">kf</span> <span class="o">*</span> <span class="n">F1</span><span class="p">;</span> <span class="n">F1</span> <span class="o">-=</span> <span class="n">o1</span><span class="p">;</span> <span class="n">F2</span> <span class="o">+=</span> <span class="n">o1</span>
+            <span class="n">o2</span> <span class="o">=</span> <span class="n">kf</span> <span class="o">*</span> <span class="n">F2</span><span class="p">;</span> <span class="n">F2</span> <span class="o">-=</span> <span class="n">o2</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">ks</span> <span class="o">*</span> <span class="n">R</span><span class="p">;</span> <span class="n">R</span> <span class="o">-=</span> <span class="n">slow</span>
+            <span class="n">qf</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">o2</span><span class="p">;</span> <span class="n">qs</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">slow</span>
+        <span class="k">return</span> <span class="n">qf</span><span class="p">,</span> <span class="n">qs</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">nse</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">sim</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Nash-Sutcliffe efficiency (1 = perfect, 0 = no better than the mean)."""</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+    <span class="n">o</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">sim</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">s</span> <span class="o">-</span> <span class="n">o</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">o</span> <span class="o">-</span> <span class="n">o</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/chattooga_daily.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span>
+                 <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"date"</span><span class="p">)</span>
+<span class="n">P</span>   <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"prcp_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Ep</span>  <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"pet_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">T</span>   <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"tmean_c"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Qobs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"q_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># the hand-picked parameter set from Lecture 7</span>
+<span class="n">BASE</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">smax</span><span class="o">=</span><span class="mf">250.0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">kperc</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">kf</span><span class="o">=</span><span class="mf">0.40</span><span class="p">,</span> <span class="n">ks</span><span class="o">=</span><span class="mf">0.015</span><span class="p">)</span>
+<span class="n">EVAL</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s2">"1993-01-01"</span>          <span class="c1"># skip the 2-year warm-up when scoring</span>
+
+<span class="n">q_base</span> <span class="o">=</span> <span class="n">Catchment</span><span class="p">(</span><span class="o">**</span><span class="n">BASE</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Ep</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"baseline model (Lecture 7 parameters):  NSE = </span><span class="si">{</span><span class="n">nse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">EVAL</span><span class="p">],</span><span class="w"> </span><span class="n">q_base</span><span class="p">[</span><span class="n">EVAL</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-add-a-snow-store">
+<h2>Exercise 1 — add a snow store<a class="headerlink" href="#exercise-1-add-a-snow-store" title="Link to this heading">#</a></h2>
+<p>The Chattooga is a warm catchment, so Lecture 7 could feed rainfall straight into the
+soil. In a Himalayan or high-latitude catchment a large part of the winter precipitation
+is <em>stored as snow</em> and released weeks or months later as melt. This exercise adds that
+store.</p>
+<p><strong>Background.</strong> A <strong>degree-day</strong> snow model is the simplest one that works. Each day,
+with air temperature <span class="math notranslate nohighlight">\(T\)</span> (°C), precipitation <span class="math notranslate nohighlight">\(P\)</span> (mm), a snowpack <span class="math notranslate nohighlight">\(M\)</span> (mm water
+equivalent) and a degree-day factor <span class="math notranslate nohighlight">\(f\)</span> (mm °C⁻¹ day⁻¹):</p>
+<ul class="simple">
+<li><p>if <span class="math notranslate nohighlight">\(T \le 0\)</span>: all precipitation is snow — <span class="math notranslate nohighlight">\(M \leftarrow M + P\)</span>, and the liquid
+water reaching the soil that day is <span class="math notranslate nohighlight">\(0\)</span>;</p></li>
+<li><p>if <span class="math notranslate nohighlight">\(T &gt; 0\)</span>: no new snow; the melt is <span class="math notranslate nohighlight">\(m = \min(M,\; f\,T)\)</span>, so
+<span class="math notranslate nohighlight">\(M \leftarrow M - m\)</span>, and the liquid water reaching the soil is <span class="math notranslate nohighlight">\(P + m\)</span>.</p></li>
+</ul>
+<p>You then run the <strong>same</strong> <code class="docutils literal notranslate"><span class="pre">Catchment</span></code> model, but forced with this <em>liquid input</em> series
+instead of raw precipitation.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Complete the function <code class="docutils literal notranslate"><span class="pre">snow_module(P,</span> <span class="pre">T,</span> <span class="pre">ddf)</span></code> in the cell below.</p></li>
+<li><p>Build the liquid-input series with <code class="docutils literal notranslate"><span class="pre">ddf</span> <span class="pre">=</span> <span class="pre">3.0</span></code> and run the catchment model on it.</p></li>
+<li><p>Compare the snow-corrected hydrograph with the baseline (the given plot does this).</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p>Loop over days with a running variable <code class="docutils literal notranslate"><span class="pre">M</span></code> (start at <code class="docutils literal notranslate"><span class="pre">0.0</span></code>), exactly like the loop
+inside <code class="docutils literal notranslate"><span class="pre">Catchment.run</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.minimum</span></code> is not needed — plain <code class="docutils literal notranslate"><span class="pre">min(M,</span> <span class="pre">ddf</span> <span class="pre">*</span> <span class="pre">T[t])</span></code> works on scalars.</p></li>
+<li><p>The Chattooga rarely drops below 0 °C, so the effect here is small. To <em>see</em> it,
+the plot also shows a synthetic cold version of the same catchment (<code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">-</span> <span class="pre">12</span></code>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">snow_module</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">ddf</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Degree-day snow store.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    P, T : arrays of daily precipitation [mm] and mean air temperature [degC]</span>
+<span class="sd">    ddf  : degree-day melt factor [mm/degC/day]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    liquid_input : array, same length as P, of rain + snowmelt [mm/day]</span>
+<span class="sd">    """</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">liquid_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="mf">0.0</span>                              <span class="c1"># snow water equivalent on the ground [mm]</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1"># ==== YOUR CODE ====</span>
+        <span class="c1"># Step 1: is it freezing?  (T[t] &lt;= 0)</span>
+        <span class="c1">#    - if yes:  add P[t] to M;  today's liquid input is 0.0</span>
+        <span class="c1">#    - if no :  melt = min(M, ddf * T[t]);  subtract melt from M;</span>
+        <span class="c1">#               today's liquid input is P[t] + melt</span>
+        <span class="c1"># Step 2: store the result:  liquid_input[t] = ...</span>
+        <span class="n">liquid_input</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>           <span class="c1"># &lt;-- replace this line</span>
+        <span class="c1"># ===================</span>
+
+    <span class="k">return</span> <span class="n">liquid_input</span>
+
+
+<span class="c1"># --- build the liquid-input series and run the model (given, once snow_module works) ---</span>
+<span class="n">liquid</span> <span class="o">=</span> <span class="n">snow_module</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">ddf</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">q_snow</span> <span class="o">=</span> <span class="n">Catchment</span><span class="p">(</span><span class="o">**</span><span class="n">BASE</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">liquid</span><span class="p">,</span> <span class="n">Ep</span><span class="p">)</span>
+
+<span class="c1"># a synthetic COLD version of the catchment, to make the snow effect visible</span>
+<span class="n">T_cold</span> <span class="o">=</span> <span class="n">T</span> <span class="o">-</span> <span class="mf">12.0</span>
+<span class="n">liquid_cold</span> <span class="o">=</span> <span class="n">snow_module</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">T_cold</span><span class="p">,</span> <span class="n">ddf</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">q_cold_nosnow</span> <span class="o">=</span> <span class="n">Catchment</span><span class="p">(</span><span class="o">**</span><span class="n">BASE</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">P</span><span class="p">,</span>        <span class="n">Ep</span><span class="p">)</span>     <span class="c1"># cold climate, snow ignored</span>
+<span class="n">q_cold_snow</span>   <span class="o">=</span> <span class="n">Catchment</span><span class="p">(</span><span class="o">**</span><span class="n">BASE</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">liquid_cold</span><span class="p">,</span> <span class="n">Ep</span><span class="p">)</span>  <span class="c1"># cold climate, snow modelled</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Chattooga as-is        : NSE </span><span class="si">{</span><span class="n">nse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">EVAL</span><span class="p">],</span><span class="w"> </span><span class="n">q_snow</span><span class="p">[</span><span class="n">EVAL</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> "</span>
+      <span class="sa">f</span><span class="s2">"(baseline </span><span class="si">{</span><span class="n">nse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">EVAL</span><span class="p">],</span><span class="w"> </span><span class="n">q_base</span><span class="p">[</span><span class="n">EVAL</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cold-climate run: </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">T_cold</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% of days below freezing; "</span>
+      <span class="sa">f</span><span class="s2">"of the </span><span class="si">{</span><span class="n">P</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm total precip, "</span>
+      <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">P</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">liquid_cold</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm passed through the snowpack"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">sl</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">"2009"</span><span class="p">,</span> <span class="s2">"2011"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Qobs</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">q_base</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"baseline (no snow)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">q_snow</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"with snow module"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q [mm/d]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Chattooga (mild climate): snow module barely matters"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">q_cold_nosnow</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"cold climate, snow ignored"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">q_cold_snow</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"cold climate, snow modelled"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q [mm/d]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"same catchment shifted 12 degC colder: snow delays winter runoff into a spring melt peak"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<p>Write your answers here.</p>
+<ol class="arabic simple">
+<li><p>In the cold-climate run, when does runoff now peak, and why is that different from
+the “snow ignored” run?</p></li>
+<li><p>The degree-day factor <code class="docutils literal notranslate"><span class="pre">ddf</span></code> is the one new parameter. Try <code class="docutils literal notranslate"><span class="pre">ddf</span> <span class="pre">=</span> <span class="pre">1.5</span></code> and <code class="docutils literal notranslate"><span class="pre">ddf</span> <span class="pre">=</span> <span class="pre">6</span></code>.
+What does a larger <code class="docutils literal notranslate"><span class="pre">ddf</span></code> do to the shape and timing of the melt peak?</p></li>
+<li><p>This is the catchment-scale version of which feedback from Lectures 1 and 5?</p></li>
+</ol>
+</div>
+</section>
+<section id="exercise-2-calibrate-to-a-signature-not-the-hydrograph">
+<h2>Exercise 2 — calibrate to a signature, not the hydrograph<a class="headerlink" href="#exercise-2-calibrate-to-a-signature-not-the-hydrograph" title="Link to this heading">#</a></h2>
+<p>Lecture 8 fits the model to the whole hydrograph. Often you want the model to get one
+<em>hydrological signature</em> right — a single number that summarises some aspect of
+the flow regime. Here you tune <strong>one parameter</strong> to match the most common signature,
+the <strong>baseflow index</strong>.</p>
+<p><strong>Background.</strong> The baseflow index (BFI) is the fraction of total streamflow that comes
+from slow storage rather than from storm runoff:</p>
+<div class="math notranslate nohighlight">
+\[\text{BFI} = \frac{\sum \text{baseflow}}{\sum \text{streamflow}}.\]</div>
+<p>For the model this is easy — <code class="docutils literal notranslate"><span class="pre">Catchment.run_split</span></code> returns the fast and slow
+components separately, so <span class="math notranslate nohighlight">\(\text{BFI}_\text{model} = \sum q_\text{slow} / \sum q_\text{total}\)</span>.
+For the <em>observed</em> series there is no such split, so hydrologists estimate baseflow with
+a recursive digital filter. The <strong>Lyne–Hollick</strong> filter (given below, complete)
+is the standard one. In the model, the parameter that controls how much water takes the
+slow path is <span class="math notranslate nohighlight">\(k_{perc}\)</span> (percolation to groundwater), so that is the knob you turn.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Use the given <code class="docutils literal notranslate"><span class="pre">lyne_hollick</span></code> filter to get the observed baseflow, then compute
+<span class="math notranslate nohighlight">\(\text{BFI}_\text{obs}\)</span> (one line).</p></li>
+<li><p>Loop <span class="math notranslate nohighlight">\(k_{perc}\)</span> over <code class="docutils literal notranslate"><span class="pre">kperc_grid</span></code>; for each value run <code class="docutils literal notranslate"><span class="pre">run_split</span></code> and record the
+model BFI.</p></li>
+<li><p>Pick the <span class="math notranslate nohighlight">\(k_{perc}\)</span> whose model BFI is closest to <span class="math notranslate nohighlight">\(\text{BFI}_\text{obs}\)</span>.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">qf,</span> <span class="pre">qs</span> <span class="pre">=</span> <span class="pre">Catchment(**pars).run_split(P,</span> <span class="pre">Ep)</span></code> then
+<code class="docutils literal notranslate"><span class="pre">bfi</span> <span class="pre">=</span> <span class="pre">qs[EVAL].sum()</span> <span class="pre">/</span> <span class="pre">(qf[EVAL]</span> <span class="pre">+</span> <span class="pre">qs[EVAL]).sum()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.argmin(np.abs(bfi_array</span> <span class="pre">-</span> <span class="pre">BFI_obs))</span></code> gives the index of the closest match.</p></li>
+<li><p>Score only over <code class="docutils literal notranslate"><span class="pre">EVAL</span></code> (post warm-up), as everywhere else.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Lyne-Hollick recursive digital baseflow filter (given, complete) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">lyne_hollick</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.925</span><span class="p">,</span> <span class="n">passes</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the baseflow series for streamflow `q` (no NaNs)."""</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">passes</span><span class="p">):</span>
+        <span class="n">qf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">rng</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="k">if</span> <span class="n">p</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rng</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">p</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">qf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">qf</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">qf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">qf</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">qf</span>
+    <span class="k">return</span> <span class="n">b</span>
+
+
+<span class="n">Qclean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Qobs</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>   <span class="c1"># fill small gaps</span>
+<span class="n">baseflow_obs</span> <span class="o">=</span> <span class="n">lyne_hollick</span><span class="p">(</span><span class="n">Qclean</span><span class="p">)</span>
+<span class="n">kperc_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==== YOUR CODE ====</span>
+<span class="c1"># 1) observed baseflow index over EVAL</span>
+<span class="n">BFI_obs</span> <span class="o">=</span> <span class="kc">None</span>        <span class="c1"># &lt;-- replace: baseflow_obs[EVAL].sum() / Qclean[EVAL].sum()</span>
+
+<span class="c1"># 2) model BFI for each kperc in kperc_grid</span>
+<span class="n">BFI_model</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">kp</span> <span class="ow">in</span> <span class="n">kperc_grid</span><span class="p">:</span>
+    <span class="n">pars</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">BASE</span><span class="p">);</span> <span class="n">pars</span><span class="p">[</span><span class="s2">"kperc"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kp</span>
+    <span class="c1"># qf, qs = ... run_split ...</span>
+    <span class="c1"># BFI_model.append( qs[EVAL].sum() / (qf[EVAL] + qs[EVAL]).sum() )</span>
+    <span class="n">BFI_model</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>          <span class="c1"># &lt;-- replace the two lines above</span>
+<span class="n">BFI_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">BFI_model</span><span class="p">)</span>
+
+<span class="c1"># 3) kperc whose model BFI is closest to the observed BFI</span>
+<span class="n">best_kperc</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- replace: kperc_grid[np.argmin(np.abs(BFI_model - BFI_obs))]</span>
+<span class="c1"># ===================</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"observed BFI (Lyne-Hollick) : </span><span class="si">{</span><span class="n">BFI_obs</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"best-matching kperc         : </span><span class="si">{</span><span class="n">best_kperc</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kperc_grid</span><span class="p">,</span> <span class="n">BFI_model</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"model BFI"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">BFI_obs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">BFI_obs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"observed BFI = </span><span class="si">{</span><span class="n">BFI_obs</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">best_kperc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">best_kperc</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"$k_</span><span class="si">{perc}</span><span class="s2">$"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"baseflow index"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"tuning one parameter to one signature"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">sl</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">"2005"</span><span class="p">,</span> <span class="s2">"2007"</span><span class="p">)</span>
+<span class="n">S</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sl</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="n">Qclean</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">S</span><span class="p">(</span><span class="n">Qclean</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed Q"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="n">baseflow_obs</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">S</span><span class="p">(</span><span class="n">baseflow_obs</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+                   <span class="n">label</span><span class="o">=</span><span class="s2">"filtered baseflow"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q [mm/d]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Lyne-Hollick baseflow separation (observed)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>What is the observed BFI, and what <span class="math notranslate nohighlight">\(k_{perc}\)</span> matches it? Is the Lecture 7
+hand-picked value (<span class="math notranslate nohighlight">\(k_{perc} = 0.05\)</span>) close?</p></li>
+<li><p>Does matching the BFI also improve the daily <strong>NSE</strong>? Run the model with
+<code class="docutils literal notranslate"><span class="pre">best_kperc</span></code> and check. Why might a model that matches a signature still fit the
+hydrograph poorly (or vice versa)?</p></li>
+<li><p>The Lyne–Hollick filter has its own parameter <span class="math notranslate nohighlight">\(\alpha\)</span>. Re-run the filter with
+<span class="math notranslate nohighlight">\(\alpha = 0.9\)</span> and <span class="math notranslate nohighlight">\(0.95\)</span>. How much does the “observed” BFI — your calibration
+target — move? What does that say about calibrating to filtered quantities?</p></li>
+</ol>
+</div>
+</section>
+<section id="exercise-3-are-calibrated-parameters-climate-transferable">
+<h2>Exercise 3 — are calibrated parameters climate-transferable?<a class="headerlink" href="#exercise-3-are-calibrated-parameters-climate-transferable" title="Link to this heading">#</a></h2>
+<p>A model calibrated on today’s climate is routinely used to simulate a <em>future</em> climate.
+That only works if the parameters do not themselves depend on climate. Here you stress-
+test that assumption with a <strong>delta-change</strong> experiment — the same technique used
+for climate-impact studies in Module 4.</p>
+<p><strong>Background.</strong> A delta-change scenario perturbs the observed forcing by fixed amounts:
+raise every temperature by <span class="math notranslate nohighlight">\(\Delta T\)</span>, and scale every precipitation value by a factor
+<span class="math notranslate nohighlight">\((1 + \Delta P)\)</span>. Potential evapotranspiration rises with temperature; a simple rule
+consistent with the Oudin formula used for this dataset is</p>
+<div class="math notranslate nohighlight">
+\[E_p^{\text{new}} = E_p \,\bigl(1 + 0.05\,\Delta T\bigr)\qquad(\text{about }5\%\text{ per }°C).\]</div>
+<p>You then run the <strong>baseline (already calibrated) parameter set</strong> on the perturbed
+forcing and look at how streamflow and the water balance respond.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Complete <code class="docutils literal notranslate"><span class="pre">perturb(P,</span> <span class="pre">Ep,</span> <span class="pre">T,</span> <span class="pre">dT,</span> <span class="pre">dP)</span></code> to return perturbed <code class="docutils literal notranslate"><span class="pre">(P2,</span> <span class="pre">Ep2)</span></code>.</p></li>
+<li><p>Run the model for a grid of scenarios: <span class="math notranslate nohighlight">\(\Delta T \in \{0, 1, 2, 3\}\)</span> °C and
+<span class="math notranslate nohighlight">\(\Delta P \in \{-0.10, 0, +0.10\}\)</span>.</p></li>
+<li><p>For each, record the change in mean annual streamflow relative to the baseline.
+The given plot draws the response surface.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P2</span> <span class="pre">=</span> <span class="pre">P</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">dP)</span></code> and <code class="docutils literal notranslate"><span class="pre">T2</span> <span class="pre">=</span> <span class="pre">T</span> <span class="pre">+</span> <span class="pre">dT</span></code>; only <code class="docutils literal notranslate"><span class="pre">P2</span></code> and <code class="docutils literal notranslate"><span class="pre">Ep2</span></code> are needed to run the
+model, but compute <code class="docutils literal notranslate"><span class="pre">Ep2</span></code> from <code class="docutils literal notranslate"><span class="pre">dT</span></code>, not from <code class="docutils literal notranslate"><span class="pre">T2</span></code>.</p></li>
+<li><p>Mean annual streamflow = <code class="docutils literal notranslate"><span class="pre">q.mean()</span> <span class="pre">*</span> <span class="pre">365.25</span></code> (q is in mm/day).</p></li>
+<li><p>Use the baseline <code class="docutils literal notranslate"><span class="pre">s0=0.5</span></code> and score over <code class="docutils literal notranslate"><span class="pre">EVAL</span></code> as before; here you care about the
+long-term mean, not NSE.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">perturb</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Ep</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">dT</span><span class="p">,</span> <span class="n">dP</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Delta-change perturbation of the forcing.</span>
+
+<span class="sd">    dT : temperature change [degC]</span>
+<span class="sd">    dP : fractional precipitation change (e.g. -0.1 for -10%)</span>
+
+<span class="sd">    Returns (P2, Ep2): perturbed precipitation and potential ET, same length as inputs.</span>
+<span class="sd">    """</span>
+    <span class="c1"># ==== YOUR CODE ====</span>
+    <span class="c1"># P2  : scale precipitation by (1 + dP)</span>
+    <span class="c1"># Ep2 : scale potential ET by (1 + 0.05 * dT)</span>
+    <span class="n">P2</span>  <span class="o">=</span> <span class="n">P</span>            <span class="c1"># &lt;-- replace</span>
+    <span class="n">Ep2</span> <span class="o">=</span> <span class="n">Ep</span>           <span class="c1"># &lt;-- replace</span>
+    <span class="c1"># ===================</span>
+    <span class="k">return</span> <span class="n">P2</span><span class="p">,</span> <span class="n">Ep2</span>
+
+
+<span class="c1"># --- scenario grid (given, once perturb works) ---</span>
+<span class="n">dTs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]</span>
+<span class="n">dPs</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">]</span>
+
+<span class="n">Q_base_annual</span> <span class="o">=</span> <span class="n">Catchment</span><span class="p">(</span><span class="o">**</span><span class="n">BASE</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Ep</span><span class="p">)[</span><span class="n">EVAL</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mf">365.25</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">dPs</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">dTs</span><span class="p">)))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dP</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dPs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">dT</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dTs</span><span class="p">):</span>
+        <span class="n">P2</span><span class="p">,</span> <span class="n">Ep2</span> <span class="o">=</span> <span class="n">perturb</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Ep</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">dT</span><span class="p">,</span> <span class="n">dP</span><span class="p">)</span>
+        <span class="n">q2</span> <span class="o">=</span> <span class="n">Catchment</span><span class="p">(</span><span class="o">**</span><span class="n">BASE</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">P2</span><span class="p">,</span> <span class="n">Ep2</span><span class="p">)</span>
+        <span class="n">resp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">q2</span><span class="p">[</span><span class="n">EVAL</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mf">365.25</span> <span class="o">-</span> <span class="n">Q_base_annual</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"change in mean annual streamflow [mm/yr] vs baseline:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"dP=</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">+.0%</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">dPs</span><span class="p">],</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"dT=</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">+.0f</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dTs</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"lower"</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"BrBG"</span><span class="p">,</span>
+               <span class="n">vmin</span><span class="o">=-</span><span class="nb">abs</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">vmax</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dTs</span><span class="p">)),</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"+</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dTs</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dPs</span><span class="p">)),</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">+.0%</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">dPs</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"temperature change [degC]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"precipitation change"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"streamflow response to a delta-change scenario</span><span class="se">\n</span><span class="s2">(baseline parameters, held fixed)"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dPs</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dTs</span><span class="p">)):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">resp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">:</span><span class="s2">+.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"mean annual Q change [mm/yr]"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>Warming alone (move along the <span class="math notranslate nohighlight">\(\Delta P = 0\)</span> row): does streamflow rise or fall, and
+why — which term in the water balance is responding?</p></li>
+<li><p>Compare the <span class="math notranslate nohighlight">\(+2\)</span> °C / <span class="math notranslate nohighlight">\(0\%\)</span> cell with the <span class="math notranslate nohighlight">\(0\)</span> °C / <span class="math notranslate nohighlight">\(-10\%\)</span> cell. Can a temperature
+change masquerade as a rainfall change in this model?</p></li>
+<li><p>This experiment holds the parameters fixed. Name one physical reason a real
+catchment’s <em>effective</em> parameters (say <span class="math notranslate nohighlight">\(S_{max}\)</span>, or the ET function) might
+themselves shift in a warmer climate — which would make this projection wrong.</p></li>
+</ol>
+</div>
+</section>
+<section id="where-this-goes-next">
+<h2>Where this goes next<a class="headerlink" href="#where-this-goes-next" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fitting these parameters properly, instead of using the hand-picked set, is
+<strong>Lecture 8</strong> and its exercise notebook.</p></li>
+<li><p>Routing the streamflow you produced here down a channel network is <strong>Lecture 10</strong>.</p></li>
+<li><p>The delta-change method of Exercise 3 is treated in full — with real CMIP6
+data, bias correction and downscaling — in <strong>Module 4</strong>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Original teaching material for <strong>CE524 Applied Hydroclimatology</strong>; uses the model and
+Chattooga data of Lecture 7 (USGS, Daymet, CAMELS). Text under CC BY-SA 4.0; see
+<a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="exercise-05-snowball-earth.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Exercise 5, Snowball Earth and the ice–albedo feedback</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="exercise-08-hydrological-model-calibration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exercise 8, calibrating a hydrological model</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-given-just-run-it">Setup (given — just run it)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-add-a-snow-store">Exercise 1 — add a snow store</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calibrate-to-a-signature-not-the-hydrograph">Exercise 2 — calibrate to a signature, not the hydrograph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-are-calibrated-parameters-climate-transferable">Exercise 3 — are calibrated parameters climate-transferable?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-goes-next">Where this goes next</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

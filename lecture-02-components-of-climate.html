@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 2, Components of the climate system &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-02-components-of-climate';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 3, Introduction to Python" href="lecture-03-introduction-to-python.html" />
+    <link rel="prev" title="Lecture 1, Course introduction" href="lecture-01-course-introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-02-components-of-climate.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-02-components-of-climate.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 2, Components of the climate system</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-and-climate">Weather and climate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classifying-climates">Classifying climates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-components">The five components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#earth-as-a-system-of-systems">Earth as a system of systems</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-in-one-paragraph">Energy balance in one paragraph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-greenhouse-effect">The greenhouse effect</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-climate-change">What is climate change?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#causes-radiative-forcing">Causes: radiative forcing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observed-impacts">Observed impacts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-feedbacks">Climate feedbacks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipping-points-in-the-climate-system">Tipping points in the climate system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timescales-scale-separation-and-averaging">Timescales, scale separation, and averaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figures-and-sources">Figures and sources</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-2-components-of-the-climate-system">
+<h1>Lecture 2, Components of the climate system<a class="headerlink" href="#lecture-2-components-of-the-climate-system" title="Link to this heading">#</a></h1>
+<p>Before building any model, it helps to have a shared picture of what the climate
+system is made of, how its parts exchange energy and water, and why processes that
+span timescales from hours to millennia can nonetheless be studied with simple models.
+This lecture is descriptive; the quantitative treatment begins in Lecture 4 with a
+zero-dimensional energy balance model.</p>
+<section id="weather-and-climate">
+<h2>Weather and climate<a class="headerlink" href="#weather-and-climate" title="Link to this heading">#</a></h2>
+<p><strong>Weather</strong> is the state of the atmosphere at a particular place and time —
+temperature, humidity, precipitation, wind, cloud, and pressure — and it changes from
+hour to hour and day to day. <strong>Climate</strong> is the statistical description of weather
+over a long period, conventionally taken as 30 years: not just the average, but also
+the variability and the frequency of extremes. A useful shorthand is that <em>climate is
+what you expect and weather is what you get</em>.</p>
+<p>The distinction matters for this course. Hydrological design — a spillway, a drought
+plan, an irrigation schedule — depends on climate statistics, while operations depend
+on weather. Climate change shifts the statistics, so design assumptions that were
+based on a stationary past have to be revisited.</p>
+</section>
+<section id="classifying-climates">
+<h2>Classifying climates<a class="headerlink" href="#classifying-climates" title="Link to this heading">#</a></h2>
+<p>Because climate varies systematically with latitude, altitude, distance from the
+ocean, and circulation, it can be classified into a manageable number of types. The
+<strong>Köppen–Geiger</strong> scheme groups climates into five broad classes — <strong>A</strong> tropical,
+<strong>B</strong> dry, <strong>C</strong> temperate, <strong>D</strong> continental, and <strong>E</strong> polar — each subdivided by
+seasonal temperature and precipitation into types such as monsoon, humid subtropical,
+semi-arid (steppe), subarctic, and tundra. India spans several of these, from arid
+western Rajasthan to the humid subtropical Indo-Gangetic plain to the alpine and polar
+climates of the high Himalaya.</p>
+<figure class="align-default" id="fig-koppen">
+<a class="reference internal image-reference" href="_images/koppen-geiger-1980-2016.png"><img alt="Köppen–Geiger climate classification world map, 1980–2016" src="_images/koppen-geiger-1980-2016.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Köppen–Geiger climate classification for 1980–2016. Note the dry belt through North
+Africa and Central Asia, the tropical band along the equator, and the continental
+interiors of Asia and North America.
+  <em>Figure:</em> Beck, H. E. et al. (2018), <em>Present and future Köppen-Geiger climate
+classification maps at 1-km resolution</em>, <strong>Scientific Data</strong> 5, 180214, via
+<a class="reference external" href="https://commons.wikimedia.org/wiki/File:K%C3%B6ppen-Geiger_Climate_Classification_Map_(1980%E2%80%932016)_no_borders.png">Wikimedia Commons</a>
+— licensed <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</span><a class="headerlink" href="#fig-koppen" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-five-components">
+<h2>The five components<a class="headerlink" href="#the-five-components" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="fig-climate-system">
+<a class="reference internal image-reference" href="_images/climate-system-components.jpg"><img alt="The five components of the climate system" src="_images/climate-system-components.jpg" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">The five components of the climate system and some of the exchanges between them.
+  <em>Figure:</em> F. Nijsse, via
+<a class="reference external" href="https://commons.wikimedia.org/wiki/File:Climate-system.jpg">Wikimedia Commons</a>
+— licensed <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</span><a class="headerlink" href="#fig-climate-system" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The climate system is usually described as five interacting components:</p>
+<ol class="arabic simple">
+<li><p><strong>Atmosphere</strong> — the fastest-responding component; carries heat and moisture,
+sets the radiative balance through greenhouse gases, clouds, and aerosols.</p></li>
+<li><p><strong>Hydrosphere</strong> — the oceans, lakes, and rivers; the ocean stores and transports
+enormous amounts of heat and carbon and has a long memory.</p></li>
+<li><p><strong>Cryosphere</strong> — snow, sea ice, glaciers, ice sheets, and permafrost; highly
+reflective, and a strong amplifier of change through the ice–albedo feedback.</p></li>
+<li><p><strong>Land surface (lithosphere)</strong> — topography, soils, and their moisture; controls
+the partitioning of rainfall into evaporation, runoff, and infiltration.</p></li>
+<li><p><strong>Biosphere</strong> — vegetation and soils on land, plankton in the ocean; modifies
+albedo, roughness, evapotranspiration, and the carbon cycle.</p></li>
+</ol>
+<p>No component acts alone. Snow cover changes surface albedo and therefore air
+temperature; a warmer atmosphere holds more water vapour, which is itself a greenhouse
+gas; vegetation growth depends on temperature and soil moisture and in turn changes
+albedo and evapotranspiration. Lectures 5 and 6 make two of these couplings —
+temperature–ice and temperature–vegetation–water — quantitative.</p>
+<section id="earth-as-a-system-of-systems">
+<h3>Earth as a system of systems<a class="headerlink" href="#earth-as-a-system-of-systems" title="Link to this heading">#</a></h3>
+<p>Treating the climate as a set of coupled subsystems, each with its own governing
+equations and exchanging fluxes of energy, water, and carbon with the others, is the
+conceptual basis of every climate model, from the zero-dimensional model of Lecture 4
+to full Earth system models.</p>
+</section>
+</section>
+<section id="energy-balance-in-one-paragraph">
+<h2>Energy balance in one paragraph<a class="headerlink" href="#energy-balance-in-one-paragraph" title="Link to this heading">#</a></h2>
+<p>Averaged over the globe and over a year, about <strong>340 W m⁻²</strong> of solar radiation
+arrives at the top of the atmosphere. A fraction is reflected straight back to space;
+that fraction is the <strong>albedo</strong>. Bright surfaces — fresh snow, thick cloud — have a
+high albedo (0.5–0.9); the open ocean has a low albedo (about 0.06). Earth’s overall
+albedo is roughly 0.3. The remaining absorbed sunlight warms the surface and
+atmosphere, which radiate in the infrared; in the long-term mean, outgoing infrared
+radiation balances absorbed sunlight. Lecture 4 turns exactly this sentence into an
+equation.</p>
+<figure class="align-default" id="fig-energy-budget">
+<a class="reference internal image-reference" href="_images/earth-energy-budget-nasa.png"><img alt="Earth's energy budget with individual flux estimates in W/m^2" src="_images/earth-energy-budget-nasa.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Global-mean energy budget: incoming solar, reflected solar, and outgoing infrared
+fluxes in W m⁻². The large downward and upward infrared arrows at the surface are the
+greenhouse effect.
+  <em>Figure:</em> Robert Simmon, NASA Earth Observatory, adapted from Trenberth et al.
+(2009), via
+<a class="reference external" href="https://commons.wikimedia.org/wiki/File:Diagram_showing_the_Earth%27s_energy_budget,_which_includes_the_greenhouse_effect_(NASA).png">Wikimedia Commons</a>
+— public domain.</span><a class="headerlink" href="#fig-energy-budget" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="the-greenhouse-effect">
+<h3>The greenhouse effect<a class="headerlink" href="#the-greenhouse-effect" title="Link to this heading">#</a></h3>
+<p>Greenhouse gases — water vapour, carbon dioxide, methane, nitrous oxide — are largely
+transparent to sunlight but absorb and re-emit infrared radiation. This keeps the
+lower atmosphere and surface roughly 33 K warmer than they would be otherwise, which
+is what makes the planet habitable. The effect is natural; what is new is the
+<strong>enhanced</strong> greenhouse effect from human emissions.</p>
+<figure class="align-default" id="fig-greenhouse">
+<a class="reference internal image-reference" href="_images/greenhouse-effect-epa-2012.png"><img alt="Schematic of the greenhouse effect" src="_images/greenhouse-effect-epa-2012.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">The greenhouse effect: solar radiation is mostly absorbed at the surface, which
+re-emits infrared radiation; greenhouse gases absorb part of that infrared and
+re-radiate it in all directions, including back downward.
+  <em>Figure:</em> U.S. EPA, <em>Climate Change Indicators in the United States</em> (2nd ed.,
+2012), via
+<a class="reference external" href="https://commons.wikimedia.org/wiki/File:Earth%27s_greenhouse_effect_(US_EPA,_2012).png">Wikimedia Commons</a>
+— public domain (work of the U.S. federal government).</span><a class="headerlink" href="#fig-greenhouse" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="what-is-climate-change">
+<h2>What is climate change?<a class="headerlink" href="#what-is-climate-change" title="Link to this heading">#</a></h2>
+<p>The IPCC defines climate change as <em>a change in the state of the climate that can be
+identified by changes in the mean and/or the variability of its properties, and that
+persists for an extended period, typically decades or longer</em>. The change can arise
+from <strong>natural</strong> causes or from <strong>anthropogenic</strong> causes. Attribution studies separate
+these contributions; at the global scale the observed warming since the mid-20th
+century is overwhelmingly anthropogenic, while at regional scales natural variability
+can be comparable to or larger than the forced signal.</p>
+<section id="causes-radiative-forcing">
+<h3>Causes: radiative forcing<a class="headerlink" href="#causes-radiative-forcing" title="Link to this heading">#</a></h3>
+<p>The common currency for comparing causes of climate change is <strong>radiative forcing</strong>:
+the change, in W m⁻², that an agent imposes on Earth’s energy balance at the top of
+the atmosphere before the climate has had time to respond. A positive forcing warms
+the planet, a negative forcing cools it, and forcings from different agents can be
+added.</p>
+<p><strong>Natural forcings.</strong></p>
+<ul class="simple">
+<li><p><em>Solar variability</em> — the Sun’s output varies by about 0.1% over the 11-year sunspot
+cycle, with larger changes on centennial scales. Its net forcing over the industrial
+era is small (of order +0.01 W m⁻²).</p></li>
+<li><p><em>Volcanic eruptions</em> — large explosive eruptions inject sulphate aerosol into the
+stratosphere, reflecting sunlight and cooling the surface by a few tenths of a
+degree for two to three years.</p></li>
+<li><p><em>Orbital (Milankovitch) variations</em> — slow changes in the shape of Earth’s orbit and
+the tilt and precession of its axis redistribute sunlight by latitude and season and
+pace the ice ages, but act on tens of thousands of years and are negligible over a
+century.</p></li>
+</ul>
+<p><strong>Anthropogenic forcings.</strong></p>
+<ul class="simple">
+<li><p><em>Well-mixed greenhouse gases</em> — carbon dioxide is the largest single contributor,
+its concentration having risen from about 280 ppm before industrialisation to over
+420 ppm today, chiefly from fossil-fuel combustion and deforestation. Methane,
+nitrous oxide, and halocarbons add substantially more.</p></li>
+<li><p><em>Aerosols</em> — sulphate and other particles from combustion scatter sunlight and seed
+brighter clouds, producing a <strong>negative</strong> forcing that has masked part of the
+greenhouse warming; this offset is shrinking as air-quality controls reduce
+emissions.</p></li>
+<li><p><em>Land-use change</em> — clearing forests for cropland generally raises surface albedo (a
+small negative forcing) while also releasing carbon.</p></li>
+</ul>
+<p>The net anthropogenic forcing since 1750 is roughly <strong>+2.7 W m⁻²</strong> (IPCC AR6), almost
+entirely from greenhouse gases partly offset by aerosols.</p>
+<figure class="align-default" id="fig-keeling">
+<a class="reference internal image-reference" href="_images/mauna-loa-co2.png"><img alt="Atmospheric CO2 concentration at Mauna Loa since 1958" src="_images/mauna-loa-co2.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">The Keeling Curve: monthly-mean atmospheric CO₂ at Mauna Loa, Hawai‘i. The saw-tooth
+is the seasonal breathing of Northern-Hemisphere vegetation; the relentless rise is
+the anthropogenic signal.
+  <em>Data:</em> NOAA Global Monitoring Laboratory / Scripps Institution of Oceanography
+(public domain); figure generated for this course.</span><a class="headerlink" href="#fig-keeling" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="observed-impacts">
+<h3>Observed impacts<a class="headerlink" href="#observed-impacts" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Surface warming</strong> of about 1.1–1.2 °C since the late 19th century, faster over land
+than ocean and fastest in the Arctic (“polar amplification”).</p></li>
+<li><p><strong>Ocean heat uptake</strong> — more than 90% of the excess energy has gone into the ocean,
+raising its heat content and stratifying the upper layers.</p></li>
+<li><p><strong>Sea-level rise</strong> of about 0.2 m since 1900 and accelerating, from thermal
+expansion of sea water plus melting glaciers and ice sheets.</p></li>
+<li><p><strong>Cryosphere loss</strong> — shrinking Arctic sea ice, retreating mountain glaciers, and
+mass loss from Greenland and Antarctica.</p></li>
+<li><p><strong>Changing extremes</strong> — heatwaves are more frequent and intense almost everywhere,
+heavy-precipitation events have intensified, and the character of droughts has
+shifted in many regions.</p></li>
+</ul>
+<figure class="align-default" id="fig-temp-anomaly">
+<a class="reference internal image-reference" href="_images/global-temperature-anomaly-nasa.jpg"><img alt="Map of 2023 global surface temperature anomalies relative to 1951-1980" src="_images/global-temperature-anomaly-nasa.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Surface temperature anomaly for a recent year relative to the 1951–1980 average. Nearly
+the whole planet is warmer than the mid-20th-century baseline, with the largest
+anomalies over the Arctic.
+  <em>Figure:</em> NASA Scientific Visualization Studio / GISS — public domain.</span><a class="headerlink" href="#fig-temp-anomaly" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="climate-feedbacks">
+<h2>Climate feedbacks<a class="headerlink" href="#climate-feedbacks" title="Link to this heading">#</a></h2>
+<p>A <strong>feedback</strong> is a process set in motion by a change in temperature that drives a
+further change in temperature. If it amplifies the original change it is <strong>positive</strong>;
+if it opposes it, <strong>negative</strong>. Feedbacks do not cause climate change on their own —
+a forcing does that — but they determine how much warming a given forcing produces.</p>
+<ul class="simple">
+<li><p><strong>Planck feedback</strong> (strongly negative) — a warmer surface radiates more infrared to
+space, roughly as <span class="math notranslate nohighlight">\(T^4\)</span>. This is the fundamental stabiliser, and the reference
+against which the others are measured.</p></li>
+<li><p><strong>Water-vapour feedback</strong> (positive, the largest amplifier) — warmer air holds more
+water vapour (Clausius–Clapeyron again), and water vapour is itself a greenhouse
+gas. On its own this roughly doubles the warming from CO₂ alone.</p></li>
+<li><p><strong>Lapse-rate feedback</strong> (negative) — in the tropics the upper troposphere warms
+faster than the surface, which increases outgoing radiation and partly cancels the
+water-vapour feedback.</p></li>
+<li><p><strong>Surface-albedo (ice–albedo) feedback</strong> (positive) — melting snow and ice expose
+darker ocean and land, which absorb more sunlight and warm further. This feedback
+drives polar amplification, and Lecture 5 makes it quantitative.</p></li>
+<li><p><strong>Cloud feedback</strong> (positive on balance, most uncertain) — warming changes the
+height, coverage, and brightness of clouds; the net effect is a modest amplification
+but it is the single largest source of spread among climate models.</p></li>
+<li><p><strong>Carbon-cycle feedbacks</strong> (mostly positive) — warming reduces the efficiency with
+which the ocean and land take up CO₂, and thawing permafrost releases CO₂ and
+methane, leaving more of each tonne of emissions in the atmosphere.</p></li>
+</ul>
+<p>Adding the feedbacks together, the climate system remains net-stabilising — the sum is
+negative, so temperature does not run away — but far less strongly than the Planck
+feedback alone. The practical measure of the result is the <strong>equilibrium climate
+sensitivity</strong>, the eventual global warming for a doubling of CO₂, assessed by IPCC AR6
+as about 3 °C (likely range 2.5–4 °C). Lectures 5 and 6 build small models in which
+the ice–albedo and vegetation feedbacks can be switched on and their effect seen
+directly.</p>
+</section>
+<section id="tipping-points-in-the-climate-system">
+<h2>Tipping points in the climate system<a class="headerlink" href="#tipping-points-in-the-climate-system" title="Link to this heading">#</a></h2>
+<p>Most of the climate’s response to forcing is gradual and reversible: push a little
+harder and you get a little more warming; ease off and it relaxes back. A <strong>tipping
+point</strong> is a threshold beyond which some part of the system reorganises into a
+qualitatively different state — often abruptly, and often with <strong>hysteresis</strong>, meaning
+that simply reversing the forcing does not reverse the change.</p>
+<p>The Snowball Earth problem in Lecture 5 is a clean example: for the same solar input
+the planet has <em>two</em> stable climates, one ice-free and one frozen over, separated by an
+unstable threshold. Once the ice line pushes past a critical latitude, the ice–albedo
+feedback runs away and the planet flips state; getting back out requires a much larger
+change in forcing than the one that triggered the collapse.</p>
+<p>The real climate contains several such <strong>tipping elements</strong>:</p>
+<figure class="align-default" id="fig-tipping">
+<a class="reference internal image-reference" href="_images/climate-tipping-points.svg"><img alt="Map of potential tipping elements in the Earth's climate system" src="_images/climate-tipping-points.svg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Potential tipping elements in the climate system, after Lenton et al. (2008).
+  <em>Figure:</em> “CodeOne / DeWikiMan”, via
+<a class="reference external" href="https://commons.wikimedia.org/wiki/File:Climate-tipping-points-en.svg">Wikimedia Commons</a>
+— licensed <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</span><a class="headerlink" href="#fig-tipping" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><strong>Ice sheets</strong> — Greenland and West Antarctica hold enough water for several metres
+of sea-level rise, and their loss above a temperature threshold is effectively
+irreversible on human timescales.</p></li>
+<li><p><strong>Atlantic Meridional Overturning Circulation (AMOC)</strong> — the ocean circulation that
+carries heat northward in the Atlantic; a slowdown or collapse would shift rainfall
+belts, including the West African and South Asian monsoons.</p></li>
+<li><p><strong>Amazon rainforest</strong> — drying and deforestation could push it past a threshold into
+savanna, releasing carbon and reducing continental moisture recycling.</p></li>
+<li><p><strong>Permafrost</strong> — thaw releases CO₂ and methane, a carbon-cycle feedback that can
+itself behave like a tipping process.</p></li>
+<li><p><strong>Monsoon systems and tropical coral reefs</strong> are also discussed as candidate tipping
+elements.</p></li>
+</ul>
+<p>For water resources the concern is that a tipping event would move a region’s
+hydroclimate outside anything in the historical record, quickly and permanently. A
+useful early-warning idea, which connects directly to the dynamical-systems view in
+Lectures 5 and 6, is <strong>critical slowing down</strong>: as a system approaches a tipping
+threshold it recovers more and more sluggishly from small perturbations, so rising
+variance and autocorrelation in observations can signal that a threshold is near.</p>
+</section>
+<section id="timescales-scale-separation-and-averaging">
+<h2>Timescales, scale separation, and averaging<a class="headerlink" href="#timescales-scale-separation-and-averaging" title="Link to this heading">#</a></h2>
+<p>Climate processes act on enormously different timescales:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Process</p></th>
+<th class="head"><p>Characteristic time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Convective cloud</p></td>
+<td><p>hours</p></td>
+</tr>
+<tr class="row-odd"><td><p>Weather systems</p></td>
+<td><p>days</p></td>
+</tr>
+<tr class="row-even"><td><p>Seasonal cycle, El Niño</p></td>
+<td><p>months to a few years</p></td>
+</tr>
+<tr class="row-odd"><td><p>Upper-ocean adjustment</p></td>
+<td><p>years to decades</p></td>
+</tr>
+<tr class="row-even"><td><p>Deep-ocean circulation, ice sheets</p></td>
+<td><p>centuries to millennia</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tectonics, orbital variations</p></td>
+<td><p>10⁴–10⁸ years</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It is worth naming three different “times” that often get conflated: a <strong>period</strong> is
+the interval between regularly recurring events (the seasons); a <strong>response time</strong> is
+how long a system takes to adjust to a new forcing (decades for the upper ocean to
+reach a new temperature); a <strong>lifetime</strong> is how long an individual phenomenon lasts (a
+convective cloud).</p>
+<p>This spread of timescales is what makes simple models useful. Because fast and slow
+processes are <strong>well separated</strong>, a model aimed at one timescale can treat much faster
+processes as instantaneous noise and much slower ones as fixed boundary conditions.
+<strong>Averaging</strong> in time or space then removes the fast fluctuations and exposes the
+slower behaviour of interest — the same reasoning that lets a zero-dimensional model
+say something meaningful about global temperature without resolving a single weather
+system. The models in the following lectures are built on exactly this idea.</p>
+</section>
+<section id="figures-and-sources">
+<h2>Figures and sources<a class="headerlink" href="#figures-and-sources" title="Link to this heading">#</a></h2>
+<p>The figures above are reproduced from openly licensed sources, each attributed in its
+caption:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Figure</p></th>
+<th class="head"><p>Source</p></th>
+<th class="head"><p>Licence</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Köppen–Geiger map</p></td>
+<td><p>Beck et al. (2018), <em>Scientific Data</em> 5, 180214</p></td>
+<td><p>CC BY-SA 4.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Five components</p></td>
+<td><p>F. Nijsse (Wikimedia Commons)</p></td>
+<td><p>CC BY-SA 4.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Energy budget</p></td>
+<td><p>R. Simmon, NASA Earth Observatory (after Trenberth et al. 2009)</p></td>
+<td><p>Public domain</p></td>
+</tr>
+<tr class="row-odd"><td><p>Greenhouse effect</p></td>
+<td><p>U.S. EPA, <em>Climate Change Indicators</em> (2012)</p></td>
+<td><p>Public domain</p></td>
+</tr>
+<tr class="row-even"><td><p>Keeling Curve</p></td>
+<td><p>Data: NOAA GML / Scripps; figure made for this course</p></td>
+<td><p>Public domain data</p></td>
+</tr>
+<tr class="row-odd"><td><p>Temperature anomaly map</p></td>
+<td><p>NASA Scientific Visualization Studio / GISS</p></td>
+<td><p>Public domain</p></td>
+</tr>
+<tr class="row-even"><td><p>Tipping elements</p></td>
+<td><p>CodeOne / DeWikiMan (Wikimedia), after Lenton et al. (2008)</p></td>
+<td><p>CC BY-SA 4.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For further reading and additional figures:</p>
+<ul class="simple">
+<li><p><strong>IPCC AR6 Working Group I</strong> — the technical basis for climate change and its
+figure archive: <a class="reference external" href="https://www.ipcc.ch/report/ar6/wg1/">https://www.ipcc.ch/report/ar6/wg1/</a></p></li>
+<li><p><strong>UCAR Center for Science Education</strong> — climate system, energy budget, and albedo
+explainers: <a class="reference external" href="https://scied.ucar.edu/learning-zone/how-climate-works">https://scied.ucar.edu/learning-zone/how-climate-works</a></p></li>
+<li><p><strong>NASA — My NASA Data</strong> — Earth as a system, climate-system components:
+<a class="reference external" href="https://mynasadata.larc.nasa.gov/">https://mynasadata.larc.nasa.gov/</a></p></li>
+<li><p><strong>Beck et al. (2018)</strong> — <em>Present and future Köppen-Geiger climate classification
+maps at 1-km resolution</em>: <a class="reference external" href="https://www.nature.com/articles/sdata2018214">https://www.nature.com/articles/sdata2018214</a></p></li>
+<li><p><strong>Brian Rose — <em>The Climate Laboratory</em></strong>, “Models, budgets, and fun” and the
+energy-balance chapters:
+<a class="reference external" href="https://brian-rose.github.io/ClimateLaboratoryBook/courseware/models-budgets-fun.html">https://brian-rose.github.io/ClimateLaboratoryBook/courseware/models-budgets-fun.html</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-01-course-introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 1, Course introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-03-introduction-to-python.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 3, Introduction to Python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-and-climate">Weather and climate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classifying-climates">Classifying climates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-components">The five components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#earth-as-a-system-of-systems">Earth as a system of systems</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-in-one-paragraph">Energy balance in one paragraph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-greenhouse-effect">The greenhouse effect</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-climate-change">What is climate change?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#causes-radiative-forcing">Causes: radiative forcing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observed-impacts">Observed impacts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-feedbacks">Climate feedbacks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipping-points-in-the-climate-system">Tipping points in the climate system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timescales-scale-separation-and-averaging">Timescales, scale separation, and averaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figures-and-sources">Figures and sources</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

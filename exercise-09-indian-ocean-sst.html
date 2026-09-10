@@ -1,0 +1,933 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Exercise 9, the Indian Ocean from gridded SST data &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercise-09-indian-ocean-sst';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercise 10, advection and diffusion in a river" href="exercise-10-advection-diffusion-in-rivers.html" />
+    <link rel="prev" title="Exercise 8, calibrating a hydrological model" href="exercise-08-hydrological-model-calibration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/exercise-09-indian-ocean-sst.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/exercise-09-indian-ocean-sst.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Fexercise-09-indian-ocean-sst.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/exercise-09-indian-ocean-sst.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercise 9, the Indian Ocean from gridded SST data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-given-just-run-it">Setup (given — just run it)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-seasonal-cycle-and-warming-trend-of-the-indian-ocean">Exercise 1 — seasonal cycle and warming trend of the Indian Ocean</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-indian-ocean-dipole">Exercise 2 — the Indian Ocean Dipole</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-zonal-sst-gradient-along-the-equator">Exercise 3 — the zonal SST gradient along the equator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-goes-next">Where this goes next</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-9-the-indian-ocean-from-gridded-sst-data">
+<h1>Exercise 9, the Indian Ocean from gridded SST data<a class="headerlink" href="#exercise-9-the-indian-ocean-from-gridded-sst-data" title="Link to this heading">#</a></h1>
+<p>This exercise goes with <strong>Lecture 9 — Evolution in time and space</strong>. It is a
+data-analysis workout with <strong>xarray</strong>: open a global sea-surface-temperature (SST)
+dataset, select the Indian Ocean, and pull out the three things that matter most for the
+South Asian monsoon — the <strong>seasonal cycle</strong>, the <strong>warming trend</strong>, and the
+<strong>Indian Ocean Dipole</strong>. The finite-difference gradient in Exercise 3 is the same
+operation you met in the lecture, now on real data.</p>
+<p>The dataset is <strong>NOAA ERSST v5</strong> (monthly, 2° grid, 1970–2021), fetched through
+<code class="docutils literal notranslate"><span class="pre">xarray.tutorial</span></code> — a few MB, downloaded once (Colab has internet).</p>
+<p>Fill only the cells marked</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==== YOUR CODE ====</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: installs the packages this notebook uses (runs only on Colab).</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">scipy</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">pooch</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="setup-given-just-run-it">
+<h2>Setup (given — just run it)<a class="headerlink" href="#setup-given-just-run-it" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">tutorial</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">"ersstv5"</span><span class="p">)</span>
+<span class="n">sst</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"sst"</span><span class="p">]</span>                       <span class="c1"># (time, lat, lon), degC, monthly 1970-2021</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sst</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">area_mean</span><span class="p">(</span><span class="n">da</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Area-weighted mean over lat/lon (cos-latitude weights)."""</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="s2">"lat"</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">da</span><span class="o">.</span><span class="n">weighted</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"lat"</span><span class="p">,</span> <span class="s2">"lon"</span><span class="p">))</span>
+
+<span class="c1"># the Indian Ocean basin</span>
+<span class="n">indian_ocean</span> <span class="o">=</span> <span class="n">sst</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">),</span> <span class="n">lon</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Indian Ocean box:"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">),</span> <span class="n">lon</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">)),</span>
+      <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">indian_ocean</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-seasonal-cycle-and-warming-trend-of-the-indian-ocean">
+<h2>Exercise 1 — seasonal cycle and warming trend of the Indian Ocean<a class="headerlink" href="#exercise-1-seasonal-cycle-and-warming-trend-of-the-indian-ocean" title="Link to this heading">#</a></h2>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Take the <strong>area-weighted mean SST</strong> of <code class="docutils literal notranslate"><span class="pre">indian_ocean</span></code> at every month (use the given
+<code class="docutils literal notranslate"><span class="pre">area_mean</span></code>). Call it <code class="docutils literal notranslate"><span class="pre">io_sst</span></code> — a 1-D time series.</p></li>
+<li><p>Compute its <strong>mean seasonal cycle</strong> with <code class="docutils literal notranslate"><span class="pre">.groupby(&quot;time.month&quot;).mean()</span></code>.</p></li>
+<li><p>Fit a straight line to <code class="docutils literal notranslate"><span class="pre">io_sst</span></code> versus time-in-years and report the <strong>trend</strong> in
+°C per decade.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">io_sst</span> <span class="pre">=</span> <span class="pre">area_mean(indian_ocean)</span></code>.</p></li>
+<li><p>Time in years: <code class="docutils literal notranslate"><span class="pre">yr</span> <span class="pre">=</span> <span class="pre">io_sst[&quot;time&quot;].dt.year</span> <span class="pre">+</span> <span class="pre">(io_sst[&quot;time&quot;].dt.month</span> <span class="pre">-</span> <span class="pre">0.5)</span> <span class="pre">/</span> <span class="pre">12</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slope,</span> <span class="pre">intercept</span> <span class="pre">=</span> <span class="pre">np.polyfit(yr,</span> <span class="pre">io_sst,</span> <span class="pre">1)</span></code>; trend per decade is <code class="docutils literal notranslate"><span class="pre">slope</span> <span class="pre">*</span> <span class="pre">10</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==== YOUR CODE ====</span>
+<span class="n">io_sst</span>   <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- area_mean(indian_ocean)</span>
+<span class="n">seasonal</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- io_sst.groupby("time.month").mean()</span>
+
+<span class="n">yr</span> <span class="o">=</span> <span class="kc">None</span>            <span class="c1"># &lt;-- io_sst["time"].dt.year + (io_sst["time"].dt.month - 0.5) / 12</span>
+<span class="n">slope</span> <span class="o">=</span> <span class="kc">None</span>         <span class="c1"># &lt;-- np.polyfit(yr, io_sst, 1)[0]</span>
+<span class="n">trend_per_decade</span> <span class="o">=</span> <span class="kc">None</span>   <span class="c1"># &lt;-- slope * 10</span>
+<span class="c1"># ===================</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Indian Ocean mean SST      : </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">io_sst</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> degC"</span> <span class="k">if</span> <span class="n">io_sst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"warming trend              : </span><span class="si">{</span><span class="n">trend_per_decade</span><span class="si">}</span><span class="s2"> degC/decade"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">io_sst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">io_sst</span><span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="n">io_sst</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.5"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">io_sst</span><span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="n">io_sst</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">"12-month mean"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">slope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">io_sst</span><span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">yr</span><span class="p">,</span> <span class="n">io_sst</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">yr</span><span class="p">),</span> <span class="s2">"k--"</span><span class="p">,</span>
+                   <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"trend </span><span class="si">{</span><span class="n">trend_per_decade</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> degC/decade"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"SST [degC]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Indian Ocean mean SST"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">seasonal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seasonal</span><span class="p">[</span><span class="s2">"month"</span><span class="p">],</span> <span class="n">seasonal</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">));</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"month"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"SST [degC]"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"mean seasonal cycle"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>The seasonal cycle has two maxima and two minima, not one. Which months are the
+peaks, and why does the basin cool in July–August (think about what the summer
+monsoon winds do to the sea surface)?</p></li>
+<li><p>What is the warming trend in °C/decade? Multiply by 5 — roughly how much has
+the Indian Ocean warmed since 1970? The Indian Ocean has warmed <em>faster</em> than the
+global ocean average; why does that matter for monsoon rainfall (Clausius–Clapeyron,
+Lecture 1)?</p></li>
+<li><p>Detrend <code class="docutils literal notranslate"><span class="pre">io_sst</span></code> (subtract the fitted line). What is the standard deviation of the
+residual — the size of year-to-year SST swings — compared with the total
+warming so far?</p></li>
+</ol>
+</div>
+</section>
+<section id="exercise-2-the-indian-ocean-dipole">
+<h2>Exercise 2 — the Indian Ocean Dipole<a class="headerlink" href="#exercise-2-the-indian-ocean-dipole" title="Link to this heading">#</a></h2>
+<p>The <strong>Indian Ocean Dipole (IOD)</strong> is the see-saw in SST between the western and eastern
+tropical Indian Ocean. Its index, the <strong>Dipole Mode Index (DMI)</strong>, is the SST <em>anomaly</em>
+in a western box minus the SST anomaly in a south-eastern box (Saji et al., 1999):</p>
+<ul class="simple">
+<li><p><strong>west box</strong>: 50–70°E, 10°S–10°N</p></li>
+<li><p><strong>east box</strong>: 90–110°E, 10°S–0°</p></li>
+</ul>
+<p>A <strong>positive</strong> IOD (warm west, cool east) is associated with a stronger monsoon and
+floods in East Africa; a <strong>negative</strong> IOD with the opposite.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Select the two boxes (given). For each, compute the monthly <strong>anomaly</strong>
+(value minus that month’s 1970–2021 climatology) and take its area-weighted mean.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dmi</span> <span class="pre">=</span> <span class="pre">west_anom</span> <span class="pre">-</span> <span class="pre">east_anom</span></code>.</p></li>
+<li><p>Plot the DMI, mark <span class="math notranslate nohighlight">\(\pm 1\sigma\)</span>, and print the calendar year with the strongest
+positive and strongest negative Sept–Nov (the IOD’s peak season) value.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p>Anomaly: <code class="docutils literal notranslate"><span class="pre">anom</span> <span class="pre">=</span> <span class="pre">box.groupby(&quot;time.month&quot;)</span> <span class="pre">-</span> <span class="pre">box.groupby(&quot;time.month&quot;).mean()</span></code>.</p></li>
+<li><p>Then <code class="docutils literal notranslate"><span class="pre">area_mean(anom)</span></code>.</p></li>
+<li><p>SON season mean per year: <code class="docutils literal notranslate"><span class="pre">dmi.sel(time=dmi[&quot;time.month&quot;].isin([9,</span> <span class="pre">10,</span> <span class="pre">11]))</span> <span class="pre">.groupby(&quot;time.year&quot;).mean()</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">west_box</span> <span class="o">=</span> <span class="n">sst</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">lon</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">))</span>
+<span class="n">east_box</span> <span class="o">=</span> <span class="n">sst</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">),</span>  <span class="n">lon</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">110</span><span class="p">))</span>
+
+<span class="c1"># ==== YOUR CODE ====</span>
+<span class="n">west_anom</span> <span class="o">=</span> <span class="kc">None</span>     <span class="c1"># &lt;-- area_mean( west_box.groupby("time.month") - west_box.groupby("time.month").mean() )</span>
+<span class="n">east_anom</span> <span class="o">=</span> <span class="kc">None</span>     <span class="c1"># &lt;-- same for east_box</span>
+<span class="n">dmi</span> <span class="o">=</span> <span class="kc">None</span>           <span class="c1"># &lt;-- west_anom - east_anom</span>
+
+<span class="n">son</span> <span class="o">=</span> <span class="kc">None</span>           <span class="c1"># &lt;-- dmi.sel(time=dmi["time.month"].isin([9,10,11])).groupby("time.year").mean()</span>
+<span class="n">strongest_pos_year</span> <span class="o">=</span> <span class="kc">None</span>   <span class="c1"># &lt;-- int(son.idxmax())</span>
+<span class="n">strongest_neg_year</span> <span class="o">=</span> <span class="kc">None</span>   <span class="c1"># &lt;-- int(son.idxmin())</span>
+<span class="c1"># ===================</span>
+
+<span class="k">if</span> <span class="n">dmi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DMI standard deviation : </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">dmi</span><span class="o">.</span><span class="n">std</span><span class="p">())</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> degC"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"strongest positive IOD (SON): </span><span class="si">{</span><span class="n">strongest_pos_year</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"strongest negative IOD (SON): </span><span class="si">{</span><span class="n">strongest_neg_year</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">dmi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dmi</span><span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="n">dmi</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.5"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dmi</span><span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="n">dmi</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:purple"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.3</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dmi</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"+1 sigma (positive IOD)"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"-1 sigma (negative IOD)"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">dmi</span><span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="n">s</span><span class="p">,</span> <span class="n">dmi</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dmi</span> <span class="o">&gt;</span> <span class="n">s</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">dmi</span><span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">dmi</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dmi</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">s</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"DMI [degC]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Indian Ocean Dipole Mode Index"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>Which year has the strongest positive IOD? (It is famous — it coincided with
+severe East African floods and the Australian bushfire season.)</p></li>
+<li><p>Is there a visible long-term trend in the DMI, or is it purely year-to-year noise?
+The frequency of strong positive events is projected to rise with warming — can
+you see the start of that in this record?</p></li>
+<li><p>The DMI uses <em>anomalies</em>, not raw SST. Why would the raw west-minus-east SST
+difference be a poor index? (Think about the mean zonal gradient you will compute in
+Exercise 3.)</p></li>
+</ol>
+</div>
+</section>
+<section id="exercise-3-the-zonal-sst-gradient-along-the-equator">
+<h2>Exercise 3 — the zonal SST gradient along the equator<a class="headerlink" href="#exercise-3-the-zonal-sst-gradient-along-the-equator" title="Link to this heading">#</a></h2>
+<p>The equatorial Indian Ocean is normally warm in the east and slightly cooler in the
+west — a west-to-east <em>gradient</em> that the trade winds maintain by pushing warm
+surface water eastward. A positive IOD flips the eastern end. Here you compute that
+gradient with a finite difference, exactly as in Lecture 9.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Take an equatorial band (5°S–5°N), average over latitude, to get SST as a
+function of longitude: <code class="docutils literal notranslate"><span class="pre">sst_x(lon)</span></code>.</p></li>
+<li><p>Do this for the <strong>long-term mean</strong>, for <strong>SON 2019</strong> (strong positive IOD), and for
+<strong>SON 1996</strong> (near-neutral).</p></li>
+<li><p>Compute the zonal gradient <span class="math notranslate nohighlight">\(\partial\,\text{SST}/\partial x\)</span> of the long-term mean
+with <code class="docutils literal notranslate"><span class="pre">np.gradient</span></code>, converting the longitude axis to kilometres
+(<span class="math notranslate nohighlight">\(1° \approx 111\ \text{km}\)</span> at the equator).</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">band</span> <span class="pre">=</span> <span class="pre">sst.sel(lat=slice(5,</span> <span class="pre">-5),</span> <span class="pre">lon=slice(40,</span> <span class="pre">110)).mean(&quot;lat&quot;)</span></code>.</p></li>
+<li><p>Long-term mean: <code class="docutils literal notranslate"><span class="pre">band.mean(&quot;time&quot;)</span></code>. Season mean:
+<code class="docutils literal notranslate"><span class="pre">band.sel(time=slice(&quot;2019-09&quot;,</span> <span class="pre">&quot;2019-11&quot;)).mean(&quot;time&quot;)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_km</span> <span class="pre">=</span> <span class="pre">band[&quot;lon&quot;].values</span> <span class="pre">*</span> <span class="pre">111.0</span></code>; <code class="docutils literal notranslate"><span class="pre">dSST_dx</span> <span class="pre">=</span> <span class="pre">np.gradient(mean_profile.values,</span> <span class="pre">x_km)</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">band</span> <span class="o">=</span> <span class="n">sst</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">),</span> <span class="n">lon</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">110</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"lat"</span><span class="p">)</span>
+
+<span class="c1"># ==== YOUR CODE ====</span>
+<span class="n">mean_profile</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- band.mean("time")</span>
+<span class="n">prof_2019</span>    <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- band.sel(time=slice("2019-09", "2019-11")).mean("time")</span>
+<span class="n">prof_1996</span>    <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- band.sel(time=slice("1996-09", "1996-11")).mean("time")</span>
+
+<span class="n">x_km</span> <span class="o">=</span> <span class="kc">None</span>              <span class="c1"># &lt;-- band["lon"].values * 111.0</span>
+<span class="n">dSST_dx</span> <span class="o">=</span> <span class="kc">None</span>           <span class="c1"># &lt;-- np.gradient(mean_profile.values, x_km)   [degC per km]</span>
+<span class="c1"># ===================</span>
+
+<span class="k">if</span> <span class="n">dSST_dx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean zonal SST gradient (40-110E): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">dSST_dx</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> degC per 1000 km"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"east end (100E) SST: mean </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">mean_profile</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lon</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, "</span>
+          <span class="sa">f</span><span class="s2">"2019 </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">prof_2019</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lon</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, 1996 </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">prof_1996</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lon</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">mean_profile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">band</span><span class="p">[</span><span class="s2">"lon"</span><span class="p">],</span> <span class="n">mean_profile</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"1970-2021 mean"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">band</span><span class="p">[</span><span class="s2">"lon"</span><span class="p">],</span> <span class="n">prof_2019</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SON 2019 (positive IOD)"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">band</span><span class="p">[</span><span class="s2">"lon"</span><span class="p">],</span> <span class="n">prof_1996</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SON 1996 (neutral)"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"longitude [degE]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"SST [degC]"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"equatorial SST vs longitude"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">dSST_dx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">band</span><span class="p">[</span><span class="s2">"lon"</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dSST_dx</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.6"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"longitude [degE]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"dSST/dx [degC per 1000 km]"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"zonal gradient of the mean (finite difference)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>In the long-term mean, is the eastern equatorial Indian Ocean warmer or cooler than
+the western? What sign does that give <span class="math notranslate nohighlight">\(\partial\,\text{SST}/\partial x\)</span>?</p></li>
+<li><p>How does the SON 2019 profile differ from the mean at the eastern end? That reversal
+<em>is</em> the positive IOD — relate it to the DMI value you found for 2019 in
+Exercise 2.</p></li>
+<li><p>In Lecture 9, a gradient like this drives <strong>advection</strong>: warm water is carried down
+the temperature gradient by the current. Which way (east or west) would a wind-driven
+surface current carry heat here, and does that <em>reinforce</em> or <em>oppose</em> the mean
+gradient?</p></li>
+</ol>
+</div>
+</section>
+<section id="where-this-goes-next">
+<h2>Where this goes next<a class="headerlink" href="#where-this-goes-next" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The area-averaging, anomaly and <code class="docutils literal notranslate"><span class="pre">groupby</span></code> operations here are exactly the workflow of
+<strong>Module 4</strong> (processing reanalysis, satellite and CMIP6 data).</p></li>
+<li><p>The Indian Ocean Dipole and the SST gradient are two of the main climatic controls on
+the monsoon — the subject of <strong>Module 5</strong>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Reworks the <em>analysing an ocean dataset</em> exercise of the
+<a class="reference external" href="https://github.com/florianboergel/climateoftheocean"><em>Climate of the Ocean</em></a> course
+for the Indian Ocean, for <strong>CE524 Applied Hydroclimatology</strong>. Data: NOAA Extended
+Reconstructed SST v5 (Huang et al. 2017), no use constraints, via <code class="docutils literal notranslate"><span class="pre">xarray.tutorial</span></code>.
+Text under CC BY-SA 4.0; see
+<a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="exercise-08-hydrological-model-calibration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Exercise 8, calibrating a hydrological model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="exercise-10-advection-diffusion-in-rivers.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exercise 10, advection and diffusion in a river</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-given-just-run-it">Setup (given — just run it)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-seasonal-cycle-and-warming-trend-of-the-indian-ocean">Exercise 1 — seasonal cycle and warming trend of the Indian Ocean</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-indian-ocean-dipole">Exercise 2 — the Indian Ocean Dipole</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-zonal-sst-gradient-along-the-equator">Exercise 3 — the zonal SST gradient along the equator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-goes-next">Where this goes next</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

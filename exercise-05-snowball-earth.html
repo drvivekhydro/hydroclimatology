@@ -1,0 +1,992 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Exercise 5, Snowball Earth and the ice–albedo feedback &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercise-05-snowball-earth';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercise 7, the lumped hydrological model" href="exercise-07-lumped-hydrological-model.html" />
+    <link rel="prev" title="Exercise 4, the zero-dimensional energy balance model" href="exercise-04-zero-dimensional-ebm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/exercise-05-snowball-earth.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/exercise-05-snowball-earth.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Fexercise-05-snowball-earth.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/exercise-05-snowball-earth.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercise 5, Snowball Earth and the ice–albedo feedback</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-given-just-run-it">Setup (given — just run it)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-bifurcation-diagram-in-co-2">Exercise 1 — the bifurcation diagram in CO<span class="math notranslate nohighlight">\(_2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-how-the-hysteresis-width-depends-on-the-icealbedo-contrast">Exercise 2 — how the hysteresis width depends on the ice–albedo contrast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-a-seasonal-snowalbedo-feedback">Exercise 3 — a seasonal snow–albedo feedback</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-goes-next">Where this goes next</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-5-snowball-earth-and-the-icealbedo-feedback">
+<h1>Exercise 5, Snowball Earth and the ice–albedo feedback<a class="headerlink" href="#exercise-5-snowball-earth-and-the-icealbedo-feedback" title="Link to this heading">#</a></h1>
+<p>These exercises go with <strong>Lecture 5 — Snowball Earth</strong>. They reuse its energy
+balance model with a temperature-dependent albedo, reproduced in the setup cell, and
+explore the hysteresis loop from three directions: CO<span class="math notranslate nohighlight">\(_2\)</span>, the strength of the
+ice–albedo contrast, and a single seasonal melt.</p>
+<p>Fill only the cells marked</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==== YOUR CODE ====</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: installs the packages this notebook uses (runs only on Colab).</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">scipy</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">pooch</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="setup-given-just-run-it">
+<h2>Setup (given — just run it)<a class="headerlink" href="#setup-given-just-run-it" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_alpha</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha0</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alphai</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">dT</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Planetary albedo: alpha0 (ice-free) -&gt; alphai (frozen) as T drops through +/- dT."""</span>
+    <span class="k">if</span> <span class="n">T</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">dT</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">alphai</span>
+    <span class="k">if</span> <span class="n">T</span> <span class="o">&gt;=</span> <span class="n">dT</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">alpha0</span>
+    <span class="k">return</span> <span class="n">alphai</span> <span class="o">+</span> <span class="p">(</span><span class="n">alpha0</span> <span class="o">-</span> <span class="n">alphai</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">T</span> <span class="o">+</span> <span class="n">dT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">dT</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ebm</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Zero-order EBM with an ice-albedo feedback (Lecture 5)."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">1368.0</span><span class="p">,</span> <span class="n">co2</span><span class="o">=</span><span class="mf">280.0</span><span class="p">,</span> <span class="n">alphai</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">deltat</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">S</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">co2</span> <span class="o">=</span> <span class="n">co2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphai</span> <span class="o">=</span> <span class="n">alphai</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span> <span class="o">=</span> <span class="n">deltat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="mf">51.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mf">5.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="mf">221.2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">B</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">co2_pi</span> <span class="o">=</span> <span class="mf">280.0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">tendency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">calc_alpha</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alphai</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphai</span><span class="p">)</span>
+        <span class="n">ASR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.0</span>
+        <span class="n">OTR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">GH</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">co2</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">co2_pi</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">ASR</span> <span class="o">-</span> <span class="n">OTR</span> <span class="o">+</span> <span class="n">GH</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">years</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">years</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tendency</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">equilibrium_T</span><span class="p">(</span><span class="n">T_start</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">1368.0</span><span class="p">,</span> <span class="n">co2</span><span class="o">=</span><span class="mf">280.0</span><span class="p">,</span> <span class="n">alphai</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Integrate to steady state and return the final temperature [degC]."""</span>
+    <span class="k">return</span> <span class="n">ebm</span><span class="p">(</span><span class="n">T_start</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="n">S</span><span class="p">,</span> <span class="n">co2</span><span class="o">=</span><span class="n">co2</span><span class="p">,</span> <span class="n">alphai</span><span class="o">=</span><span class="n">alphai</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">years</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"warm start -&gt;"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">equilibrium_T</span><span class="p">(</span><span class="mf">20.0</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"degC"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"cold start -&gt;"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">equilibrium_T</span><span class="p">(</span><span class="o">-</span><span class="mf">40.0</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"degC   (two stable climates)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-the-bifurcation-diagram-in-co-2">
+<h2>Exercise 1 — the bifurcation diagram in CO<span class="math notranslate nohighlight">\(_2\)</span><a class="headerlink" href="#exercise-1-the-bifurcation-diagram-in-co-2" title="Link to this heading">#</a></h2>
+<p>Lecture 5 traced the hysteresis loop by sweeping the solar constant <span class="math notranslate nohighlight">\(S\)</span>. Here you sweep
+<strong>CO<span class="math notranslate nohighlight">\(_2\)</span></strong> instead, at fixed <span class="math notranslate nohighlight">\(S = 1368\)</span> W m⁻², and find the two thresholds: the CO<span class="math notranslate nohighlight">\(_2\)</span>
+needed to <strong>deglaciate</strong> a Snowball, and the (much lower) CO<span class="math notranslate nohighlight">\(_2\)</span> at which an ice-free
+planet <strong>re-freezes</strong>.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Sweep CO<span class="math notranslate nohighlight">\(_2\)</span> <strong>upward</strong> on a log grid from 280 ppm to <span class="math notranslate nohighlight">\(10^6\)</span> ppm, always restarting
+from the <em>previous</em> equilibrium temperature (so you stay on the cold branch until it
+disappears).</p></li>
+<li><p>Sweep CO<span class="math notranslate nohighlight">\(_2\)</span> <strong>downward</strong> over the same grid, restarting from the previous
+equilibrium (staying on the warm branch).</p></li>
+<li><p>The plot overlays both; read off the two threshold CO<span class="math notranslate nohighlight">\(_2\)</span> values.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">co2_grid</span> <span class="pre">=</span> <span class="pre">np.logspace(np.log10(280),</span> <span class="pre">np.log10(1e6),</span> <span class="pre">60)</span></code>.</p></li>
+<li><p>Up-sweep: <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">-45.0</span></code> before the loop; inside, <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">equilibrium_T(T,</span> <span class="pre">co2=c)</span></code> and store.</p></li>
+<li><p>Down-sweep: iterate over <code class="docutils literal notranslate"><span class="pre">co2_grid[::-1]</span></code>, starting from <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">15.0</span></code>.</p></li>
+<li><p>Both thresholds are where consecutive stored temperatures jump. After putting
+<code class="docutils literal notranslate"><span class="pre">T_down</span></code> back in ascending-CO<span class="math notranslate nohighlight">\(_2\)</span> order, the warm-to-cold drop also shows up as a big
+positive <code class="docutils literal notranslate"><span class="pre">np.diff</span></code>, so use <code class="docutils literal notranslate"><span class="pre">np.argmax(np.diff(...))</span></code> for both.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">co2_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">280</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">1e6</span><span class="p">),</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="c1"># ==== YOUR CODE ====</span>
+<span class="n">T_up</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">T</span> <span class="o">=</span> <span class="o">-</span><span class="mf">45.0</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">co2_grid</span><span class="p">:</span>
+    <span class="c1"># T = equilibrium_T(T, co2=c)</span>
+    <span class="c1"># T_up.append(T)</span>
+    <span class="k">pass</span>
+<span class="n">T_up</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">T_up</span><span class="p">)</span>
+
+<span class="n">T_down</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mf">15.0</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">co2_grid</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="c1"># T = equilibrium_T(T, co2=c)</span>
+    <span class="c1"># T_down.append(T)</span>
+    <span class="k">pass</span>
+<span class="n">T_down</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">T_down</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>            <span class="c1"># put back in ascending-CO2 order</span>
+
+<span class="n">co2_deglaciate</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- co2_grid[np.argmax(np.diff(T_up))]</span>
+<span class="n">co2_refreeze</span>   <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># &lt;-- co2_grid[np.argmax(np.diff(T_down))]</span>
+<span class="c1"># ===================</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"deglaciation threshold : </span><span class="si">{</span><span class="n">co2_deglaciate</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"re-freezing threshold  : </span><span class="si">{</span><span class="n">co2_refreeze</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">T_up</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">co2_grid</span><span class="p">,</span> <span class="n">T_up</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"CO$_2$ increasing (cold branch)"</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">T_down</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">co2_grid</span><span class="p">,</span> <span class="n">T_down</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"CO$_2$ decreasing (warm branch)"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">co2_deglaciate</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">co2_deglaciate</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">co2_refreeze</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">co2_refreeze</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">280</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.5"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"pre-industrial"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"atmospheric CO$_2$ [ppm]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"equilibrium temperature [degC]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Hysteresis of the Snowball in CO$_2$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"both"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>What is the deglaciation CO<span class="math notranslate nohighlight">\(_2\)</span>, in ppm and as a multiple of pre-industrial? Why is
+so much CO<span class="math notranslate nohighlight">\(_2\)</span> needed to melt a Snowball (think about what the albedo is doing to the
+absorbed sunlight)?</p></li>
+<li><p>The re-freezing threshold is far <em>below</em> the deglaciation one. Sketch the loop and
+mark the range of CO<span class="math notranslate nohighlight">\(_2\)</span> over which <strong>two</strong> stable climates exist.</p></li>
+<li><p>Geologists think Snowball Earth ended when volcanic CO<span class="math notranslate nohighlight">\(_2\)</span> built up over millions of
+years. Does your threshold support that story?</p></li>
+</ol>
+</div>
+</section>
+<section id="exercise-2-how-the-hysteresis-width-depends-on-the-icealbedo-contrast">
+<h2>Exercise 2 — how the hysteresis width depends on the ice–albedo contrast<a class="headerlink" href="#exercise-2-how-the-hysteresis-width-depends-on-the-icealbedo-contrast" title="Link to this heading">#</a></h2>
+<p>The whole loop exists because ice is brighter than open water/land. Make that contrast
+stronger or weaker (change <span class="math notranslate nohighlight">\(\alpha_i\)</span>, the frozen-planet albedo) and see what happens to
+the width of the bistable range in <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>For each <span class="math notranslate nohighlight">\(\alpha_i \in \{0.40, 0.45, 0.55\}\)</span>, sweep <span class="math notranslate nohighlight">\(S\)</span> <strong>up</strong> from 1150 to 2000
+W m⁻² (cold branch) and <strong>down</strong> from 2000 to 1150 (warm branch), restarting from the
+previous equilibrium each step.</p></li>
+<li><p>Use the given <code class="docutils literal notranslate"><span class="pre">threshold(T_series)</span></code> helper to find the <span class="math notranslate nohighlight">\(S\)</span> at which each branch
+jumps; the bistable width is (deglaciation <span class="math notranslate nohighlight">\(S\)</span>) minus (re-freezing <span class="math notranslate nohighlight">\(S\)</span>).</p></li>
+<li><p>Plot the three loops and print the three widths.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">S_grid</span> <span class="pre">=</span> <span class="pre">np.arange(1150.0,</span> <span class="pre">2001.0,</span> <span class="pre">10.0)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">equilibrium_T(T,</span> <span class="pre">S=s,</span> <span class="pre">alphai=ai)</span></code> — note <code class="docutils literal notranslate"><span class="pre">co2</span></code> stays at its default 280.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threshold</span></code> returns <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> if a branch never jumps within the grid — that is a
+real outcome for a strong enough feedback, not a bug.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">1150.0</span><span class="p">,</span> <span class="mf">2001.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+<span class="n">alphai_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">]</span>
+<span class="n">widths</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">loops</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">threshold</span><span class="p">(</span><span class="n">T_series</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="n">S_grid</span><span class="p">,</span> <span class="n">min_jump</span><span class="o">=</span><span class="mf">15.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Grid value at the largest step in T_series, or nan if no step exceeds min_jump."""</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">T_series</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">grid</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">d</span><span class="p">)]</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">min_jump</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="c1"># ==== YOUR CODE ====</span>
+<span class="k">for</span> <span class="n">ai</span> <span class="ow">in</span> <span class="n">alphai_list</span><span class="p">:</span>
+    <span class="n">T_up</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="p">[],</span> <span class="o">-</span><span class="mf">60.0</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S_grid</span><span class="p">:</span>
+        <span class="c1"># T = equilibrium_T(T, S=s, alphai=ai); T_up.append(T)</span>
+        <span class="k">pass</span>
+    <span class="n">T_dn</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="p">[],</span> <span class="mf">30.0</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S_grid</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="c1"># T = equilibrium_T(T, S=s, alphai=ai); T_dn.append(T)</span>
+        <span class="k">pass</span>
+    <span class="n">T_up</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">T_up</span><span class="p">);</span> <span class="n">T_dn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">T_dn</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">loops</span><span class="p">[</span><span class="n">ai</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_up</span><span class="p">,</span> <span class="n">T_dn</span><span class="p">)</span>
+    <span class="c1"># widths[ai] = threshold(T_up) - threshold(T_dn)</span>
+    <span class="n">widths</span><span class="p">[</span><span class="n">ai</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="c1"># ===================</span>
+
+<span class="k">for</span> <span class="n">ai</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">widths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"alpha_i = </span><span class="si">{</span><span class="n">ai</span><span class="si">}</span><span class="s2">:  bistable width in S = </span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2"> W/m2"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ai</span><span class="p">,</span> <span class="n">colour</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">alphai_list</span><span class="p">,</span> <span class="p">[</span><span class="s2">"tab:green"</span><span class="p">,</span> <span class="s2">"tab:orange"</span><span class="p">,</span> <span class="s2">"tab:purple"</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="n">ai</span> <span class="ow">in</span> <span class="n">loops</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">loops</span><span class="p">[</span><span class="n">ai</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">up</span><span class="p">,</span> <span class="n">dn</span> <span class="o">=</span> <span class="n">loops</span><span class="p">[</span><span class="n">ai</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">S_grid</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colour</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">S_grid</span><span class="p">,</span> <span class="n">dn</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colour</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">alpha_i$ = </span><span class="si">{</span><span class="n">ai</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">1368</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.5"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"present S"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"solar constant S [W/m$^2$]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"equilibrium T [degC]"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Hysteresis loop for three ice albedos (solid = up-sweep, dashed = down)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>Does a <em>stronger</em> ice–albedo contrast (larger <span class="math notranslate nohighlight">\(\alpha_i\)</span>) widen or narrow the
+bistable range? Explain in terms of how much the feedback amplifies a small cooling.</p></li>
+<li><p>For a large enough <span class="math notranslate nohighlight">\(\alpha_i\)</span>, <code class="docutils literal notranslate"><span class="pre">threshold</span></code> returns <code class="docutils literal notranslate"><span class="pre">nan</span></code> for the up-sweep: the cold
+branch never deglaciates within the grid. What does that mean physically — can
+you always melt a Snowball by making the Sun brighter?</p></li>
+<li><p>Clouds, dust on snow, and vegetation all change the <em>effective</em> <span class="math notranslate nohighlight">\(\alpha_i\)</span>. Which way
+would each push it?</p></li>
+</ol>
+</div>
+</section>
+<section id="exercise-3-a-seasonal-snowalbedo-feedback">
+<h2>Exercise 3 — a seasonal snow–albedo feedback<a class="headerlink" href="#exercise-3-a-seasonal-snowalbedo-feedback" title="Link to this heading">#</a></h2>
+<p>The planetary feedback of this lecture has a small cousin that runs every spring in the
+Himalaya: as snow melts, the ground darkens, absorbs more sun, and melts the rest
+faster. Model one melt season.</p>
+<p><strong>Background.</strong> Over a melt season, drive a surface with a slowly rising energy input
+<span class="math notranslate nohighlight">\(Q(t)\)</span> (W m⁻²). The snow-covered fraction falls linearly with temperature,</p>
+<div class="math notranslate nohighlight">
+\[f(T) = \operatorname{clip}\!\left(\frac{5 - T}{5}, 0, 1\right)
+\quad(\text{1 at }0\,°\text{C},\ 0 \text{ at }5\,°\text{C}),\]</div>
+<p>the surface albedo is <span class="math notranslate nohighlight">\(\alpha = f\,\alpha_\text{snow} + (1-f)\,\alpha_\text{ground}\)</span> with
+<span class="math notranslate nohighlight">\(\alpha_\text{snow} = 0.7\)</span>, <span class="math notranslate nohighlight">\(\alpha_\text{ground} = 0.2\)</span>, and the surface temperature
+follows <span class="math notranslate nohighlight">\(c\,\dfrac{dT}{dt} = (1-\alpha)\,Q - \lambda\,T\)</span> with <span class="math notranslate nohighlight">\(c = 8\times10^{6}\)</span>
+J m⁻² K⁻¹ and <span class="math notranslate nohighlight">\(\lambda = 12\)</span> W m⁻² K⁻¹.</p>
+<p><strong>Your task.</strong></p>
+<ol class="arabic simple">
+<li><p>Complete <code class="docutils literal notranslate"><span class="pre">snow_fraction(T)</span></code> and the albedo line inside the loop.</p></li>
+<li><p>Integrate for 150 days with <code class="docutils literal notranslate"><span class="pre">dt</span> <span class="pre">=</span> <span class="pre">86400</span></code> s and <span class="math notranslate nohighlight">\(Q\)</span> ramping from 120 to 240 W m⁻².</p></li>
+<li><p>The plot shows <span class="math notranslate nohighlight">\(T(t)\)</span>, <span class="math notranslate nohighlight">\(f(t)\)</span> and <span class="math notranslate nohighlight">\(\alpha(t)\)</span>. Identify when the melt “runs away”.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">snow_fraction(T)</span></code> = <code class="docutils literal notranslate"><span class="pre">np.clip((5</span> <span class="pre">-</span> <span class="pre">T)</span> <span class="pre">/</span> <span class="pre">5,</span> <span class="pre">0,</span> <span class="pre">1)</span></code>.</p></li>
+<li><p>Inside the loop: <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">f</span> <span class="pre">*</span> <span class="pre">0.7</span> <span class="pre">+</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">f)</span> <span class="pre">*</span> <span class="pre">0.2</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">T</span> <span class="pre">+</span> <span class="pre">dt</span> <span class="pre">/</span> <span class="pre">c</span> <span class="pre">*</span> <span class="pre">((1</span> <span class="pre">-</span> <span class="pre">alpha)</span> <span class="pre">*</span> <span class="pre">Q[i]</span> <span class="pre">-</span> <span class="pre">lam</span> <span class="pre">*</span> <span class="pre">T)</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">snow_fraction</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="c1"># ==== YOUR CODE ====</span>
+    <span class="k">return</span> <span class="mf">1.0</span>                      <span class="c1"># &lt;-- np.clip((5 - T) / 5, 0, 1)</span>
+    <span class="c1"># ===================</span>
+
+
+<span class="n">days</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">86400.0</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">240.0</span><span class="p">,</span> <span class="n">days</span><span class="p">)</span>      <span class="c1"># rising energy input [W/m2]</span>
+<span class="n">c_surf</span><span class="p">,</span> <span class="n">lam</span> <span class="o">=</span> <span class="mf">8e6</span><span class="p">,</span> <span class="mf">12.0</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="o">-</span><span class="mf">12.0</span>
+<span class="n">T_hist</span><span class="p">,</span> <span class="n">f_hist</span><span class="p">,</span> <span class="n">a_hist</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">days</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">snow_fraction</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="c1"># ==== YOUR CODE ====</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span>                     <span class="c1"># &lt;-- f * 0.7 + (1 - f) * 0.2</span>
+    <span class="c1"># ===================</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">T</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">c_surf</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lam</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">T_hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="n">f_hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">);</span> <span class="n">a_hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
+
+<span class="n">T_hist</span><span class="p">,</span> <span class="n">f_hist</span><span class="p">,</span> <span class="n">a_hist</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="p">(</span><span class="n">T_hist</span><span class="p">,</span> <span class="n">f_hist</span><span class="p">,</span> <span class="n">a_hist</span><span class="p">))</span>
+<span class="n">melt_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">f_hist</span> <span class="o">&lt;</span> <span class="mf">0.99</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">f_hist</span> <span class="o">&lt;</span> <span class="mf">0.99</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">gone</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">f_hist</span> <span class="o">&lt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">f_hist</span> <span class="o">&lt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"snow starts melting on day </span><span class="si">{</span><span class="n">melt_start</span><span class="si">}</span><span class="s2">, fully gone by day </span><span class="si">{</span><span class="n">gone</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- plot (given) ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T_hist</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"surface T [degC]"</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"day of melt season"</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"T [degC]"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.7"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_hist</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"snow fraction f"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a_hist</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:green"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"albedo"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"f  /  albedo"</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()</span> <span class="o">+</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">get_label</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"center right"</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"One Himalayan melt season"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Answers</p>
+<ol class="arabic simple">
+<li><p>Once melt starts, does the surface temperature rise <em>faster</em> than the forcing <span class="math notranslate nohighlight">\(Q\)</span>
+alone would explain? What is accelerating it?</p></li>
+<li><p>Run it again from <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">-12.0</span></code> but with the snow albedo lowered from 0.7 to 0.55
+(dust/soot on snow). Does the snow disappear earlier? By how many days?</p></li>
+<li><p>This is the same feedback as the planetary one in the lecture, but it does <strong>not</strong>
+produce two stable states here. Why not — what is different about a single
+seasonal cycle versus the equilibrium sweeps of Exercises 1–2?</p></li>
+</ol>
+</div>
+</section>
+<section id="where-this-goes-next">
+<h2>Where this goes next<a class="headerlink" href="#where-this-goes-next" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Multiple equilibria and hysteresis are the maths of <strong>tipping points</strong> (Lecture 2).
+The same picture describes the Atlantic overturning, ice sheets, and monsoon regimes.</p></li>
+<li><p>The seasonal snow–albedo feedback of Exercise 3 is why melting Himalayan
+snowpack is a concern for <strong>Module 5</strong> (impacts) and why the catchment snow module of
+the Lecture 7 exercise matters.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Combines the exercises of Lecture 5 with the <em>melting the Snowball Earth</em> problem from
+the <a class="reference external" href="https://github.com/florianboergel/climateoftheocean"><em>Climate of the Ocean</em></a>
+course (after Henri Drake, MIT 18.S191), for <strong>CE524 Applied Hydroclimatology</strong>.
+Text under CC BY-SA 4.0; see
+<a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="exercise-04-zero-dimensional-ebm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Exercise 4, the zero-dimensional energy balance model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="exercise-07-lumped-hydrological-model.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exercise 7, the lumped hydrological model</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-given-just-run-it">Setup (given — just run it)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-bifurcation-diagram-in-co-2">Exercise 1 — the bifurcation diagram in CO<span class="math notranslate nohighlight">\(_2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-how-the-hysteresis-width-depends-on-the-icealbedo-contrast">Exercise 2 — how the hysteresis width depends on the ice–albedo contrast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-a-seasonal-snowalbedo-feedback">Exercise 3 — a seasonal snow–albedo feedback</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-goes-next">Where this goes next</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
