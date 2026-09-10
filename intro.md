@@ -64,7 +64,7 @@ impacts and extremes.
 
 ## How the notebooks map to the syllabus
 
-Lectures 1–2 are conceptual; Lectures 3–10 support **Module 2 (Modeling)** and are
+Lectures 1–2 are conceptual; Lectures 3–11 support **Module 2 (Modeling)** and are
 hands-on Python notebooks.
 
 - **Lecture 1** — Course introduction: what applied hydroclimatology is, how the
@@ -82,7 +82,10 @@ hands-on Python notebooks.
 - **Lecture 8** — Calibrating a hydrological model: objective functions, split-sample
   testing, Monte Carlo and automatic optimisation, and equifinality.
 - **Lecture 9** — Evolution in time and space: advection and diffusion in 1-D.
-- **Lecture 10** — Heat transports: two-dimensional advection–diffusion.
+- **Lecture 10** — Advection and diffusion in a river: flood-wave routing and
+  contaminant transport (the 1-D equation of Lecture 9 applied to hydrology; connects to
+  Module 7). 
+- **Lecture 11** — Heat transports: two-dimensional advection–diffusion.
 
 The accompanying exercises build a simple energy balance model, melt the Snowball
 Earth, and analyse observations from the Baltic Sea.
@@ -94,17 +97,19 @@ without the work of the original authors. Please cite them when reusing this con
 
 - ***Climate of the Ocean*** — H. E. Markus Meier, Florian Börgel, and Sven Karsten,
   Leibniz Institute for Baltic Sea Research Warnemünde (IOW) / University of Rostock.
-  Lectures 3–6, 9 and 10 and the exercises are adapted from this course.
+  Lectures 3–6, 9 and 11 and the exercises are adapted from this course.
   Website: <https://florianboergel.github.io/climateoftheocean> ·
   Source: <https://github.com/florianboergel/climateoftheocean>
 - ***Introduction to Computational Thinking*** (MIT 18.S191 / 18.S190) — the energy
   balance model, Snowball Earth, and the advection–diffusion notebooks derive from
   Henri Drake's lectures and the [`simplEarth`](https://github.com/hdrake/simplEarth)
   code, translated from Julia to Python. Course: <https://computationalthinking.mit.edu>
-- **Lectures 7–8** (lumped hydrological modelling and calibration) are written for this
-  course. The catchment data come from open sources (USGS, Daymet, CAMELS); the
-  [LuMod](https://gitlab.com/Zaul_AE/lumod) and [SPOTPY](https://spotpy.readthedocs.io/)
-  packages are credited within the notebooks as the production tools for this work.
+- **Lectures 7, 8 and 10** (lumped hydrological modelling, calibration, and channel
+  routing) are written for this course. Lecture 10 reuses the 1-D advection–diffusion
+  solver of Lecture 9. The catchment data come from open sources (USGS, Daymet, CAMELS);
+  the [LuMod](https://gitlab.com/Zaul_AE/lumod) and
+  [SPOTPY](https://spotpy.readthedocs.io/) packages are credited within the notebooks as
+  the production tools for this work.
 - **Brian E. J. Rose** — *The Climate Laboratory*, an open textbook.
   <https://brian-rose.github.io/ClimateLaboratoryBook/>
 - **Svirezhev, Y. M., & von Bloh, W. (1998).** A zero-dimensional climate–vegetation
