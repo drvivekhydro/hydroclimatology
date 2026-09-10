@@ -60,7 +60,7 @@ report writing.
 
 ## How the notebooks map to the syllabus
 
-Lectures 1–2 are conceptual; Lectures 3–8 support **Module III** and are hands-on
+Lectures 1–2 are conceptual; Lectures 3–10 support **Module III** and are hands-on
 Python notebooks.
 
 - **Lecture 1** — Course introduction: what applied hydroclimatology is, how the
@@ -73,8 +73,12 @@ Python notebooks.
 - **Lecture 5** — Snowball Earth, the ice–albedo feedback, and multiple equilibria.
 - **Lecture 6** — Coupling vegetation and a hydrological cycle to a zero-dimensional
   climate model (after Svirezhev & von Bloh, 1998).
-- **Lecture 7** — Evolution in time and space: advection and diffusion in 1-D.
-- **Lecture 8** — Heat transports: two-dimensional advection–diffusion.
+- **Lecture 7** — A lumped (zero-dimensional) hydrological model: the catchment water
+  balance, a bucket-and-reservoirs structure, and what each parameter does.
+- **Lecture 8** — Calibrating a hydrological model: objective functions, split-sample
+  testing, Monte Carlo and automatic optimisation, and equifinality.
+- **Lecture 9** — Evolution in time and space: advection and diffusion in 1-D.
+- **Lecture 10** — Heat transports: two-dimensional advection–diffusion.
 
 The accompanying exercises build a simple energy balance model, melt the Snowball
 Earth, and analyse observations from the Baltic Sea.
@@ -86,12 +90,16 @@ without the work of the original authors. Please cite them when reusing this con
 
 - ***Climate of the Ocean*** — H. E. Markus Meier, Florian Börgel, and Sven Karsten,
   Leibniz Institute for Baltic Sea Research Warnemünde (IOW) / University of Rostock.
-  Lectures 3–5 and 7–8 and the exercises are adapted from this course.
+  Lectures 3–6, 9 and 10 and the exercises are adapted from this course.
   Source: <https://github.com/florianboergel/climateoftheocean>
 - ***Introduction to Computational Thinking*** (MIT 18.S191 / 18.S190) — the energy
   balance model, Snowball Earth, and the advection–diffusion notebooks derive from
   Henri Drake's lectures and the [`simplEarth`](https://github.com/hdrake/simplEarth)
   code, translated from Julia to Python. Course: <https://computationalthinking.mit.edu>
+- **Lectures 7–8** (lumped hydrological modelling and calibration) are written for this
+  course. The catchment data come from open sources (USGS, Daymet, CAMELS); the
+  [LuMod](https://gitlab.com/Zaul_AE/lumod) and [SPOTPY](https://spotpy.readthedocs.io/)
+  packages are credited within the notebooks as the production tools for this work.
 - **Brian E. J. Rose** — *The Climate Laboratory*, an open textbook.
   <https://brian-rose.github.io/ClimateLaboratoryBook/>
 - **Svirezhev, Y. M., & von Bloh, W. (1998).** A zero-dimensional climate–vegetation

@@ -12,8 +12,10 @@ parts:
     - file: lecture-04-zero-dimensional-ebm
     - file: lecture-05-snowball-earth-ice-albedo-feedback
     - file: lecture-06-climate-vegetation-hydrology
-    - file: lecture-07-evolution-in-time-and-space
-    - file: lecture-08-heat-transports
+    - file: lecture-07-lumped-hydrological-model
+    - file: lecture-08-hydrological-model-calibration
+    - file: lecture-09-evolution-in-time-and-space
+    - file: lecture-10-heat-transports
   - caption: Exercise
     chapters:
     - file: exercise-01-policy-goals-under-uncertainty
