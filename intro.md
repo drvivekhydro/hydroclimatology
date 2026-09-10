@@ -117,9 +117,17 @@ without the work of the original authors. Please cite them when reusing this con
   119–127. (Basis for Lecture 6; further references are listed within that notebook.)
 
 Adaptation for **CE524 Applied Hydroclimatology at IIT Mandi** by Vivek Gupta, School
-of Civil and Environmental Engineering. New material developed for this course is
-© its authors and shared for educational use; the adapted material retains the licence
-of its original source.
+of Civil and Environmental Engineering.
+
+### Licence
+
+The teaching content of this book — text, figures, and notebooks — is released under
+the **Creative Commons Attribution–ShareAlike 4.0 International licence (CC BY-SA
+4.0)**; the code is additionally available under the **MIT licence**. This matches the
+ShareAlike terms of the principal upstream source, MIT's *Introduction to Computational
+Thinking* (18.S191), whose text is CC BY-SA 4.0. Portions remain © their original
+authors. The full per-lecture provenance, with sources and licences, is in
+[`CREDITS.md`](https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md).
 
 ## Literature
 
