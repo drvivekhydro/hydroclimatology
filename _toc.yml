@@ -17,6 +17,7 @@ parts:
     - file: lecture-09-evolution-in-time-and-space
     - file: lecture-10-advection-diffusion-in-rivers
     - file: lecture-11-heat-transports
+    - file: lecture-12-climate-data-analysis-with-xarray
   - caption: Exercise
     chapters:
     - file: exercise-03-introduction-to-python

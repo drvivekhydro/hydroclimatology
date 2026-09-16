@@ -4,6 +4,8 @@ pandas
 xarray
 netcdf4
 pooch
+pythia-datasets
+nc-time-axis
 ipywidgets
 scipy
 
