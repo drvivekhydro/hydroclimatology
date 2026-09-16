@@ -1,0 +1,794 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Applied Hydroclimatology (CE524) &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 1, Course introduction" href="lecture-01-course-introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-climate-data-analysis-with-xarray.html">Lecture 12, Climate data analysis with xarray</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/intro.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Applied Hydroclimatology (CE524)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-information">Course information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preamble">Preamble</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-modules">Course modules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-notebooks-map-to-the-syllabus">How the notebooks map to the syllabus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements-and-credits">Acknowledgements and credits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#licence">Licence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#literature">Literature</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-assessment">Climate assessment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydroclimatology-and-climate-dynamics">Hydroclimatology and climate dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrological-modeling">Hydrological modeling</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="applied-hydroclimatology-ce524">
+<h1>Applied Hydroclimatology (CE524)<a class="headerlink" href="#applied-hydroclimatology-ce524" title="Link to this heading">#</a></h1>
+<p><strong>Indian Institute of Technology Mandi</strong></p>
+<p>Water is an essential resource for human society and natural ecosystems, and its
+availability is set by the climate system. Under the uncertainty posed by climate
+change, understanding how the different components of the hydrological cycle are
+changing has become critically important. <em>Hydroclimatology</em> provides a systematic
+framework for studying how the climate system controls the spatial and temporal
+variability of precipitation, temperature, evapotranspiration, streamflow, and
+snowpack.</p>
+<p>This site collects the <strong>interactive computational notebooks</strong> for the course. Rather
+than only describing models, we build them step by step in Python: starting from a
+zero-dimensional energy balance model of the Earth, adding feedbacks, a biosphere and
+a hydrological cycle, and then moving to advection and diffusion in space. Each
+notebook can be run in the browser through the 🚀 launch button (Google Colab or
+Binder) — no local installation required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The notebook collection is under active development and currently focuses on
+<strong>Module 2 (Modeling)</strong>. Material for the observation, data-processing, impacts, and
+hydroclimatic-extremes modules will be added over the course of the semester.</p>
+</div>
+<section id="course-information">
+<h2>Course information<a class="headerlink" href="#course-information" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Course number</p></td>
+<td><p>CE524</p></td>
+</tr>
+<tr class="row-odd"><td><p>Credit distribution</p></td>
+<td><p>3–0–0–3</p></td>
+</tr>
+<tr class="row-even"><td><p>Intended for</p></td>
+<td><p>Final-year undergraduate, PG, and Ph.D. students</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prerequisite</p></td>
+<td><p>None. Familiarity with any programming language (Python, R, MATLAB, …) is helpful.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="preamble">
+<h2>Preamble<a class="headerlink" href="#preamble" title="Link to this heading">#</a></h2>
+<p>Under the uncertainty posed by climate change, understanding the changing nature of
+the different components of the hydrological cycle becomes critically important, as
+water is an essential resource for human society and natural ecosystems.
+Hydroclimatology provides a systematic structure for studying how the climate system
+influences the spatial and temporal variations in the hydrological cycle. In this
+course, students explore the climatic drivers of hydrology — precipitation,
+temperature, evapotranspiration, streamflow, and snowpack — and are trained to
+acquire, process, and analyse large climate datasets to generate useful information
+for water-resources management and planning. Students also gain exposure to current
+research trends, gaps, and future directions in hydroclimatology, and to research
+report writing.</p>
+</section>
+<section id="course-modules">
+<h2>Course modules<a class="headerlink" href="#course-modules" title="Link to this heading">#</a></h2>
+<p>The modules are listed here in the order they are taught, which builds from
+understanding the system, to modelling it, to working with real data, and finally to
+impacts and extremes.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Topics</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1 — Introduction to hydroclimatology</strong></p></td>
+<td><p>Concept and scope of hydroclimatology; climate change: causes and impacts; impact on the global hydrologic cycle; water management in a changing climate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2 — Modeling</strong></p></td>
+<td><p>Fundamental principles in hydroclimatic modeling; types of climate models; simple climate models; simple energy balance climate models (zero-dimensional, single-layer, one-dimensional); general circulation models (GCM); hydrologic modeling; types and components of hydrological models; SWAT, VIC, HEC-HMS.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>3 — Observation</strong></p></td>
+<td><p>Types of research data; qualitative and quantitative data; measurement of precipitation, temperature, humidity, wind speed, radiation, evapotranspiration, snow, streamflow, sediment, snow water equivalent; missing-data handling; hydroclimatic measurements in the Himalayan regions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>4 — Hydroclimatic data processing and analysis</strong></p></td>
+<td><p>Gridding observed data; reanalysis data; satellite-derived data; radar data; climate data; paleoclimatology data; climate indices; overview of CMIP6; downscaling and bias correction of climate data; impact-assessment studies.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>5 — Impact on hydrology, agriculture, and ecosystems</strong></p></td>
+<td><p>Climate-change impact on dams; weather and climate metrics for agriculture; heat-stress indices; impact on food security in India; energy limitation versus moisture limitation; ecosystem services; Himalayan ecosystem and climate-change impact.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>6 — Hydroclimatic extremes: droughts</strong></p></td>
+<td><p>Drought definitions (meteorological, hydrological, agricultural, socioeconomic); drought indicators; theory of runs; severity, duration, intensity; frequency analysis; impact of climate change on droughts; drought declaration and management in India.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>7 — Hydroclimatic extremes: floods</strong></p></td>
+<td><p>Definitions; flood types; extreme-precipitation indices; flood analysis; flood frequency analysis; design flood; flood hazard and damage; glacial lake outburst floods (GLOF); impact of climate change on floods; flood-risk and floodplain management.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="how-the-notebooks-map-to-the-syllabus">
+<h2>How the notebooks map to the syllabus<a class="headerlink" href="#how-the-notebooks-map-to-the-syllabus" title="Link to this heading">#</a></h2>
+<p>Lectures 1–2 are conceptual; Lectures 3–11 support <strong>Module 2 (Modeling)</strong> and are
+hands-on Python notebooks.</p>
+<ul class="simple">
+<li><p><strong>Lecture 1</strong> — Course introduction: what applied hydroclimatology is, how the
+course is organised, and how it is assessed.</p></li>
+<li><p><strong>Lecture 2</strong> — Components of the climate system: weather vs climate, climate
+classification, the five components and their couplings, energy balance, the
+greenhouse effect, and characteristic timescales.</p></li>
+<li><p><strong>Lecture 3</strong> — Introduction to Python for data analysis.</p></li>
+<li><p><strong>Lecture 4</strong> — A zero-dimensional energy balance model of Earth’s climate.</p></li>
+<li><p><strong>Lecture 5</strong> — Snowball Earth, the ice–albedo feedback, and multiple equilibria.</p></li>
+<li><p><strong>Lecture 6</strong> — Coupling vegetation and a hydrological cycle to a zero-dimensional
+climate model (after Svirezhev &amp; von Bloh, 1998).</p></li>
+<li><p><strong>Lecture 7</strong> — A lumped (zero-dimensional) hydrological model: the catchment water
+balance, a bucket-and-reservoirs structure, and what each parameter does.</p></li>
+<li><p><strong>Lecture 8</strong> — Calibrating a hydrological model: objective functions, split-sample
+testing, Monte Carlo and automatic optimisation, and equifinality.</p></li>
+<li><p><strong>Lecture 9</strong> — Evolution in time and space: advection and diffusion in 1-D.</p></li>
+<li><p><strong>Lecture 10</strong> — Advection and diffusion in a river: flood-wave routing and
+contaminant transport (the 1-D equation of Lecture 9 applied to hydrology; connects to
+Module 7).</p></li>
+<li><p><strong>Lecture 11</strong> — Heat transports: two-dimensional advection–diffusion.</p></li>
+</ul>
+<p>Each hands-on lecture (3–5, 7–10) has a companion <strong>exercise notebook</strong> with
+the data, model and plotting written out and the analysis code left as marked
+fill-in-the-blanks. Exercise 9 works with real Indian Ocean sea-surface-temperature
+data (the seasonal cycle, the warming trend, and the Indian Ocean Dipole).</p>
+</section>
+<section id="acknowledgements-and-credits">
+<h2>Acknowledgements and credits<a class="headerlink" href="#acknowledgements-and-credits" title="Link to this heading">#</a></h2>
+<p>This notebook collection is <strong>adapted from open teaching material</strong> and would not exist
+without the work of the original authors. Please cite them when reusing this content.</p>
+<ul class="simple">
+<li><p><em><strong>Climate of the Ocean</strong></em> — H. E. Markus Meier, Florian Börgel, and Sven Karsten,
+Leibniz Institute for Baltic Sea Research Warnemünde (IOW) / University of Rostock.
+Lectures 3–6, 9 and 11 and the exercises are adapted from this course.
+Website: <a class="reference external" href="https://florianboergel.github.io/climateoftheocean">https://florianboergel.github.io/climateoftheocean</a> ·
+Source: <a class="github reference external" href="https://github.com/florianboergel/climateoftheocean">florianboergel/climateoftheocean</a></p></li>
+<li><p><em><strong>Introduction to Computational Thinking</strong></em> (MIT 18.S191 / 18.S190) — the energy
+balance model, Snowball Earth, and the advection–diffusion notebooks derive from
+Henri Drake’s lectures and the <a class="reference external" href="https://github.com/hdrake/simplEarth"><code class="docutils literal notranslate"><span class="pre">simplEarth</span></code></a>
+code, translated from Julia to Python. Course: <a class="reference external" href="https://computationalthinking.mit.edu">https://computationalthinking.mit.edu</a></p></li>
+<li><p><strong>Lectures 7, 8 and 10</strong> (lumped hydrological modelling, calibration, and channel
+routing) are written for this course. Lecture 10 reuses the 1-D advection–diffusion
+solver of Lecture 9. The catchment data come from open sources (USGS, Daymet, CAMELS);
+the <a class="reference external" href="https://gitlab.com/Zaul_AE/lumod">LuMod</a> and
+<a class="reference external" href="https://spotpy.readthedocs.io/">SPOTPY</a> packages are credited within the notebooks as
+the production tools for this work.</p></li>
+<li><p><strong>Brian E. J. Rose</strong> — <em>The Climate Laboratory</em>, an open textbook.
+<a class="reference external" href="https://brian-rose.github.io/ClimateLaboratoryBook/">https://brian-rose.github.io/ClimateLaboratoryBook/</a></p></li>
+<li><p><strong>Svirezhev, Y. M., &amp; von Bloh, W. (1998).</strong> A zero-dimensional climate–vegetation
+model containing global carbon and hydrological cycle. <em>Ecological Modelling, 106</em>,
+119–127. (Basis for Lecture 6; further references are listed within that notebook.)</p></li>
+</ul>
+<p>Adaptation for <strong>CE524 Applied Hydroclimatology at IIT Mandi</strong> by Vivek Gupta, School
+of Civil and Environmental Engineering.</p>
+<section id="licence">
+<h3>Licence<a class="headerlink" href="#licence" title="Link to this heading">#</a></h3>
+<p>The teaching content of this book — text, figures, and notebooks — is released under
+the <strong>Creative Commons Attribution–ShareAlike 4.0 International licence (CC BY-SA
+4.0)</strong>; the code is additionally available under the <strong>MIT licence</strong>. This matches the
+ShareAlike terms of the principal upstream source, MIT’s <em>Introduction to Computational
+Thinking</em> (18.S191), whose text is CC BY-SA 4.0. Portions remain © their original
+authors. The full per-lecture provenance, with sources and licences, is in
+<a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md"><code class="docutils literal notranslate"><span class="pre">CREDITS.md</span></code></a>.</p>
+</section>
+</section>
+<section id="literature">
+<h2>Literature<a class="headerlink" href="#literature" title="Link to this heading">#</a></h2>
+<section id="climate-assessment">
+<h3>Climate assessment<a class="headerlink" href="#climate-assessment" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>IPCC Assessment Reports — <a class="reference external" href="https://www.ipcc.ch">https://www.ipcc.ch</a> (open access)</p></li>
+<li><p>CMIP6 model output — <a class="reference external" href="https://esgf-node.llnl.gov/projects/cmip6/">https://esgf-node.llnl.gov/projects/cmip6/</a></p></li>
+</ul>
+</section>
+<section id="hydroclimatology-and-climate-dynamics">
+<h3>Hydroclimatology and climate dynamics<a class="headerlink" href="#hydroclimatology-and-climate-dynamics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>L. J. Gordon, K. Vörösmarty et al. — hydrological-cycle and water-resources literature</p></li>
+<li><p>Dennis L. Hartmann — <em>Global Physical Climatology</em>, 2nd ed. (2016)</p></li>
+<li><p>Geoffrey K. Vallis — <em>Climate and the Oceans</em> (2011)</p></li>
+<li><p>Dietmar Dommenget — <em>Climate Dynamics</em> lecture notes,
+<a class="reference external" href="http://users.monash.edu.au/~dietmard/teaching/dommenget.climate.dynamics.notes.pdf">http://users.monash.edu.au/~dietmard/teaching/dommenget.climate.dynamics.notes.pdf</a></p></li>
+</ul>
+</section>
+<section id="hydrological-modeling">
+<h3>Hydrological modeling<a class="headerlink" href="#hydrological-modeling" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>SWAT — <a class="reference external" href="https://swat.tamu.edu/">https://swat.tamu.edu/</a></p></li>
+<li><p>VIC — <a class="reference external" href="https://vic.readthedocs.io/">https://vic.readthedocs.io/</a></p></li>
+<li><p>HEC-HMS — <a class="reference external" href="https://www.hec.usace.army.mil/software/hec-hms/">https://www.hec.usace.army.mil/software/hec-hms/</a></p></li>
+</ul>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="lecture-01-course-introduction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 1, Course introduction</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-information">Course information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preamble">Preamble</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-modules">Course modules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-notebooks-map-to-the-syllabus">How the notebooks map to the syllabus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements-and-credits">Acknowledgements and credits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#licence">Licence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#literature">Literature</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-assessment">Climate assessment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydroclimatology-and-climate-dynamics">Hydroclimatology and climate dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrological-modeling">Hydrological modeling</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

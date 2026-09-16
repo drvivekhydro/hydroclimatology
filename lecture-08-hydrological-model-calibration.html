@@ -1,0 +1,1182 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 8, Calibrating a hydrological model &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-08-hydrological-model-calibration';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 9, Evolution in time and space" href="lecture-09-evolution-in-time-and-space.html" />
+    <link rel="prev" title="Lecture 7, A lumped hydrological model" href="lecture-07-lumped-hydrological-model.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-climate-data-analysis-with-xarray.html">Lecture 12, Climate data analysis with xarray</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-08-hydrological-model-calibration.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-08-hydrological-model-calibration.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-08-hydrological-model-calibration.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-08-hydrological-model-calibration.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 8, Calibrating a hydrological model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model-vectorised">The model, vectorised</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-functions">1) Objective functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-sample-testing">2) Split-sample testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-identical-twin-test">3) An identical-twin test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-real-catchment-manual-calibration-first">4) The real catchment: manual calibration first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-random-search">5) Monte Carlo (random search)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-optimisation">6) Automatic optimisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">7) Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equifinality">8) Equifinality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-8-calibrating-a-hydrological-model">
+<h1>Lecture 8, Calibrating a hydrological model<a class="headerlink" href="#lecture-8-calibrating-a-hydrological-model" title="Link to this heading">#</a></h1>
+<p>The model of Lecture 7 has five parameters, and none of them can be measured in the
+field: <span class="math notranslate nohighlight">\(S_{max}\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(k_{perc}\)</span>, <span class="math notranslate nohighlight">\(k_f\)</span> and <span class="math notranslate nohighlight">\(k_s\)</span> are <em>effective</em> quantities for
+the whole catchment. We infer them by running the model with many parameter sets and
+keeping the ones that make the simulated streamflow look most like the observed
+streamflow. That inference is <strong>calibration</strong>.</p>
+<p>Calibration raises four questions this lecture works through:</p>
+<ol class="arabic simple">
+<li><p><em>“Look most like”</em> — measured how? (objective functions)</p></li>
+<li><p>How do we know the calibrated model will work on data it was not fitted to?
+(split-sample testing)</p></li>
+<li><p>If the method works perfectly on a problem where we know the answer, why does it
+only get part-way on real data? (an identical-twin test)</p></li>
+<li><p>If several very different parameter sets fit almost equally well, which one is
+right? (equifinality)</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib scipy
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/chattooga_daily.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span>
+                 <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"date"</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"prcp_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">Ep</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"pet_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">Qobs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"q_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-model-vectorised">
+<h2>The model, vectorised<a class="headerlink" href="#the-model-vectorised" title="Link to this heading">#</a></h2>
+<p>This is the Lecture 7 model with one change: the parameters can be <strong>arrays</strong>, so a
+whole ensemble of parameter sets is stepped through the loop at once. Running 3000
+parameter sets then costs one pass over the record instead of 3000, which is what makes
+Monte Carlo and population-based optimisers practical.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PARAM_NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"smax"</span><span class="p">,</span> <span class="s2">"beta"</span><span class="p">,</span> <span class="s2">"kperc"</span><span class="p">,</span> <span class="s2">"kf"</span><span class="p">,</span> <span class="s2">"ks"</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">prcp</span><span class="o">=</span><span class="n">P</span><span class="p">,</span> <span class="n">pet</span><span class="o">=</span><span class="n">Ep</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Lumped model of Lecture 7. theta: (n_sets, 5) or (5,). Returns (n_time,) or (n_time, n_sets)."""</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+    <span class="n">smax</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">kperc</span><span class="p">,</span> <span class="n">kf</span><span class="p">,</span> <span class="n">ks</span> <span class="o">=</span> <span class="p">(</span><span class="n">th</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">smax</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">F1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">smax</span><span class="p">);</span> <span class="n">F2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">smax</span><span class="p">);</span> <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">smax</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">prcp</span><span class="p">),</span> <span class="n">smax</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prcp</span><span class="p">)):</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">prcp</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">pet</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">smax</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">runoff</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">s</span> <span class="o">**</span> <span class="n">beta</span>
+        <span class="n">aet</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">*</span> <span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">S</span> <span class="o">+</span> <span class="n">p</span> <span class="o">-</span> <span class="n">runoff</span> <span class="o">-</span> <span class="n">aet</span>
+        <span class="n">runoff</span> <span class="o">=</span> <span class="n">runoff</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="n">smax</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span> <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">smax</span><span class="p">)</span>
+        <span class="n">aet</span> <span class="o">=</span> <span class="n">aet</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>             <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">perc</span> <span class="o">=</span> <span class="n">kperc</span> <span class="o">*</span> <span class="n">S</span> <span class="o">*</span> <span class="n">s</span> <span class="o">**</span> <span class="mi">3</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">S</span> <span class="o">-</span> <span class="n">perc</span>
+        <span class="n">F1</span> <span class="o">=</span> <span class="n">F1</span> <span class="o">+</span> <span class="n">runoff</span><span class="p">;</span> <span class="n">R</span> <span class="o">=</span> <span class="n">R</span> <span class="o">+</span> <span class="n">perc</span>
+        <span class="n">o1</span> <span class="o">=</span> <span class="n">kf</span> <span class="o">*</span> <span class="n">F1</span><span class="p">;</span> <span class="n">F1</span> <span class="o">=</span> <span class="n">F1</span> <span class="o">-</span> <span class="n">o1</span>
+        <span class="n">F2</span> <span class="o">=</span> <span class="n">F2</span> <span class="o">+</span> <span class="n">o1</span><span class="p">;</span>  <span class="n">o2</span> <span class="o">=</span> <span class="n">kf</span> <span class="o">*</span> <span class="n">F2</span><span class="p">;</span> <span class="n">F2</span> <span class="o">=</span> <span class="n">F2</span> <span class="o">-</span> <span class="n">o2</span>
+        <span class="n">qs</span> <span class="o">=</span> <span class="n">ks</span> <span class="o">*</span> <span class="n">R</span><span class="p">;</span>   <span class="n">R</span> <span class="o">=</span> <span class="n">R</span> <span class="o">-</span> <span class="n">qs</span>
+        <span class="n">q</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">o2</span> <span class="o">+</span> <span class="n">qs</span>
+    <span class="k">return</span> <span class="n">q</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+<span class="n">BOUNDS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">700.0</span><span class="p">],</span>   <span class="c1"># smax  [mm]</span>
+                   <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>      <span class="c1"># beta  [-]</span>
+                   <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span>      <span class="c1"># kperc [1/day]</span>
+                   <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>     <span class="c1"># kf    [1/day]</span>
+                   <span class="p">[</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">]])</span>  <span class="c1"># ks    [1/day]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="objective-functions">
+<h2>1) Objective functions<a class="headerlink" href="#objective-functions" title="Link to this heading">#</a></h2>
+<p>An objective function turns the mismatch between two time series into one number. Four
+are in common use in hydrology; each rewards a different kind of agreement.</p>
+<p><strong>Nash–Sutcliffe efficiency (NSE)</strong> compares the model against the mean of the
+observations:</p>
+<div class="math notranslate nohighlight">
+\[\text{NSE} = 1 - \frac{\sum (Q_{sim} - Q_{obs})^2}{\sum (Q_{obs} - \overline{Q_{obs}})^2}.\]</div>
+<p>NSE <span class="math notranslate nohighlight">\(= 1\)</span> is perfect, NSE <span class="math notranslate nohighlight">\(= 0\)</span> means the model is no better than predicting the mean
+flow every day, and NSE <span class="math notranslate nohighlight">\(&lt; 0\)</span> is worse than that. Because the errors are squared, NSE
+is dominated by the largest flows — a good NSE means the flood peaks are right.</p>
+<p><strong>Log-NSE</strong> is NSE computed on <span class="math notranslate nohighlight">\(\ln(Q + \varepsilon)\)</span>. Taking logs compresses the
+peaks and stretches the low flows, so log-NSE measures how well the model does in the
+dry season.</p>
+<p><strong>Kling–Gupta efficiency (KGE)</strong> breaks the error into three parts —
+correlation <span class="math notranslate nohighlight">\(r\)</span>, a variability ratio <span class="math notranslate nohighlight">\(\alpha = \sigma_{sim}/\sigma_{obs}\)</span>, and a bias
+ratio <span class="math notranslate nohighlight">\(\beta = \mu_{sim}/\mu_{obs}\)</span> — and combines them:</p>
+<div class="math notranslate nohighlight">
+\[\text{KGE} = 1 - \sqrt{(r-1)^2 + (\alpha-1)^2 + (\beta-1)^2}.\]</div>
+<p><strong>RMSE</strong> is just the root-mean-square error, in mm day⁻¹ — interpretable, but it
+grows with the size of the flows so it cannot be compared between catchments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">nse</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">sim</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+    <span class="n">o</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">sim</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">s</span> <span class="o">-</span> <span class="n">o</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">o</span> <span class="o">-</span> <span class="n">o</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lognse</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span> <span class="k">if</span> <span class="n">eps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nse</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">obs</span> <span class="o">+</span> <span class="n">eps</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sim</span> <span class="o">+</span> <span class="n">eps</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">kge</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">sim</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+    <span class="n">o</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">sim</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">s</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">o</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+                         <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">o</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rmse</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">sim</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">sim</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">-</span> <span class="n">obs</span><span class="p">[</span><span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Score one simulation — the “first guess” parameters from Lecture 7 — with
+all four metrics. They disagree, because they are measuring different things.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+<span class="n">q1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulate</span><span class="p">([</span><span class="mf">250.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.015</span><span class="p">]))</span>
+<span class="n">ev</span> <span class="o">=</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="s2">"1993-01-01"</span>                             <span class="c1"># drop the warm-up</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  NSE    = </span><span class="si">{</span><span class="n">nse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">ev</span><span class="p">],</span><span class="w"> </span><span class="n">q1</span><span class="p">[</span><span class="n">ev</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  logNSE = </span><span class="si">{</span><span class="n">lognse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">ev</span><span class="p">],</span><span class="w"> </span><span class="n">q1</span><span class="p">[</span><span class="n">ev</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  KGE    = </span><span class="si">{</span><span class="n">kge</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">ev</span><span class="p">],</span><span class="w"> </span><span class="n">q1</span><span class="p">[</span><span class="n">ev</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  RMSE   = </span><span class="si">{</span><span class="n">rmse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">ev</span><span class="p">],</span><span class="w"> </span><span class="n">q1</span><span class="p">[</span><span class="n">ev</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> mm/d"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  NSE    = 0.638
+  logNSE = 0.799
+  KGE    = 0.735
+  RMSE   = 1.573 mm/d
+</pre></div>
+</div>
+</div>
+</div>
+<p>Why the disagreement? Plot the two error terms that NSE and log-NSE actually sum: the
+squared error <span class="math notranslate nohighlight">\((Q_{sim} - Q_{obs})^2\)</span> and its logarithmic counterpart.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eps</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Qobs</span><span class="p">)</span>
+<span class="n">sq</span> <span class="o">=</span> <span class="p">(</span><span class="n">q1</span> <span class="o">-</span> <span class="n">Qobs</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">sqlog</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q1</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Qobs</span> <span class="o">+</span> <span class="n">eps</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="n">win</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="s2">"2003-01-01"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="s2">"2006-01-01"</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">Qobs</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed Q"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q [mm/d]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">sq</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$(Q_</span><span class="si">{sim}</span><span class="s2">-Q_</span><span class="si">{obs}</span><span class="s2">)^2$  (NSE)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">sqlog</span><span class="p">[</span><span class="n">win</span><span class="p">]</span> <span class="o">*</span> <span class="n">sq</span><span class="p">[</span><span class="n">win</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">sqlog</span><span class="p">[</span><span class="n">win</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span>
+           <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"squared log-error (log-NSE), rescaled"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"error term"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9096355ff9f5c13d1178b139eace1f7dc45d902f352a943625312546a5ddfe30.png" src="_images/9096355ff9f5c13d1178b139eace1f7dc45d902f352a943625312546a5ddfe30.png" />
+</div>
+</div>
+<p>The plain squared error is a spike train: it is essentially zero except during a
+handful of flood days, so <strong>NSE is a flood metric</strong> — a model can have a good NSE
+and still be useless in the dry season. The squared log-error is spread evenly across
+wet and dry periods, so <strong>log-NSE weights all flows</strong> and rewards getting the
+recessions and low flows right. <strong>KGE</strong> sits between the two and additionally penalises
+the model for having the wrong mean or the wrong variability.</p>
+<p>The objective function is a modelling <em>choice</em>: for a flood study, calibrate on NSE;
+for a drought or water-supply study, on log-NSE or KGE; often on a weighted
+combination. For the rest of this lecture we calibrate on <strong>NSE</strong>.</p>
+</section>
+<section id="split-sample-testing">
+<h2>2) Split-sample testing<a class="headerlink" href="#split-sample-testing" title="Link to this heading">#</a></h2>
+<p>A model with five free parameters can be tuned to fit almost any single record. The
+test that matters is whether it then works on a <em>different</em> period. So we divide the
+25-year record into three:</p>
+<ul class="simple">
+<li><p><strong>warm-up</strong> (1991–1993) — run but not scored, to forget the initial guess;</p></li>
+<li><p><strong>calibration</strong> (1994–2007) — the parameters are chosen to maximise NSE here;</p></li>
+<li><p><strong>validation</strong> (2008–2015) — never seen during calibration; the honest test.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warmup</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="s2">"1994-01-01"</span>
+<span class="n">cal</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s2">"1994-01-01"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="s2">"2008-01-01"</span><span class="p">)</span>
+<span class="n">val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s2">"2008-01-01"</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Qobs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.6"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">warmup</span><span class="p">,</span> <span class="s2">"0.8"</span><span class="p">,</span> <span class="s2">"warm-up"</span><span class="p">),</span> <span class="p">(</span><span class="n">cal</span><span class="p">,</span> <span class="s2">"tab:green"</span><span class="p">,</span> <span class="s2">"calibration"</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s2">"tab:orange"</span><span class="p">,</span> <span class="s2">"validation"</span><span class="p">)]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">Qobs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q [mm/d]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">nse</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">metric</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulate</span><span class="p">(</span><span class="n">theta</span><span class="p">))[</span><span class="n">mask</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e85128cf21d7ffcb9adeea50ffd65be8417ff22cd22d8d40598ee857442ad01d.png" src="_images/e85128cf21d7ffcb9adeea50ffd65be8417ff22cd22d8d40598ee857442ad01d.png" />
+</div>
+</div>
+</section>
+<section id="an-identical-twin-test">
+<h2>3) An identical-twin test<a class="headerlink" href="#an-identical-twin-test" title="Link to this heading">#</a></h2>
+<p>Before calibrating a real catchment it is worth checking the machinery on a problem
+where the answer is known. In an <strong>identical-twin</strong> (or <em>synthetic</em>) experiment we
+<em>generate</em> a streamflow series by running the model with a chosen “true” parameter set,
+then hand that series to the calibration as if it were an observation and see whether
+the true parameters come back.</p>
+<p>We use a global optimiser, <code class="docutils literal notranslate"><span class="pre">differential_evolution</span></code>: it does not get stuck in local
+optima, needs no gradients, and SciPy can evaluate a whole population in one vectorised
+call. Each calibration below takes roughly half a minute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">differential_evolution</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calibrate</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">cal</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">popsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the parameter set that maximises NSE against `target` over `mask`."""</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="n">mask</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">denom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">((</span><span class="n">o</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">o</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cost</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                                  <span class="c1"># x: (5, popsize)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">simulate</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">((</span><span class="n">s</span> <span class="o">-</span> <span class="n">o</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">differential_evolution</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">BOUNDS</span><span class="p">,</span> <span class="n">vectorized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">updating</span><span class="o">=</span><span class="s2">"deferred"</span><span class="p">,</span>
+                               <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span> <span class="n">popsize</span><span class="o">=</span><span class="n">popsize</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">x</span>
+
+<span class="n">theta_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">220.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">])</span>
+<span class="n">Q_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulate</span><span class="p">(</span><span class="n">theta_true</span><span class="p">))</span>         <span class="c1"># the synthetic "observations"</span>
+
+<span class="c1"># (a) calibrate against the clean synthetic series</span>
+<span class="n">theta_clean</span> <span class="o">=</span> <span class="n">calibrate</span><span class="p">(</span><span class="n">Q_true</span><span class="p">)</span>
+
+<span class="c1"># (b) calibrate against the same series with 15% random noise added</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Q_true</span><span class="p">))</span>
+<span class="n">Q_noisy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">Q_true</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">noise</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">theta_noisy</span> <span class="o">=</span> <span class="n">calibrate</span><span class="p">(</span><span class="n">Q_noisy</span><span class="p">)</span>
+
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"true"</span><span class="p">:</span> <span class="n">theta_true</span><span class="p">,</span>
+                    <span class="s2">"recovered, clean"</span><span class="p">:</span> <span class="n">theta_clean</span><span class="p">,</span>
+                    <span class="s2">"recovered, 15% noise"</span><span class="p">:</span> <span class="n">theta_noisy</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">PARAM_NAMES</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tbl</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">NSE of the recovered model against the TRUE series:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  from clean data : </span><span class="si">{</span><span class="n">nse</span><span class="p">(</span><span class="n">Q_true</span><span class="p">[</span><span class="n">cal</span><span class="p">],</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulate</span><span class="p">(</span><span class="n">theta_clean</span><span class="p">))[</span><span class="n">cal</span><span class="p">])</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  from noisy data : </span><span class="si">{</span><span class="n">nse</span><span class="p">(</span><span class="n">Q_true</span><span class="p">[</span><span class="n">cal</span><span class="p">],</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulate</span><span class="p">(</span><span class="n">theta_noisy</span><span class="p">))[</span><span class="n">cal</span><span class="p">])</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"NSE of the noisy-data fit against the NOISY series it was fitted to: "</span>
+      <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">nse</span><span class="p">(</span><span class="n">Q_noisy</span><span class="p">[</span><span class="n">cal</span><span class="p">],</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulate</span><span class="p">(</span><span class="n">theta_noisy</span><span class="p">))[</span><span class="n">cal</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          true  recovered, clean  recovered, 15% noise
+smax   220.000           220.564               222.141
+beta     3.000             2.986                 3.036
+kperc    0.080             0.081                 0.077
+kf       0.450             0.451                 0.447
+ks       0.012             0.012                 0.012
+
+NSE of the recovered model against the TRUE series:
+  from clean data : 1.0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  from noisy data : 0.9999
+NSE of the noisy-data fit against the NOISY series it was fitted to: 0.934
+</pre></div>
+</div>
+</div>
+</div>
+<p>With <strong>clean</strong> synthetic data the optimiser recovers every parameter to three or four
+significant figures and the fit is perfect (NSE <span class="math notranslate nohighlight">\(= 1.0000\)</span>). With <strong>15% noise</strong> it
+still recovers the parameters to within a percent or two, and the recovered model is
+almost identical to the truth — but it can no longer fit the <em>noisy</em> series past
+NSE <span class="math notranslate nohighlight">\(\approx 0.93\)</span>, because a smooth model cannot reproduce random noise. The noise
+sets a ceiling on the achievable score.</p>
+<p>So the calibration method works. When the same method reaches only NSE <span class="math notranslate nohighlight">\(\approx 0.65\)</span>
+on the real Chattooga (Sections 6–7), that is <strong>not</strong> the optimiser failing
+— it is telling us something about the model and the data, which we come back to
+after calibrating for real.</p>
+</section>
+<section id="the-real-catchment-manual-calibration-first">
+<h2>4) The real catchment: manual calibration first<a class="headerlink" href="#the-real-catchment-manual-calibration-first" title="Link to this heading">#</a></h2>
+<p>Now the real problem. Before automating anything, turn the knobs by hand for a few
+minutes — it builds the intuition that tells you whether an automatic result is
+sensible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trials</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"first guess"</span><span class="p">:</span>  <span class="p">[</span><span class="mf">250.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.015</span><span class="p">],</span>
+    <span class="s2">"flashier"</span><span class="p">:</span>     <span class="p">[</span><span class="mf">150.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">],</span>
+    <span class="s2">"more storage"</span><span class="p">:</span> <span class="p">[</span><span class="mf">400.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.010</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">trials</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">name</span><span class="p">,</span> <span class="n">score</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">cal</span><span class="p">),</span> <span class="n">score</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">val</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"parameter set"</span><span class="p">,</span> <span class="s2">"NSE cal"</span><span class="p">,</span> <span class="s2">"NSE val"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>parameter set  NSE cal  NSE val
+  first guess    0.587    0.718
+     flashier    0.408    0.371
+ more storage    0.543    0.697
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hand-tuning gets us into the right region but stalls: it is hard to juggle five
+parameters at once, and easy to fool yourself. Automatic search does the juggling
+systematically.</p>
+</section>
+<section id="monte-carlo-random-search">
+<h2>5) Monte Carlo (random search)<a class="headerlink" href="#monte-carlo-random-search" title="Link to this heading">#</a></h2>
+<p>The simplest automatic method: draw thousands of parameter sets at random from within
+the bounds, run them all, and look at the results. It is not efficient, but it is
+robust, trivially parallel, and — crucially — it shows the <em>whole</em> response
+surface, not just the optimum.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">6000</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">BOUNDS</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">BOUNDS</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">BOUNDS</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="n">Qens</span> <span class="o">=</span> <span class="n">simulate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>                                   <span class="c1"># (n_time, N), one pass</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">Qobs</span><span class="p">[</span><span class="n">cal</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">];</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Qens</span><span class="p">[</span><span class="n">cal</span><span class="p">]</span>
+<span class="n">mc_nse</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">((</span><span class="n">s</span> <span class="o">-</span> <span class="n">o</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">((</span><span class="n">o</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">o</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">best</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mc_nse</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"best of </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> random sets:  NSE cal = </span><span class="si">{</span><span class="n">mc_nse</span><span class="p">[</span><span class="n">best</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"  "</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">PARAM_NAMES</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">best</span><span class="p">])))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">PARAM_NAMES</span><span class="p">)):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">mc_nse</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">best</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">name</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"NSE (calibration)"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"dotty plots: NSE against each parameter"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best of 6000 random sets:  NSE cal = 0.625
+  smax=215, beta=3.61, kperc=0.13, kf=0.531, ks=0.0102
+</pre></div>
+</div>
+<img alt="_images/a34613018456053bc6de4d1d60c084fd5788a56116b2cd6c1ae0f0cbf334e23f.png" src="_images/a34613018456053bc6de4d1d60c084fd5788a56116b2cd6c1ae0f0cbf334e23f.png" />
+</div>
+</div>
+<p>These <strong>dotty plots</strong> are diagnostic. Where the top edge of the cloud forms a clear
+peak — here for the two recession coefficients <span class="math notranslate nohighlight">\(k_s\)</span> and <span class="math notranslate nohighlight">\(k_f\)</span> — the data
+<em>identify</em> that parameter: only a narrow range gives high NSE. Where the top edge is
+flat — here <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(k_{perc}\)</span>, which mostly rearrange water between stores
+without changing the outflow much — the parameter is <strong>poorly identified</strong>: many
+values work equally well and the calibration cannot pin it down. <span class="math notranslate nohighlight">\(S_{max}\)</span> is
+in between.</p>
+</section>
+<section id="automatic-optimisation">
+<h2>6) Automatic optimisation<a class="headerlink" href="#automatic-optimisation" title="Link to this heading">#</a></h2>
+<p>Random search wastes most of its runs far from the optimum. The <code class="docutils literal notranslate"><span class="pre">differential_evolution</span></code>
+optimiser introduced in the twin test spends its budget where the score is improving;
+applied to the real catchment it converges in the same half-minute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theta_cal</span> <span class="o">=</span> <span class="n">calibrate</span><span class="p">(</span><span class="n">Qobs</span><span class="p">)</span>                        <span class="c1"># same helper as the twin test</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"calibrated parameters:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">PARAM_NAMES</span><span class="p">,</span> <span class="n">theta_cal</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">6s</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">NSE cal = </span><span class="si">{</span><span class="n">score</span><span class="p">(</span><span class="n">theta_cal</span><span class="p">,</span><span class="w"> </span><span class="n">cal</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   NSE val = </span><span class="si">{</span><span class="n">score</span><span class="p">(</span><span class="n">theta_cal</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>calibrated parameters:
+  smax   = 181.8
+  beta   = 3.391
+  kperc  = 0.1301
+  kf     = 0.5323
+  ks     = 0.01234
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NSE cal = 0.647   NSE val = 0.701
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="validation">
+<h2>7) Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h2>
+<p>The number that matters is the validation NSE. If it is close to the calibration NSE,
+the model <strong>generalises</strong>; if it collapses, the calibration has fitted noise or a
+period-specific quirk.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qcal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulate</span><span class="p">(</span><span class="n">theta_cal</span><span class="p">))</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"calibration (1994-2007)"</span><span class="p">:</span> <span class="p">[</span><span class="n">nse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">cal</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">cal</span><span class="p">]),</span> <span class="n">lognse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">cal</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">cal</span><span class="p">]),</span>
+                                <span class="n">kge</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">cal</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">cal</span><span class="p">]),</span> <span class="n">rmse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">cal</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">cal</span><span class="p">])],</span>
+    <span class="s2">"validation (2008-2015)"</span><span class="p">:</span>  <span class="p">[</span><span class="n">nse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">val</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">val</span><span class="p">]),</span> <span class="n">lognse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">val</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">val</span><span class="p">]),</span>
+                                <span class="n">kge</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">val</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">val</span><span class="p">]),</span> <span class="n">rmse</span><span class="p">(</span><span class="n">Qobs</span><span class="p">[</span><span class="n">val</span><span class="p">],</span> <span class="n">qcal</span><span class="p">[</span><span class="n">val</span><span class="p">])],</span>
+<span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"NSE"</span><span class="p">,</span> <span class="s2">"logNSE"</span><span class="p">,</span> <span class="s2">"KGE"</span><span class="p">,</span> <span class="s2">"RMSE"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Qobs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">qcal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"calibrated model"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">"2008-01-01"</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.5"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">"2001"</span><span class="p">),</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">"calibration"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">"2012"</span><span class="p">),</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">"validation"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q [mm/d]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        calibration (1994-2007)  validation (2008-2015)
+NSE                       0.647                   0.701
+logNSE                    0.767                   0.753
+KGE                       0.692                   0.811
+RMSE                      1.597                   1.376
+</pre></div>
+</div>
+<img alt="_images/9425679614849ed7e5a414df30cf25f840f0c2c83c0cadd9d403ed200f6a00ee.png" src="_images/9425679614849ed7e5a414df30cf25f840f0c2c83c0cadd9d403ed200f6a00ee.png" />
+</div>
+</div>
+<p>The validation score here is a little <em>higher</em> than the calibration score — not
+unusual, it just means the validation years happen to be hydrologically easier (fewer
+extreme events). What we do not see is a collapse, so the calibrated parameters are
+usable.</p>
+<p>Now put the two experiments side by side. The identical-twin test reached NSE
+<span class="math notranslate nohighlight">\(= 1.0000\)</span>; the real Chattooga tops out near <span class="math notranslate nohighlight">\(0.65\)</span>–<span class="math notranslate nohighlight">\(0.70\)</span>. That gap is <strong>not</strong>
+calibration error — the method recovers known parameters exactly. It is the sum
+of three things calibration cannot fix:</p>
+<ul class="simple">
+<li><p><strong>Structural error.</strong> A five-parameter bucket is not the Chattooga. Real catchments
+route water through hillslopes, riparian zones and fractured rock that no lumped
+model resolves. Models like GR4J or HBV close part of the gap with a routing delay
+and more careful soil accounting, but a structural error always remains.</p></li>
+<li><p><strong>Input error.</strong> The model is forced with grid-interpolated Daymet rainfall, not the
+rain that actually fell on the catchment; a missed convective storm is a missed peak
+no matter how the parameters are set.</p></li>
+<li><p><strong>Measurement error.</strong> The gauge record itself comes from a stage–discharge
+rating curve that is extrapolated at the highest flows — exactly where the
+squared-error metrics care most.</p></li>
+</ul>
+<p>Calibration finds the best parameters <em>given</em> the model and the data. It cannot make
+the model the catchment.</p>
+</section>
+<section id="equifinality">
+<h2>8) Equifinality<a class="headerlink" href="#equifinality" title="Link to this heading">#</a></h2>
+<p>Go back to the Monte Carlo ensemble and keep every run within 0.03 NSE of the best.
+These are all “good” models. Their <strong>hydrographs</strong> are nearly indistinguishable —
+but their <strong>parameters</strong> are not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">good</span> <span class="o">=</span> <span class="n">mc_nse</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">mc_nse</span><span class="p">[</span><span class="n">best</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">good</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> random sets are within 0.05 NSE of the best</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"parameter ranges among the 'good' sets:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PARAM_NAMES</span><span class="p">):</span>
+    <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">good</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="p">[</span><span class="n">good</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">frac</span> <span class="o">=</span> <span class="p">(</span><span class="n">hi</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">BOUNDS</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">BOUNDS</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">6s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">lo</span><span class="si">:</span><span class="s2">8.3g</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">hi</span><span class="si">:</span><span class="s2">8.3g</span><span class="si">}</span><span class="s2">   (</span><span class="si">{</span><span class="n">frac</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">3.0f</span><span class="si">}</span><span class="s2">% of the allowed range)"</span><span class="p">)</span>
+
+<span class="n">win</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="s2">"2004-06-01"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="s2">"2006-06-01"</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">Qens</span><span class="p">[:,</span> <span class="n">good</span><span class="p">][</span><span class="n">win</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">env</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">env</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">"spread of the 'good' models"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">Qobs</span><span class="p">[</span><span class="n">win</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q [mm/d]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 of 6000 random sets are within 0.05 NSE of the best
+
+parameter ranges among the 'good' sets:
+  smax        130 to      381   ( 39% of the allowed range)
+  beta       1.66 to     5.54   ( 71% of the allowed range)
+  kperc    0.0244 to    0.363   ( 85% of the allowed range)
+  kf          0.4 to    0.682   ( 33% of the allowed range)
+  ks      0.00447 to   0.0372   ( 22% of the allowed range)
+</pre></div>
+</div>
+<img alt="_images/a2684bdb9fe4e427801d7e0a981f4b1141f2f5107ec93c233f9958bd7ec63e16.png" src="_images/a2684bdb9fe4e427801d7e0a981f4b1141f2f5107ec93c233f9958bd7ec63e16.png" />
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(k_{perc}\)</span> range over most of their allowed span with almost no cost in
+NSE, and <span class="math notranslate nohighlight">\(S_{max}\)</span> is not much better — the streamflow at the outlet simply does
+not contain enough information to determine them. Only <span class="math notranslate nohighlight">\(k_f\)</span> and <span class="math notranslate nohighlight">\(k_s\)</span> are tightly
+constrained. This is <strong>equifinality</strong>: many parameter sets, and in principle many model
+structures, reproduce the observations equally well.</p>
+<p>The practical consequences:</p>
+<ul class="simple">
+<li><p>A single “optimal” parameter set is a convenient fiction. The honest product of
+calibration is an <em>ensemble</em> and the streamflow spread it implies.</p></li>
+<li><p>Calibrated parameters should not be read as physical properties of the catchment.</p></li>
+<li><p>Adding more parameters to chase a slightly higher NSE usually just adds more
+equifinality. Prefer the simplest structure that captures the behaviour you need.</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<p>Worked, scaffolded exercises for this lecture — the data, model and plots are provided and the code to fill in is marked — are in <strong><a class="reference internal" href="exercise-08-hydrological-model-calibration.html"><span class="doc std std-doc">Exercise 8</span></a></strong>.</p>
+</section>
+<section id="sources">
+<h2>Sources<a class="headerlink" href="#sources" title="Link to this heading">#</a></h2>
+<p><strong>Data.</strong> As Lecture 7: USGS streamflow (public domain), Daymet v4 forcing (ORNL DAAC,
+public domain), Oudin (2005) PET, CAMELS catchment.</p>
+<p><strong>Tools.</strong> The calibration here is built from <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">scipy</span></code> for teaching. In
+practice, <a class="reference external" href="https://spotpy.readthedocs.io/">SPOTPY</a> (Houska et al.) provides a wide
+range of optimisers and formal uncertainty methods (GLUE, DREAM), and
+<a class="reference external" href="https://gitlab.com/Zaul_AE/lumod">LuMod</a> bundles calibrated model structures with a
+Monte Carlo interface.</p>
+<p><strong>Licensing.</strong> Original teaching material for this course; text under CC BY-SA 4.0, code additionally under the MIT License, consistent with the rest of the book. See <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-07-lumped-hydrological-model.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 7, A lumped hydrological model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-09-evolution-in-time-and-space.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 9, Evolution in time and space</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model-vectorised">The model, vectorised</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-functions">1) Objective functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-sample-testing">2) Split-sample testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-identical-twin-test">3) An identical-twin test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-real-catchment-manual-calibration-first">4) The real catchment: manual calibration first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-random-search">5) Monte Carlo (random search)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-optimisation">6) Automatic optimisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">7) Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equifinality">8) Equifinality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
