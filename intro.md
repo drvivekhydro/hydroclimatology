@@ -64,7 +64,7 @@ impacts and extremes.
 
 ## How the notebooks map to the syllabus
 
-Lectures 1–2 are conceptual; Lectures 3–11 support **Module 2 (Modeling)** and are
+Lectures 1–2 are conceptual; Lectures 3–12 support **Module 2 (Modeling)** and are
 hands-on Python notebooks.
 
 - **Lecture 1** — Course introduction: what applied hydroclimatology is, how the
@@ -86,6 +86,8 @@ hands-on Python notebooks.
   contaminant transport (the 1-D equation of Lecture 9 applied to hydrology; connects to
   Module 7). 
 - **Lecture 11** — Heat transports: two-dimensional advection–diffusion.
+- **Lecture 12** — Contaminant transport in a reservoir: the two-dimensional equation of Lecture 11 applied to a
+  hydrological problem (plume, intake breakthrough curve, stability and conservation checks).
 
 Each hands-on lecture (3&ndash;5, 7&ndash;10) has a companion **exercise notebook** with
 the data, model and plotting written out and the analysis code left as marked

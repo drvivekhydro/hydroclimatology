@@ -43,7 +43,7 @@ of the Earth up to advection and diffusion in space and a calibrated catchment m
 | **Lecture 3** | A short introduction to Python for data analysis |
 | **Lectures 4–6** | Zero-dimensional climate models: energy balance, ice–albedo feedback, a coupled vegetation–hydrology model |
 | **Lectures 7–8** | A lumped rainfall–runoff model and how to calibrate it, using real catchment data |
-| **Lectures 9–11** | Advection and diffusion: in 1-D, applied to river flood routing and transport, and in 2-D |
+| **Lectures 9–12** | Advection and diffusion: in 1-D, applied to river flood routing and transport; in 2-D for ocean heat, and for a pollutant in a reservoir |
 | **Exercises** | One scaffolded exercise notebook per hands-on lecture (3–5, 7–10); Exercise 9 analyses real Indian Ocean SST data |
 
 Material for the observation, data-processing, impacts and extremes modules will be
@@ -79,7 +79,7 @@ Several lectures are adapted from the open course **[*Climate of the Ocean*](htt
 is itself a Python adaptation of **Henri Drake's climate lectures in
 [MIT *Introduction to Computational Thinking*](https://computationalthinking.mit.edu)**;
 Brian Rose's *[The Climate Laboratory](https://brian-rose.github.io/ClimateLaboratoryBook/)*
-was also consulted. Lectures 1, 2, 7, 8 and 10 are original to this course.
+was also consulted. Lectures 1, 2, 7, 8, 10 and 12 are original to this course.
 
 Teaching content is licensed **[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)**
 and code additionally under the **MIT License**. Full per-lecture provenance is in

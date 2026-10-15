@@ -62,7 +62,8 @@ Consulted for Lecture 4.
 | 8 — Calibrating a hydrological model | Vivek Gupta | original |
 | 9 — Advection and diffusion in 1-D | MIT 18.S191, via *Climate of the Ocean* | used essentially unchanged |
 | 10 — Advection and diffusion in a river | Vivek Gupta (reuses the Lecture 9 solver) | original |
-| 11 — Heat transports (2-D advection–diffusion) | MIT 18.S191, via *Climate of the Ocean* | adapted (renumbered; equation typography fixed) |
+| 11 — Heat transports (2-D advection–diffusion) | MIT 18.S191, via *Climate of the Ocean* | adapted (renumbered; equations, solver code and closed-basin gyre corrected; flux-form-to-advective-form derivation) |
+| 12 — Contaminant transport in a reservoir | Vivek Gupta (reuses the Lecture 11 numerical method and kernels) | original |
 | Exercises 3, 4, 5, 9 | *Climate of the Ocean* exercises, reworked and heavily scaffolded (Exercise 9 retargeted from the Baltic Sea to the Indian Ocean) | adapted |
 | Exercises 7, 8, 10 | Vivek Gupta | original |
 
