@@ -1,0 +1,16 @@
+name,value,unit,meaning
+fo,0.55,-,Observed rain: wet-day fraction
+ko,0.55,-,Observed rain: gamma shape k
+so,20.0,mm,Observed rain: gamma scale theta
+fm,0.93,-,Model rain: wet-day fraction
+km,0.6,-,Model rain: gamma shape k
+sm,6.0,mm,Model rain: gamma scale theta
+ca,1.05,-,Climate-change factor c(tau) = a + b*tau^p: a
+cb,0.4,-,Climate-change factor: b
+cp,6.0,-,Climate-change factor: p
+muo,30.0,degC,Observed temperature mean
+sdo,2.2,degC,Observed temperature standard deviation
+mum,27.0,degC,Model temperature mean
+sdm,3.0,degC,Model temperature standard deviation
+da,2.4,degC,Warming d(tau) = a + b*tau: a
+db,1.6,degC,Warming: b

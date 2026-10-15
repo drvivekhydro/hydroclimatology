@@ -64,6 +64,10 @@ Consulted for Lecture 4.
 | 10 — Advection and diffusion in a river | Vivek Gupta (reuses the Lecture 9 solver) | original |
 | 11 — Heat transports (2-D advection–diffusion) | MIT 18.S191, via *Climate of the Ocean* | adapted (renumbered; equations, solver code and closed-basin gyre corrected; flux-form-to-advective-form derivation) |
 | 12 — Contaminant transport in a reservoir | Vivek Gupta (reuses the Lecture 11 numerical method and kernels) | original |
+| 13 — The Coupled Model Intercomparison Project: history and design | Vivek Gupta, after Eyring et al. (2016, GMD, CC BY 3.0) and the CE524 CMIP slides | original |
+| 14 — Scenarios, climate sensitivity and uncertainty, and CMIP7 | Vivek Gupta (reuses the Lecture 4 energy balance model); see the notebook for references | original |
+| 15 — Climate data analysis with xarray | ClimateMatch Academy and Project Pythia (see the notebook) | adapted |
+| 16&ndash;23 — Downscaling and bias correction (spreadsheets and Python) | Vivek Gupta; structure follows Lee & Singh (2019), CRC Press; explanations, derivations, synthetic data, spreadsheets and figures written for this course | original |
 | Exercises 3, 4, 5, 9 | *Climate of the Ocean* exercises, reworked and heavily scaffolded (Exercise 9 retargeted from the Baltic Sea to the Indian Ocean) | adapted |
 | Exercises 7, 8, 10 | Vivek Gupta | original |
 

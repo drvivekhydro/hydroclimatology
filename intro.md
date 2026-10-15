@@ -65,7 +65,8 @@ impacts and extremes.
 ## How the notebooks map to the syllabus
 
 Lectures 1–2 are conceptual; Lectures 3–12 support **Module 2 (Modeling)** and are
-hands-on Python notebooks.
+hands-on Python notebooks. Lectures 13–23 support **Module 4 (Hydroclimatic data processing
+and analysis)**: the CMIP archive, gridded data, and downscaling and bias correction.
 
 - **Lecture 1** — Course introduction: what applied hydroclimatology is, how the
   course is organised, and how it is assessed.
@@ -88,6 +89,16 @@ hands-on Python notebooks.
 - **Lecture 11** — Heat transports: two-dimensional advection–diffusion.
 - **Lecture 12** — Contaminant transport in a reservoir: the two-dimensional equation of Lecture 11 applied to a
   hydrological problem (plume, intake breakthrough curve, stability and conservation checks).
+- **Lecture 13** — The Coupled Model Intercomparison Project: history (CMIP1 to CMIP6), the DECK and
+  historical experiments, the endorsed MIPs, data standards and variant labels.
+- **Lecture 14** — Scenarios, climate sensitivity and uncertainty, and CMIP7: SRES, RCP and SSP, ECS and
+  TCR, internal-variability, model and scenario uncertainty, and the CMIP7 plan.
+- **Lecture 15** — Climate data analysis with xarray: labelled gridded data, area weighting,
+  climatologies, anomalies, indices and trends.
+- **Lectures 16&ndash;23** — Downscaling for hydrology (with spreadsheets and plotting programs):
+  16 the problem, the data and choosing a method; 17 statistical background; 18 bias correction;
+  19 regression downscaling; 20 predictor selection and neural networks; 21 weather generators;
+  22 weather types and temporal downscaling; 23 spatial downscaling.
 
 Each hands-on lecture (3&ndash;5, 7&ndash;10) has a companion **exercise notebook** with
 the data, model and plotting written out and the analysis code left as marked

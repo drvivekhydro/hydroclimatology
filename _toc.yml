@@ -18,7 +18,17 @@ parts:
     - file: lecture-10-advection-diffusion-in-rivers
     - file: lecture-11-heat-transports
     - file: lecture-12-contaminant-transport-in-a-reservoir
-    - file: lecture-13-climate-data-analysis-with-xarray
+    - file: lecture-13-cmip-history-and-design
+    - file: lecture-14-scenarios-sensitivity-uncertainty-cmip7
+    - file: lecture-15-climate-data-analysis-with-xarray
+    - file: lecture-16-downscaling-problem-data-and-methods
+    - file: lecture-17-statistical-background-for-downscaling
+    - file: lecture-18-bias-correction
+    - file: lecture-19-regression-downscaling
+    - file: lecture-20-predictor-selection-and-neural-networks
+    - file: lecture-21-weather-generators
+    - file: lecture-22-weather-types-and-temporal-downscaling
+    - file: lecture-23-spatial-downscaling
   - caption: Exercise
     chapters:
     - file: exercise-03-introduction-to-python
