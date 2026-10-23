@@ -1,0 +1,1147 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7 &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-14-scenarios-sensitivity-uncertainty-cmip7';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 15, Climate data analysis with xarray" href="lecture-15-climate-data-analysis-with-xarray.html" />
+    <link rel="prev" title="Lecture 13, The Coupled Model Intercomparison Project: history and design" href="lecture-13-cmip-history-and-design.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-14-scenarios-sensitivity-uncertainty-cmip7.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-14-scenarios-sensitivity-uncertainty-cmip7.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-14-scenarios-sensitivity-uncertainty-cmip7.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-14-scenarios-sensitivity-uncertainty-cmip7.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scenarios-describing-the-future-forcing">1) Scenarios: describing the future forcing</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sres-cmip3-2000">SRES (CMIP3, 2000)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rcps-cmip5-2011">RCPs (CMIP5, 2011)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssps-cmip6-2016">SSPs (CMIP6, 2016)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-sensitivity">2) Climate sensitivity</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-cmip-measures-it-abrupt-4xco2-and-the-gregory-plot">How CMIP measures it: abrupt-4xCO2 and the Gregory plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-cmip-showed">What CMIP showed</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-three-sources">3) Uncertainty: three sources</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-global-model-to-a-catchment">4) From the global model to a catchment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cmip7">5) CMIP7</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-new-phase">Why a new phase?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-different">What is different</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cmip7-scenarios">The CMIP7 scenarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-expect-as-a-hydrologist">What to expect as a hydrologist</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-14-scenarios-climate-sensitivity-and-uncertainty-and-cmip7">
+<h1>Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7<a class="headerlink" href="#lecture-14-scenarios-climate-sensitivity-and-uncertainty-and-cmip7" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>What drives the projections, why models disagree, and what comes next</p>
+</div></blockquote>
+<p>Lecture 13 described how CMIP is organised. This lecture looks at what makes the numbers differ:</p>
+<ol class="arabic simple">
+<li><p>the <strong>scenarios</strong> that describe the future forcing, from SRES through RCP and SSP to CMIP7,</p></li>
+<li><p>the <strong>climate sensitivity</strong> of a model, which decides how much it warms for a given forcing,</p></li>
+<li><p>the three sources of <strong>uncertainty</strong> (internal variability, model, scenario), and what they mean for hydrology,</p></li>
+<li><p>the step from a global model to a <strong>catchment</strong> (worked through in Lectures 16–23), and</p></li>
+<li><p><strong>CMIP7</strong>, the phase now getting under way.</p></li>
+</ol>
+<p>The code cells reuse the energy balance model of Lecture 4 as a small laboratory in which these ideas can be tested.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="scenarios-describing-the-future-forcing">
+<h1>1) Scenarios: describing the future forcing<a class="headerlink" href="#scenarios-describing-the-future-forcing" title="Link to this heading">#</a></h1>
+<p>Climate models cannot predict how much CO<span class="math notranslate nohighlight">\(_2\)</span> people will emit, so projections are made <strong>conditional on a scenario</strong>, a self-consistent description of future emissions or concentrations. Recall from Lecture 4 that the forcing from CO<span class="math notranslate nohighlight">\(_2\)</span> is <span class="math notranslate nohighlight">\(F = a \ln(\mathrm{CO_2}/\mathrm{CO_{2,PI}})\)</span> with <span class="math notranslate nohighlight">\(a \approx 5\)</span> W m<span class="math notranslate nohighlight">\(^{-2}\)</span>, and that the <strong>radiative forcing</strong> is the imbalance between energy coming in and going out. The scenario families of the last three CMIP phases differ in how they define the forcing.</p>
+<section id="sres-cmip3-2000">
+<h2>SRES (CMIP3, 2000)<a class="headerlink" href="#sres-cmip3-2000" title="Link to this heading">#</a></h2>
+<p>The <em>Special Report on Emissions Scenarios</em> defined four storyline families from two choices: more economic or more environmental emphasis, and more global or more regional development.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Family</p></th>
+<th class="head text-left"><p>Story</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>A1</strong></p></td>
+<td class="text-left"><p>Rapid economic growth, a convergent world and rapid spread of new technology. Subsets by energy emphasis: <strong>A1FI</strong> fossil-intensive, <strong>A1B</strong> balanced, <strong>A1T</strong> non-fossil.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>A2</strong></p></td>
+<td class="text-left"><p>A divided world of self-reliant nations, rising population, regionally oriented development and high emissions.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>B1</strong></p></td>
+<td class="text-left"><p>An integrated and more ecologically friendly world, with a shift to a service and information economy and clean technology.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>B2</strong></p></td>
+<td class="text-left"><p>A divided but ecologically friendly world: local solutions, slower population growth, intermediate development.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>SRES scenarios started from socio-economic stories and <em>calculated</em> emissions and then concentrations, with no climate-policy assumptions.</p>
+</section>
+<section id="rcps-cmip5-2011">
+<h2>RCPs (CMIP5, 2011)<a class="headerlink" href="#rcps-cmip5-2011" title="Link to this heading">#</a></h2>
+<p>The <strong>Representative Concentration Pathways</strong> reversed the order. They specify <em>concentration</em> (radiative forcing) pathways first, named by the forcing reached in 2100 in W m<span class="math notranslate nohighlight">\(^{-2}\)</span>: <strong>RCP2.6</strong> (strong mitigation, aimed at keeping warming below about 2 °C), <strong>RCP4.5</strong> and <strong>RCP6.0</strong> (intermediate stabilisation) and <strong>RCP8.5</strong> (high emissions). Several socio-economic stories can lead to the same pathway, so the pathways are “representative” rather than predictions.</p>
+</section>
+<section id="ssps-cmip6-2016">
+<h2>SSPs (CMIP6, 2016)<a class="headerlink" href="#ssps-cmip6-2016" title="Link to this heading">#</a></h2>
+<p>The <strong>Shared Socioeconomic Pathways</strong> put the two ideas together. Each <strong>SSP</strong> is a socio-economic narrative; it is combined with a <strong>forcing level</strong> as in the RCPs, so the name of a scenario carries both, for example <strong>SSP2-4.5</strong> is “middle of the road” development with 4.5 W m<span class="math notranslate nohighlight">\(^{-2}\)</span> of forcing in 2100. The point is that the same forcing level can be reached by different societies, with very different <em>challenges for mitigation and adaptation</em>, which matters for impact studies.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>SSP</p></th>
+<th class="head text-left"><p>Narrative</p></th>
+<th class="head text-left"><p>Challenge</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>SSP1</strong></p></td>
+<td class="text-left"><p>Sustainability, “taking the green road”</p></td>
+<td class="text-left"><p>low for both mitigation and adaptation</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>SSP2</strong></p></td>
+<td class="text-left"><p>Middle of the road</p></td>
+<td class="text-left"><p>intermediate</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>SSP3</strong></p></td>
+<td class="text-left"><p>Regional rivalry, “a rocky road”</p></td>
+<td class="text-left"><p>high for both</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>SSP4</strong></p></td>
+<td class="text-left"><p>Inequality, “a road divided”</p></td>
+<td class="text-left"><p>low mitigation challenge, high adaptation challenge</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>SSP5</strong></p></td>
+<td class="text-left"><p>Fossil-fuelled development, “taking the highway”</p></td>
+<td class="text-left"><p>high mitigation challenge, low adaptation challenge</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ScenarioMIP, the CMIP6-Endorsed MIP for scenarios, gives top priority (Tier 1) to four combinations that span the range: <strong>SSP1-2.6, SSP2-4.5, SSP3-7.0 and SSP5-8.5</strong>. Other combinations (for example SSP1-1.9, which aims at 1.5 °C, and SSP4-3.4, SSP4-6.0 and SSP5-3.4OS) have a lower priority. You have already forced the energy balance model with the four Tier-1 CO<span class="math notranslate nohighlight">\(_2\)</span> pathways in Lecture 4 and compared its warming with the CMIP6 multi-model mean; the plot below puts the three generations of scenario names side by side using their end-of-century radiative forcing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">forcing_2100</span> <span class="o">=</span> <span class="p">{</span>                       <span class="c1"># radiative forcing in 2100 [W/m2], from the scenario names</span>
+    <span class="s2">"RCP2.6"</span><span class="p">:</span> <span class="mf">2.6</span><span class="p">,</span> <span class="s2">"RCP4.5"</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span> <span class="s2">"RCP6.0"</span><span class="p">:</span> <span class="mf">6.0</span><span class="p">,</span> <span class="s2">"RCP8.5"</span><span class="p">:</span> <span class="mf">8.5</span><span class="p">,</span>
+    <span class="s2">"SSP1-2.6"</span><span class="p">:</span> <span class="mf">2.6</span><span class="p">,</span> <span class="s2">"SSP2-4.5"</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span> <span class="s2">"SSP3-7.0"</span><span class="p">:</span> <span class="mf">7.0</span><span class="p">,</span> <span class="s2">"SSP5-8.5"</span><span class="p">:</span> <span class="mf">8.5</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"tab:blue"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"tab:orange"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">forcing_2100</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">forcing_2100</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Radiative forcing in 2100 [W m$^{-2}$]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"End-of-century forcing: CMIP5 pathways (blue) and CMIP6 Tier-1 scenarios (orange)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/32700f19dd0419ef881379761a8f0ac93a3d8bfdfa4790feab1cd5c65002fb43.png" src="_images/32700f19dd0419ef881379761a8f0ac93a3d8bfdfa4790feab1cd5c65002fb43.png" />
+</div>
+</div>
+<p>Notice that SSP1-2.6, SSP2-4.5 and SSP5-8.5 reach the <em>same forcing</em> as RCP2.6, RCP4.5 and RCP8.5. That was deliberate, to allow comparison between CMIP5 and CMIP6. SSP3-7.0 fills the gap between RCP6.0 and RCP8.5. What is new is not the forcing but the narrative attached to it and the updated emissions and land-use inputs.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="climate-sensitivity">
+<h1>2) Climate sensitivity<a class="headerlink" href="#climate-sensitivity" title="Link to this heading">#</a></h1>
+<p>Two models given the <em>same</em> forcing can warm by different amounts. The most important number that separates them is the <strong>equilibrium climate sensitivity (ECS)</strong>: the long-term global warming after CO<span class="math notranslate nohighlight">\(_2\)</span> is doubled and the climate has come into balance. A second number, the <strong>transient climate response (TCR)</strong>, is the warming at the moment CO<span class="math notranslate nohighlight">\(_2\)</span> has doubled in a run in which it rises by 1 % per year, (about 70 years); it is smaller than ECS because the ocean has not yet caught up.</p>
+<p>In the energy balance model of Lecture 4,</p>
+<div class="math notranslate nohighlight">
+\[C\,\frac{dT}{dt} = F - \lambda\,\Delta T,\qquad \lambda = -B,\]</div>
+<p>the forcing <span class="math notranslate nohighlight">\(F\)</span> pushes the temperature up and the <strong>feedback parameter</strong> <span class="math notranslate nohighlight">\(\lambda\)</span> (W m<span class="math notranslate nohighlight">\(^{-2}\)</span> K<span class="math notranslate nohighlight">\(^{-1}\)</span>) pulls it back (the net radiative response of the planet per degree of warming). In equilibrium <span class="math notranslate nohighlight">\(C\,dT/dt = 0\)</span>, so</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{ECS} = \frac{F_{2\times}}{\lambda}, \qquad F_{2\times} = a\ln 2 .\]</div>
+<p>A larger <span class="math notranslate nohighlight">\(\lambda\)</span> means a stronger restoring response and a smaller ECS; a feedback that amplifies warming (clouds, water vapour, snow and ice) <em>reduces</em> <span class="math notranslate nohighlight">\(\lambda\)</span>. The spread of ECS in CMIP models therefore reflects the spread in the feedback parameter, and the largest part of that spread comes from clouds (the focus of CFMIP).</p>
+<section id="how-cmip-measures-it-abrupt-4xco2-and-the-gregory-plot">
+<h2>How CMIP measures it: abrupt-4xCO2 and the Gregory plot<a class="headerlink" href="#how-cmip-measures-it-abrupt-4xco2-and-the-gregory-plot" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">abrupt-4xCO2</span></code> experiment gives a large, clean signal. The energy imbalance at the top of the atmosphere is <span class="math notranslate nohighlight">\(N = F - \lambda\,\Delta T\)</span>, which is a straight line against the warming <span class="math notranslate nohighlight">\(\Delta T\)</span> (a <strong>Gregory plot</strong>). The intercept on the vertical axis is the forcing of the experiment, and the intercept on the horizontal axis is the warming at equilibrium for quadrupled CO<span class="math notranslate nohighlight">\(_2\)</span>. In a model with a single heat-capacity layer the line is exact; in a real model it curves because the feedbacks change with time and with the pattern of warming, and the sensitivity is estimated by fitting the line over, for example, the first 150 years. The cell below does this for the Lecture 4 model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Energy balance model of Lecture 4, written as a short function</span>
+<span class="n">S</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">CO2_PI</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">T0</span> <span class="o">=</span> <span class="mf">1368.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">280.0</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">,</span> <span class="mf">14.0</span>
+<span class="n">absorbed</span> <span class="o">=</span> <span class="n">S</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_ebm</span><span class="p">(</span><span class="n">co2</span><span class="p">,</span> <span class="n">B</span><span class="o">=-</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">T_init</span><span class="o">=</span><span class="n">T0</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">absorbed</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="n">T0</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">co2</span><span class="p">))</span>
+    <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T_init</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">co2</span><span class="p">)):</span>
+        <span class="n">forcing</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">co2</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">CO2_PI</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">absorbed</span> <span class="o">-</span> <span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">B</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">forcing</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="n">noise</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">())</span> <span class="o">/</span> <span class="n">C</span>
+    <span class="k">return</span> <span class="n">T</span>
+
+<span class="n">years</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">151</span><span class="p">)</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="mf">1.3</span>                                              <span class="c1"># feedback parameter, W/m2/K (= -B)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">run_ebm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">years</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">CO2_PI</span><span class="p">))</span>           <span class="c1"># abrupt 4xCO2</span>
+<span class="n">dT</span> <span class="o">=</span> <span class="n">T</span> <span class="o">-</span> <span class="n">T0</span>
+<span class="n">F4x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">F4x</span> <span class="o">-</span> <span class="n">lam</span> <span class="o">*</span> <span class="n">dT</span>                                     <span class="c1"># top-of-atmosphere imbalance</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">dT</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year after quadrupling"</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Warming [K]"</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"abrupt-4xCO2"</span><span class="p">);</span> <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dT</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">F4x</span> <span class="o">/</span> <span class="n">lam</span><span class="p">],</span> <span class="p">[</span><span class="n">F4x</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">"k--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Warming $</span><span class="se">\\</span><span class="s2">Delta T$ [K]"</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Imbalance $N$ [W m$^{-2}$]"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Gregory plot"</span><span class="p">);</span> <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"forcing for 4xCO2 : </span><span class="si">{</span><span class="n">F4x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> W/m2 (the vertical intercept)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"equilibrium warming for 4xCO2 : </span><span class="si">{</span><span class="n">F4x</span><span class="o">/</span><span class="n">lam</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> K (the horizontal intercept)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ECS = half of that  : </span><span class="si">{</span><span class="n">F4x</span><span class="o">/</span><span class="n">lam</span><span class="o">/</span><span class="mi">2</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> K   (= a ln2 / lambda = </span><span class="si">{</span><span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">lam</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> K)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>forcing for 4xCO2 : 6.93 W/m2 (the vertical intercept)
+equilibrium warming for 4xCO2 : 5.33 K (the horizontal intercept)
+ECS = half of that  : 2.67 K   (= a ln2 / lambda = 2.67 K)
+</pre></div>
+</div>
+<img alt="_images/d8d65b583dddc4c482b5802aa7ba2744d68c2bad99ffdd4dbc2ef20b29efbdd3.png" src="_images/d8d65b583dddc4c482b5802aa7ba2744d68c2bad99ffdd4dbc2ef20b29efbdd3.png" />
+</div>
+</div>
+<p>Now the <strong>TCR</strong> from a <code class="docutils literal notranslate"><span class="pre">1pctCO2</span></code> run, and the effect of the feedback parameter on both numbers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">141</span><span class="p">)</span>
+<span class="n">co2_1pct</span> <span class="o">=</span> <span class="n">CO2_PI</span> <span class="o">*</span> <span class="mf">1.01</span> <span class="o">**</span> <span class="n">t</span>                          <span class="c1"># 1 % per year, doubles after ~70 years</span>
+<span class="n">T1</span> <span class="o">=</span> <span class="n">run_ebm</span><span class="p">(</span><span class="n">co2_1pct</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"TCR (warming at year 70) = </span><span class="si">{</span><span class="n">T1</span><span class="p">[</span><span class="mi">70</span><span class="p">]</span><span class="o">-</span><span class="n">T0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> K   vs   ECS = </span><span class="si">{</span><span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">lam</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> K"</span><span class="p">)</span>
+
+<span class="n">lams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ecs</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">lams</span>
+<span class="n">tcr</span> <span class="o">=</span> <span class="p">[</span><span class="n">run_ebm</span><span class="p">(</span><span class="n">co2_1pct</span><span class="p">,</span> <span class="n">B</span><span class="o">=-</span><span class="n">l</span><span class="p">)[</span><span class="mi">70</span><span class="p">]</span> <span class="o">-</span> <span class="n">T0</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lams</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lams</span><span class="p">,</span> <span class="n">ecs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"ECS"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lams</span><span class="p">,</span> <span class="n">tcr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"TCR"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhspan</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.85"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"IPCC AR6 likely ECS range (2.5–4 K)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Feedback parameter $</span><span class="se">\\</span><span class="s2">lambda$ [W m$^{-2}$ K$^{-1}$]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Warming [K]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TCR (warming at year 70) = 1.42 K   vs   ECS = 2.67 K
+</pre></div>
+</div>
+<img alt="_images/01a5f01af03c6b715d8743046891e18b03a2c4ca4f43d3e7e3d65b3d9c53efc5.png" src="_images/01a5f01af03c6b715d8743046891e18b03a2c4ca4f43d3e7e3d65b3d9c53efc5.png" />
+</div>
+</div>
+<p>The transient response is always smaller than the equilibrium response and varies less with <span class="math notranslate nohighlight">\(\lambda\)</span>, because over 70 years the ocean heat uptake, not the feedback, limits the warming. The shaded band is the range of ECS the IPCC AR6 judged <em>likely</em> (2.5 to 4 K, best estimate 3 K), and it corresponds, in this simple model, to a modest range of <span class="math notranslate nohighlight">\(\lambda\)</span>. Small differences in how clouds respond translate into large differences in projected warming.</p>
+</section>
+<section id="what-cmip-showed">
+<h2>What CMIP showed<a class="headerlink" href="#what-cmip-showed" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Phase</p></th>
+<th class="head text-left"><p>ECS range of the models (approx.)</p></th>
+<th class="head text-left"><p>Comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>CMIP3</p></td>
+<td class="text-left"><p>~2.1–4.4 K</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>CMIP5</p></td>
+<td class="text-left"><p>~2.1–4.7 K</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>CMIP6</p></td>
+<td class="text-left"><p>~1.8–5.6 K</p></td>
+<td class="text-left"><p>A number of models were <em>above</em> the highest value in CMIP5 (a “hot model” group), largely through changed cloud feedbacks</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The AR6 assessed ECS from several lines of evidence (process understanding, the historical record, paleoclimate, and the models) and concluded 2.5 to 4 K (likely), 2 to 5 K (very likely), best estimate 3 K. In its projections it therefore <strong>did not simply average the CMIP6 models</strong>: the warming assessed for each scenario was constrained using observations and the assessed ECS and TCR. The lesson for a user of CMIP data is that a model with a very high sensitivity runs hot in all scenarios, so models are sometimes weighted, screened or at least inspected for their sensitivity.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="uncertainty-three-sources">
+<h1>3) Uncertainty: three sources<a class="headerlink" href="#uncertainty-three-sources" title="Link to this heading">#</a></h1>
+<p>When two projections differ, the difference has one of three origins (Hawkins and Sutton, 2009):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Source</p></th>
+<th class="head text-left"><p>What it is</p></th>
+<th class="head text-left"><p>Reduced by</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Internal variability</strong></p></td>
+<td class="text-left"><p>Chaotic variations of the atmosphere and ocean (El Niño, the monsoon’s year-to-year changes, decadal swings) that would occur even with constant forcing</p></td>
+<td class="text-left"><p><em>Not reducible</em>. It can only be averaged by using many ensemble members or long periods.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Model (response) uncertainty</strong></p></td>
+<td class="text-left"><p>Different models respond differently to the same forcing, because of different feedbacks and processes</p></td>
+<td class="text-left"><p>Better models and observational constraints</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Scenario uncertainty</strong></p></td>
+<td class="text-left"><p>Future emissions are not known</p></td>
+<td class="text-left"><p>Not a scientific uncertainty. It depends on human choices.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Their importance changes with the <strong>lead time</strong>, the <strong>region</strong> and the <strong>variable</strong>. In the next decade internal variability dominates; by the end of the century and for global mean temperature, the scenario dominates. For <em>regional precipitation</em>, internal variability and model differences remain large for decades, so a “projected change” in rainfall over a district may be smaller than the natural year-to-year swings. This is why hydrological studies use many members and many models.</p>
+<p>The cell below shows each source separately with the energy balance model. Internal variability is represented by random forcing (a standard stochastic model of climate noise); <strong>model</strong> differences by different feedback parameters; <strong>scenario</strong> differences by different CO<span class="math notranslate nohighlight">\(_2\)</span> pathways. This is a toy: there is no ENSO or monsoon, only a plausible amount of year-to-year noise (about 0.13 K).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">co2_tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/ssp_co2_concentrations.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>   <span class="c1"># e.g. on Colab without the repository</span>
+    <span class="n">co2_tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/drvivekhydro/hydroclimatology/main/data/ssp_co2_concentrations.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+
+<span class="n">yrs</span> <span class="o">=</span> <span class="n">co2_tab</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">baseline</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>                                        <span class="c1"># warming relative to 1850-1900</span>
+    <span class="k">return</span> <span class="n">T</span> <span class="o">-</span> <span class="n">T</span><span class="p">[:</span> <span class="mi">51</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># (a) internal variability: same model, same scenario, different noise</span>
+<span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">run_ebm</span><span class="p">(</span><span class="n">co2_tab</span><span class="p">[</span><span class="s2">"SSP2-4.5"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">noise</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yrs</span><span class="p">,</span> <span class="n">baseline</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"(a) internal variability</span><span class="se">\n</span><span class="s2">(8 members, same model and scenario)"</span><span class="p">)</span>
+
+<span class="c1"># (b) model uncertainty: different feedback parameters, no noise</span>
+<span class="k">for</span> <span class="n">lam_</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">):</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">run_ebm</span><span class="p">(</span><span class="n">co2_tab</span><span class="p">[</span><span class="s2">"SSP2-4.5"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">B</span><span class="o">=-</span><span class="n">lam_</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yrs</span><span class="p">,</span> <span class="n">baseline</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">lambda$ = </span><span class="si">{</span><span class="n">lam_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"(b) model uncertainty</span><span class="se">\n</span><span class="s2">(different $</span><span class="se">\\</span><span class="s2">lambda$, SSP2-4.5)"</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="c1"># (c) scenario uncertainty: different CO2 pathways, same model, no noise</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s2">"SSP1-2.6"</span><span class="p">,</span> <span class="s2">"SSP2-4.5"</span><span class="p">,</span> <span class="s2">"SSP3-7.0"</span><span class="p">,</span> <span class="s2">"SSP5-8.5"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="s2">"tab:green"</span><span class="p">,</span> <span class="s2">"tab:orange"</span><span class="p">,</span> <span class="s2">"tab:red"</span><span class="p">]):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yrs</span><span class="p">,</span> <span class="n">baseline</span><span class="p">(</span><span class="n">run_ebm</span><span class="p">(</span><span class="n">co2_tab</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())),</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"(c) scenario uncertainty</span><span class="se">\n</span><span class="s2">(same model)"</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"year"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"warming relative to 1850–1900 [K]"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1b30f9055acedb1db4b280c0f4d1b3a70d9f2b04d3343784bee01b9dd393906d.png" src="_images/1b30f9055acedb1db4b280c0f4d1b3a70d9f2b04d3343784bee01b9dd393906d.png" />
+</div>
+</div>
+<p>Panel (a) shows why a single run proves little: eight members of the same model and scenario differ by about 0.1–0.2 K in any year, as much as the warming that accumulates in five to ten years, and individual members can stall or dip for a decade. Panel (b) shows that, for one scenario, plausible differences in the feedback parameter already spread the end-of-century warming by about 1.5 K. Panel (c) shows that the scenarios are indistinguishable until about 2040 and then diverge, so the scenario choice matters for the end of the century but hardly for the next two decades.</p>
+<p>CMIP handles this by archiving several members per model (the <code class="docutils literal notranslate"><span class="pre">r</span></code> in the variant label, Lecture 13) and by comparing many models. It is an <strong>ensemble of opportunity</strong>, not a random sample of possible models: models share code, ancestors and ideas, so 30 models are not 30 independent estimates.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="from-the-global-model-to-a-catchment">
+<h1>4) From the global model to a catchment<a class="headerlink" href="#from-the-global-model-to-a-catchment" title="Link to this heading">#</a></h1>
+<p>The distance between a CMIP grid cell and a gauged catchment is large in space (Lecture 13), in time (the models produce daily or monthly values, but their <em>day-to-day</em> weather is not a forecast) and in statistics (models are biased). Before the output reaches a hydrological model such as those of Lectures 7 and 8 it is therefore post-processed in one of three ways:</p>
+<ul class="simple">
+<li><p><strong>Bias correction</strong>: compare the model’s historical period with observations and adjust the model output (scaling the mean, or mapping the whole distribution by <em>quantile mapping</em>), then apply the same correction to the future.</p></li>
+<li><p><strong>Statistical downscaling</strong>: use relationships between large-scale predictors and local rainfall or temperature, fitted on observations.</p></li>
+<li><p><strong>Dynamical downscaling</strong>: run a high-resolution regional climate model inside the global one (CORDEX). Ready-made products such as NASA’s NEX-GDDP-CMIP6 exist.</p></li>
+</ul>
+<p>The simplest way to use projections for a design problem is the <strong>delta-change method</strong>: keep the observed series and scale it by the <em>change</em> the models project between a reference and a future period (for example +10 % in monthly rainfall, +2 °C in temperature). It keeps the observed weather and uses the model only for the change; its weakness is that it cannot change how often it rains.</p>
+<p>Every one of these methods rests on assumptions (above all that the model’s bias is the same in the future as in the past), and none of them can repair a poor model. <strong>Lectures 16–23</strong> treat downscaling and bias correction in detail, each method with worked numbers in a spreadsheet and in Python.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="cmip7">
+<h1>5) CMIP7<a class="headerlink" href="#cmip7" title="Link to this heading">#</a></h1>
+<p>CMIP6 reached the end of its useful life as the basis for the next IPCC cycle, and a new phase, <strong>CMIP7</strong>, has been designed to support the IPCC’s <strong>Seventh Assessment Report (AR7)</strong>. This section describes the plan as published in 2025 and early 2026; the protocol is still evolving, so consult the CMIP pages for the latest version.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Status
+CMIP7 is under way at the time of writing (October 2026). Model simulations were being prepared and started in 2026 and the schedule depends on the timeline the IPCC sets for AR7, so details of data availability and even of scenario names may have changed since this lecture was written.</p>
+</div>
+<section id="why-a-new-phase">
+<h2>Why a new phase?<a class="headerlink" href="#why-a-new-phase" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>A new assessment cycle</strong> needs up-to-date models and forcing data. The historical forcing of CMIP6 stops in 2014; CMIP7 is harmonising forcing datasets that run to at least 2021.</p></li>
+<li><p><strong>Lessons from CMIP6.</strong> The “hot model” problem showed that raw sensitivity matters; the community also asked for more <em>rapid</em> delivery of results to the assessment.</p></li>
+<li><p><strong>Updated scenarios.</strong> The SSP scenarios date from 2016. Emissions since then, and the policy landscape, have changed, and the very-high end of CMIP6 (SSP5-8.5) is now considered less plausible than it was.</p></li>
+<li><p><strong>Infrastructure.</strong> The archive and its software (ESGF) are being modernised; the CMIP6 archive was closed to new data in 2025 to free resources for CMIP7.</p></li>
+</ul>
+</section>
+<section id="what-is-different">
+<h2>What is different<a class="headerlink" href="#what-is-different" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-left"><p>CMIP6</p></th>
+<th class="head text-left"><p>CMIP7</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Core</strong></p></td>
+<td class="text-left"><p>DECK + historical = the entry card</p></td>
+<td class="text-left"><p><strong>DECK refreshed and kept as the entry card</strong>. Proposed updates include CO<span class="math notranslate nohighlight">\(_2\)</span>-emissions-driven simulations (for example <code class="docutils literal notranslate"><span class="pre">esm-hist</span></code>) and experiments to measure effective radiative forcing (<code class="docutils literal notranslate"><span class="pre">piClim</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Assessment</strong></p></td>
+<td class="text-left"><p>Everything done on its own schedule, then analysed</p></td>
+<td class="text-left"><p>An <strong>Assessment Fast Track (AFT)</strong>: a subset of experiments, taken from the community MIPs and chosen for their <strong>timing</strong>, to supply the IPCC AR7 and climate-service users first. Optional for modelling centres.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Evaluation</strong></p></td>
+<td class="text-left"><p>After the data are published</p></td>
+<td class="text-left"><p>A <strong>Rapid Evaluation Framework (REF)</strong> to evaluate the Fast Track output quickly when it arrives.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Scenarios</strong></p></td>
+<td class="text-left"><p>SSP-based (SSP1-2.6, …, SSP5-8.5)</p></td>
+<td class="text-left"><p>A <strong>new ScenarioMIP set</strong> (see below), endorsed by the WCRP in February 2025</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Emphasis</strong></p></td>
+<td class="text-left"><p>Forcing-driven runs</p></td>
+<td class="text-left"><p>More <strong>emissions-driven</strong> runs to study carbon-cycle feedbacks, and the response to net-zero and <strong>negative emissions</strong> (the <em>transient climate response to cumulative emissions</em>, TCRE)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Data system</strong></p></td>
+<td class="text-left"><p>ESGF</p></td>
+<td class="text-left"><p>A new generation of ESGF with a revised data request</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="the-cmip7-scenarios">
+<h2>The CMIP7 scenarios<a class="headerlink" href="#the-cmip7-scenarios" title="Link to this heading">#</a></h2>
+<p>The new scenario set covers a range from high to very low emissions and <strong>includes low-emission scenarios that overshoot</strong> a temperature level before returning to it, with negative emissions, relevant to the Paris Agreement. The scenarios are also <em>extended beyond 2100</em> to study longer-term consequences such as sea-level rise. Unlike the SSP names, the new labels describe the <em>level</em> of emissions (High, Medium, Medium-Low, Low, Very Low) rather than a forcing number. The February 2025 endorsement named six trajectories (High, Medium, Medium-Low, Low, and two Very-Low variants with different amounts of overshoot); in late 2025 the labels were revised and a High-Low trajectory was added. Use the labels given by ScenarioMIP when you cite them.</p>
+</section>
+<section id="what-to-expect-as-a-hydrologist">
+<h2>What to expect as a hydrologist<a class="headerlink" href="#what-to-expect-as-a-hydrologist" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A new generation of model output, with updated forcing data and probably new biases and sensitivities to examine, so expect the same checks you learnt here (sensitivity, evaluation against observations, bias correction) to apply again.</p></li>
+<li><p>The CMIP6 archive will remain the main resource for impact studies for several years while CMIP7 data arrive. A study that mixes CMIP6 and CMIP7 must state which scenarios it matches.</p></li>
+<li><p>For studies of low-emission futures and overshoot, CMIP7 will provide experiments that CMIP6 did not.</p></li>
+</ul>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Projections are <strong>conditional on a scenario</strong>: SRES (storylines first), RCP (forcing first), SSP (narrative + forcing), and in CMIP7 a revised set that includes overshoot scenarios.</p></li>
+<li><p><strong>Climate sensitivity</strong> (ECS, TCR) is set by the feedback parameter and is measured from <code class="docutils literal notranslate"><span class="pre">abrupt-4xCO2</span></code> and <code class="docutils literal notranslate"><span class="pre">1pctCO2</span></code>; the spread between models mainly comes from clouds.</p></li>
+<li><p><strong>Uncertainty</strong> has three sources, internal variability, model and scenario, with different weights at different lead times and for different variables. Precipitation is dominated by internal variability and model differences at regional scales.</p></li>
+<li><p>Global output must be <strong>bias-corrected and downscaled</strong> before it is used in a catchment model.</p></li>
+<li><p><strong>CMIP7</strong> keeps the DECK as the entry card and adds an Assessment Fast Track, a Rapid Evaluation Framework, emissions-driven experiments and new scenarios, in support of AR7.</p></li>
+</ul>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>In the Gregory plot of the energy balance model, what do the two intercepts mean, and what would happen to the line if you doubled the heat capacity <span class="math notranslate nohighlight">\(C\)</span>?</p></li>
+<li><p>Why can a “hot model” give a useful projection for the <em>pattern</em> of rainfall change but not for the <em>amount</em> of warming? Which uncertainty source is involved?</p></li>
+<li><p>You want the change in 2050 monsoon rainfall over a district. Which of the three uncertainty sources dominate, and how would you design the ensemble of models and members?</p></li>
+<li><p>Explain the difference between an RCP and an SSP, and why SSP2-4.5 and RCP4.5 have the same end-of-century forcing but are not identical scenarios.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>, adapting the course slides <em>Changes in Modeling and Simulation Patterns from CMIP1 to CMIP6</em> (scenarios, climate sensitivity). The energy balance model is that of Lecture 4; the CO<span class="math notranslate nohighlight">\(_2\)</span> pathways are the file <code class="docutils literal notranslate"><span class="pre">data/ssp_co2_concentrations.csv</span></code> described there.</p>
+<p><strong>Scenarios.</strong> Nakicenovic, N., et al. (2000). <em>Special Report on Emissions Scenarios</em>. IPCC. · van Vuuren, D. P., et al. (2011). The representative concentration pathways: an overview. <em>Climatic Change, 109</em>, 5–31. · O’Neill, B. C., et al. (2016). The Scenario Model Intercomparison Project (ScenarioMIP) for CMIP6. <em>Geosci. Model Dev., 9</em>, 3461–3482.</p>
+<p><strong>Climate sensitivity.</strong> Gregory, J. M., et al. (2004). A new method for diagnosing radiative forcing and climate sensitivity. <em>Geophys. Res. Lett., 31</em>, L03205. · Zelinka, M. D., et al. (2020). Causes of higher climate sensitivity in CMIP6 models. <em>Geophys. Res. Lett., 47</em>, e2019GL085782. · Forster, P., et al. (2021). The Earth’s energy budget, climate feedbacks, and climate sensitivity. In <em>IPCC AR6 WGI</em>, Ch. 7.</p>
+<p><strong>Uncertainty.</strong> Hawkins, E., &amp; Sutton, R. (2009). The potential to narrow uncertainty in regional climate predictions. <em>Bull. Amer. Meteor. Soc., 90</em>, 1095–1108.</p>
+<p><strong>CMIP7.</strong> Dunne, J. P., et al. (2025). An evolving Coupled Model Intercomparison Project phase 7 (CMIP7) and Fast Track in support of future climate assessment. <em>Geosci. Model Dev.</em> · van Vuuren, D. P., et al. (2026). The CMIP7 ScenarioMIP scenarios. <em>Geosci. Model Dev., 19</em>, 2627. · WCRP CMIP pages: <a class="reference external" href="https://wcrp-cmip.org/cmip-phases/cmip7/">wcrp-cmip.org/cmip-phases/cmip7</a>. Because CMIP7 is still being finalised, please verify details, scenario names and dates against these pages.</p>
+<p>ECS ranges are approximate values from the sources above. The rainfall series in Section 4 is synthetic, and the ensemble in Section 3 is a toy model, not a CMIP result. All figures are drawn for this course.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-13-cmip-history-and-design.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 13, The Coupled Model Intercomparison Project: history and design</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-15-climate-data-analysis-with-xarray.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 15, Climate data analysis with xarray</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scenarios-describing-the-future-forcing">1) Scenarios: describing the future forcing</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sres-cmip3-2000">SRES (CMIP3, 2000)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rcps-cmip5-2011">RCPs (CMIP5, 2011)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssps-cmip6-2016">SSPs (CMIP6, 2016)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-sensitivity">2) Climate sensitivity</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-cmip-measures-it-abrupt-4xco2-and-the-gregory-plot">How CMIP measures it: abrupt-4xCO2 and the Gregory plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-cmip-showed">What CMIP showed</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-three-sources">3) Uncertainty: three sources</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-global-model-to-a-catchment">4) From the global model to a catchment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cmip7">5) CMIP7</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-new-phase">Why a new phase?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-different">What is different</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cmip7-scenarios">The CMIP7 scenarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-expect-as-a-hydrologist">What to expect as a hydrologist</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

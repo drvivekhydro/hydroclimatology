@@ -1,0 +1,1404 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 22, Weather types and temporal downscaling &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-22-weather-types-and-temporal-downscaling';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 23, Spatial downscaling" href="lecture-23-spatial-downscaling.html" />
+    <link rel="prev" title="Lecture 21, Weather generators" href="lecture-21-weather-generators.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-22-weather-types-and-temporal-downscaling.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-22-weather-types-and-temporal-downscaling.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-22-weather-types-and-temporal-downscaling.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-22-weather-types-and-temporal-downscaling.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 22, Weather types and temporal downscaling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 22, Weather types and temporal downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-type-downscaling">7 Weather-type downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-weather-types">7.1 Classification of weather types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-weather-type">7.1.1 Empirical weather type</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-weather-type">7.1.2 Objective weather type</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-of-daily-rainfall-sequences">7.2 Generation of daily rainfall sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand">Worked example (by hand)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-climate-with-weather-type-downscaling">7.3 Future climate with weather-type downscaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-conclusion">7.4 Summary and conclusion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-downscaling">8 Temporal downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">8.1 Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbour-resampling">8.1.1 k-nearest-neighbour resampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-to-hourly-downscaling">8.2 Daily to hourly downscaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-method-to-a-longer-record">Applying the method to a longer record</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-conclusion-with-the-summary-of-chapter-7">8.3 Summary and conclusion (with the summary of Chapter 7)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-22-weather-types-and-temporal-downscaling">
+<h1>Lecture 22, Weather types and temporal downscaling<a class="headerlink" href="#lecture-22-weather-types-and-temporal-downscaling" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Sort the days into circulation types, then split a daily total into hours</p>
+</div></blockquote>
+<p>This lecture follows Lee and Singh (2019), Chapter 7 (weather-type downscaling) and Chapter 8 (temporal downscaling), in the order of the book; section numbers in the headings are the book’s. Lecture 16 set out the downscaling problem and Lecture 21 introduced weather generators.</p>
+<ul class="simple">
+<li><p><strong>Chapter 7, weather types.</strong> Think of a handful of standard weather maps. Each day gets the label of the map it most resembles, and each label has its own habits of rainfall. We label the days from air pressure, then generate local daily rainfall from the labels.</p></li>
+<li><p><strong>Chapter 8, temporal downscaling.</strong> A climate model says ‘40 mm fell today’, but a small catchment needs to know how much fell in each hour. We split the daily total into 24 hourly values by borrowing the hourly pattern of a similar observed day.</p></li>
+</ul>
+<p>By the end of this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>classify a day into a weather type by the empirical (Lamb) and the objective (Jenkinson and Collison) approach,</p></li>
+<li><p>generate daily rainfall from a weather-type sequence: transition probabilities, rainfall occurrence, rainfall amount,</p></li>
+<li><p>explain how a future climate enters through the types simulated by a climate model,</p></li>
+<li><p>resample with the k-nearest-neighbour method (distance, k, weights) and disaggregate daily rainfall into hourly values that add up to the daily total.</p></li>
+</ul>
+<p><strong>All data in this lecture are synthetic.</strong> The workbook <code class="docutils literal notranslate"><span class="pre">data/downscaling/lec22/lec22_worked_examples.xlsx</span></code> repeats the two hand-worked examples with live formulas; the code cells print the same numbers.</p>
+<section id="words-you-need">
+<h2>Words you need<a class="headerlink" href="#words-you-need" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Weather type</strong>: a label for a typical weather map, for example ‘anticyclonic’ (high pressure, mostly dry) or ‘cyclonic’ (low pressure, mostly wet).</p></li>
+<li><p><strong>Transition probability</strong>: the chance of tomorrow’s type given today’s type. If sunny days are followed by sunny days 7 times out of 10, the transition probability is 0.7.</p></li>
+<li><p><strong>Uniform random number</strong> <span class="math notranslate nohighlight">\(u\)</span>: a number between 0 and 1 where every value is equally likely. We use it like a die to pick among outcomes with given chances.</p></li>
+<li><p><strong>Distance</strong>: how different two days are. For two daily totals of 28 mm and 24 mm the distance is <span class="math notranslate nohighlight">\((28-24)^2=16\)</span>; smaller means more alike.</p></li>
+<li><p><strong>Nearest neighbours</strong>: the observed days with the smallest distance to the day we want. The <span class="math notranslate nohighlight">\(k\)</span> nearest are the <span class="math notranslate nohighlight">\(k\)</span> most similar days.</p></li>
+<li><p><strong>Weight</strong>: the chance that a neighbour is picked. Closer neighbours get a larger weight.</p></li>
+<li><p><strong>Disaggregation</strong>: splitting a coarse value into finer pieces, here one daily total into 24 hourly values.</p></li>
+<li><p><strong>Library</strong>: the set of observed days (with their hourly values) from which patterns are borrowed.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib scipy
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>Symbols are those of Lee and Singh (2019). In code, Greek letters are spelled out, subscripts are joined with an underscore, and a bar or star is not used (<code class="docutils literal notranslate"><span class="pre">p_star</span></code>).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Book symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Code and spreadsheet name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\rho_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,16\)</span></p></td>
+<td class="text-left"><p>mean sea-level pressure at grid point <span class="math notranslate nohighlight">\(i\)</span> (hPa)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rho</span></code> (<code class="docutils literal notranslate"><span class="pre">rho[i-1]</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\omega\)</span>, <span class="math notranslate nohighlight">\(\eta\)</span>, <span class="math notranslate nohighlight">\(F\)</span></p></td>
+<td class="text-left"><p>westerly flow, southerly flow, resultant flow (Eqs. 7.1 to 7.3)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">omega</span></code>, <code class="docutils literal notranslate"><span class="pre">eta</span></code>, <code class="docutils literal notranslate"><span class="pre">F</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(Z_W\)</span>, <span class="math notranslate nohighlight">\(Z_S\)</span>, <span class="math notranslate nohighlight">\(Z\)</span></p></td>
+<td class="text-left"><p>westerly, southerly and total shear vorticity (Eqs. 7.4 to 7.6)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Z_W</span></code>, <code class="docutils literal notranslate"><span class="pre">Z_S</span></code>, <code class="docutils literal notranslate"><span class="pre">Z</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(D\)</span></p></td>
+<td class="text-left"><p>flow direction in degrees (Eq. 7.7); the book also writes <span class="math notranslate nohighlight">\(D\)</span> for the kNN distance</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">D_flow</span></code> for the direction, <code class="docutils literal notranslate"><span class="pre">D_i</span></code> for the distance</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>LWT; A, C, W, O</p></td>
+<td class="text-left"><p>weather type; anticyclonic, cyclonic, westerly, other</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">types</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(P(\mathrm{LWT})\)</span></p></td>
+<td class="text-left"><p>occurrence probability of each type (Table 7.3)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">P_LWT</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>transition matrix</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\Pr\)</span>(type tomorrow, column <span class="math notranslate nohighlight">\(\mid\)</span> type today, row) (Table 7.2)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">TM</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(P_{CTM}\)</span></p></td>
+<td class="text-left"><p>cumulative probabilities used to draw the type</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">PCTM</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(P_{wet}\)</span>, <span class="math notranslate nohighlight">\(\mu_{LWT}\)</span></p></td>
+<td class="text-left"><p>wet-day probability and mean wet-day rainfall of a type (mm)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">P_wet</span></code>, <code class="docutils literal notranslate"><span class="pre">mu_LWT</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(r\)</span></p></td>
+<td class="text-left"><p>uniform random numbers on <span class="math notranslate nohighlight">\([0,1]\)</span></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">u</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(R\)</span></p></td>
+<td class="text-left"><p>simulated rainfall amount (mm)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">R</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span>; <span class="math notranslate nohighlight">\(y_i\)</span>; <span class="math notranslate nohighlight">\(Y_t\)</span></p></td>
+<td class="text-left"><p>feature vector of observation <span class="math notranslate nohighlight">\(i\)</span> and of target time <span class="math notranslate nohighlight">\(t\)</span>; observed predictand; simulated predictand</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_i</span></code>, <code class="docutils literal notranslate"><span class="pre">x_t</span></code>, <code class="docutils literal notranslate"><span class="pre">y_i</span></code>, <code class="docutils literal notranslate"><span class="pre">Y_t</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(D_i\)</span>; <span class="math notranslate nohighlight">\(w_j\)</span>; <span class="math notranslate nohighlight">\(k\)</span>; <span class="math notranslate nohighlight">\(n\)</span>; <span class="math notranslate nohighlight">\(p\)</span></p></td>
+<td class="text-left"><p>squared distance; weight of the <span class="math notranslate nohighlight">\(j\)</span>-th nearest neighbour; number of neighbours; library length; selected index</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">D_i</span></code>, <code class="docutils literal notranslate"><span class="pre">w_j</span></code>, <code class="docutils literal notranslate"><span class="pre">k</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(x_{i,h}\)</span>, <span class="math notranslate nohighlight">\(y_i=\sum_h x_{i,h}\)</span></p></td>
+<td class="text-left"><p>observed hourly values and daily total of library day <span class="math notranslate nohighlight">\(i\)</span></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_ih</span></code> (days by 24), <code class="docutils literal notranslate"><span class="pre">y_i</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(y_t\)</span>, <span class="math notranslate nohighlight">\(Y_t\)</span>, <span class="math notranslate nohighlight">\(X_{t,h}\)</span></p></td>
+<td class="text-left"><p>target daily total (written <span class="math notranslate nohighlight">\(y_t\)</span> in Eq. 8.3 and <span class="math notranslate nohighlight">\(Y_t\)</span> in Eq. 8.7, the same number) and downscaled hourly values</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">y_t</span></code>, <code class="docutils literal notranslate"><span class="pre">Y_t</span></code>, <code class="docutils literal notranslate"><span class="pre">X_th</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(P_c\)</span>, <span class="math notranslate nohighlight">\(P_m\)</span>, <span class="math notranslate nohighlight">\(\varepsilon\)</span>, <span class="math notranslate nohighlight">\(\xi\)</span></p></td>
+<td class="text-left"><p>crossover and mutation probabilities, random number, random library day</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">P_c</span></code>, <code class="docutils literal notranslate"><span class="pre">P_m</span></code>, <code class="docutils literal notranslate"><span class="pre">eps</span></code>, <code class="docutils literal notranslate"><span class="pre">xi</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">beta</span> <span class="k">as</span> <span class="n">beta_dist</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"figure.dpi"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">"axes.grid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"grid.alpha"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_data</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1"># read a file of the lecture-22 data folder; fall back to GitHub if the repository is not present (Colab)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">"data/downscaling/lec22/"</span> <span class="o">+</span> <span class="n">name</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/drvivekhydro/hydroclimatology/main/"</span> <span class="o">+</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="weather-type-downscaling">
+<h1>7 Weather-type downscaling<a class="headerlink" href="#weather-type-downscaling" title="Link to this heading">#</a></h1>
+<section id="classification-of-weather-types">
+<h2>7.1 Classification of weather types<a class="headerlink" href="#classification-of-weather-types" title="Link to this heading">#</a></h2>
+<p><em>In words: on a pressure map, rainy days look different from dry days (a low usually brings rain, a high usually does not). Instead of keeping every map we keep a few standard types and label each day.</em></p>
+<section id="empirical-weather-type">
+<h3>7.1.1 Empirical weather type<a class="headerlink" href="#empirical-weather-type" title="Link to this heading">#</a></h3>
+<p>Lamb (1972) classified the days over the British Isles by eye, from surface pressure maps, winds and weather, into seven types: Anticyclonic (A), Cyclonic (C), Westerly (W), North-Westerly (NW), Northerly (N), Easterly (E) and Southerly (S). Anticyclonic days are mainly dry with light winds; cyclonic days are wet and disturbed. The result is the Lamb weather type (LWT) catalogue. Wilby (1994) used it to generate daily rainfall (Section 7.2).</p>
+</section>
+<section id="objective-weather-type">
+<h3>7.1.2 Objective weather type<a class="headerlink" href="#objective-weather-type" title="Link to this heading">#</a></h3>
+<p><em>‘Objective’ means that a computer gives the same label to the same map every time, with no human judgement.</em> Jones et al. (1993) automate the Jenkinson and Collison scheme with the mean sea-level pressure <span class="math notranslate nohighlight">\(\rho_i\)</span> (hPa) at 16 grid points, <span class="math notranslate nohighlight">\(i=1,\dots,16\)</span>. The points lie on a grid with latitudes 65, 60, 55, 50, 45 degrees N: points 1 and 2 at 65N, 3 to 6 at 60N, 7 to 10 at 55N, 11 to 14 at 50N, 15 and 16 at 45N (longitudes 20W, 10W, 0, 10E; the two-point rows lie at 10W and 0). For each day the wind-flow characteristics are computed in the order of the book:</p>
+<div class="math notranslate nohighlight">
+\[\omega = \tfrac12(\rho_{12}+\rho_{13}) - \tfrac12(\rho_{4}+\rho_{5})\tag{7.1}\]</div>
+<div class="math notranslate nohighlight">
+\[\eta = 1.74\left[\tfrac14(\rho_5+2\rho_9+\rho_{13}) - \tfrac14(\rho_4+2\rho_8+\rho_{12})\right]\tag{7.2}\]</div>
+<div class="math notranslate nohighlight">
+\[F=\sqrt{\omega^2+\eta^2}\tag{7.3}\]</div>
+<div class="math notranslate nohighlight">
+\[Z_W = 1.07\left[\tfrac12(\rho_{15}+\rho_{16})-\tfrac12(\rho_8+\rho_9)\right]-0.95\left[\tfrac12(\rho_8+\rho_9)-\tfrac12(\rho_1+\rho_2)\right]\tag{7.4}\]</div>
+<div class="math notranslate nohighlight">
+\[Z_S = 1.52\left[\tfrac14(\rho_6+2\rho_{10}+\rho_{14})-\tfrac14(\rho_5+2\rho_9+\rho_{13})-\tfrac14(\rho_4+2\rho_8+\rho_{12})+\tfrac14(\rho_3+2\rho_7+\rho_{11})\right]\tag{7.5}\]</div>
+<div class="math notranslate nohighlight">
+\[Z=Z_W+Z_S\tag{7.6}\]</div>
+<p><span class="math notranslate nohighlight">\(\omega\)</span> and <span class="math notranslate nohighlight">\(\eta\)</span> are the westerly and southerly flows, <span class="math notranslate nohighlight">\(F\)</span> is the resultant flow, <span class="math notranslate nohighlight">\(Z_W\)</span> and <span class="math notranslate nohighlight">\(Z_S\)</span> are the westerly and southerly shear vorticities, and <span class="math notranslate nohighlight">\(Z\)</span> is the total shear vorticity. <em>In words: <span class="math notranslate nohighlight">\(\omega\)</span> and <span class="math notranslate nohighlight">\(\eta\)</span> say how strongly the air moves from west to east and from south to north (from pressure differences between the southern and northern rows, and the eastern and western columns), <span class="math notranslate nohighlight">\(F\)</span> is the total flow strength, and <span class="math notranslate nohighlight">\(Z\)</span> says how much the flow curls: <span class="math notranslate nohighlight">\(Z&gt;0\)</span> around a low, <span class="math notranslate nohighlight">\(Z&lt;0\)</span> around a high.</em> The flow direction is</p>
+<div class="math notranslate nohighlight">
+\[D=\tan^{-1}(\omega/\eta),\tag{7.7}\]</div>
+<p>taken in the quadrant that gives the direction the flow comes from. The rules of Jenkinson and Collison then define the type:</p>
+<ol class="arabic simple">
+<li><p>The W type occurs when <span class="math notranslate nohighlight">\(247.5^\circ &lt; D &lt; 292.5^\circ\)</span> (other directions are treated the same way).</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(|Z|&lt;F\)</span> the flow is essentially straight and corresponds to an original Lamb type.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(|Z|&gt;2F\)</span> the pattern is strongly cyclonic (<span class="math notranslate nohighlight">\(Z&gt;0\)</span>) or anticyclonic (<span class="math notranslate nohighlight">\(Z&lt;0\)</span>).</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(|Z|\)</span> lies between <span class="math notranslate nohighlight">\(F\)</span> and <span class="math notranslate nohighlight">\(2F\)</span> the flow is partly (anti)cyclonic: a hybrid type.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(F&lt;6\)</span> and <span class="math notranslate nohighlight">\(|Z|&lt;6\)</span> the flow is light and indeterminate: unclassified.</p></li>
+</ol>
+<p><strong>Example 7.1 (code, new numbers).</strong> To keep four types, as in the book’s later example, we use A, C, W and <strong>O</strong> (all other days: other directions, hybrids, unclassified). The code builds 20 years of synthetic daily pressure at the 16 points (smooth tilt and curvature patterns with day-to-day persistence, plus noise), computes <span class="math notranslate nohighlight">\(\omega\)</span>, <span class="math notranslate nohighlight">\(\eta\)</span>, <span class="math notranslate nohighlight">\(F\)</span>, <span class="math notranslate nohighlight">\(Z_W\)</span>, <span class="math notranslate nohighlight">\(Z_S\)</span>, <span class="math notranslate nohighlight">\(Z\)</span>, <span class="math notranslate nohighlight">\(D\)</span> for every day and applies the rules. To use real data, replace <code class="docutils literal notranslate"><span class="pre">rho</span></code> by reanalysis pressure at the 16 points. <em>What this means for hydrology: the types link rainfall to a circulation that climate models simulate reasonably well.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">22</span><span class="p">)</span>
+<span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">,</span> <span class="s2">"W"</span><span class="p">,</span> <span class="s2">"O"</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">flow_indices</span><span class="p">(</span><span class="n">rho</span><span class="p">):</span>
+    <span class="c1"># Eqs. 7.1 to 7.6; rho has the 16 grid points in its first axis</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">rho</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">13</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="mf">1.74</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">13</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">12</span><span class="p">)))</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">eta</span><span class="p">)</span>
+    <span class="n">Z_W</span> <span class="o">=</span> <span class="mf">1.07</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">9</span><span class="p">)))</span> <span class="o">-</span> <span class="mf">0.95</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+    <span class="n">Z_S</span> <span class="o">=</span> <span class="mf">1.52</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">14</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">13</span><span class="p">))</span>
+                  <span class="o">-</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="p">(</span><span class="mi">11</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">omega</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Z_W</span><span class="p">,</span> <span class="n">Z_S</span><span class="p">,</span> <span class="n">Z_W</span> <span class="o">+</span> <span class="n">Z_S</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">weather_type</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Z</span><span class="p">):</span>
+    <span class="n">D_flow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="o">-</span><span class="n">omega</span><span class="p">,</span> <span class="o">-</span><span class="n">eta</span><span class="p">))</span> <span class="o">%</span> <span class="mi">360</span>            <span class="c1"># direction the flow comes from</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">F</span><span class="p">),</span> <span class="s2">"O"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"&lt;U1"</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">F</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">D_flow</span> <span class="o">&gt;</span> <span class="mf">247.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">D_flow</span> <span class="o">&lt;</span> <span class="mf">292.5</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">"W"</span>   <span class="c1"># rules 1 and 2</span>
+    <span class="n">t</span><span class="p">[</span><span class="n">Z</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">F</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"C"</span><span class="p">;</span> <span class="n">t</span><span class="p">[</span><span class="n">Z</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">F</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"A"</span>                          <span class="c1"># rule 3</span>
+    <span class="n">t</span><span class="p">[(</span><span class="n">F</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">"O"</span>                               <span class="c1"># rule 5</span>
+    <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">D_flow</span>
+
+<span class="c1"># synthetic pressure at the 16 points: 1013 hPa + north-south tilt + east-west tilt + curvature + noise</span>
+<span class="n">lat_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">45</span><span class="p">])</span>
+<span class="n">col_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">])</span>
+<span class="n">y_g</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat_i</span> <span class="o">-</span> <span class="mi">55</span><span class="p">)</span> <span class="o">/</span> <span class="mf">5.0</span>
+<span class="n">n_days</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="mi">365</span>
+<span class="n">amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_days</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span> <span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_days</span><span class="p">):</span>
+    <span class="n">amp</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">amp</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="mi">1013</span> <span class="o">+</span> <span class="n">amp</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">y_g</span> <span class="o">+</span> <span class="n">amp</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="n">col_i</span> <span class="o">+</span> <span class="n">amp</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">col_i</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y_g</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">)</span> \
+      <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">n_days</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>                     <span class="c1"># days by 16 points [hPa]</span>
+
+<span class="n">omega</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Z_W</span><span class="p">,</span> <span class="n">Z_S</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">flow_indices</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">typ</span><span class="p">,</span> <span class="n">D_flow</span> <span class="o">=</span> <span class="n">weather_type</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"day 1: omega = </span><span class="si">{</span><span class="n">omega</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, eta = </span><span class="si">{</span><span class="n">eta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, F = </span><span class="si">{</span><span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Z_W = </span><span class="si">{</span><span class="n">Z_W</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Z_S = </span><span class="si">{</span><span class="n">Z_S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Z = </span><span class="si">{</span><span class="n">Z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> hPa, "</span>
+      <span class="sa">f</span><span class="s2">"D = </span><span class="si">{</span><span class="n">D_flow</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> deg -&gt; type </span><span class="si">{</span><span class="n">typ</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"type frequencies:"</span><span class="p">,</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">typ</span> <span class="o">==</span> <span class="n">s</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">types</span><span class="p">})</span>
+
+<span class="c1"># rainfall drawn from the classified type (the 'true' P_wet and mu_LWT the fit below should recover)</span>
+<span class="n">P_wet_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]);</span> <span class="n">mu_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
+<span class="n">t_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">types</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">typ</span><span class="p">])</span>
+<span class="n">rain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_days</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">P_wet_true</span><span class="p">[</span><span class="n">t_idx</span><span class="p">],</span> <span class="o">-</span><span class="n">mu_true</span><span class="p">[</span><span class="n">t_idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_days</span><span class="p">)),</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean rainfall </span><span class="si">{</span><span class="n">rain</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm/day, wet-day fraction </span><span class="si">{</span><span class="p">(</span><span class="n">rain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>day 1: omega = -1.47, eta = 0.72, F = 1.64, Z_W = 0.79, Z_S = -1.04, Z = -0.26 hPa, D = 116 deg -&gt; type O
+type frequencies: {'A': 0.128, 'C': 0.136, 'W': 0.091, 'O': 0.646}
+mean rainfall 1.52 mm/day, wet-day fraction 0.40
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="generation-of-daily-rainfall-sequences">
+<h2>7.2 Generation of daily rainfall sequences<a class="headerlink" href="#generation-of-daily-rainfall-sequences" title="Link to this heading">#</a></h2>
+<p>With the weather types of the catalogue, transition matrices and precipitation statistics can be extracted (Tables 7.2 and 7.3 of the book). Once the type of each day is known this is straightforward: count how often each type occurs, <span class="math notranslate nohighlight">\(P(\mathrm{LWT})\)</span>; how often each type follows each other type (the <strong>transition matrix</strong>: rows today, columns tomorrow); and for each type the fraction of wet days <span class="math notranslate nohighlight">\(P_{wet}\)</span> and the mean rainfall on wet days <span class="math notranslate nohighlight">\(\mu_{LWT}\)</span>. The next cell does this for the running example, using the rainfall record that was drawn from the classified types (to use real data, replace <code class="docutils literal notranslate"><span class="pre">rain</span></code> by a gauge record).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P_LWT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">t_idx</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_days</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">));</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="p">(</span><span class="n">t_idx</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_idx</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">TM</span> <span class="o">=</span> <span class="n">N</span> <span class="o">/</span> <span class="n">N</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wet</span> <span class="o">=</span> <span class="n">rain</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="n">P_wet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">wet</span><span class="p">[</span><span class="n">t_idx</span> <span class="o">==</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">mu_LWT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rain</span><span class="p">[(</span><span class="n">t_idx</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">wet</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"P_LWT"</span><span class="p">:</span> <span class="n">P_LWT</span><span class="p">,</span> <span class="s2">"P_wet"</span><span class="p">:</span> <span class="n">P_wet</span><span class="p">,</span> <span class="s2">"mu_LWT [mm]"</span><span class="p">:</span> <span class="n">mu_LWT</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">types</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">transition matrix TM (rows today, columns tomorrow):</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">TM</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">types</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">types</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   P_LWT  P_wet  mu_LWT [mm]
+A  0.128  0.133        1.793
+C  0.136  0.765        6.004
+W  0.091  0.564        3.840
+O  0.646  0.350        2.944
+
+transition matrix TM (rows today, columns tomorrow):
+        A      C      W      O
+A  0.481  0.005  0.030  0.483
+C  0.006  0.517  0.028  0.449
+W  0.047  0.053  0.460  0.440
+O  0.095  0.093  0.064  0.748
+</pre></div>
+</div>
+</div>
+</div>
+<p>A daily rainfall series is then generated as follows (Section 7.2 of the book):</p>
+<ol class="arabic simple">
+<li><p><strong>Chances of the type.</strong> On the first day use the cumulative occurrence probabilities <span class="math notranslate nohighlight">\(P_{CTM}\)</span> built from <span class="math notranslate nohighlight">\(P(\mathrm{LWT})\)</span> in the order of the table; on later days use the cumulative probabilities of the row of the previous day’s type in the transition matrix.</p></li>
+<li><p><strong>Draw the type.</strong> <span class="math notranslate nohighlight">\(P_{CTM}\)</span> is a running total of the chances, like cutting the interval 0 to 1 into slices as wide as the chances. Draw a random number <span class="math notranslate nohighlight">\(u\)</span> between 0 and 1; the slice <span class="math notranslate nohighlight">\([P_{CTM}(j-1),\,P_{CTM}(j))\)</span> that contains <span class="math notranslate nohighlight">\(u\)</span> gives the type.</p></li>
+<li><p><strong>Does it rain?</strong> Draw a new <span class="math notranslate nohighlight">\(u\)</span>. A type with <span class="math notranslate nohighlight">\(P_{wet}=0.5\)</span> should rain on half of its days, so the day is wet if <span class="math notranslate nohighlight">\(u &lt; P_{wet}\)</span> and dry otherwise.</p></li>
+<li><p><strong>How much?</strong> On a wet day most amounts are small and a few are large. The exponential curve has this shape (Eq. 7.8, after Wilby, 1994): <span class="math notranslate nohighlight">\(R=-\mu_{LWT}\ln(1-u)\)</span> for a new <span class="math notranslate nohighlight">\(u\)</span>, where <span class="math notranslate nohighlight">\(\mu_{LWT}\)</span> is the mean amount of the type.</p></li>
+<li><p>Repeat steps 2 to 4 for every day.</p></li>
+</ol>
+<section id="worked-example-by-hand">
+<h3>Worked example (by hand)<a class="headerlink" href="#worked-example-by-hand" title="Link to this heading">#</a></h3>
+<p><em>Problem.</em> Types A, C, W, O have <span class="math notranslate nohighlight">\(P(\mathrm{LWT})\)</span> = 0.30, 0.10, 0.20, 0.40, <span class="math notranslate nohighlight">\(P_{wet}\)</span> = 0.15, 0.80, 0.50, 0.40 and <span class="math notranslate nohighlight">\(\mu_{LWT}\)</span> = 2.0, 7.0, 4.0, 3.0 mm. The transition matrix (rows today, columns tomorrow, order A, C, W, O) is</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>today \ tomorrow</p></th>
+<th class="head text-left"><p>A</p></th>
+<th class="head text-left"><p>C</p></th>
+<th class="head text-left"><p>W</p></th>
+<th class="head text-left"><p>O</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>A</p></td>
+<td class="text-left"><p>0.50</p></td>
+<td class="text-left"><p>0.05</p></td>
+<td class="text-left"><p>0.10</p></td>
+<td class="text-left"><p>0.35</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>C</p></td>
+<td class="text-left"><p>0.10</p></td>
+<td class="text-left"><p>0.40</p></td>
+<td class="text-left"><p>0.10</p></td>
+<td class="text-left"><p>0.40</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>W</p></td>
+<td class="text-left"><p>0.15</p></td>
+<td class="text-left"><p>0.10</p></td>
+<td class="text-left"><p>0.45</p></td>
+<td class="text-left"><p>0.30</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>O</p></td>
+<td class="text-left"><p>0.20</p></td>
+<td class="text-left"><p>0.15</p></td>
+<td class="text-left"><p>0.15</p></td>
+<td class="text-left"><p>0.50</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Simulate two days with <span class="math notranslate nohighlight">\(u_1=0.34\)</span> (type of day 1), <span class="math notranslate nohighlight">\(u_2=0.58\)</span> (type of day 2), <span class="math notranslate nohighlight">\(u_3=0.27\)</span> (occurrence) and <span class="math notranslate nohighlight">\(u_4=0.70\)</span> (amount).</p>
+<p><em>Solution.</em></p>
+<ul class="simple">
+<li><p>Day 1 (cut 0 to 1 into slices as wide as the chances). <span class="math notranslate nohighlight">\(P_{CTM}=[0.30,\ 0.30+0.10,\ 0.40+0.20,\ 0.60+0.40]=[0.30,\ 0.40,\ 0.60,\ 1.00]\)</span>. Since <span class="math notranslate nohighlight">\(0.30\le u_1=0.34&lt;0.40\)</span>, day 1 is type <strong>C</strong>.</p></li>
+<li><p>Day 2 (now use the row of C, because the chances depend on today’s type). The row of C is <span class="math notranslate nohighlight">\([0.10,0.40,0.10,0.40]\)</span>, so <span class="math notranslate nohighlight">\(P_{CTM}=[0.10,\ 0.50,\ 0.60,\ 1.00]\)</span>. Since <span class="math notranslate nohighlight">\(0.50\le u_2=0.58&lt;0.60\)</span>, day 2 is type <strong>W</strong>.</p></li>
+<li><p>Does it rain? (compare <span class="math notranslate nohighlight">\(u_3\)</span> with the wet-day chance). For W, <span class="math notranslate nohighlight">\(P_{wet}=0.50\)</span>. Because <span class="math notranslate nohighlight">\(u_3=0.27&lt;0.50\)</span>, day 2 is <strong>wet</strong>.</p></li>
+<li><p>How much? (the exponential turns <span class="math notranslate nohighlight">\(u_4\)</span> into an amount with mean 4 mm). <span class="math notranslate nohighlight">\(\mu_{LWT}=4.0\)</span> mm, so <span class="math notranslate nohighlight">\(R=-4.0\,\ln(1-0.70)=-4.0\times\ln(0.30)=-4.0\times(-1.2040)=4.82\)</span> mm.</p></li>
+</ul>
+<p><em>Answer.</em> Day 1 is C; day 2 is W, wet, with <span class="math notranslate nohighlight">\(R=4.82\)</span> mm. The type fixes both how likely rain is and how much falls, and the transition probabilities carry today’s type into tomorrow.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The same numbers as the hand example and as the WeatherType_Rain sheet of the workbook</span>
+<span class="n">P_LWT_ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">]);</span> <span class="n">P_wet_ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">]);</span> <span class="n">mu_ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
+<span class="n">TM_ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">]])</span>
+<span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u4</span> <span class="o">=</span> <span class="mf">0.34</span><span class="p">,</span> <span class="mf">0.58</span><span class="p">,</span> <span class="mf">0.27</span><span class="p">,</span> <span class="mf">0.70</span>
+
+<span class="n">PCTM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">P_LWT_ex</span><span class="p">);</span> <span class="n">day1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">PCTM</span> <span class="o">&lt;=</span> <span class="n">u1</span><span class="p">))</span>          <span class="c1"># number of PCTM values &lt;= u: index of the type</span>
+<span class="n">PCTM_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">TM_ex</span><span class="p">[</span><span class="n">day1</span><span class="p">]);</span> <span class="n">day2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">PCTM_row</span> <span class="o">&lt;=</span> <span class="n">u2</span><span class="p">))</span>
+<span class="n">wet_day</span> <span class="o">=</span> <span class="n">u3</span> <span class="o">&lt;</span> <span class="n">P_wet_ex</span><span class="p">[</span><span class="n">day2</span><span class="p">]</span>
+<span class="n">R</span> <span class="o">=</span> <span class="o">-</span><span class="n">mu_ex</span><span class="p">[</span><span class="n">day2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u4</span><span class="p">)</span> <span class="k">if</span> <span class="n">wet_day</span> <span class="k">else</span> <span class="mf">0.0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"PCTM day 1:"</span><span class="p">,</span> <span class="n">PCTM</span><span class="p">,</span> <span class="s2">"-&gt; type"</span><span class="p">,</span> <span class="n">types</span><span class="p">[</span><span class="n">day1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"PCTM day 2:"</span><span class="p">,</span> <span class="n">PCTM_row</span><span class="p">,</span> <span class="s2">"-&gt; type"</span><span class="p">,</span> <span class="n">types</span><span class="p">[</span><span class="n">day2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P_wet = </span><span class="si">{</span><span class="n">P_wet_ex</span><span class="p">[</span><span class="n">day2</span><span class="p">]</span><span class="si">}</span><span class="s2">, u3 = </span><span class="si">{</span><span class="n">u3</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="s1">'wet'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">wet_day</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'dry'</span><span class="si">}</span><span class="s2">; R = </span><span class="si">{</span><span class="n">R</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PCTM day 1: [0.3 0.4 0.6 1. ] -&gt; type C
+PCTM day 2: [0.1 0.5 0.6 1. ] -&gt; type W
+P_wet = 0.5, u3 = 0.27 -&gt; wet; R = 4.816 mm
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The same steps for 20 years with the fitted statistics, compared with the record</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rng</span><span class="p">):</span>
+    <span class="n">PCTM_first</span><span class="p">,</span> <span class="n">PCTM_rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">P_LWT</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">TM</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">);</span> <span class="n">Rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">cum</span> <span class="o">=</span> <span class="n">PCTM_first</span> <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">PCTM_rows</span><span class="p">[</span><span class="n">T</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cum</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="mi">3</span><span class="p">)</span>                    <span class="c1"># step 2: interval [PCTM(j-1), PCTM(j)) containing u</span>
+        <span class="k">if</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">P_wet</span><span class="p">[</span><span class="n">T</span><span class="p">[</span><span class="n">t</span><span class="p">]]:</span>                                     <span class="c1"># step 3: wet if u &lt; P_wet</span>
+            <span class="n">Rs</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">mu_LWT</span><span class="p">[</span><span class="n">T</span><span class="p">[</span><span class="n">t</span><span class="p">]]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>               <span class="c1"># step 4: exponential amount</span>
+    <span class="k">return</span> <span class="n">T</span><span class="p">,</span> <span class="n">Rs</span>
+
+<span class="n">T_sim</span><span class="p">,</span> <span class="n">R_sim</span> <span class="o">=</span> <span class="n">simulate</span><span class="p">(</span><span class="n">n_days</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">spell_lengths</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="mi">0</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">edges</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">sp_obs</span><span class="p">,</span> <span class="n">sp_sim</span> <span class="o">=</span> <span class="n">spell_lengths</span><span class="p">(</span><span class="n">rain</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="n">spell_lengths</span><span class="p">(</span><span class="n">R_sim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"observed"</span><span class="p">:</span> <span class="p">[</span><span class="n">rain</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">20</span><span class="p">,</span> <span class="p">(</span><span class="n">rain</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sp_obs</span><span class="o">.</span><span class="n">mean</span><span class="p">()],</span>
+                        <span class="s2">"simulated"</span><span class="p">:</span> <span class="p">[</span><span class="n">R_sim</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">20</span><span class="p">,</span> <span class="p">(</span><span class="n">R_sim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sp_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()]},</span>
+                       <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"mean annual rain [mm]"</span><span class="p">,</span> <span class="s2">"wet-day fraction"</span><span class="p">,</span> <span class="s2">"mean wet-spell length [days]"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">summary</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">xk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xk</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">P_LWT</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"classified record"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xk</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">T_sim</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_days</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"simulated"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xk</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">types</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"weather type"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"frequency [%]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"(a) type frequencies"</span><span class="p">)</span>
+<span class="n">L_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">L_</span><span class="p">,</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sp_obs</span> <span class="o">==</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">L_</span><span class="p">],</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed (synthetic)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">L_</span><span class="p">,</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sp_sim</span> <span class="o">==</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">L_</span><span class="p">],</span> <span class="s2">"s--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"weather-type model"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"wet-spell length [days]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"share of spells"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"(b) wet spells"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                               observed  simulated
+mean annual rain [mm]           553.19     526.09
+wet-day fraction                  0.40       0.39
+mean wet-spell length [days]      1.76       1.79
+</pre></div>
+</div>
+<img alt="_images/f413b29d6276a36aa7b3ede69d8c5f8e65babba3828a4e0198833a6969bd2000.png" src="_images/f413b29d6276a36aa7b3ede69d8c5f8e65babba3828a4e0198833a6969bd2000.png" />
+</div>
+</div>
+<p>The weather-type model reproduces the wet-day fraction, the annual rainfall and the wet-spell lengths. Spells last because the types last. <em>What this means for hydrology: generated rainfall has realistic wet and dry spells, which matter for droughts and soil moisture.</em></p>
+</section>
+</section>
+<section id="future-climate-with-weather-type-downscaling">
+<h2>7.3 Future climate with weather-type downscaling<a class="headerlink" href="#future-climate-with-weather-type-downscaling" title="Link to this heading">#</a></h2>
+<p>The future evolution of daily precipitation is simulated by conditioning on the weather types obtained from global climate model (GCM) output. The steps are:</p>
+<ol class="arabic simple">
+<li><p>Obtain future circulation variables (here mean sea-level pressure) from the GCM.</p></li>
+<li><p>Classify the future days with the criteria defined from the <strong>observed</strong> pressure, in the same way as in Section 7.1.</p></li>
+<li><p>Generate the future daily precipitation with the steps of Section 7.2, using the future type sequence.</p></li>
+</ol>
+<p><em>What this means for hydrology: future rainfall changes through the types the GCM produces. A pattern that never occurred in the record can only be put into one of the existing types, most likely O.</em></p>
+</section>
+<section id="summary-and-conclusion">
+<h2>7.4 Summary and conclusion<a class="headerlink" href="#summary-and-conclusion" title="Link to this heading">#</a></h2>
+<p>Weather-type downscaling relates physical weather conditions to statistical downscaling through the type labels. Everything depends on the classification method. The book uses a simple empirical approach and mentions k-means, machine learning and Gaussian mixture distributions as more complex classification methods; they are not developed here.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="temporal-downscaling">
+<h1>8 Temporal downscaling<a class="headerlink" href="#temporal-downscaling" title="Link to this heading">#</a></h1>
+<section id="background">
+<h2>8.1 Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<section id="k-nearest-neighbour-resampling">
+<h3>8.1.1 k-nearest-neighbour resampling<a class="headerlink" href="#k-nearest-neighbour-resampling" title="Link to this heading">#</a></h3>
+<p><em>In words: to guess something about a new day, look at the observed days that were most like it and borrow from one of them; closer matches get a larger chance.</em> The k-nearest-neighbour resampling (KNNR) method was developed by Lall and Sharma (1996). We have observed pairs <span class="math notranslate nohighlight">\((\mathbf{x}_i, y_i)\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{x}_i=\{x_i^{(s)}\}\)</span> is a vector of <span class="math notranslate nohighlight">\(S\)</span> predictor variables and <span class="math notranslate nohighlight">\(y_i\)</span> is the predictand. The aim is to simulate the predictand <span class="math notranslate nohighlight">\(Y_t\)</span> at time <span class="math notranslate nohighlight">\(t\)</span>, given the predictors <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span> and the number of neighbours <span class="math notranslate nohighlight">\(k\)</span>:</p>
+<ol class="arabic simple">
+<li><p><strong>Distance.</strong> For <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span> compute the Mahalanobis distance
+$<span class="math notranslate nohighlight">\(D_i = (\mathbf{x}_t-\mathbf{x}_i)^{\mathsf T}\,C^{-1}(\mathbf{x}_t-\mathbf{x}_i),\tag{8.1}\)</span><span class="math notranslate nohighlight">\(
+where \)</span>C<span class="math notranslate nohighlight">\( is the covariance matrix of \)</span>\mathbf{x}<span class="math notranslate nohighlight">\( (it only rescales the variables so that none counts more than another). With one variable this is simply the squared difference \)</span>D_i=(x_t-x_i)^2$, the only form used below.</p></li>
+<li><p><strong>Neighbours.</strong> Sort the distances in ascending order, keep the <span class="math notranslate nohighlight">\(k\)</span> smallest and store their time indices.</p></li>
+<li><p><strong>Weights.</strong> Choose one of the <span class="math notranslate nohighlight">\(k\)</span> stored indices at random, with the probability of the <span class="math notranslate nohighlight">\(j\)</span>-th nearest neighbour
+$<span class="math notranslate nohighlight">\(w_j=\frac{1/j}{\sum_{m=1}^{k}1/m},\qquad j=1,\dots,k.\tag{8.2}\)</span><span class="math notranslate nohighlight">\(
+Draw a random number \)</span>u<span class="math notranslate nohighlight">\( between 0 and 1 and take the first \)</span>j<span class="math notranslate nohighlight">\( whose cumulative weight \)</span>\sum_{m\le j}w_m<span class="math notranslate nohighlight">\( is at least \)</span>u$.</p></li>
+<li><p><strong>Assign.</strong> If the selected index is <span class="math notranslate nohighlight">\(p\)</span>, then <span class="math notranslate nohighlight">\(Y_t=y_p\)</span>.</p></li>
+</ol>
+<p>The usual choice is <span class="math notranslate nohighlight">\(k=\lceil\sqrt n\rceil\)</span> (the square root of <span class="math notranslate nohighlight">\(n\)</span> rounded up; for <span class="math notranslate nohighlight">\(n=10\)</span>, <span class="math notranslate nohighlight">\(k=4\)</span>). The result is not sensitive to <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p><strong>Example 8.1 (code, new numbers).</strong> Simulate the rainfall of one month from the wind direction. The library has <span class="math notranslate nohighlight">\(n=10\)</span> years with wind direction <span class="math notranslate nohighlight">\(x_i\)</span> (degrees) and rainfall <span class="math notranslate nohighlight">\(y_i\)</span> (mm), and the target is <span class="math notranslate nohighlight">\(x_t=90^\circ\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">93</span><span class="p">,</span> <span class="mi">141</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">178</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mf">101.0</span><span class="p">])</span>          <span class="c1"># wind direction [deg]</span>
+<span class="n">y_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">59</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">])</span>                <span class="c1"># rainfall [mm]</span>
+<span class="n">x_t</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mf">0.50</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_i</span><span class="p">);</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>                                 <span class="c1"># k = ceil(sqrt(10)) = 4</span>
+<span class="n">D_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_t</span> <span class="o">-</span> <span class="n">x_i</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>                                                     <span class="c1"># one variable: squared difference</span>
+<span class="n">nb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">D_i</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)[:</span><span class="n">k</span><span class="p">]</span>                                    <span class="c1"># indices of the k smallest distances</span>
+<span class="n">w_j</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="n">w_j</span> <span class="o">/=</span> <span class="n">w_j</span><span class="o">.</span><span class="n">sum</span><span class="p">();</span> <span class="n">cw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">w_j</span><span class="p">)</span>       <span class="c1"># Eq. 8.2</span>
+<span class="n">j_star</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">cw</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="n">p</span> <span class="o">=</span> <span class="n">nb</span><span class="p">[</span><span class="n">j_star</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>               <span class="c1"># first j with cumulative weight &gt;= u</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"i"</span><span class="p">:</span> <span class="n">nb</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"x_i [deg]"</span><span class="p">:</span> <span class="n">x_i</span><span class="p">[</span><span class="n">nb</span><span class="p">],</span> <span class="s2">"D_i"</span><span class="p">:</span> <span class="n">D_i</span><span class="p">[</span><span class="n">nb</span><span class="p">],</span> <span class="s2">"y_i [mm]"</span><span class="p">:</span> <span class="n">y_i</span><span class="p">[</span><span class="n">nb</span><span class="p">],</span> <span class="s2">"w_j"</span><span class="p">:</span> <span class="n">w_j</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="s2">"cumulative"</span><span class="p">:</span> <span class="n">cw</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)},</span>
+                   <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">"j"</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"k = </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">; u = </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> -&gt; j* = </span><span class="si">{</span><span class="n">j_star</span><span class="si">}</span><span class="s2">, p = </span><span class="si">{</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">; simulated Y_t = y_p = </span><span class="si">{</span><span class="n">y_i</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   i  x_i [deg]   D_i  y_i [mm]   w_j  cumulative
+j                                                
+1  4       88.0   4.0      69.0  0.48        0.48
+2  1       93.0   9.0      59.0  0.24        0.72
+3  8       84.0  36.0      50.0  0.16        0.88
+4  7       98.0  64.0      49.0  0.12        1.00
+k = 4; u = 0.5 -&gt; j* = 2, p = 1; simulated Y_t = y_p = 59 mm
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="daily-to-hourly-downscaling">
+<h2>8.2 Daily to hourly downscaling<a class="headerlink" href="#daily-to-hourly-downscaling" title="Link to this heading">#</a></h2>
+<p>Hourly series are needed for medium and small watersheds, but many records and climate models give only daily values. Hourly series can be created from daily series with disaggregation rules that preserve the diurnal cycle and the additive condition (the 24 hours add up to the daily total). The nonparametric method of Lee and Jeong (2014) uses KNNR and a genetic-algorithm (GA) mixing step. <em>In words: on a day with 28 mm the rain probably fell in the same hours as on an observed day with a similar total, so we borrow that day’s hourly shape and rescale it to 28 mm.</em></p>
+<p>The library has <span class="math notranslate nohighlight">\(n\)</span> observed wet days (days without rain are left out) with hourly values <span class="math notranslate nohighlight">\(\mathbf{x}_i=[x_{i,1},\dots,x_{i,24}]\)</span> and daily total <span class="math notranslate nohighlight">\(y_i=\sum_{h=1}^{24}x_{i,h}\)</span>. The target daily totals <span class="math notranslate nohighlight">\(y_t\)</span> are known, and the aim is the hourly series <span class="math notranslate nohighlight">\(\mathbf{X}_t=[X_{t,1},\dots,X_{t,24}]\)</span>. With <span class="math notranslate nohighlight">\(k\)</span> known, the steps are:</p>
+<ol class="arabic simple">
+<li><p><strong>Distance</strong> between the target daily total and each observed daily total: <span class="math notranslate nohighlight">\(D_i=(y_t-y_i)^2\)</span> (Eq. 8.3).</p></li>
+<li><p><strong>Sort</strong> the distances, keep the <span class="math notranslate nohighlight">\(k\)</span> smallest and store their time indices.</p></li>
+<li><p><strong>Weights.</strong> Choose one stored index at random with the probability <span class="math notranslate nohighlight">\(w_j=\dfrac{1/j}{\sum_{m=1}^{k}1/m}\)</span>, <span class="math notranslate nohighlight">\(j=1,\dots,k\)</span> (Eq. 8.4), by the cumulative-weight rule of Section 8.1.1.</p></li>
+<li><p><strong>Assign</strong> the hourly values of the selected index <span class="math notranslate nohighlight">\(p\)</span>: <span class="math notranslate nohighlight">\(\mathbf{x}_p=[x_{p,h}]\)</span>, <span class="math notranslate nohighlight">\(h=1,\dots,24\)</span>.</p></li>
+<li><p><strong>GA mixing.</strong> (5.1) <em>Reproduction:</em> select one more index <span class="math notranslate nohighlight">\(p^*\)</span> with steps 1 to 3, giving <span class="math notranslate nohighlight">\(\mathbf{x}_{p^*}\)</span>. (5.2) <em>Crossover:</em> replace each hour of <span class="math notranslate nohighlight">\(\mathbf{x}_p\)</span> by the same hour of <span class="math notranslate nohighlight">\(\mathbf{x}_{p^*}\)</span> with probability <span class="math notranslate nohighlight">\(P_c\)</span>: <span class="math notranslate nohighlight">\(X^*_{t,h}=x_{p^*,h}\)</span> if <span class="math notranslate nohighlight">\(\varepsilon&lt;P_c\)</span>, otherwise <span class="math notranslate nohighlight">\(x_{p,h}\)</span> (Eq. 8.5). (5.3) <em>Mutation:</em> replace each hour by the same hour of a library day <span class="math notranslate nohighlight">\(\xi\)</span> chosen at random among all <span class="math notranslate nohighlight">\(n\)</span> days, with probability <span class="math notranslate nohighlight">\(P_m\)</span>: <span class="math notranslate nohighlight">\(X^*_{t,h}=x_{\xi,h}\)</span> if <span class="math notranslate nohighlight">\(\varepsilon&lt;P_m\)</span> (Eq. 8.6). Here <span class="math notranslate nohighlight">\(\varepsilon\)</span> is a new uniform random number for every hour. In practice <span class="math notranslate nohighlight">\(P_c=0.1\)</span> and <span class="math notranslate nohighlight">\(P_m=0.01\)</span>. <em>The mixing only adds variety to the borrowed pattern.</em></p></li>
+<li><p><strong>Adjust</strong> the mixed hourly values to keep the additive condition:
+$<span class="math notranslate nohighlight">\(X_{t,h}=X^*_{t,h}\,\frac{Y_t}{\sum_{j=1}^{24}X^*_{t,j}}\tag{8.7}\)</span><span class="math notranslate nohighlight">\(
+where \)</span>Y_t<span class="math notranslate nohighlight">\( is the target daily total (the book writes it \)</span>y_t<span class="math notranslate nohighlight">\( in Eq. 8.3 and \)</span>Y_t<span class="math notranslate nohighlight">\( here). *Dividing by the sum of the hours makes the 24 hours add up to \)</span>Y_t$ exactly.*</p></li>
+<li><p><strong>Repeat</strong> steps 1 to 6 for every day to be generated.</p></li>
+</ol>
+<p><strong>Example 8.2 (by hand, new numbers).</strong></p>
+<p><em>Problem.</em> A library of <span class="math notranslate nohighlight">\(n=6\)</span> wet days has daily totals <span class="math notranslate nohighlight">\(y_i\)</span> = 12, 31, 24, 8, 40, 19 mm for <span class="math notranslate nohighlight">\(i=1,\dots,6\)</span>. Downscale the target <span class="math notranslate nohighlight">\(y_t=28\)</span> mm with <span class="math notranslate nohighlight">\(u=0.70\)</span> and no mixing (<span class="math notranslate nohighlight">\(P_c=P_m=0\)</span>). Hourly values of library day 3 (hours not listed are 0): hours 7 to 12 are 1.5, 4.5, 7.5, 5.0, 3.0, 1.5 mm and hours 19 and 20 are 0.6 and 0.4 mm.</p>
+<p><em>Solution.</em></p>
+<ol class="arabic simple">
+<li><p>How alike is each day? Distances <span class="math notranslate nohighlight">\(D_i=(28-y_i)^2\)</span>: <span class="math notranslate nohighlight">\(D_1=16^2=256\)</span>, <span class="math notranslate nohighlight">\(D_2=3^2=9\)</span>, <span class="math notranslate nohighlight">\(D_3=4^2=16\)</span>, <span class="math notranslate nohighlight">\(D_4=20^2=400\)</span>, <span class="math notranslate nohighlight">\(D_5=12^2=144\)</span>, <span class="math notranslate nohighlight">\(D_6=9^2=81\)</span>. The number of neighbours is <span class="math notranslate nohighlight">\(k=\lceil\sqrt6\rceil=\lceil2.449\rceil=3\)</span>.</p></li>
+<li><p>Keep the closest three. Sorted: 9 (<span class="math notranslate nohighlight">\(i=2\)</span>), 16 (<span class="math notranslate nohighlight">\(i=3\)</span>), 81 (<span class="math notranslate nohighlight">\(i=6\)</span>), so <span class="math notranslate nohighlight">\(j=1,2,3\to i=2,3,6\)</span>.</p></li>
+<li><p>Closer days get larger chances (weights proportional to <span class="math notranslate nohighlight">\(1/j\)</span>, so 1, 1/2, 1/3, divided by their sum so that they total 1). <span class="math notranslate nohighlight">\(\sum_{m=1}^{3}1/m=1+0.5+0.3333=1.8333\)</span>, so <span class="math notranslate nohighlight">\(w_1=0.5455\)</span>, <span class="math notranslate nohighlight">\(w_2=0.2727\)</span>, <span class="math notranslate nohighlight">\(w_3=0.1818\)</span>. Cumulative: 0.5455, 0.8182, 1.0000. The random number <span class="math notranslate nohighlight">\(u=0.70\)</span> lies in <span class="math notranslate nohighlight">\((0.5455,\,0.8182]\)</span>, so <span class="math notranslate nohighlight">\(j^*=2\)</span> and <span class="math notranslate nohighlight">\(p=3\)</span> with <span class="math notranslate nohighlight">\(y_p=24\)</span> mm.</p></li>
+<li><p>The hourly values of day 3 are as listed (check: <span class="math notranslate nohighlight">\(1.5+4.5+7.5+5.0+3.0+1.5+0.6+0.4=24.0\)</span>).</p></li>
+<li><p>No mixing, so <span class="math notranslate nohighlight">\(X^*_{t,h}=x_{3,h}\)</span>.</p></li>
+<li><p>Rescale to the target: <span class="math notranslate nohighlight">\(X_{t,h}=x_{3,h}\times28/24=x_{3,h}\times1.1667\)</span>. Hour 7 gives 1.75, hour 8 gives 5.25, hour 9 gives 8.75, hour 10 gives 5.83, hour 11 gives 3.50, hour 12 gives 1.75, hour 19 gives 0.70 and hour 20 gives 0.47 mm. Check that the hours add up: <span class="math notranslate nohighlight">\(1.75+5.25+8.75+5.83+3.50+1.75+0.70+0.47=28.0\)</span> mm.</p></li>
+</ol>
+<p><em>Answer.</em> The 28 mm day gets the pattern of day 3, scaled by 1.1667, with its largest hour 8.75 mm in hour 9. The daily total is kept exactly. <em>What this means for hydrology: the hourly peak decides flooding in small catchments, and a daily total alone hides it.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The same numbers as the hand example and as the kNN_Resample sheet of the workbook</span>
+<span class="n">lib</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="s2">"knn_library_hourly.csv"</span><span class="p">)</span>
+<span class="n">x_ih</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">();</span> <span class="n">y_i</span> <span class="o">=</span> <span class="n">x_ih</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_t</span> <span class="o">=</span> <span class="n">Y_t</span> <span class="o">=</span> <span class="mf">28.0</span><span class="p">;</span> <span class="n">u</span> <span class="o">=</span> <span class="mf">0.70</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_i</span><span class="p">);</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+<span class="n">D_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_t</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">nb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">D_i</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)[:</span><span class="n">k</span><span class="p">]</span>                          <span class="c1"># neighbours j = 1..k (library rows)</span>
+<span class="n">w_j</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span> <span class="n">w_j</span> <span class="o">/=</span> <span class="n">w_j</span><span class="o">.</span><span class="n">sum</span><span class="p">();</span> <span class="n">cw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">w_j</span><span class="p">)</span>
+<span class="n">j_star</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">cw</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>                         <span class="c1"># first j with cumulative weight &gt;= u</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">nb</span><span class="p">[</span><span class="n">j_star</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">X_th</span> <span class="o">=</span> <span class="n">x_ih</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">Y_t</span> <span class="o">/</span> <span class="n">x_ih</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>                             <span class="c1"># Eq. 8.7 with X* = x_p</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"k ="</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="s2">" D_i ="</span><span class="p">,</span> <span class="n">D_i</span><span class="p">,</span> <span class="s2">" neighbours (day numbers) ="</span><span class="p">,</span> <span class="n">nb</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"w_j ="</span><span class="p">,</span> <span class="n">w_j</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="s2">" cumulative ="</span><span class="p">,</span> <span class="n">cw</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="s2">" -&gt; j* ="</span><span class="p">,</span> <span class="n">j_star</span><span class="p">,</span> <span class="s2">", p ="</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"(y_p = </span><span class="si">{</span><span class="n">y_i</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"X_th at hours 7-12:"</span><span class="p">,</span> <span class="n">X_th</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s2">" hours 19-20:"</span><span class="p">,</span> <span class="n">X_th</span><span class="p">[</span><span class="mi">18</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sum of the 24 hours = </span><span class="si">{</span><span class="n">X_th</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm; largest hour </span><span class="si">{</span><span class="n">X_th</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">))</span>
+<span class="n">hh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">hh</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">x_ih</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"library day </span><span class="si">{</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">, $x_</span><span class="se">{{</span><span class="s2">p,h</span><span class="se">}}</span><span class="s2">$ (</span><span class="si">{</span><span class="n">y_i</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">hh</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">X_th</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"downscaled, $X_</span><span class="se">{{</span><span class="s2">t,h</span><span class="se">}}</span><span class="s2">$ (</span><span class="si">{</span><span class="n">Y_t</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"hour h"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"rainfall [mm/h]"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k = 3  D_i = [256.   9.  16. 400. 144.  81.]  neighbours (day numbers) = [2 3 6]
+w_j = [0.5455 0.2727 0.1818]  cumulative = [0.5455 0.8182 1.    ]  -&gt; j* = 2 , p = 3 (y_p = 24 mm)
+X_th at hours 7-12: [1.75 5.25 8.75 5.83 3.5  1.75]  hours 19-20: [0.7  0.47]
+sum of the 24 hours = 28.00 mm; largest hour 8.75 mm
+</pre></div>
+</div>
+<img alt="_images/222d737470556476252b8c054853760079f7035923a15d8b0d4b8534fbf91790.png" src="_images/222d737470556476252b8c054853760079f7035923a15d8b0d4b8534fbf91790.png" />
+</div>
+</div>
+<section id="applying-the-method-to-a-longer-record">
+<h3>Applying the method to a longer record<a class="headerlink" href="#applying-the-method-to-a-longer-record" title="Link to this heading">#</a></h3>
+<p>Now we test the full method, with mixing, on a longer record, where we know the right answer. We build 40 summers (122 days, June to September) of hourly rainfall: a two-state Markov chain makes active and break spells, storms start mostly in the afternoon, and each storm has a gamma depth, a duration that grows with depth and a skewed hump-shaped intensity profile. Values are rounded to 0.1 mm. The first 20 years form the library of observed days; the last 20 years play the role of the truth that we try to recover from their daily totals alone. To use real data, load an hourly gauge record, reshape it to days by 24 hours and split it in the same way.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_hourly</span><span class="p">(</span><span class="n">n_years</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+    <span class="n">rg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">nd</span> <span class="o">=</span> <span class="n">n_years</span> <span class="o">*</span> <span class="n">days</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nd</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">+</span> <span class="mi">48</span><span class="p">)</span>
+    <span class="n">regime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nd</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nd</span><span class="p">):</span>                                   <span class="c1"># active (1) / break (0) spells</span>
+        <span class="n">stay</span> <span class="o">=</span> <span class="mf">0.85</span> <span class="k">if</span> <span class="n">regime</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">0.80</span>
+        <span class="n">regime</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">regime</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">rg</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">stay</span> <span class="k">else</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">regime</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">regime</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>                  <span class="c1"># storms per day</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nd</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">rate</span><span class="p">[</span><span class="n">d</span><span class="p">])):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span> <span class="k">if</span> <span class="n">rg</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.65</span> <span class="k">else</span> <span class="n">rg</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span> <span class="o">%</span> <span class="mi">24</span>    <span class="c1"># start hour</span>
+            <span class="n">depth</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">)</span>                      <span class="c1"># storm depth [mm]</span>
+            <span class="n">dur</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">depth</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">rg</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">))</span>                    <span class="c1"># duration [h]</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">rg</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">rg</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>                             <span class="c1"># profile shape</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">d</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">+</span> <span class="n">s</span>
+            <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">t0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">t0</span> <span class="o">+</span> <span class="n">dur</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">beta_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="n">edges</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span> <span class="o">/</span> <span class="n">dur</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>        <span class="c1"># share of the storm in each hour</span>
+            <span class="n">H</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="nb">int</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">frac</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">depth</span> <span class="o">*</span> <span class="n">frac</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">H</span><span class="p">[:</span> <span class="n">nd</span> <span class="o">*</span> <span class="mi">24</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nd</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+
+<span class="n">dpy</span> <span class="o">=</span> <span class="mi">122</span>
+<span class="n">Hh</span> <span class="o">=</span> <span class="n">make_hourly</span><span class="p">()</span>
+<span class="n">H_lib</span><span class="p">,</span> <span class="n">H_test</span> <span class="o">=</span> <span class="n">Hh</span><span class="p">[:</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">dpy</span><span class="p">],</span> <span class="n">Hh</span><span class="p">[</span><span class="mi">20</span> <span class="o">*</span> <span class="n">dpy</span><span class="p">:]</span>                <span class="c1"># library years and test years (days by 24 hours)</span>
+<span class="n">wet_lib</span> <span class="o">=</span> <span class="n">H_lib</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="n">x_ih</span><span class="p">,</span> <span class="n">y_i</span> <span class="o">=</span> <span class="n">H_lib</span><span class="p">[</span><span class="n">wet_lib</span><span class="p">],</span> <span class="n">H_lib</span><span class="p">[</span><span class="n">wet_lib</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>            <span class="c1"># library of wet days</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">H_test</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                                       <span class="c1"># target daily totals [mm]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"library: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_i</span><span class="p">)</span><span class="si">}</span><span class="s2"> wet days (k = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_i</span><span class="p">))))</span><span class="si">}</span><span class="s2">); test: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">Y_test</span><span class="p">)</span><span class="si">}</span><span class="s2"> days, </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Y_test</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> wet"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"wet-hour fraction (&gt;= 0.1 mm) in the test years: </span><span class="si">{</span><span class="p">(</span><span class="n">H_test</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">; wettest hour </span><span class="si">{</span><span class="n">H_test</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>library: 1250 wet days (k = 36); test: 2440 days, 1191 wet
+wet-hour fraction (&gt;= 0.1 mm) in the test years: 0.088; wettest hour 51.1 mm
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">disaggregate</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">y_i</span><span class="p">,</span> <span class="n">x_ih</span><span class="p">,</span> <span class="n">rng</span><span class="p">,</span> <span class="n">P_c</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">P_m</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="c1"># kNN daily-to-hourly downscaling with GA mixing (steps 1 to 5 of Section 5)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_i</span><span class="p">);</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+    <span class="n">cw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span> <span class="n">cw</span> <span class="o">/=</span> <span class="n">cw</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>       <span class="c1"># cumulative weights, Eq. 8.4</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="n">y_t</span><span class="p">):</span>
+        <span class="n">D_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_t</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>                                   <span class="c1"># Eq. 8.3</span>
+        <span class="n">nb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">D_i</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)[:</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">nb</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">cw</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">())),</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">X_th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="mi">24</span><span class="p">));</span> <span class="n">h24</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">p_star</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span> <span class="n">select</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">x_ih</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">cross</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">P_c</span><span class="p">;</span> <span class="n">X</span><span class="p">[</span><span class="n">cross</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_ih</span><span class="p">[</span><span class="n">p_star</span><span class="p">][</span><span class="n">cross</span><span class="p">]</span>                   <span class="c1"># crossover, Eq. 8.5</span>
+        <span class="n">mut</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">P_m</span><span class="p">;</span> <span class="n">xi</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span> <span class="n">X</span><span class="p">[</span><span class="n">mut</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_ih</span><span class="p">[</span><span class="n">xi</span><span class="p">[</span><span class="n">mut</span><span class="p">],</span> <span class="n">h24</span><span class="p">[</span><span class="n">mut</span><span class="p">]]</span>   <span class="c1"># mutation, Eq. 8.6 (P_m)</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">x_ih</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>                      <span class="c1"># all hours zero after mixing: keep the borrowed pattern</span>
+        <span class="n">X_th</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>                             <span class="c1"># adjustment, Eq. 8.7</span>
+    <span class="k">return</span> <span class="n">X_th</span>
+
+<span class="n">X_sim</span> <span class="o">=</span> <span class="n">disaggregate</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_i</span><span class="p">,</span> <span class="n">x_ih</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"largest error of a daily total after downscaling: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X_sim</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y_test</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">H</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">H_test</span><span class="p">,</span> <span class="s2">"observed (test years)"</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">),</span> <span class="p">(</span><span class="n">X_sim</span><span class="p">,</span> <span class="s2">"kNN with GA mixing"</span><span class="p">,</span> <span class="s2">"tab:blue"</span><span class="p">)]:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="n">H</span> <span class="o">&gt;=</span> <span class="mf">0.1</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">())[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">H</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">lab</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">H</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">lab</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"exceedance frequency (per hour)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"hourly rainfall [mm]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"(a) hourly intensities"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"hour h"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"mean rainfall [mm/h]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"(b) diurnal cycle"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>largest error of a daily total after downscaling: 1.42e-14 mm
+</pre></div>
+</div>
+<img alt="_images/d916c13f479484192a29fbb5e3975b6a5bcf8c4c9bb060022a0c0aa26f564dd6.png" src="_images/d916c13f479484192a29fbb5e3975b6a5bcf8c4c9bb060022a0c0aa26f564dd6.png" />
+</div>
+</div>
+<p>Two checks are enough here. First, every downscaled day adds up to its daily total (the largest error printed above is of the order of rounding). Second, the downscaled hourly series should look like the observed one. Figure (a) shows that the heavy hours, which are rare, are about as large and as frequent as observed (the very largest hours are slightly too small, because a borrowed pattern is rescaled but never exceeds what the library holds). Figure (b) shows that the afternoon peak of rainfall is recovered. <strong>What this means for hydrology:</strong> the downscaled series can be used where hourly rain is needed, for example to drive a small-catchment model, but the daily total itself must already be right (Lecture 18 corrects a biased daily series).</p>
+</section>
+</section>
+<section id="summary-and-conclusion-with-the-summary-of-chapter-7">
+<h2>8.3 Summary and conclusion (with the summary of Chapter 7)<a class="headerlink" href="#summary-and-conclusion-with-the-summary-of-chapter-7" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A <strong>weather type</strong> is a recurring circulation pattern. Lamb types are assigned by eye; the Jenkinson and Collison rules compute them from the pressure at 16 grid points through <span class="math notranslate nohighlight">\(\omega\)</span>, <span class="math notranslate nohighlight">\(\eta\)</span>, <span class="math notranslate nohighlight">\(F\)</span> and <span class="math notranslate nohighlight">\(Z\)</span>.</p></li>
+<li><p>Daily rainfall given the types is generated from <span class="math notranslate nohighlight">\(P(\mathrm{LWT})\)</span> and the transition matrix (the type, through the cumulative <span class="math notranslate nohighlight">\(P_{CTM}\)</span>), then occurrence (<span class="math notranslate nohighlight">\(u&lt;P_{wet}\)</span>) and the exponential amount with mean <span class="math notranslate nohighlight">\(\mu_{LWT}\)</span>. A future climate enters through the types simulated by the GCM, classified with the observed criteria.</p></li>
+<li><p><strong>kNN resampling</strong> picks one of the <span class="math notranslate nohighlight">\(k=\lceil\sqrt n\rceil\)</span> nearest observations with weights <span class="math notranslate nohighlight">\(w_j=(1/j)/\sum_m(1/m)\)</span>.</p></li>
+<li><p><strong>Daily to hourly:</strong> match the daily total (<span class="math notranslate nohighlight">\(D_i=(y_t-y_i)^2\)</span>), borrow an hourly pattern, optionally mix it by crossover (<span class="math notranslate nohighlight">\(P_c\)</span>) and mutation (<span class="math notranslate nohighlight">\(P_m\)</span>), and scale it by <span class="math notranslate nohighlight">\(Y_t/\sum_jX^*_{t,j}\)</span> so that the 24 hours add up to the daily total.</p></li>
+</ul>
+<section id="check-your-understanding">
+<h3>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Type O has the transition row 0.20, 0.15, 0.15, 0.50 (to A, C, W, O). Which type follows O for <span class="math notranslate nohighlight">\(u=0.62\)</span>? If tomorrow is type C with <span class="math notranslate nohighlight">\(P_{wet}=0.80\)</span> and a new <span class="math notranslate nohighlight">\(u=0.85\)</span>, is it wet?</p></li>
+<li><p>With <span class="math notranslate nohighlight">\(k=4\)</span>, write the weights <span class="math notranslate nohighlight">\(w_j\propto1/j\)</span> and their cumulative values. Which neighbour is selected for <span class="math notranslate nohighlight">\(u=0.50\)</span> and for <span class="math notranslate nohighlight">\(u=0.90\)</span>?</p></li>
+<li><p>A library day has 20 mm and an hourly maximum of 8 mm; the target day has 35 mm. Give the scale factor and the downscaled hourly maximum.</p></li>
+</ol>
+</section>
+<section id="try-it-yourself">
+<h3>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the workbook change the target <code class="docutils literal notranslate"><span class="pre">y_t</span></code> on <code class="docutils literal notranslate"><span class="pre">kNN_Resample</span></code> to 8 mm and to 45 mm, and the random number <code class="docutils literal notranslate"><span class="pre">u</span></code>. Which day is chosen and how does the scale factor change?</p></li>
+<li><p>In the workbook change <span class="math notranslate nohighlight">\(P_{wet}\)</span> of type W on <code class="docutils literal notranslate"><span class="pre">Data</span></code> to 0.20. What happens to the day-2 result?</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">disaggregate</span></code> with <code class="docutils literal notranslate"><span class="pre">P_c</span> <span class="pre">=</span> <span class="pre">P_m</span> <span class="pre">=</span> <span class="pre">0</span></code> and with <code class="docutils literal notranslate"><span class="pre">P_c</span> <span class="pre">=</span> <span class="pre">0.3</span></code>. How do the hourly intensities in Figure (a) change?</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Where this lecture differs from the book</p>
+<ul class="simple">
+<li><p>Example 7.2 reads the occurrence inequality as <span class="math notranslate nohighlight">\(P_{wet}&lt;u\)</span> (wet); the lecture uses the correct direction, wet if <span class="math notranslate nohighlight">\(u&lt;P_{wet}\)</span>.</p></li>
+<li><p>Table 7.2, row C, sums to 0.55; the lecture uses an assumed matrix whose rows sum to 1.</p></li>
+<li><p>Eq. 7.8 as printed is garbled and its example number does not reproduce; the lecture uses the exponential amount <span class="math notranslate nohighlight">\(R=-\mu_{LWT}\ln(1-u)\)</span>.</p></li>
+<li><p>Eq. 7.7: the 180 degree rule is applied so that <span class="math notranslate nohighlight">\(D\)</span> is the direction the flow comes from (atan2), which differs from the printed rule for <span class="math notranslate nohighlight">\(\omega&gt;0\)</span>, <span class="math notranslate nohighlight">\(\eta&lt;0\)</span>.</p></li>
+<li><p>Eq. 8.6 prints <span class="math notranslate nohighlight">\(P_c\)</span> where the mutation probability <span class="math notranslate nohighlight">\(P_m\)</span> is meant; Table 8.1 labels precipitation in degrees C, but the unit is mm.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>. The methods follow Lee, T., &amp; Singh, V. P. (2019). <em>Statistical Downscaling for Hydrological and Environmental Applications</em>. CRC Press: Chapter 7 (Sections 7.1 to 7.3: Lamb and Jenkinson and Collison weather types, daily rainfall generation, future climate) and Chapter 8 (Section 8.1.1: kNN resampling; Section 8.2: daily to hourly downscaling with GA mixing). The data, examples, figures and code are original to this lecture; no data from the book are used. The workbook and the CSV file in <code class="docutils literal notranslate"><span class="pre">data/downscaling/lec22/</span></code> are synthetic.</p>
+<p><strong>Methods.</strong> Lamb, H. H. (1972). British Isles weather types and a register of the daily sequence of circulation patterns 1861-1971. <em>Geophysical Memoir 116</em>, HMSO. · Jones, P. D., Hulme, M., &amp; Briffa, K. R. (1993). A comparison of Lamb circulation types with an objective classification scheme. <em>International Journal of Climatology, 13</em>, 655-663. · Wilby, R. L. (1994). Stochastic weather type simulation for regional climate change impact assessment. <em>Water Resources Research, 30</em>, 3395-3403. · Lall, U., &amp; Sharma, A. (1996). A nearest neighbor bootstrap for resampling hydrologic time series. <em>Water Resources Research, 32</em>, 679-693. · Lee, T., &amp; Jeong, C. (2014). Nonparametric statistical temporal downscaling of daily precipitation to hourly precipitation and implications for climate change scenarios. <em>Journal of Hydrology, 510</em>, 182-196.</p>
+<p>See Lecture 21 for weather generators, Lecture 18 for bias correction of the daily input, and Lecture 23 for spatial downscaling.</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-21-weather-generators.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 21, Weather generators</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-23-spatial-downscaling.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 23, Spatial downscaling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 22, Weather types and temporal downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-type-downscaling">7 Weather-type downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-weather-types">7.1 Classification of weather types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-weather-type">7.1.1 Empirical weather type</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-weather-type">7.1.2 Objective weather type</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-of-daily-rainfall-sequences">7.2 Generation of daily rainfall sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand">Worked example (by hand)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-climate-with-weather-type-downscaling">7.3 Future climate with weather-type downscaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-conclusion">7.4 Summary and conclusion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-downscaling">8 Temporal downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">8.1 Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbour-resampling">8.1.1 k-nearest-neighbour resampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-to-hourly-downscaling">8.2 Daily to hourly downscaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-method-to-a-longer-record">Applying the method to a longer record</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-conclusion-with-the-summary-of-chapter-7">8.3 Summary and conclusion (with the summary of Chapter 7)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

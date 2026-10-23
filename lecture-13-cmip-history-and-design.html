@@ -1,0 +1,1176 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 13, The Coupled Model Intercomparison Project: history and design &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-13-cmip-history-and-design';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html" />
+    <link rel="prev" title="Lecture 12, Contaminant transport in a reservoir" href="lecture-12-contaminant-transport-in-a-reservoir.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-13-cmip-history-and-design.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-13-cmip-history-and-design.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-13-cmip-history-and-design.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-13-cmip-history-and-design.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 13, The Coupled Model Intercomparison Project: history and design</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-intercompare-models">1) Why intercompare models?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-cmip1-to-cmip6">2) From CMIP1 to CMIP6</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-drove-the-changes">What drove the changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-resolution-matters-to-a-hydrologist">Why resolution matters to a hydrologist</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-kind-of-model-takes-part">3) What kind of model takes part?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cmip6-design-the-deck-the-historical-run-and-the-endorsed-mips">4) The CMIP6 design: the DECK, the historical run and the endorsed MIPs</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-deck-and-the-historical-simulation">The DECK and the historical simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cmip6-endorsed-mips">The CMIP6-Endorsed MIPs</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-and-the-data-archive">5) Standards and the data archive</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-cmip6-identifier">Reading a CMIP6 identifier</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-for-a-hydrologist">6) What this means for a hydrologist</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-13-the-coupled-model-intercomparison-project-history-and-design">
+<h1>Lecture 13, The Coupled Model Intercomparison Project: history and design<a class="headerlink" href="#lecture-13-the-coupled-model-intercomparison-project-history-and-design" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Where the climate projections used in hydrology come from</p>
+</div></blockquote>
+<p>Lectures 4 to 6 built small climate models, and Lectures 9 to 12 built the numerical machinery that larger models use (advection, diffusion, grids, time stepping). The projections that appear in the IPCC reports, in national climate assessments and in most climate-impact studies for catchments, however, do not come from one model. They come from an <strong>intercomparison</strong>: many modelling centres run the <em>same</em> experiments with <em>different</em> models, and the results are archived in a common format. The project that organizes this is the <strong>Coupled Model Intercomparison Project (CMIP)</strong>.</p>
+<p>This lecture and the next are conceptual. They explain what CMIP is, how it has changed from CMIP1 to CMIP6, how an experiment is designed and named, and (in Lecture 14) how scenarios, climate sensitivity and uncertainty work and what is new in <strong>CMIP7</strong>. Lecture 15 then analyses real model output with <code class="docutils literal notranslate"><span class="pre">xarray</span></code>.</p>
+<p>By the end of this lecture you should be able to</p>
+<ul class="simple">
+<li><p>explain why a multi-model ensemble is used instead of a single “best” model,</p></li>
+<li><p>describe how each CMIP phase differed from the one before it,</p></li>
+<li><p>name the four DECK experiments and the historical simulation and say what each is for,</p></li>
+<li><p>read a CMIP6 file identifier such as <code class="docutils literal notranslate"><span class="pre">CESM2</span> <span class="pre">/</span> <span class="pre">ssp245</span> <span class="pre">/</span> <span class="pre">r1i1p1f1</span> <span class="pre">/</span> <span class="pre">Amon</span> <span class="pre">/</span> <span class="pre">pr</span></code>,</p></li>
+<li><p>explain why raw CMIP output cannot simply be dropped into a catchment model.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">FancyBboxPatch</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="why-intercompare-models">
+<h1>1) Why intercompare models?<a class="headerlink" href="#why-intercompare-models" title="Link to this heading">#</a></h1>
+<p>A <strong>coupled climate model</strong> is a computer model in which the main parts of the climate system (atmosphere, ocean, land surface, sea ice, and in newer models also vegetation, the carbon cycle and aerosols) are solved together and exchange heat, water and momentum, as sketched in Lecture 2. The energy balance model of Lecture 4 is the simplest member of this family. The models used in CMIP solve the equations of fluid motion on a three-dimensional grid and are run on supercomputers.</p>
+<p>No such model is correct. Each represents unresolved processes (clouds, convection, soil moisture, vegetation) with approximations, and different centres make different choices. If every centre ran its own experiment with its own forcing, a difference between two results could come from the model <em>or</em> from the set-up, and nobody could tell which. CMIP removes the second possibility. The modelling centres agree on</p>
+<ul class="simple">
+<li><p>a <strong>common set of experiments</strong> with the same forcing (for example, “quadruple CO<span class="math notranslate nohighlight">\(_2\)</span> abruptly”),</p></li>
+<li><p>a <strong>common output format and variable naming</strong>, so that results from dozens of models can be processed by the same program, and</p></li>
+<li><p>a <strong>common archive</strong> from which anyone can download the results.</p></li>
+</ul>
+<p>The stated objective of CMIP is to better understand past, present and future climate changes arising from natural, unforced variability or in response to changes in radiative forcing, <strong>in a multi-model context</strong>. That means two things: assessing how well the models perform in the historical period, and quantifying the <em>causes of the spread</em> between models in future projections. The spread between models is itself a measure of how uncertain the science is, which is why the ensemble matters more than any one member.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CMIP and the IPCC
+CMIP is organized by the World Climate Research Programme (WCRP), not by the IPCC. The two are linked in time: the IPCC assessment reports are built on the CMIP archives that were available when the authors wrote them (CMIP3 for the Fourth Assessment Report, 2007; CMIP5 for the Fifth, 2013; CMIP6 for the Sixth, 2021).</p>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="from-cmip1-to-cmip6">
+<h1>2) From CMIP1 to CMIP6<a class="headerlink" href="#from-cmip1-to-cmip6" title="Link to this heading">#</a></h1>
+<p>CMIP has run in phases since the mid-1990s. Each phase was prompted by new scientific questions, by models that had grown more complex, and by computers that had grown much faster. The table summarizes how the design changed. (The numbers are typical or approximate. Resolution varied between models within a phase.)</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Phase</p></th>
+<th class="head text-left"><p>Started</p></th>
+<th class="head text-left"><p>Defining experiments</p></th>
+<th class="head text-left"><p>Typical atmospheric grid spacing</p></th>
+<th class="head text-left"><p>What was new</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>CMIP1</strong></p></td>
+<td class="text-left"><p>1995</p></td>
+<td class="text-left"><p>Unforced control runs from 21 coupled atmosphere–ocean(–ice) models</p></td>
+<td class="text-left"><p>~500 km</p></td>
+<td class="text-left"><p>First archive of coupled models. About half used <em>flux adjustment</em>, an artificial correction at the air–sea interface that kept the model from drifting.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>CMIP2</strong></p></td>
+<td class="text-left"><p>1997</p></td>
+<td class="text-left"><p>Idealized forcing: CO<span class="math notranslate nohighlight">\(_2\)</span> rising by 1 % per year (a linear increase in radiative forcing), from 17 of the CMIP1 models</p></td>
+<td class="text-left"><p>coarse</p></td>
+<td class="text-left"><p>The first <em>forced</em> experiment, and the first multi-decade to multi-century runs.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>CMIP3</strong></p></td>
+<td class="text-left"><p>2005–06</p></td>
+<td class="text-left"><p>Twentieth-century and 21st-century runs under the <strong>SRES</strong> emission scenarios; used for the IPCC Fourth Assessment</p></td>
+<td class="text-left"><p>~200 km</p></td>
+<td class="text-left"><p>A genuine <em>multi-model ensemble</em> for projections, widely opened to the research community. Aerosol effects and the ocean were better represented.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>CMIP5</strong></p></td>
+<td class="text-left"><p>~2010–11</p></td>
+<td class="text-left"><p><strong>Earth System Models</strong> with an interactive carbon cycle; <strong>RCP</strong> scenarios; decadal prediction; IPCC Fifth Assessment</p></td>
+<td class="text-left"><p>~100–200 km</p></td>
+<td class="text-left"><p>Biogeochemistry, land-use change and a richer set of experiments.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>CMIP6</strong></p></td>
+<td class="text-left"><p>2016–</p></td>
+<td class="text-left"><p>A permanent core (the <strong>DECK</strong> and the historical run) plus 21 endorsed thematic MIPs; <strong>SSP</strong> scenarios; IPCC Sixth Assessment</p></td>
+<td class="text-left"><p>~100 km typical, ~25 km in HighResMIP</p></td>
+<td class="text-left"><p>A federated structure with common standards. Some models at 0.25° resolution.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no CMIP4
+Phase numbers were chosen to line up with the IPCC cycles, so the numbering jumps from CMIP3 to CMIP5.</p>
+</div>
+<section id="what-drove-the-changes">
+<h2>What drove the changes<a class="headerlink" href="#what-drove-the-changes" title="Link to this heading">#</a></h2>
+<p>Three pressures recur from phase to phase:</p>
+<ol class="arabic simple">
+<li><p><strong>New scientific questions.</strong> Early phases asked how a model’s climate and its response to CO<span class="math notranslate nohighlight">\(_2\)</span> compared. Later phases asked about the carbon cycle, aerosols, land use, clouds, monsoons, extremes and the human dimension of scenarios.</p></li>
+<li><p><strong>Faster computers.</strong> Each generation could afford finer grids, more processes and more simulated years (CMIP6 requested of the order of 40 000 additional simulation years from the endorsed MIPs alone).</p></li>
+<li><p><strong>Demand for regional information.</strong> Policy makers, water managers and farmers need numbers at the scale of a river basin or a district, not a hemisphere. Section 6 returns to this.</p></li>
+</ol>
+</section>
+<section id="why-resolution-matters-to-a-hydrologist">
+<h2>Why resolution matters to a hydrologist<a class="headerlink" href="#why-resolution-matters-to-a-hydrologist" title="Link to this heading">#</a></h2>
+<p>A model grid cell is a single number for temperature, rainfall, soil moisture and so on. The coarser the grid, the smaller the number of independent values over the region you care about. The cell below counts how many grid cells cover India at each of the resolutions in the table, and how many cover a hypothetical 5 000 km<span class="math notranslate nohighlight">\(^2\)</span> mountain catchment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">area_india</span> <span class="o">=</span> <span class="mf">3.287e6</span>        <span class="c1"># km2, approximate area of India</span>
+<span class="n">area_basin</span> <span class="o">=</span> <span class="mf">5000.0</span>         <span class="c1"># km2, a hypothetical mountain catchment</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'grid spacing'</span><span class="si">:</span><span class="s2">&gt;13</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'cells over India'</span><span class="si">:</span><span class="s2">&gt;18</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'cells in basin'</span><span class="si">:</span><span class="s2">&gt;16</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dx</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"CMIP1  ~500 km"</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="p">(</span><span class="s2">"CMIP3  ~200 km"</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="s2">"CMIP6  ~100 km"</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="s2">"HighRes ~25 km"</span><span class="p">,</span> <span class="mi">25</span><span class="p">)]:</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&gt;13</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">area_india</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cell</span><span class="si">:</span><span class="s2">18.0f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">area_basin</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cell</span><span class="si">:</span><span class="s2">16.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> grid spacing   cells over India   cells in basin
+CMIP1  ~500 km                 13             0.02
+CMIP3  ~200 km                 82             0.12
+CMIP6  ~100 km                329             0.50
+HighRes ~25 km               5259             8.00
+</pre></div>
+</div>
+</div>
+</div>
+<p>At 100 km a 5 000 km<span class="math notranslate nohighlight">\(^2\)</span> catchment is only about half of <strong>one</strong> grid cell, so the model cannot represent its topography, its rain shadow or its snow line. At 25 km it is about eight cells. This is why high-resolution experiments (HighResMIP), regional downscaling (CORDEX) and the bias-correction and downscaling methods of Lectures 14 and 16–23 matter so much for hydrology.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="what-kind-of-model-takes-part">
+<h1>3) What kind of model takes part?<a class="headerlink" href="#what-kind-of-model-takes-part" title="Link to this heading">#</a></h1>
+<p>CMIP models differ in complexity. The rows below form a ladder, and the energy balance model of Lecture 4 is its first rung.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Components</p></th>
+<th class="head text-left"><p>Example (CMIP6 name, centre)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>AOGCM</strong>, atmosphere–ocean general circulation model</p></td>
+<td class="text-left"><p>Atmosphere, ocean, land surface, sea ice. CO<span class="math notranslate nohighlight">\(_2\)</span> is prescribed.</p></td>
+<td class="text-left"><p>HadGEM3-GC31 (UK Met Office)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>ESM</strong>, Earth system model</p></td>
+<td class="text-left"><p>An AOGCM plus interactive carbon cycle, and often vegetation, aerosols and atmospheric chemistry. CO<span class="math notranslate nohighlight">\(_2\)</span> concentration can be <em>calculated</em> from emissions.</p></td>
+<td class="text-left"><p>CESM2 (NCAR, USA); GFDL-ESM4 (NOAA GFDL, USA)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>High-resolution configuration</strong></p></td>
+<td class="text-left"><p>The same model run on a finer grid for studies of regional detail and extremes.</p></td>
+<td class="text-left"><p>MPI-ESM1.2 is run at several resolutions (for example <code class="docutils literal notranslate"><span class="pre">LR</span></code> and <code class="docutils literal notranslate"><span class="pre">HR</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Regional climate model (RCM)</strong></p></td>
+<td class="text-left"><p>A limited-area model driven at its edges by a global model, to add local detail (not itself a CMIP model, but part of the same chain, see CORDEX below).</p></td>
+<td class="text-left"><p><em>e.g.</em> RCMs in CORDEX South Asia</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>India also contributes: the Indian Institute of Tropical Meteorology, Pune, submitted the <strong>IITM-ESM</strong> to CMIP6.</p>
+<p>Each model is identified in the archive by a short <strong>source_id</strong> such as <code class="docutils literal notranslate"><span class="pre">CESM2</span></code> or <code class="docutils literal notranslate"><span class="pre">MPI-ESM1-2-HR</span></code>, and a model can appear in several versions and resolutions. When a paper says “we used 20 CMIP6 models” it usually means 20 <code class="docutils literal notranslate"><span class="pre">source_id</span></code>s that had the variables it needed.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-cmip6-design-the-deck-the-historical-run-and-the-endorsed-mips">
+<h1>4) The CMIP6 design: the DECK, the historical run and the endorsed MIPs<a class="headerlink" href="#the-cmip6-design-the-deck-the-historical-run-and-the-endorsed-mips" title="Link to this heading">#</a></h1>
+<p>By CMIP5 the number of experiments had grown, and every new question added more. For CMIP6 the community re-organised CMIP into three elements (Eyring et al., 2016):</p>
+<ol class="arabic simple">
+<li><p><strong>A permanent core</strong>, the <strong>DECK</strong> (Diagnostic, Evaluation and Characterization of Klima) together with the <strong>CMIP historical simulation</strong>. These are the <em>entry card</em>: every model that takes part runs them. They change little from phase to phase, so models from different generations can be compared.</p></li>
+<li><p><strong>Common standards, coordination, infrastructure and documentation</strong>, so that output can be shared and processed automatically.</p></li>
+<li><p><strong>A set of CMIP6-Endorsed MIPs</strong>, thematic projects that are specific to this phase, build on the DECK and the historical run and address more specialised questions. Participation is optional and depends on each centre’s interests.</p></li>
+</ol>
+<p>CMIP6 was framed around three broad questions, set against the Grand Science Challenges of the WCRP:</p>
+<ul class="simple">
+<li><p>How does the Earth system respond to forcing?</p></li>
+<li><p>What are the origins and consequences of systematic model biases?</p></li>
+<li><p>How can we assess future climate changes given internal climate variability, predictability and uncertainties in scenarios?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">5.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">box</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">fc</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">FancyBboxPatch</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">boxstyle</span><span class="o">=</span><span class="s2">"round,pad=0.05,rounding_size=0.15"</span><span class="p">,</span>
+                                <span class="n">fc</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s2">"0.25"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span>
+            <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span> <span class="k">if</span> <span class="n">bold</span> <span class="k">else</span> <span class="s2">"normal"</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># top layer: endorsed MIPs</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">6.65</span><span class="p">,</span> <span class="s2">"CMIP6-Endorsed MIPs (thematic, optional)"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+<span class="n">mips</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ScenarioMIP"</span><span class="p">,</span> <span class="s2">"DAMIP"</span><span class="p">,</span> <span class="s2">"HighResMIP"</span><span class="p">,</span> <span class="s2">"LS3MIP"</span><span class="p">,</span> <span class="s2">"GMMIP"</span><span class="p">,</span> <span class="s2">"LUMIP"</span><span class="p">,</span> <span class="s2">"C4MIP"</span><span class="p">,</span> <span class="s2">"CFMIP"</span><span class="p">,</span> <span class="s2">"CORDEX"</span><span class="p">,</span> <span class="s2">"..."</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mips</span><span class="p">):</span>
+    <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">box</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">+</span> <span class="n">col</span> <span class="o">*</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">5.3</span> <span class="o">-</span> <span class="n">row</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">"#cfe3f5"</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="c1"># middle layer: DECK</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">3.55</span><span class="p">,</span> <span class="s2">"The permanent core: the DECK + historical (the entry card)"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">"amip"</span><span class="p">,</span> <span class="s2">"piControl"</span><span class="p">,</span> <span class="s2">"abrupt-4xCO2"</span><span class="p">,</span> <span class="s2">"1pctCO2"</span><span class="p">,</span> <span class="s2">"historical"</span><span class="p">]):</span>
+    <span class="n">box</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">2.55</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">"#f8d9a6"</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">"historical"</span> <span class="k">else</span> <span class="s2">"#f4b8b0"</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="c1"># bottom layer</span>
+<span class="n">box</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">9.4</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="s2">"Common standards and infrastructure</span><span class="se">\n</span><span class="s2">netCDF + CF conventions, controlled vocabularies, "</span>
+    <span class="s2">"documentation (ES-DOC),</span><span class="se">\n</span><span class="s2">federated archive (ESGF), evaluation tools (obs4MIPs, ESMValTool)"</span><span class="p">,</span> <span class="s2">"#d6ead2"</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Structure of CMIP6 (after Eyring et al., 2016)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c934016267783343ab50cfe95cd32a33e67305dfc9094443ba5b4bd4c23ad35b.png" src="_images/c934016267783343ab50cfe95cd32a33e67305dfc9094443ba5b4bd4c23ad35b.png" />
+</div>
+</div>
+<section id="the-deck-and-the-historical-simulation">
+<h2>The DECK and the historical simulation<a class="headerlink" href="#the-deck-and-the-historical-simulation" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Experiment</p></th>
+<th class="head text-left"><p>What is done</p></th>
+<th class="head text-left"><p>Years</p></th>
+<th class="head text-left"><p>Main purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong><code class="docutils literal notranslate"><span class="pre">amip</span></code></strong></p></td>
+<td class="text-left"><p>Atmosphere (and land) model only, driven by <em>observed</em> sea-surface temperature and sea-ice</p></td>
+<td class="text-left"><p>1979–2014</p></td>
+<td class="text-left"><p>Evaluate the atmosphere and land components against observations; find out which errors come from there rather than from the ocean</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong><code class="docutils literal notranslate"><span class="pre">piControl</span></code></strong></p></td>
+<td class="text-left"><p>Fully coupled model with <strong>constant 1850 forcing</strong></p></td>
+<td class="text-left"><p>at least 500</p></td>
+<td class="text-left"><p>Unforced (internal) variability and model drift; the baseline for all other runs</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong><code class="docutils literal notranslate"><span class="pre">abrupt-4xCO2</span></code></strong></p></td>
+<td class="text-left"><p>CO<span class="math notranslate nohighlight">\(_2\)</span> is quadrupled in one step and then held fixed</p></td>
+<td class="text-left"><p>at least 150</p></td>
+<td class="text-left"><p>Climate sensitivity, feedbacks and fast responses</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong><code class="docutils literal notranslate"><span class="pre">1pctCO2</span></code></strong></p></td>
+<td class="text-left"><p>CO<span class="math notranslate nohighlight">\(_2\)</span> rises by 1 % per year</p></td>
+<td class="text-left"><p>at least 150</p></td>
+<td class="text-left"><p>Idealized benchmark of the transient response, climate sensitivity</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong><code class="docutils literal notranslate"><span class="pre">historical</span></code></strong></p></td>
+<td class="text-left"><p>Coupled model with the observed forcing: greenhouse gases, aerosols, volcanoes, solar variability, land use</p></td>
+<td class="text-left"><p>1850–2014</p></td>
+<td class="text-left"><p>Evaluation against the real climate record</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>There are two flavours of each coupled run. In the ordinary version the CO<span class="math notranslate nohighlight">\(_2\)</span> concentration is <em>prescribed</em>. In the <strong><code class="docutils literal notranslate"><span class="pre">esm-</span></code></strong> versions (<code class="docutils literal notranslate"><span class="pre">esm-piControl</span></code>, <code class="docutils literal notranslate"><span class="pre">esm-hist</span></code>), which only Earth system models can run, the CO<span class="math notranslate nohighlight">\(_2\)</span> concentration is <em>calculated</em> from emissions and the exchange of carbon between the atmosphere, ocean and land.</p>
+<p>You have already met two of these in Lecture 4: the “CO<span class="math notranslate nohighlight">\(_2\)</span> rising by 1 % per year” run and the “historical” run are the energy balance model’s versions of <code class="docutils literal notranslate"><span class="pre">1pctCO2</span></code> and <code class="docutils literal notranslate"><span class="pre">historical</span></code>. <code class="docutils literal notranslate"><span class="pre">piControl</span></code> corresponds to the pre-industrial run in which the temperature relaxed to 14 °C from any starting point. The point of the DECK is that every model, from the one-box model to the most complex Earth system model, can be asked the same questions.</p>
+</section>
+<section id="the-cmip6-endorsed-mips">
+<h2>The CMIP6-Endorsed MIPs<a class="headerlink" href="#the-cmip6-endorsed-mips" title="Link to this heading">#</a></h2>
+<p>For a MIP to be endorsed it had to address at least one of the three science questions, connect to the DECK and historical runs, follow the CMIP data standards and be supported by enough modelling centres (about eight) to commit to its highest-priority (Tier 1) experiments. Twenty-one MIPs were endorsed. Seventeen of them proposed about 190 experiments, and four were <em>diagnostic</em> MIPs that define additional output without new experiments. The table lists the ones most relevant to hydroclimatology.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>MIP</p></th>
+<th class="head text-left"><p>What it is about</p></th>
+<th class="head text-left"><p>Why a hydrologist cares</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>ScenarioMIP</strong></p></td>
+<td class="text-left"><p>Future climate under the SSP scenarios (Lecture 14)</p></td>
+<td class="text-left"><p>The source of nearly all projection studies</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>DAMIP</strong></p></td>
+<td class="text-left"><p>Detection and attribution: how much of the observed change is due to which forcing</p></td>
+<td class="text-left"><p>Separating human influence from natural variability in observed trends</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>HighResMIP</strong></p></td>
+<td class="text-left"><p>Global models at weather-resolving resolution (~25 km or finer)</p></td>
+<td class="text-left"><p>Better rainfall, orography and extremes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>LS3MIP</strong></p></td>
+<td class="text-left"><p>Land surface, snow and soil moisture, and their feedbacks</p></td>
+<td class="text-left"><p>Soil moisture, snow and evapotranspiration in the models</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>LUMIP</strong></p></td>
+<td class="text-left"><p>Effects of land use on climate and biogeochemistry</p></td>
+<td class="text-left"><p>Deforestation and irrigation</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>GMMIP</strong></p></td>
+<td class="text-left"><p>Global monsoons</p></td>
+<td class="text-left"><p>How well the models simulate the Indian monsoon</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>CFMIP</strong></p></td>
+<td class="text-left"><p>Cloud feedbacks</p></td>
+<td class="text-left"><p>The largest source of spread in climate sensitivity</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>C4MIP</strong></p></td>
+<td class="text-left"><p>Carbon-cycle feedbacks</p></td>
+<td class="text-left"><p>Link between emissions and warming</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>CORDEX</strong> (diagnostic)</p></td>
+<td class="text-left"><p>Regional downscaling of CMIP output</p></td>
+<td class="text-left"><p>Regional climate inputs for catchment studies</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>VIACS AB</strong> (diagnostic)</p></td>
+<td class="text-left"><p>Dialogue with the users: vulnerability, impacts, adaptation and climate services</p></td>
+<td class="text-left"><p>Fitting the output to what impact studies need</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Other MIPs address aerosols and chemistry (AerChemMIP), decadal prediction (DCPP), the ocean (OMIP), sea ice (SIMIP), ice sheets (ISMIP6), radiative forcing (RFMIP), paleoclimate (PMIP), volcanoes (VolMIP), geoengineering (GeoMIP), ocean heat uptake and sea level (FAFMIP) and atmospheric dynamics (DynVarMIP).</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="standards-and-the-data-archive">
+<h1>5) Standards and the data archive<a class="headerlink" href="#standards-and-the-data-archive" title="Link to this heading">#</a></h1>
+<p>Dozens of models producing hundreds of variables only form an <em>ensemble</em> if the output can be processed automatically. CMIP therefore imposes standards:</p>
+<ul class="simple">
+<li><p><strong>File format.</strong> Output is stored as <strong>netCDF</strong> files that follow the <strong>CF conventions</strong> for naming, units and coordinates, the format you will open with <code class="docutils literal notranslate"><span class="pre">xarray</span></code> in Lecture 15.</p></li>
+<li><p><strong>Controlled vocabularies.</strong> The names of models, experiments, variables and output frequencies come from agreed lists. Documentation of the models and simulations is collected in a common template (the <strong>ES-DOC</strong> activity).</p></li>
+<li><p><strong>A federated archive.</strong> The model output stays on servers at institutions around the world, and the <strong>Earth System Grid Federation (ESGF)</strong> provides one search and download interface over all of them. A number of cloud copies also exist.</p></li>
+<li><p><strong>Evaluation tools and observations.</strong> Observational datasets are provided in the same format (<strong>obs4MIPs</strong>, <strong>ana4MIPs</strong>), and tools such as <strong>ESMValTool</strong> and the PCMDI metrics package compute standard evaluation diagnostics whenever new output arrives.</p></li>
+</ul>
+<section id="reading-a-cmip6-identifier">
+<h2>Reading a CMIP6 identifier<a class="headerlink" href="#reading-a-cmip6-identifier" title="Link to this heading">#</a></h2>
+<p>Every dataset in the archive has an identifier that records <em>which model ran which experiment, and what was saved</em>. The fields below (the example is illustrative) are the vocabulary you need to search the archive and, in Lecture 15, to read files:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Field</p></th>
+<th class="head text-left"><p>Example</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">activity_id</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ScenarioMIP</span></code></p></td>
+<td class="text-left"><p>The MIP the experiment belongs to</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">institution_id</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">NCAR</span></code></p></td>
+<td class="text-left"><p>The modelling centre</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">source_id</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">CESM2</span></code></p></td>
+<td class="text-left"><p>The model</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">experiment_id</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ssp245</span></code></p></td>
+<td class="text-left"><p>The experiment (here SSP2-4.5)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">member_id</span></code> / variant label</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">r1i1p1f1</span></code></p></td>
+<td class="text-left"><p>The ensemble member (see below)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">table_id</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Amon</span></code></p></td>
+<td class="text-left"><p>Frequency and realm of output (<code class="docutils literal notranslate"><span class="pre">Amon</span></code> = monthly atmosphere, <code class="docutils literal notranslate"><span class="pre">Lmon</span></code> = monthly land, <code class="docutils literal notranslate"><span class="pre">day</span></code> = daily)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">variable_id</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pr</span></code></p></td>
+<td class="text-left"><p>The variable (<code class="docutils literal notranslate"><span class="pre">pr</span></code> precipitation, <code class="docutils literal notranslate"><span class="pre">tas</span></code> near-surface air temperature, <code class="docutils literal notranslate"><span class="pre">evspsbl</span></code> evaporation, <code class="docutils literal notranslate"><span class="pre">mrro</span></code> total runoff, <code class="docutils literal notranslate"><span class="pre">mrso</span></code> total soil moisture)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">grid_label</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">gn</span></code></p></td>
+<td class="text-left"><p>Native grid (<code class="docutils literal notranslate"><span class="pre">gr</span></code> = regridded)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <strong>variant label</strong> <code class="docutils literal notranslate"><span class="pre">r&lt;R&gt;i&lt;I&gt;p&lt;P&gt;f&lt;F&gt;</span></code> identifies the ensemble member: realization <strong>r</strong> (different initial conditions of the same model), initialization method <strong>i</strong>, physics version <strong>p</strong> and forcing version <strong>f</strong>. Members <code class="docutils literal notranslate"><span class="pre">r1i1p1f1</span></code>, <code class="docutils literal notranslate"><span class="pre">r2i1p1f1</span></code>, <code class="docutils literal notranslate"><span class="pre">r3i1p1f1</span></code> differ only in the starting state, so the differences between them are <em>internal variability</em> (Lecture 14).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">parse_cmip6_id</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">):</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"mip_era"</span><span class="p">,</span> <span class="s2">"activity_id"</span><span class="p">,</span> <span class="s2">"institution_id"</span><span class="p">,</span> <span class="s2">"source_id"</span><span class="p">,</span> <span class="s2">"experiment_id"</span><span class="p">,</span>
+              <span class="s2">"member_id"</span><span class="p">,</span> <span class="s2">"table_id"</span><span class="p">,</span> <span class="s2">"variable_id"</span><span class="p">,</span> <span class="s2">"grid_label"</span><span class="p">,</span> <span class="s2">"version"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">dataset_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_variant</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="sa">r</span><span class="s2">"r(\d+)i(\d+)p(\d+)f(\d+)"</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"realization"</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span> <span class="s2">"initialization"</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s2">"physics"</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s2">"forcing"</span><span class="p">:</span> <span class="n">f</span><span class="p">}</span>
+
+<span class="n">example</span> <span class="o">=</span> <span class="s2">"CMIP6.ScenarioMIP.NCAR.CESM2.ssp245.r1i1p1f1.Amon.pr.gn.v20190308"</span>   <span class="c1"># illustrative</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">parse_cmip6_id</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parse_variant</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">"member_id"</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mip_era         CMIP6
+activity_id     ScenarioMIP
+institution_id  NCAR
+source_id       CESM2
+experiment_id   ssp245
+member_id       r1i1p1f1
+table_id        Amon
+variable_id     pr
+grid_label      gn
+version         v20190308
+{'realization': 1, 'initialization': 1, 'physics': 1, 'forcing': 1}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="what-this-means-for-a-hydrologist">
+<h1>6) What this means for a hydrologist<a class="headerlink" href="#what-this-means-for-a-hydrologist" title="Link to this heading">#</a></h1>
+<p>CMIP is the best available source of future climate, but its output has to be used with care.</p>
+<ul class="simple">
+<li><p><strong>Scale.</strong> A global model is not built to give a rainfall series at your gauge (Section 2). The result is usually <em>post-processed</em>: bias-corrected, statistically downscaled, or used to drive a regional climate model (CORDEX). Lecture 14 introduces these steps and Lectures 16–23 treat them in detail.</p></li>
+<li><p><strong>Which variables.</strong> Hydrology needs precipitation (<code class="docutils literal notranslate"><span class="pre">pr</span></code>), evaporation (<code class="docutils literal notranslate"><span class="pre">evspsbl</span></code>), runoff (<code class="docutils literal notranslate"><span class="pre">mrro</span></code>), soil moisture (<code class="docutils literal notranslate"><span class="pre">mrso</span></code>), snow (<code class="docutils literal notranslate"><span class="pre">snw</span></code>) and temperature (<code class="docutils literal notranslate"><span class="pre">tas</span></code>), usually at daily or monthly resolution. Not every model saved every variable at every frequency.</p></li>
+<li><p><strong>Biases.</strong> Models share systematic errors, for example in the timing and intensity of the Indian monsoon or in drizzle that is too frequent and too light. The <code class="docutils literal notranslate"><span class="pre">amip</span></code> and <code class="docutils literal notranslate"><span class="pre">historical</span></code> runs are how those errors are found (Section 4).</p></li>
+<li><p><strong>Spread is information.</strong> Use several models, not one. The range between them is an estimate of the uncertainty that the project is designed to expose.</p></li>
+<li><p><strong>Stationarity.</strong> A design based on the observed record assumes the climate of the past represents the future. CMIP projections are the evidence that it does not (Lecture 2).</p></li>
+</ul>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>CMIP organises many modelling centres to run the <em>same</em> experiments so that differences between results can be attributed to the models.</p></li>
+<li><p>Phases CMIP1 to CMIP6 added forcing experiments, scenarios, Earth system components, thematic MIPs and common standards, at ever finer resolution.</p></li>
+<li><p>CMIP6 is built on the <strong>DECK</strong> (<code class="docutils literal notranslate"><span class="pre">amip</span></code>, <code class="docutils literal notranslate"><span class="pre">piControl</span></code>, <code class="docutils literal notranslate"><span class="pre">abrupt-4xCO2</span></code>, <code class="docutils literal notranslate"><span class="pre">1pctCO2</span></code>) plus the <strong>historical</strong> run, with endorsed MIPs on top and shared data standards underneath.</p></li>
+<li><p>A CMIP6 dataset is identified by model, experiment, <strong>variant label</strong>, table and variable.</p></li>
+<li><p>For catchment work the global output must be downscaled and bias-corrected (Lectures 16–23). <strong>Lecture 14</strong> covers scenarios, climate sensitivity, uncertainty and CMIP7.</p></li>
+</ul>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Why is the <code class="docutils literal notranslate"><span class="pre">piControl</span></code> run needed even though it simulates a world that never existed?</p></li>
+<li><p>Which DECK experiment would you use to find out whether an error in simulated monsoon rainfall comes from the atmosphere or from the ocean? Why?</p></li>
+<li><p>Two runs of CESM2 have variant labels <code class="docutils literal notranslate"><span class="pre">r1i1p1f1</span></code> and <code class="docutils literal notranslate"><span class="pre">r2i1p1f1</span></code>. What is different between them, and what can you learn from comparing them?</p></li>
+<li><p>A 5 000 km<span class="math notranslate nohighlight">\(^2\)</span> catchment lies inside one grid cell of a 100 km model. List two reasons why the model’s rainfall for that cell should not be used directly in a rainfall–runoff model.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>, adapting the course slides <em>Changes in Modeling and Simulation Patterns from CMIP1 to CMIP6</em> and the CMIP6 overview paper below.</p>
+<p><strong>Main reference.</strong>
+Eyring, V., Bony, S., Meehl, G. A., Senior, C. A., Stevens, B., Stouffer, R. J., &amp; Taylor, K. E. (2016). Overview of the Coupled Model Intercomparison Project Phase 6 (CMIP6) experimental design and organization. <em>Geoscientific Model Development, 9</em>, 1937–1958. <a class="reference external" href="https://doi.org/10.5194/gmd-9-1937-2016">doi:10.5194/gmd-9-1937-2016</a>. CC BY 3.0. The DECK table, the three-part structure, the three science questions and the MIP descriptions follow this paper.</p>
+<p><strong>Further reading.</strong>
+Meehl, G. A., et al. (2000). The Coupled Model Intercomparison Project (CMIP). <em>Bulletin of the American Meteorological Society, 81</em>, 313–318.
+Taylor, K. E., Stouffer, R. J., &amp; Meehl, G. A. (2012). An overview of CMIP5 and the experiment design. <em>Bulletin of the American Meteorological Society, 93</em>, 485–498.
+WCRP CMIP6 experiment list: <a class="reference external" href="https://wcrp-cmip.github.io/CMIP6_CVs/">wcrp-cmip.github.io/CMIP6_CVs</a>.</p>
+<p>The grid-resolution figures are typical values for illustration; the hypothetical catchment is not a real basin. All figures are drawn for this course.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-12-contaminant-transport-in-a-reservoir.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 12, Contaminant transport in a reservoir</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-intercompare-models">1) Why intercompare models?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-cmip1-to-cmip6">2) From CMIP1 to CMIP6</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-drove-the-changes">What drove the changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-resolution-matters-to-a-hydrologist">Why resolution matters to a hydrologist</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-kind-of-model-takes-part">3) What kind of model takes part?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cmip6-design-the-deck-the-historical-run-and-the-endorsed-mips">4) The CMIP6 design: the DECK, the historical run and the endorsed MIPs</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-deck-and-the-historical-simulation">The DECK and the historical simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cmip6-endorsed-mips">The CMIP6-Endorsed MIPs</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-and-the-data-archive">5) Standards and the data archive</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-cmip6-identifier">Reading a CMIP6 identifier</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-for-a-hydrologist">6) What this means for a hydrologist</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

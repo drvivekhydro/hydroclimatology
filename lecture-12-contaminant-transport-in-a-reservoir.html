@@ -1,0 +1,1214 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 12, Contaminant transport in a reservoir &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-12-contaminant-transport-in-a-reservoir';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 13, The Coupled Model Intercomparison Project: history and design" href="lecture-13-cmip-history-and-design.html" />
+    <link rel="prev" title="Lecture 11, Heat transports" href="lecture-11-heat-transports.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-12-contaminant-transport-in-a-reservoir.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-12-contaminant-transport-in-a-reservoir.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-12-contaminant-transport-in-a-reservoir.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-12-contaminant-transport-in-a-reservoir.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 12, Contaminant transport in a reservoir</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 12, Contaminant transport in a reservoir</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-ocean-heat-to-a-dissolved-pollutant">1) From ocean heat to a dissolved pollutant</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-solver-written-for-speed">2) The solver, written for speed</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reservoir-and-a-circulation-that-respects-the-shore">3) The reservoir and a circulation that respects the shore</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#can-we-trust-the-numbers">4) Can we trust the numbers?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-1-a-spill-in-still-water">5) Experiment 1: a spill in still water</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-2-a-polluted-inflow-stirred-by-the-circulation">6) Experiment 2: a polluted inflow stirred by the circulation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-water-supply-intake">A water-supply intake</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-version">Interactive version</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">7) Try it yourself</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-12-contaminant-transport-in-a-reservoir">
+<h1>Lecture 12, Contaminant transport in a reservoir<a class="headerlink" href="#lecture-12-contaminant-transport-in-a-reservoir" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Applying two-dimensional advection–diffusion (Lecture 11) to a pollutant in a lake</p>
+</div></blockquote>
+<p>Lecture 10 followed a pollutant down a <em>river</em>, where the water moves in one direction and one
+coordinate is enough. Lecture 11 then built the two-dimensional advection–diffusion
+equation, its finite-difference kernels, the no-flux ghost cells and the timestepping, and
+used them on <strong>ocean heat</strong>. This lecture reuses all of that machinery and asks a hydrological question
+instead. A reservoir, a lake, an estuary or a flooded plain is two-dimensional: water spreads sideways as
+well as along, and the wind or the inflow stirs it into circulation cells.</p>
+<ul class="simple">
+<li><p>A polluted tributary enters on one side of a reservoir. <strong>Where does the plume go</strong>, and
+does it reach the water-supply intake on the other shore?</p></li>
+<li><p>How much of the pollutant is <strong>diluted by dispersion</strong> and how much is <strong>carried by the circulation</strong>?</p></li>
+<li><p>How long is the <strong>warning time</strong> at the intake, and how high does the concentration peak?</p></li>
+</ul>
+<p>To keep the two lectures from repeating each other, this one does <strong>not</strong> re-derive the equation or the
+discretization. It adds what is specific to surface-water hydrology:</p>
+<ol class="arabic simple">
+<li><p>what <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> mean for a lake (Section 1),</p></li>
+<li><p>a fast array version of the Lecture 11 solver (Section 2),</p></li>
+<li><p>the shore-respecting circulation of Lecture 11 at reservoir scale, so that <strong>mass is conserved</strong> (Section 3),</p></li>
+<li><p><strong>stability, conservation and accuracy checks</strong> on the numerical solution (Section 4), and</p></li>
+<li><p>the quantity a water manager actually needs, the <strong>breakthrough curve at an intake</strong> (Section 6).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy matplotlib ipywidgets
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">fixed</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="from-ocean-heat-to-a-dissolved-pollutant">
+<h1>1) From ocean heat to a dissolved pollutant<a class="headerlink" href="#from-ocean-heat-to-a-dissolved-pollutant" title="Link to this heading">#</a></h1>
+<p>Lecture 11 solved</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T}{\partial t} = - \vec{u}\cdot\nabla T + \kappa \nabla^{2} T\]</div>
+<p>for the temperature <span class="math notranslate nohighlight">\(T\)</span> of the ocean. Nothing in this equation says that <span class="math notranslate nohighlight">\(T\)</span> is a temperature: it describes any
+<strong>passive tracer</strong>, a quantity that is carried by the water without changing the flow. For a dissolved pollutant
+the dictionary is</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Lecture 11 (ocean heat)</p></th>
+<th class="head text-left"><p>This lecture (reservoir)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>temperature <span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td class="text-left"><p>concentration <span class="math notranslate nohighlight">\(C\)</span> (for example mg L<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>eddy diffusivity <span class="math notranslate nohighlight">\(\kappa\)</span></p></td>
+<td class="text-left"><p>dispersion coefficient <span class="math notranslate nohighlight">\(D\)</span> [m<span class="math notranslate nohighlight">\(^2\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span>]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ocean gyre</p></td>
+<td class="text-left"><p>wind-driven circulation cell in the reservoir</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ocean basin boundaries</p></td>
+<td class="text-left"><p>shoreline: no water and no pollutant cross it</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>heat content</p></td>
+<td class="text-left"><p>pollutant mass <span class="math notranslate nohighlight">\(M = \iint C\,dx\,dy\)</span> (times depth)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\boxed{\;\frac{\partial C}{\partial t} = - \vec{u}\cdot\nabla C + D \nabla^{2} C\;}\]</div>
+<p>Three points are specific to surface-water hydrology:</p>
+<ul class="simple">
+<li><p><strong>Depth averaging.</strong> <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(\vec{u}\)</span> are averaged over the depth, which is the usual approximation for a
+shallow reservoir whose depth is much smaller than its width.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(D\)</span> is dispersion, not molecular diffusion.</strong> Molecular diffusion of a dissolved salt is about <span class="math notranslate nohighlight">\(10^{-9}\)</span> m<span class="math notranslate nohighlight">\(^2\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span>,
+completely negligible. <span class="math notranslate nohighlight">\(D\)</span> lumps together turbulence and the shear of the flow, and for lakes and reservoirs it is
+typically <span class="math notranslate nohighlight">\(1\)</span>–<span class="math notranslate nohighlight">\(100\)</span> m<span class="math notranslate nohighlight">\(^2\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span>, growing with the size of the plume (compare the dispersion coefficient of the river in Lecture 10).</p></li>
+<li><p><strong>Non-divergent flow.</strong> Lecture 11 used <span class="math notranslate nohighlight">\(\nabla\cdot\vec{u}=0\)</span> because seawater is incompressible. For a reservoir of uniform depth, with
+small changes in water level neglected (the “rigid lid” approximation), the depth-averaged flow is also non-divergent, so the
+conservation form <span class="math notranslate nohighlight">\(-\nabla\cdot(\vec{u}C)\)</span> and the advective form <span class="math notranslate nohighlight">\(-\vec{u}\cdot\nabla C\)</span> are equivalent.</p></li>
+</ul>
+<p>As before, <span class="math notranslate nohighlight">\(x\)</span> points east and <span class="math notranslate nohighlight">\(y\)</span> points north.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-solver-written-for-speed">
+<h1>2) The solver, written for speed<a class="headerlink" href="#the-solver-written-for-speed" title="Link to this heading">#</a></h1>
+<p>We keep the discretization of Lecture 11 unchanged: centred differences for the first derivatives, the <span class="math notranslate nohighlight">\([1,-2,1]\)</span> kernel for
+the second derivatives, ghost cells for the no-flux boundary and forward Euler in time. In Lecture 11 each kernel was slid over the field
+with a double Python <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, which is clear but slow. A reservoir run needs hundreds of time steps on a grid of about a thousand cells,
+and we want sliders that respond in a second, so here the same differences are written with <strong>array slicing</strong>: <code class="docutils literal notranslate"><span class="pre">C[1:-1,</span> <span class="pre">2:]</span></code> is the field
+shifted by one cell to the east, <code class="docutils literal notranslate"><span class="pre">C[1:-1,</span> <span class="pre">:-2]</span></code> the field shifted to the west, and so on. The arithmetic is identical.</p>
+<div class="math notranslate nohighlight">
+\[\text{advect}_{j,i} = -\left( u_{j,i}\,\frac{C_{j,i+1}-C_{j,i-1}}{2\Delta x} + v_{j,i}\,\frac{C_{j+1,i}-C_{j-1,i}}{2\Delta y}\right),
+\qquad
+\text{disperse}_{j,i} = D\left(\frac{C_{j,i+1}-2C_{j,i}+C_{j,i-1}}{\Delta x^{2}} + \frac{C_{j+1,i}-2C_{j,i}+C_{j-1,i}}{\Delta y^{2}}\right)\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">advect</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">deltax</span><span class="p">,</span> <span class="n">deltay</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Advective tendency  -(u dC/dx + v dC/dy)  of the interior cells (centred differences)."""</span>
+    <span class="n">tendency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">dCdx</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">deltax</span><span class="p">)</span>
+    <span class="n">dCdy</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">C</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">deltay</span><span class="p">)</span>
+    <span class="n">tendency</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dCdx</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dCdy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tendency</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">disperse</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">deltax</span><span class="p">,</span> <span class="n">deltay</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Dispersive tendency  D (d2C/dx2 + d2C/dy2)  of the interior cells."""</span>
+    <span class="n">tendency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">d2Cdx2</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">deltax</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">d2Cdy2</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">deltay</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">tendency</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="p">(</span><span class="n">d2Cdx2</span> <span class="o">+</span> <span class="n">d2Cdy2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tendency</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">update_ghostcells</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""No-flux shore: each ghost cell copies its interior neighbour (as in Lecture 11)."""</span>
+    <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">var</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">var</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">var</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">var</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ReservoirModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Depth-averaged tracer in a closed basin, advected by (u, v) and dispersed by D."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="n">update_ghostcells</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">copy</span><span class="p">())]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="n">flow</span><span class="o">.</span><span class="n">v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">deltax</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">deltay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span> <span class="o">=</span> <span class="n">deltat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">timestep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">tendency</span> <span class="o">=</span> <span class="p">(</span><span class="n">advect</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="n">disperse</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">update_ghostcells</span><span class="p">(</span><span class="n">C</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span> <span class="o">*</span> <span class="n">tendency</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A quick check that the sliced version is the formula above: compare one interior cell of a random field with the
+explicit five-point expression.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Ctest</span><span class="p">,</span> <span class="n">utest</span><span class="p">,</span> <span class="n">vtest</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">dx_</span><span class="p">,</span> <span class="n">dy_</span><span class="p">,</span> <span class="n">D_</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.7</span>
+<span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+
+<span class="n">by_hand</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">utest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dx_</span><span class="p">)</span>
+             <span class="o">+</span> <span class="n">vtest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dy_</span><span class="p">))</span>
+           <span class="o">+</span> <span class="n">D_</span> <span class="o">*</span> <span class="p">((</span><span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">dx_</span><span class="o">**</span><span class="mi">2</span>
+                   <span class="o">+</span> <span class="p">(</span><span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ctest</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">dy_</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">sliced</span> <span class="o">=</span> <span class="n">advect</span><span class="p">(</span><span class="n">Ctest</span><span class="p">,</span> <span class="n">utest</span><span class="p">,</span> <span class="n">vtest</span><span class="p">,</span> <span class="n">dx_</span><span class="p">,</span> <span class="n">dy_</span><span class="p">)[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">disperse</span><span class="p">(</span><span class="n">Ctest</span><span class="p">,</span> <span class="n">D_</span><span class="p">,</span> <span class="n">dx_</span><span class="p">,</span> <span class="n">dy_</span><span class="p">)[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"by hand: </span><span class="si">{</span><span class="n">by_hand</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">   sliced: </span><span class="si">{</span><span class="n">sliced</span><span class="si">:</span><span class="s2">.12f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>by hand: 0.094779461206   sliced: 0.094779461206
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-reservoir-and-a-circulation-that-respects-the-shore">
+<h1>3) The reservoir and a circulation that respects the shore<a class="headerlink" href="#the-reservoir-and-a-circulation-that-respects-the-shore" title="Link to this heading">#</a></h1>
+<p>The reservoir is a rectangle <span class="math notranslate nohighlight">\(L = 6\)</span> km wide (east–west) and <span class="math notranslate nohighlight">\(2L = 12\)</span> km long (south–north). As in Lecture 11 the arrays have
+one extra ring of ghost cells all round, and the array index <span class="math notranslate nohighlight">\((j, i)\)</span> runs over <span class="math notranslate nohighlight">\((y, x)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">grid</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Grid of the reservoir: N cells across its width L [m]; the basin is N x 2N cells."""</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">N</span><span class="p">,</span> <span class="n">L</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span> <span class="o">=</span> <span class="n">L</span> <span class="o">/</span> <span class="n">N</span>
+        <span class="c1"># cell centres, including one ghost cell on every side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xs</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ys</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span> <span class="o">-</span> <span class="n">L</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+
+<span class="n">my_grid</span> <span class="o">=</span> <span class="n">grid</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="mf">6e3</span><span class="p">)</span>             <span class="c1"># a 6 km x 12 km reservoir, cells of 300 m</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"array shape (rows y, columns x):"</span><span class="p">,</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array shape (rows y, columns x): (42, 22)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Why the circulation must respect the shore.</strong> As in Lecture 11 the velocities come from a streamfunction, <span class="math notranslate nohighlight">\(u = \partial\psi/\partial y\)</span> and <span class="math notranslate nohighlight">\(v = -\partial\psi/\partial x\)</span>,
+which is automatically non-divergent, and <span class="math notranslate nohighlight">\(\psi\)</span> is chosen to be <strong>zero along all four shores</strong>, so that the shore is a streamline and no water crosses it:</p>
+<div class="math notranslate nohighlight">
+\[\psi(x,y) = -\psi_0 \,\sin\!\left(\frac{\pi x}{L}\right)\sin\!\left(\frac{\pi (y+L)}{2L}\right).\]</div>
+<p>This matters more for a pollutant than for a heat budget. If the flow leaked through the shore, <strong>pollutant mass would be created or destroyed at the boundary</strong>: a gyre whose velocities were only zeroed in the
+outermost ring of cells made the total mass grow by about a third in 20 days in a test run of this reservoir. The single clockwise cell below has peak speed about <span class="math notranslate nohighlight">\(\pi\psi_0/L\)</span>, and as before <span class="math notranslate nohighlight">\(\psi\)</span> is evaluated at the cell corners so that differencing it gives velocities at the cell centres.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">single_gyre</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">psi0</span><span class="o">=</span><span class="mf">50.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Closed-basin circulation cell; psi0 [m2/s] sets its strength."""</span>
+    <span class="n">xc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">xs</span> <span class="o">-</span> <span class="n">G</span><span class="o">.</span><span class="n">deltax</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">G</span><span class="o">.</span><span class="n">deltax</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># cell corners</span>
+    <span class="n">yc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">ys</span> <span class="o">-</span> <span class="n">G</span><span class="o">.</span><span class="n">deltay</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">G</span><span class="o">.</span><span class="n">deltay</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">stream</span> <span class="o">=</span> <span class="o">-</span><span class="n">psi0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">xc</span> <span class="o">/</span> <span class="n">G</span><span class="o">.</span><span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">yc</span> <span class="o">+</span> <span class="n">G</span><span class="o">.</span><span class="n">L</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">L</span><span class="p">))</span>
+
+    <span class="n">dpsi_dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">stream</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">stream</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">G</span><span class="o">.</span><span class="n">deltax</span>
+    <span class="n">dpsi_dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">stream</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">stream</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="n">G</span><span class="o">.</span><span class="n">deltay</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">dpsi_dy</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">dpsi_dy</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">dpsi_dx</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">dpsi_dx</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>                      <span class="c1"># no flow in the ghost ring</span>
+        <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">flowfield</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Velocity field of the reservoir. option: "zero" (still water) or "single_gyre"."""</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s2">"zero"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="s2">"zero"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="s2">"single_gyre"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">single_gyre</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">option</span><span class="p">)</span>
+
+
+<span class="n">still</span> <span class="o">=</span> <span class="n">flowfield</span><span class="p">(</span><span class="n">my_grid</span><span class="p">,</span> <span class="s2">"zero"</span><span class="p">)</span>
+<span class="n">gyre</span> <span class="o">=</span> <span class="n">flowfield</span><span class="p">(</span><span class="n">my_grid</span><span class="p">,</span> <span class="s2">"single_gyre"</span><span class="p">)</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">gyre</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="n">gyre</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">X</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">Y</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">gyre</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="n">gyre</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Current speed [cm/s]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Distance east [km]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Distance north [km]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Single-gyre circulation of the reservoir"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7477cb5a132e6d20ffb853cfb25234f20e18ff2ecc6cd66e952b79a978a9d1d1.png" src="_images/7477cb5a132e6d20ffb853cfb25234f20e18ff2ecc6cd66e952b79a978a9d1d1.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="can-we-trust-the-numbers">
+<h1>4) Can we trust the numbers?<a class="headerlink" href="#can-we-trust-the-numbers" title="Link to this heading">#</a></h1>
+<p>Before using the model to answer a water-quality question we check three things.</p>
+<p><strong>Stability.</strong> As in Lecture 11, forward Euler with centred differences needs a <strong>diffusion number</strong> <span class="math notranslate nohighlight">\(\mathrm{d} = D\,\Delta t\,(1/\Delta x^{2} + 1/\Delta y^{2}) &lt; 1/2\)</span>, and the <strong>grid Péclet number</strong>
+<span class="math notranslate nohighlight">\(\mathrm{Pe} = |\vec{u}|\,\Delta x / D\)</span> should be below about <span class="math notranslate nohighlight">\(2\)</span> to avoid spurious wiggles (even negative concentrations).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="mf">5.0</span>                      <span class="c1"># dispersion coefficient [m2/s]</span>
+<span class="n">deltat</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>             <span class="c1"># time step: 1 hour [s]</span>
+
+<span class="n">d_number</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="n">deltat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">deltax</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">deltay</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Pe</span> <span class="o">=</span> <span class="n">speed</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">deltax</span> <span class="o">/</span> <span class="n">D</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"peak current speed = </span><span class="si">{</span><span class="n">speed</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> cm/s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"diffusion number d = </span><span class="si">{</span><span class="n">d_number</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">   (must be &lt; 0.5)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid Peclet number = </span><span class="si">{</span><span class="n">Pe</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">   (should be &lt; 2)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>peak current speed = 2.6 cm/s
+diffusion number d = 0.40   (must be &lt; 0.5)
+grid Peclet number = 1.56   (should be &lt; 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Conservation.</strong> With no-flux shores the total pollutant mass <span class="math notranslate nohighlight">\(M = \sum C\,\Delta x\,\Delta y\)</span> (over the interior cells, not the ghost cells) must stay constant.
+It is the simplest test of a transport model, and it is the one that exposed the flow-field problem above. We will print it in every experiment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">total_mass</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">deltax</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">deltay</span>      <span class="c1"># concentration x area [mg/L x m2]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_field</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">xs</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">ys</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">arrows</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">flow</span><span class="o">.</span><span class="n">u</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">X</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">Y</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">flow</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="n">flow</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Distance east [km]"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Distance north [km]"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="experiment-1-a-spill-in-still-water">
+<h1>5) Experiment 1: a spill in still water<a class="headerlink" href="#experiment-1-a-spill-in-still-water" title="Link to this heading">#</a></h1>
+<p>First switch the circulation off. A 2 km <span class="math notranslate nohighlight">\(\times\)</span> 2 km patch of pollutant (<span class="math notranslate nohighlight">\(C = 1\)</span> mg L<span class="math notranslate nohighlight">\(^{-1}\)</span>) is released at the centre of the reservoir, like a spill from a boat or the outflow of a small drain.
+Only dispersion acts, so the patch should spread symmetrically and become more dilute, but not move.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">C0</span><span class="p">[(</span><span class="nb">abs</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">X</span> <span class="o">-</span> <span class="mf">3e3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">Y</span> <span class="o">-</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e3</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="n">spill</span> <span class="o">=</span> <span class="n">ReservoirModel</span><span class="p">(</span><span class="n">C0</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">still</span><span class="p">,</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>       <span class="c1"># 20 days</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">]):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">plot_field</span><span class="p">(</span><span class="n">spill</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">day</span> <span class="o">*</span> <span class="mi">24</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">still</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Day </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Concentration [mg/L]"</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">M0</span> <span class="o">=</span> <span class="n">total_mass</span><span class="p">(</span><span class="n">spill</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">]:</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">spill</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">day</span> <span class="o">*</span> <span class="mi">24</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"day </span><span class="si">{</span><span class="n">day</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">:  peak C = </span><span class="si">{</span><span class="n">C</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   mass = </span><span class="si">{</span><span class="n">total_mass</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">my_grid</span><span class="p">)</span><span class="o">/</span><span class="n">M0</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> x initial"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>day  0:  peak C = 1.000   mass = 1.0000 x initial
+day  2:  peak C = 0.253   mass = 1.0000 x initial
+day  8:  peak C = 0.083   mass = 1.0000 x initial
+day 20:  peak C = 0.053   mass = 1.0000 x initial
+</pre></div>
+</div>
+<img alt="_images/13fac6e316b48f7a6e4b1f3e522569ed04558d14acbe2d6316f41ed3519cc300.png" src="_images/13fac6e316b48f7a6e4b1f3e522569ed04558d14acbe2d6316f41ed3519cc300.png" />
+</div>
+</div>
+<p><strong>Accuracy check against theory.</strong> For a release in an unbounded domain the plume stays Gaussian and its variance grows linearly,
+<span class="math notranslate nohighlight">\(\sigma^{2}(t) = \sigma_0^{2} + 2Dt\)</span> in each direction (Fischer et al., 1979). This gives a direct way to measure <span class="math notranslate nohighlight">\(D\)</span> from a tracer experiment, and to test the code. We compute the
+east–west variance of the simulated plume and compare it with the theory. (The prediction applies only while the plume is far from the shore; the simulated variance agrees to about 1% over the first day and then falls below the theory
+as the plume meets the no-flux boundary.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">variance_x</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xbar</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">sigma0_sq</span> <span class="o">=</span> <span class="n">variance_x</span><span class="p">(</span><span class="n">spill</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">hours</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">48</span><span class="p">]:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">hours</span> <span class="o">*</span> <span class="mf">3600.0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"t = </span><span class="si">{</span><span class="n">hours</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2"> h:  simulated </span><span class="si">{</span><span class="n">variance_x</span><span class="p">(</span><span class="n">spill</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">hours</span><span class="p">],</span><span class="w"> </span><span class="n">my_grid</span><span class="p">)</span><span class="o">/</span><span class="mf">1e6</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2"> km2"</span>
+          <span class="sa">f</span><span class="s2">"   theory </span><span class="si">{</span><span class="p">(</span><span class="n">sigma0_sq</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mf">1e6</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2"> km2"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t =  0 h:  simulated  0.263 km2   theory  0.263 km2
+t = 12 h:  simulated  0.694 km2   theory  0.695 km2
+t = 24 h:  simulated  1.112 km2   theory  1.127 km2
+t = 36 h:  simulated  1.482 km2   theory  1.558 km2
+t = 48 h:  simulated  1.791 km2   theory  1.990 km2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="experiment-2-a-polluted-inflow-stirred-by-the-circulation">
+<h1>6) Experiment 2: a polluted inflow stirred by the circulation<a class="headerlink" href="#experiment-2-a-polluted-inflow-stirred-by-the-circulation" title="Link to this heading">#</a></h1>
+<p>Now the gyre is switched on. A polluted tributary discharges along the northern part of the reservoir: we start with a band of polluted water (<span class="math notranslate nohighlight">\(C=1\)</span>)
+between <span class="math notranslate nohighlight">\(y = +1\)</span> km and <span class="math notranslate nohighlight">\(y = +3\)</span> km spanning the whole width, with clean water elsewhere. We run the same band with and without the circulation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C0_band</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">C0_band</span><span class="p">[(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">Y</span> <span class="o">&gt;</span> <span class="mf">1e3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">Y</span> <span class="o">&lt;</span> <span class="mf">3e3</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="n">with_gyre</span> <span class="o">=</span> <span class="n">ReservoirModel</span><span class="p">(</span><span class="n">C0_band</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">gyre</span><span class="p">,</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>     <span class="c1"># 20 days</span>
+<span class="n">no_gyre</span> <span class="o">=</span> <span class="n">ReservoirModel</span><span class="p">(</span><span class="n">C0_band</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">still</span><span class="p">,</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>      <span class="c1"># same band, still water</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">]):</span>
+    <span class="n">plot_field</span><span class="p">(</span><span class="n">no_gyre</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">day</span> <span class="o">*</span> <span class="mi">24</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">still</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Still water, day </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">plot_field</span><span class="p">(</span><span class="n">with_gyre</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">day</span> <span class="o">*</span> <span class="mi">24</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">gyre</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"With gyre, day </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Concentration [mg/L]"</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="n">M0</span> <span class="o">=</span> <span class="n">total_mass</span><span class="p">(</span><span class="n">with_gyre</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"day </span><span class="si">{</span><span class="n">day</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">:  mass = </span><span class="si">{</span><span class="n">total_mass</span><span class="p">(</span><span class="n">with_gyre</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">day</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">24</span><span class="p">],</span><span class="w"> </span><span class="n">my_grid</span><span class="p">)</span><span class="o">/</span><span class="n">M0</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> x initial"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>day  0:  mass = 1.0000 x initial
+day  3:  mass = 0.9989 x initial
+day  8:  mass = 0.9983 x initial
+day 20:  mass = 0.9984 x initial
+</pre></div>
+</div>
+<img alt="_images/27721b8a325bfa99a72642a683f90e5468650aa54b04dff791fcc75304a102e8.png" src="_images/27721b8a325bfa99a72642a683f90e5468650aa54b04dff791fcc75304a102e8.png" />
+</div>
+</div>
+<p>In still water the band simply thickens and fades from both edges (the one-dimensional problem of Lecture 9, in <span class="math notranslate nohighlight">\(y\)</span>). With the gyre the pollutant is
+<strong>advected</strong>: the circulation carries the band clockwise, down the eastern side of the reservoir and into its south-east part within about three days, and stretches it as it goes. Dispersion
+then smooths the plume. Advection moves and stretches the pollutant, dispersion mixes it, and together they spread a plume much faster than dispersion alone.
+By day 20 both runs are roughly uniform, at about one sixth of the initial concentration, because the 2 km band covers one sixth of the basin’s area.</p>
+<p>The mass stays constant to within a fraction of a percent. The small drift comes from writing advection in the <span class="math notranslate nohighlight">\(-\vec{u}\cdot\nabla C\)</span> form rather than in exact flux form; a finite-volume scheme would remove it.</p>
+<section id="a-water-supply-intake">
+<h2>A water-supply intake<a class="headerlink" href="#a-water-supply-intake" title="Link to this heading">#</a></h2>
+<p>Now the question a water manager asks: <em>if the intake is at the south-east corner of the reservoir (<span class="math notranslate nohighlight">\(x = 5.5\)</span> km, <span class="math notranslate nohighlight">\(y = -5.0\)</span> km), what concentration does it see, and when?</em>
+We read the concentration of the nearest grid cell out of the stored model fields to obtain a <strong>breakthrough curve</strong>, the reservoir counterpart of the concentration-versus-time curve at a downstream gauge in Lecture 10.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">nearest_cell</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">ys</span> <span class="o">-</span> <span class="n">y</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">xs</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="n">jj</span><span class="p">,</span> <span class="n">ii</span> <span class="o">=</span> <span class="n">nearest_cell</span><span class="p">(</span><span class="n">my_grid</span><span class="p">,</span> <span class="mf">5.5e3</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0e3</span><span class="p">)</span>
+<span class="n">time_days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">with_gyre</span><span class="o">.</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="mi">86400</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_days</span><span class="p">,</span> <span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">jj</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">no_gyre</span><span class="o">.</span><span class="n">C</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Still water (dispersion only)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_days</span><span class="p">,</span> <span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">jj</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">with_gyre</span><span class="o">.</span><span class="n">C</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"With circulation (advection + dispersion)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Time [days]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Concentration at the intake [mg/L]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Breakthrough curve at the intake"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bdeeaf83975caa0ed189bb5b2ce35f31354a56a48975d3699aa3e643dc646718.png" src="_images/bdeeaf83975caa0ed189bb5b2ce35f31354a56a48975d3699aa3e643dc646718.png" />
+</div>
+</div>
+<p>In still water the intake sees almost nothing for the first week and only a slow rise afterwards. With the circulation, a pulse
+of polluted water reaches the intake after about two days and peaks at roughly 0.3 mg/L after about five days: several times higher
+than the still-water value at day 20, and much earlier. The pulse then declines as the plume is stirred through the rest of the
+basin and diluted. For a water-supply operator the circulation, not dispersion, sets the warning time and the peak concentration,
+which is why a two-dimensional model is needed here and a one-dimensional river model is not enough.</p>
+</section>
+<section id="interactive-version">
+<h2>Interactive version<a class="headerlink" href="#interactive-version" title="Link to this heading">#</a></h2>
+<p>Choose the circulation and the dispersion coefficient, and move the time slider. (Keep <span class="math notranslate nohighlight">\(D \le 6\)</span> m<span class="math notranslate nohighlight">\(^2\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span> so that the explicit scheme stays stable with the one-hour time step.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flows</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"still water"</span><span class="p">:</span> <span class="n">still</span><span class="p">,</span> <span class="s2">"gyre"</span><span class="p">:</span> <span class="n">gyre</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">explore</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ReservoirModel</span><span class="p">(</span><span class="n">C0_band</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">flows</span><span class="p">[</span><span class="n">flow</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">days</span> <span class="o">*</span> <span class="mi">86400</span> <span class="o">/</span> <span class="n">deltat</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">plot_field</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">my_grid</span><span class="p">,</span> <span class="n">flows</span><span class="p">[</span><span class="n">flow</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Concentration [mg/L]"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">flow</span><span class="si">}</span><span class="s2">, D = </span><span class="si">{</span><span class="n">D</span><span class="si">}</span><span class="s2"> m2/s, day </span><span class="si">{</span><span class="n">days</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">interact</span><span class="p">(</span><span class="n">explore</span><span class="p">,</span>
+         <span class="n">days</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Days"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+         <span class="n">flow</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Flow"</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">flows</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="s2">"gyre"</span><span class="p">),</span>
+         <span class="n">D</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"D [m2/s]"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "63d948e7494048f1bbe7dda33ce0504f", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="try-it-yourself">
+<h1>7) Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Move the polluted band to the south of the reservoir, or release a single patch at the intake and see how long it takes
+to leave. Does the answer change if the gyre turns the other way (change the sign of <code class="docutils literal notranslate"><span class="pre">psi0</span></code>)?</p></li>
+<li><p>Increase the strength of the circulation (<code class="docutils literal notranslate"><span class="pre">psi0</span></code>) and use the stability check of Section 4 to see when you must shorten the time step.</p></li>
+<li><p>Add a second intake and compare the breakthrough curves. Which location is safer?</p></li>
+<li><p>Use the variance test of Section 5 on a run with a different <span class="math notranslate nohighlight">\(D\)</span>, and recover <span class="math notranslate nohighlight">\(D\)</span> from the slope of <span class="math notranslate nohighlight">\(\sigma^{2}(t)\)</span>.</p></li>
+<li><p><em>Optional:</em> build a <strong>two-gyre</strong> flow field by replacing <span class="math notranslate nohighlight">\(\sin(\pi(y+L)/2L)\)</span> in the streamfunction with <span class="math notranslate nohighlight">\(\sin(\pi(y+L)/L)\)</span>, which gives
+two counter-rotating cells, and check that nothing crosses the shores.</p></li>
+<li><p><em>Optional:</em> add a first-order decay term <span class="math notranslate nohighlight">\(-kC\)</span> to the right-hand side (for a non-conservative pollutant such as bacteria),
+and check how the total mass now changes with time.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+The numerical method (centred finite differences, no-flux ghost cells, forward Euler timestepping, streamfunction-based flow) is the one of Lecture 11, which is adapted
+from the 2-D advection–diffusion / ocean-heat-transport lecture in the MIT course
+<a class="reference external" href="https://computationalthinking.mit.edu"><em>Introduction to Computational Thinking</em></a>
+(Edelman, Sanders &amp; van der Plas; climate lectures by Henri Drake — original
+code, in Julia:
+<a class="reference external" href="https://github.com/hdrake/simplEarth/blob/master/4_ocean_heat_transport.jl">simplEarth</a>),
+by way of the
+<a class="reference external" href="https://github.com/florianboergel/climateoftheocean"><em>Climate of the Ocean</em></a> course.
+The hydrological framing (a pollutant in a reservoir, the dispersion coefficient, the closed-basin circulation, the stability, conservation and variance checks,
+the intake breakthrough curve) and the text were written for <strong>CE524 Applied Hydroclimatology</strong>; the reservoir geometry and the parameter values are illustrative.</p>
+<p><strong>Theory.</strong>
+Fischer, H. B., List, E. J., Koh, R. C. Y., Imberger, J., &amp; Brooks, N. H. (1979).
+<em>Mixing in Inland and Coastal Waters</em>.
+Chapra, S. C. (1997). <em>Surface Water-Quality Modeling</em>. McGraw-Hill.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution and per-lecture provenance in
+<a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-11-heat-transports.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 11, Heat transports</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-13-cmip-history-and-design.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 13, The Coupled Model Intercomparison Project: history and design</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 12, Contaminant transport in a reservoir</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-ocean-heat-to-a-dissolved-pollutant">1) From ocean heat to a dissolved pollutant</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-solver-written-for-speed">2) The solver, written for speed</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reservoir-and-a-circulation-that-respects-the-shore">3) The reservoir and a circulation that respects the shore</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#can-we-trust-the-numbers">4) Can we trust the numbers?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-1-a-spill-in-still-water">5) Experiment 1: a spill in still water</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-2-a-polluted-inflow-stirred-by-the-circulation">6) Experiment 2: a polluted inflow stirred by the circulation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-water-supply-intake">A water-supply intake</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-version">Interactive version</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">7) Try it yourself</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

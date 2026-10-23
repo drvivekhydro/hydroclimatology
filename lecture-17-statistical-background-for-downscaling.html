@@ -1,0 +1,1380 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 17, Statistical background for downscaling &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-17-statistical-background-for-downscaling';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 18, Bias correction" href="lecture-18-bias-correction.html" />
+    <link rel="prev" title="Lecture 16, Downscaling: the problem, the data and choosing a method" href="lecture-16-downscaling-problem-data-and-methods.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-17-statistical-background-for-downscaling.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-17-statistical-background-for-downscaling.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-17-statistical-background-for-downscaling.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-17-statistical-background-for-downscaling.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 17, Statistical background for downscaling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 17, Statistical background for downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-words-you-need">Statistics words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-theory-ch-2-1-1">2.1.1 Probabilistic theory (Ch. 2.1.1)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density-function-and-cumulative-distribution-function">2.1.1.1 Probability density function and cumulative distribution function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptors-of-random-variables">2.1.1.2 Descriptors of random variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-probability-distributions-ch-2-1-2">2.1.2 Discrete probability distributions (Ch. 2.1.2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-probability-distributions-ch-2-1-3">2.1.3 Continuous probability distributions (Ch. 2.1.3)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-and-lognormal-distributions">2.1.3.1 Normal and lognormal distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-and-gamma-distributions">2.1.3.2 Exponential and gamma distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gev-and-gumbel-distributions">2.1.3.3 GEV and Gumbel distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation-for-probability-distributions-ch-2-1-4">2.1.4 Parameter estimation for probability distributions (Ch. 2.1.4)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-of-moments">2.1.4.1 Method of moments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">2.1.4.2 Maximum likelihood estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-exponential-fit-by-moments-and-by-maximum-likelihood">Worked example (by hand): exponential fit by moments and by maximum likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-by-maximum-likelihood-the-book-s-example-2-2-condensed">Gamma by maximum likelihood (the book’s Example 2.2, condensed)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-and-empirical-distribution-ch-2-1-5">2.1.5 Histogram and empirical distribution (Ch. 2.1.5)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-random-variables-ch-2-2">2.2 Multivariate random variables (Ch. 2.2)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distribution-and-its-conditional-distribution">2.2.1 Multivariate normal distribution and its conditional distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">2.2.2 Covariance and correlation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-simulation-ch-2-3">2.3 Random simulation (Ch. 2.3)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation-and-uniform-random-numbers">2.3.1 Monte Carlo simulation and uniform random numbers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-of-probability-distributions">2.3.2 Simulation of probability distributions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-17-statistical-background-for-downscaling">
+<h1>Lecture 17, Statistical background for downscaling<a class="headerlink" href="#lecture-17-statistical-background-for-downscaling" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>The small amount of probability and statistics behind every bias-correction and downscaling method in Lectures 18–23</p>
+</div></blockquote>
+<p>Nobody knows how much rain will fall next January. But past Januaries tell us what is <em>likely</em>: some amounts are common, some are rare. Statistics gives us a <strong>curve</strong> that describes this, a way to <strong>fit</strong> the curve to data, and a way to <strong>draw</strong> new random Januaries from it. Downscaling uses exactly these three things, so we learn them once here, with the symbols of Lee &amp; Singh (2019), Chapter 2.</p>
+<p>By the end of this lecture you should be able to:</p>
+<ol class="arabic simple">
+<li><p>explain in plain words the terms in the box below (mean, quantile, CDF and so on),</p></li>
+<li><p>say which curve (normal, gamma, exponential, GEV and others) suits temperature, rainfall amounts and yearly maxima,</p></li>
+<li><p>fit a curve to a sample by moments and by maximum likelihood, by hand for a small example,</p></li>
+<li><p>draw a histogram and an empirical CDF,</p></li>
+<li><p>use a correlation to say what the station temperature is likely to be, given the model temperature,</p></li>
+<li><p>make random numbers and turn them into random rainfall.</p></li>
+</ol>
+<p>All data are <strong>synthetic</strong>: 26 January rainfall totals and 40 model–station temperature pairs, in <code class="docutils literal notranslate"><span class="pre">data/downscaling/lec17/</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib scipy
+</pre></div>
+</div>
+</div>
+</div>
+<section id="statistics-words-you-need">
+<h2>Statistics words you need<a class="headerlink" href="#statistics-words-you-need" title="Link to this heading">#</a></h2>
+<p>Take five January rainfalls (mm): <strong>10, 20, 20, 30, 70</strong>. Each word below is shown on these numbers.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Word</p></th>
+<th class="head text-left"><p>Everyday meaning</p></th>
+<th class="head text-left"><p>With the five numbers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>random variable</strong> <span class="math notranslate nohighlight">\(X\)</span></p></td>
+<td class="text-left"><p>a quantity we cannot know in advance, such as next January’s rain; <span class="math notranslate nohighlight">\(x\)</span> is one value of it</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(X\)</span> = next January’s rain, <span class="math notranslate nohighlight">\(x\)</span> = 30 mm</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>mean</strong> <span class="math notranslate nohighlight">\(\mu\)</span> (from data: <span class="math notranslate nohighlight">\(\bar x\)</span>)</p></td>
+<td class="text-left"><p>the average</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\((10+20+20+30+70)/5=30\)</span> mm</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>variance</strong> <span class="math notranslate nohighlight">\(\sigma^2\)</span> (from data: <span class="math notranslate nohighlight">\(s^2\)</span>)</p></td>
+<td class="text-left"><p>the average squared distance from the mean; big means very spread out (for data we divide by <span class="math notranslate nohighlight">\(n-1\)</span>)</p></td>
+<td class="text-left"><p>distances <span class="math notranslate nohighlight">\(-20,-10,-10,0,40\)</span>; squares <span class="math notranslate nohighlight">\(400,100,100,0,1600\)</span>; sum <span class="math notranslate nohighlight">\(2200\)</span>; <span class="math notranslate nohighlight">\(s^2=2200/4=550\)</span> mm<span class="math notranslate nohighlight">\(^2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>standard deviation</strong> <span class="math notranslate nohighlight">\(\sigma\)</span></p></td>
+<td class="text-left"><p>square root of the variance, back in mm</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\sqrt{550}=23.5\)</span> mm</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>skewness</strong> <span class="math notranslate nohighlight">\(\gamma\)</span></p></td>
+<td class="text-left"><p>which side has the long tail: positive means a few very large values</p></td>
+<td class="text-left"><p>the single 70 mm drags the tail to the right: positive</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>CDF</strong> <span class="math notranslate nohighlight">\(F(x)\)</span></p></td>
+<td class="text-left"><p>the chance that the value is <em>at most</em> <span class="math notranslate nohighlight">\(x\)</span></p></td>
+<td class="text-left"><p>3 of 5 values are <span class="math notranslate nohighlight">\(\le 20\)</span>, so <span class="math notranslate nohighlight">\(F(20)=0.6\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>probability density</strong> <span class="math notranslate nohighlight">\(f(x)\)</span></p></td>
+<td class="text-left"><p>the height of the curve; the <em>area</em> under it between two values is the chance of landing there</p></td>
+<td class="text-left"><p>the curve is the smooth version of a histogram</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>quantile</strong> (percentile)</p></td>
+<td class="text-left"><p>the value below which a given fraction of the values fall</p></td>
+<td class="text-left"><p>the 0.5 quantile (median) is 20 mm; the 0.9 quantile is the 90th percentile</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>likelihood</strong></p></td>
+<td class="text-left"><p>how plausible the observed data are if the curve has the chosen parameters; we pick the parameters that make it largest</p></td>
+<td class="text-left"><p>see the worked example</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>covariance</strong> <span class="math notranslate nohighlight">\(\gamma_{12}\)</span> and <strong>correlation</strong> <span class="math notranslate nohighlight">\(\rho\)</span></p></td>
+<td class="text-left"><p>do two variables rise and fall together? The correlation is the unit-free version, from <span class="math notranslate nohighlight">\(-1\)</span> to <span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td class="text-left"><p>pairs <span class="math notranslate nohighlight">\((1,2),(2,3),(3,7)\)</span>: covariance <span class="math notranslate nohighlight">\(5/3=1.67\)</span>, correlation <span class="math notranslate nohighlight">\(0.94\)</span> (strongly together)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>plotting position</strong></p></td>
+<td class="text-left"><p>the chance we give to the <span class="math notranslate nohighlight">\(i\)</span>-th smallest value of <span class="math notranslate nohighlight">\(n\)</span>, namely <span class="math notranslate nohighlight">\(i/(n+1)\)</span></p></td>
+<td class="text-left"><p>for <span class="math notranslate nohighlight">\(n=5\)</span>: <span class="math notranslate nohighlight">\(1/6,\,2/6,\dots,5/6\)</span>; the largest is <span class="math notranslate nohighlight">\(0.83\)</span>, not 1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>What this means for hydrology:</em> a design rainfall is a quantile (for example the 0.99 quantile), and the mean and spread tell us how risky a season is.</p>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>The symbols are those of Lee &amp; Singh (2019), Chapter 2. <strong>Code rule:</strong> the book’s symbol written in ASCII, subscripts after an underscore, a bar as <code class="docutils literal notranslate"><span class="pre">_bar</span></code>, a hat as <code class="docutils literal notranslate"><span class="pre">_hat</span></code> (the book writes a hat for every estimate; the code uses it where an estimate could be confused with a parameter).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Book symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Code / spreadsheet</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(x\)</span>; <span class="math notranslate nohighlight">\(F_X(x)\)</span>, <span class="math notranslate nohighlight">\(f_X(x)\)</span>, <span class="math notranslate nohighlight">\(p_X(x)\)</span></p></td>
+<td class="text-left"><p>random variable and value; CDF, pdf, PMF</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">F</span></code>, <code class="docutils literal notranslate"><span class="pre">f</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mu\)</span>, <span class="math notranslate nohighlight">\(\sigma^2\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>, <span class="math notranslate nohighlight">\(\delta_X=\sigma_X/\mu_X\)</span>, <span class="math notranslate nohighlight">\(\gamma\)</span></p></td>
+<td class="text-left"><p>mean, variance, standard deviation, coefficient of variation, coefficient of skewness</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">mu</span></code>, <code class="docutils literal notranslate"><span class="pre">sigma2</span></code>, <code class="docutils literal notranslate"><span class="pre">sigma</span></code>, <code class="docutils literal notranslate"><span class="pre">delta</span></code>, <code class="docutils literal notranslate"><span class="pre">gamma_sk</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(n\)</span></p></td>
+<td class="text-left"><p>Bernoulli or binomial probability, number of trials or of data</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\zeta=E(\ln X)\)</span>, <span class="math notranslate nohighlight">\(\varsigma=\sqrt{\mathrm{Var}(\ln X)}\)</span></p></td>
+<td class="text-left"><p>lognormal parameters</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">zeta</span></code>, <code class="docutils literal notranslate"><span class="pre">varsigma</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha\)</span></p></td>
+<td class="text-left"><p><strong>exponential</strong> scale (equal to the mean)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span></p></td>
+<td class="text-left"><p><strong>gamma</strong> shape and scale</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">beta</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(x_0\)</span></p></td>
+<td class="text-left"><p><strong>GEV</strong> scale, shape, location (Gumbel: <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(x_0\)</span>)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">beta</span></code>, <code class="docutils literal notranslate"><span class="pre">x_0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(T\)</span>, <span class="math notranslate nohighlight">\(x_T\)</span></p></td>
+<td class="text-left"><p>return period, quantile of return period <span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">T</span></code>, <code class="docutils literal notranslate"><span class="pre">x_T</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s^2\)</span></p></td>
+<td class="text-left"><p>sample mean and variance</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_bar</span></code>, <code class="docutils literal notranslate"><span class="pre">s2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(LL\)</span></p></td>
+<td class="text-left"><p>log-likelihood (the logarithm of the likelihood)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">LL</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(n_c\)</span>, <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(n(i)\)</span>, <span class="math notranslate nohighlight">\(\hat p(i)\)</span>, <span class="math notranslate nohighlight">\(\hat F(i)\)</span>, <span class="math notranslate nohighlight">\(\hat f(i)\)</span></p></td>
+<td class="text-left"><p>histogram: classes, class width, count, relative frequency, empirical CDF, empirical density</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n_c</span></code>, <code class="docutils literal notranslate"><span class="pre">delta_x</span></code>, <code class="docutils literal notranslate"><span class="pre">n_i</span></code>, <code class="docutils literal notranslate"><span class="pre">p_hat_i</span></code>, <code class="docutils literal notranslate"><span class="pre">F_hat_i</span></code>, <code class="docutils literal notranslate"><span class="pre">f_hat_i</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(x_{(i)}\)</span>, <span class="math notranslate nohighlight">\(\hat F(x_{(i)})=i/(n+1)\)</span></p></td>
+<td class="text-left"><p>ordered data, plotting position</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_ord</span></code>, <code class="docutils literal notranslate"><span class="pre">pp</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\boldsymbol\mu\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol\Sigma\)</span>, <span class="math notranslate nohighlight">\(N_p(\boldsymbol\mu,\boldsymbol\Sigma)\)</span></p></td>
+<td class="text-left"><p>mean vector, covariance matrix, multivariate normal</p></td>
+<td class="text-left"><p>(not coded)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\gamma_{12}\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\hat\gamma_{12}\)</span>, <span class="math notranslate nohighlight">\(\hat\rho_{12}\)</span></p></td>
+<td class="text-left"><p>covariance and correlation of <span class="math notranslate nohighlight">\(X_1,X_2\)</span> and their estimates</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">gamma_12_hat</span></code>, <code class="docutils literal notranslate"><span class="pre">rho_12_hat</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(x_j\)</span>, <span class="math notranslate nohighlight">\(u_j\)</span></p></td>
+<td class="text-left"><p>generator increment, multiplier, modulus, integer, uniform number</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">M</span></code>, <code class="docutils literal notranslate"><span class="pre">x_lcg</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In the temperature example <span class="math notranslate nohighlight">\(X_1\)</span> is the <strong>station</strong> temperature (the quantity we want) and <span class="math notranslate nohighlight">\(X_2\)</span> the <strong>model</strong> temperature (what we know), so the book’s conditional <span class="math notranslate nohighlight">\(f(x_1\mid x_2)\)</span> reads “station given model”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span><span class="p">,</span> <span class="n">special</span><span class="p">,</span> <span class="n">optimize</span>
+
+<span class="n">BASE</span> <span class="o">=</span> <span class="s2">"data/downscaling/lec17/"</span>
+<span class="n">RAW</span> <span class="o">=</span> <span class="s2">"https://raw.githubusercontent.com/drvivekhydro/hydroclimatology/main/data/downscaling/lec17/"</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1"># Read a CSV from the repository folder, or from GitHub if it is not there (e.g. on Colab).</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BASE</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">RAW</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="s2">"january_precip.csv"</span><span class="p">)[</span><span class="s2">"precip_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>    <span class="c1"># 26 January totals [mm], synthetic</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="s2">"seasonal_temperature_pairs.csv"</span><span class="p">)</span>             <span class="c1"># 40 seasons, synthetic</span>
+<span class="n">x_1</span> <span class="o">=</span> <span class="n">temps</span><span class="p">[</span><span class="s2">"station_T_degC"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>                   <span class="c1"># X_1: station temperature</span>
+<span class="n">x_2</span> <span class="o">=</span> <span class="n">temps</span><span class="p">[</span><span class="s2">"model_T_degC"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>                     <span class="c1"># X_2: model temperature</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"figure.dpi"</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">"axes.grid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"grid.alpha"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s2">"axes.spines.top"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"axes.spines.right"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> Januaries, first eight: </span><span class="si">{</span><span class="n">x</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2"> mm;  </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x_1</span><span class="p">)</span><span class="si">}</span><span class="s2"> temperature pairs"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n = 26 Januaries, first eight: [24. 41. 18. 66. 35. 52. 29. 47.] mm;  40 temperature pairs
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="probabilistic-theory-ch-2-1-1">
+<h2>2.1.1 Probabilistic theory (Ch. 2.1.1)<a class="headerlink" href="#probabilistic-theory-ch-2-1-1" title="Link to this heading">#</a></h2>
+<section id="probability-density-function-and-cumulative-distribution-function">
+<h3>2.1.1.1 Probability density function and cumulative distribution function<a class="headerlink" href="#probability-density-function-and-cumulative-distribution-function" title="Link to this heading">#</a></h3>
+<p>A <strong>random variable</strong> <span class="math notranslate nohighlight">\(X\)</span> (capital letter) is a quantity that depends on chance, such as next January’s rain; a particular value is written <span class="math notranslate nohighlight">\(x\)</span>. Its <strong>cumulative distribution function (CDF)</strong> is the chance of not exceeding <span class="math notranslate nohighlight">\(x\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[F_X(x)=P(X\le x).\qquad (2.1)\]</div>
+<p>For a variable with separate possible values (a <em>discrete</em> variable, such as the number of wet days) the <strong>probability mass function (PMF)</strong> is <span class="math notranslate nohighlight">\(p_X(x)=P(X=x)\)</span> and <span class="math notranslate nohighlight">\(F_X(x)=\sum_{x_i\le x}p_X(x_i)\)</span> (2.2). For a <em>continuous</em> variable (rain in mm) any single value has probability zero, so we use the <strong>probability density function (pdf)</strong>, the slope of the CDF,</p>
+<div class="math notranslate nohighlight">
+\[f_X(x)=\frac{dF_X(x)}{dx}.\qquad (2.3)\]</div>
+<p><em>Plain gloss:</em> the area under the pdf between two values is the chance of landing between them; the CDF is the running total of that area.</p>
+</section>
+<section id="descriptors-of-random-variables">
+<h3>2.1.1.2 Descriptors of random variables<a class="headerlink" href="#descriptors-of-random-variables" title="Link to this heading">#</a></h3>
+<p>The <strong>mean</strong> <span class="math notranslate nohighlight">\(\mu=E[X]=\int x f_X(x)\,dx\)</span> (2.4) is the centre. The <strong>mode</strong> is the most likely value (the peak of the pdf) and the <strong>median</strong> <span class="math notranslate nohighlight">\(x_m\)</span> satisfies <span class="math notranslate nohighlight">\(F_X(x_m)=0.5\)</span>. The <strong>variance</strong> <span class="math notranslate nohighlight">\(\sigma^2=E[(X-\mu)^2]\)</span> (2.5) measures the spread, <span class="math notranslate nohighlight">\(\sigma=\sqrt{\mathrm{Var}(X)}\)</span> is the standard deviation, and the <strong>coefficient of variation</strong> <span class="math notranslate nohighlight">\(\delta_X=\sigma_X/\mu_X\)</span> (2.6) is the spread relative to the centre. The <strong>coefficient of skewness</strong> <span class="math notranslate nohighlight">\(\gamma=E[(X-\mu)^3]/\sigma^3\)</span> (2.8) is positive when the right tail is long, as for rainfall. (The kurtosis <span class="math notranslate nohighlight">\(g\)</span>, Eq. 2.10, describes peakedness; we do not use it.)</p>
+<p><em>What this means for hydrology:</em> the mean and spread say how wet a typical season is and how much it varies; a design rainfall is a quantile read from the CDF.</p>
+</section>
+</section>
+<section id="discrete-probability-distributions-ch-2-1-2">
+<h2>2.1.2 Discrete probability distributions (Ch. 2.1.2)<a class="headerlink" href="#discrete-probability-distributions-ch-2-1-2" title="Link to this heading">#</a></h2>
+<p><strong>Bernoulli (2.1.2.1).</strong> One trial with two outcomes, occurrence (<span class="math notranslate nohighlight">\(x=1\)</span>) with probability <span class="math notranslate nohighlight">\(p\)</span> or not (<span class="math notranslate nohighlight">\(x=0\)</span>), for example a wet day: <span class="math notranslate nohighlight">\(p_X(x)=p^x(1-p)^{1-x}\)</span> (2.11), with mean <span class="math notranslate nohighlight">\(p\)</span> and variance <span class="math notranslate nohighlight">\(p(1-p)\)</span> (2.12–2.13).</p>
+<p><strong>Binomial (2.1.2.2).</strong> The number of occurrences <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli trials with the same <span class="math notranslate nohighlight">\(p\)</span>: <span class="math notranslate nohighlight">\(p_X(x)=\binom{n}{x}p^x(1-p)^{n-x}\)</span> (2.14), with mean <span class="math notranslate nohighlight">\(np\)</span> and variance <span class="math notranslate nohighlight">\(np(1-p)\)</span> (2.15–2.16). For example, with <span class="math notranslate nohighlight">\(p=0.3\)</span> the expected number of wet days in 30 days is <span class="math notranslate nohighlight">\(30\times0.3=9\)</span>.</p>
+</section>
+<section id="continuous-probability-distributions-ch-2-1-3">
+<h2>2.1.3 Continuous probability distributions (Ch. 2.1.3)<a class="headerlink" href="#continuous-probability-distributions-ch-2-1-3" title="Link to this heading">#</a></h2>
+<p>Rain and flow have no negative values and a long right tail, so the symmetric normal is often a poor choice for them; the book uses the exponential, lognormal and gamma for amounts and the Gumbel and GEV for extremes.</p>
+<section id="normal-and-lognormal-distributions">
+<h3>2.1.3.1 Normal and lognormal distributions<a class="headerlink" href="#normal-and-lognormal-distributions" title="Link to this heading">#</a></h3>
+<p>The <strong>normal</strong> pdf, with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> as its two parameters, is</p>
+<div class="math notranslate nohighlight">
+\[f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\!\left[-\frac{(x-\mu)^2}{2\sigma^2}\right].\qquad (2.17)\]</div>
+<p>Larger <span class="math notranslate nohighlight">\(\mu\)</span> moves the bell to the right; larger <span class="math notranslate nohighlight">\(\sigma\)</span> widens it. The variable <span class="math notranslate nohighlight">\(Z=(X-\mu)/\sigma\)</span> has <span class="math notranslate nohighlight">\(\mu=0\)</span>, <span class="math notranslate nohighlight">\(\sigma=1\)</span> (the <em>standard normal</em>, pdf 2.18) with CDF <span class="math notranslate nohighlight">\(\Phi(z)\)</span> (2.19). The <strong>lognormal</strong> is the normal applied to <span class="math notranslate nohighlight">\(\ln X\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f_X(x)=\frac{1}{\varsigma\,x\sqrt{2\pi}}\exp\!\left[-\frac{(\ln x-\zeta)^2}{2\varsigma^2}\right],\quad \zeta=E(\ln X),\ \varsigma=\sqrt{\mathrm{Var}(\ln X)}.\qquad (2.20)\]</div>
+</section>
+<section id="exponential-and-gamma-distributions">
+<h3>2.1.3.2 Exponential and gamma distributions<a class="headerlink" href="#exponential-and-gamma-distributions" title="Link to this heading">#</a></h3>
+<p>The <strong>exponential</strong> has one parameter <span class="math notranslate nohighlight">\(\alpha\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f_E(x)=\frac1\alpha e^{-x/\alpha},\qquad F_E(x)=1-e^{-x/\alpha},\qquad x=-\alpha\ln[1-F_E(x)],\qquad (2.21\text{&amp;ndash;}2.23)\]</div>
+<p>and its mean is <span class="math notranslate nohighlight">\(\mu=\alpha\)</span> (2.24). The <strong>gamma</strong>, widely used for precipitation, has shape <span class="math notranslate nohighlight">\(\alpha\)</span> and scale <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f_G(x)=\frac{x^{\alpha-1}e^{-x/\beta}}{\Gamma(\alpha)\,\beta^{\alpha}},\qquad \mu=\alpha\beta,\qquad \sigma^2=\alpha\beta^2.\qquad (2.25,\ 2.27,\ 2.28)\]</div>
+<p>Solving the last two for the parameters gives the moment estimates</p>
+<div class="math notranslate nohighlight">
+\[\beta=\frac{\sigma^2}{\mu},\qquad \alpha=\frac{\mu}{\beta}.\qquad (2.29\text{ and }2.30)\]</div>
+<p>The book reuses <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> with a different meaning in each family, so check which distribution you are in. <em>Plain gloss:</em> the gamma with shape <span class="math notranslate nohighlight">\(\alpha&lt;1\)</span> rises steeply at zero (many light-rain days), with larger <span class="math notranslate nohighlight">\(\alpha\)</span> it has a hump (typical monthly totals), and <span class="math notranslate nohighlight">\(\alpha=1\)</span> is the exponential (see the figure).</p>
+</section>
+<section id="gev-and-gumbel-distributions">
+<h3>2.1.3.3 GEV and Gumbel distributions<a class="headerlink" href="#gev-and-gumbel-distributions" title="Link to this heading">#</a></h3>
+<p>For yearly maxima the book uses the generalized extreme value (<strong>GEV</strong>) distribution with scale <span class="math notranslate nohighlight">\(\alpha\)</span>, shape <span class="math notranslate nohighlight">\(\beta\)</span> and location <span class="math notranslate nohighlight">\(x_0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f(x)=\frac1\alpha\left[1-\beta\left(\frac{x-x_0}{\alpha}\right)\right]^{(1/\beta)-1}F(x),\qquad F(x)=\exp\left\{-\left[1-\beta\left(\frac{x-x_0}{\alpha}\right)\right]^{1/\beta}\right\}.\qquad (2.32\text{ and }2.33)\]</div>
+<p>For <span class="math notranslate nohighlight">\(\beta=0\)</span> it becomes the <strong>Gumbel</strong> (type 1) distribution, <span class="math notranslate nohighlight">\(F(x)=\exp\{-\exp[-(x-x_0)/\alpha]\}\)</span>; <span class="math notranslate nohighlight">\(\beta&lt;0\)</span> gives the heavy-tailed type 2 and <span class="math notranslate nohighlight">\(\beta&gt;0\)</span> the type 3 (Weibull) with an upper limit. <strong>Sign convention:</strong> this is the opposite of the usual statistics convention, <span class="math notranslate nohighlight">\(\xi=-\beta\)</span> (so the usual heavy tail is <span class="math notranslate nohighlight">\(\xi&gt;0\)</span>); <code class="docutils literal notranslate"><span class="pre">scipy.stats.genextreme(c=...)</span></code> uses the book’s sign, <span class="math notranslate nohighlight">\(c=\beta\)</span>. The quantile for return period <span class="math notranslate nohighlight">\(T\)</span> (non-exceedance probability <span class="math notranslate nohighlight">\(1-1/T\)</span>) is</p>
+<div class="math notranslate nohighlight">
+\[x_T=x_0+\frac{\alpha}{\beta}\left\{1-\left[-\ln\!\left(1-\frac1T\right)\right]^{\beta}\right\}\ \text{(GEV, 2.34)},\qquad x_T=x_0-\alpha\ln\!\left[-\ln\!\left(1-\frac1T\right)\right]\ \text{(Gumbel, 2.35)}.\]</div>
+<p><em>Plain gloss:</em> the “100-year rain” is exceeded on average once in <span class="math notranslate nohighlight">\(T=100\)</span> years, that is, with probability 0.01 in any year.</p>
+<p><em>What this means for hydrology:</em> the choice of curve decides how often the model produces a very wet day or year; the printout below the figure shows that a heavy-tailed GEV gives a far larger 100-year rain than a Gumbel with the same centre.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+
+<span class="c1"># Normal: N(0,1), a shifted mean, a larger standard deviation</span>
+<span class="n">zz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">ls</span><span class="p">)</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"--"</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">":"</span><span class="p">)):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zz</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">zz</span><span class="p">,</span> <span class="n">m_</span><span class="p">,</span> <span class="n">s_</span><span class="p">),</span> <span class="n">ls</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">mu$ = </span><span class="si">{</span><span class="n">m_</span><span class="si">}</span><span class="s2">, $</span><span class="se">\\</span><span class="s2">sigma$ = </span><span class="si">{</span><span class="n">s_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Normal"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"f(x)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># Gamma with mean alpha*beta = 40 mm; shape alpha = 1 is the exponential</span>
+<span class="n">xg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">a_</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xg</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xg</span><span class="p">,</span> <span class="n">a_</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">40</span> <span class="o">/</span> <span class="n">a_</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">alpha$ = </span><span class="si">{</span><span class="n">a_</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> <span class="p">(</span><span class="s2">" (exponential)"</span> <span class="k">if</span> <span class="n">a_</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">""</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Gamma, mean 40 mm"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"x [mm]"</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">));</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># GEV with the book's sign: beta = scipy's c</span>
+<span class="n">x_0</span><span class="p">,</span> <span class="n">alpha_g</span> <span class="o">=</span> <span class="mf">50.0</span><span class="p">,</span> <span class="mf">15.0</span>
+<span class="n">xe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">beta_g</span><span class="p">,</span> <span class="n">ls</span> <span class="ow">in</span> <span class="p">((</span><span class="mf">0.0</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="s2">"--"</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="s2">":"</span><span class="p">)):</span>
+    <span class="n">F_book</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta_g</span> <span class="o">*</span> <span class="p">(</span><span class="n">xe</span> <span class="o">-</span> <span class="n">x_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">alpha_g</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">beta_g</span><span class="p">))</span> <span class="k">if</span> <span class="n">beta_g</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">xe</span> <span class="o">-</span> <span class="n">x_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">alpha_g</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">F_book</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">genextreme</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xe</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">beta_g</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">x_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alpha_g</span><span class="p">))</span>   <span class="c1"># Eq. 2.33 against scipy</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xe</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">genextreme</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xe</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">beta_g</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">x_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alpha_g</span><span class="p">),</span> <span class="n">ls</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">beta$ = </span><span class="si">{</span><span class="n">beta_g</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> <span class="p">(</span><span class="s2">" (Gumbel)"</span> <span class="k">if</span> <span class="n">beta_g</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">""</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"GEV (book's sign of $</span><span class="se">\\</span><span class="s2">beta$)"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"x [mm]"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">x_T</span> <span class="o">=</span> <span class="n">x_0</span> <span class="o">-</span> <span class="n">alpha_g</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span><span class="p">))</span>                              <span class="c1"># Eq. 2.35</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x_T</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">gumbel_r</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">x_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alpha_g</span><span class="p">))</span>
+<span class="n">x_T_gev</span> <span class="o">=</span> <span class="n">x_0</span> <span class="o">+</span> <span class="n">alpha_g</span> <span class="o">/</span> <span class="o">-</span><span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span><span class="p">))</span> <span class="o">**</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">)</span>         <span class="c1"># Eq. 2.34 with beta = -0.25</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x_T_gev</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">genextreme</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=-</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">x_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alpha_g</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"T ="</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="s2">"years;  Gumbel x_T ="</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x_T</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"mm;  GEV (beta = -0.25) x_T ="</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x_T_gev</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"mm"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T =
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> [  2  10  50 100] years;  Gumbel x_T = [ 55.5  83.8 108.5 119. ] mm;  GEV (beta = -0.25) x_T = [ 55.8  95.3 149.1 179.5] mm
+</pre></div>
+</div>
+<img alt="_images/7e0d013a4eb60671c56debd20a14ce80c5bf726c2c5b1f185b159e7f31cfde79.png" src="_images/7e0d013a4eb60671c56debd20a14ce80c5bf726c2c5b1f185b159e7f31cfde79.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="parameter-estimation-for-probability-distributions-ch-2-1-4">
+<h2>2.1.4 Parameter estimation for probability distributions (Ch. 2.1.4)<a class="headerlink" href="#parameter-estimation-for-probability-distributions-ch-2-1-4" title="Link to this heading">#</a></h2>
+<p>A curve has parameters (such as <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>) whose true values are unknown, because we only see a finite sample. <em>Fitting</em> means estimating them from the sample <span class="math notranslate nohighlight">\(x_1,\dots,x_n\)</span>; a hat (<span class="math notranslate nohighlight">\(\hat\alpha\)</span>) marks an estimate.</p>
+<section id="method-of-moments">
+<h3>2.1.4.1 Method of moments<a class="headerlink" href="#method-of-moments" title="Link to this heading">#</a></h3>
+<p>The mean and variance are the first and second moments and are tied to the parameters (for example Eq. 2.12 for the Bernoulli). Replace them by the sample mean and variance and solve for the parameters:</p>
+<div class="math notranslate nohighlight">
+\[\bar x=\frac1n\sum_{i=1}^n x_i,\qquad s^2=\frac1{n-1}\sum_{i=1}^n (x_i-\bar x)^2.\qquad (2.36\text{ and }2.37)\]</div>
+<p><em>Plain gloss:</em> “make the curve have the same average and spread as the data”.</p>
+</section>
+<section id="maximum-likelihood-estimation">
+<h3>2.1.4.2 Maximum likelihood estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Link to this heading">#</a></h3>
+<p><em>Plain gloss:</em> choose the parameters that make the data we actually saw as plausible as possible. With independent observations the <strong>likelihood</strong> is the product of the pdf heights at the observations, given the parameter set <span class="math notranslate nohighlight">\(\theta\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[L(x_1,\dots,x_n\mid\theta)=\prod_{i=1}^n f(x_i\mid\theta),\qquad (2.38)\]</div>
+<p>and the best <span class="math notranslate nohighlight">\(\theta\)</span> is where the derivative of <span class="math notranslate nohighlight">\(L\)</span> with respect to each parameter is zero (2.39). Because a product of many small numbers is awkward, the <strong>log-likelihood</strong> is used, which turns the product into a sum:</p>
+<div class="math notranslate nohighlight">
+\[LL(x_1,\dots,x_n\mid\theta)=\sum_{i=1}^n\log f(x_i\mid\theta).\qquad (2.40)\]</div>
+<p>Below is a worked example of the book’s first example type (Example 2.1: fit the exponential by moments and by maximum likelihood), with eight new numbers.</p>
+</section>
+<section id="worked-example-by-hand-exponential-fit-by-moments-and-by-maximum-likelihood">
+<h3>Worked example (by hand): exponential fit by moments and by maximum likelihood<a class="headerlink" href="#worked-example-by-hand-exponential-fit-by-moments-and-by-maximum-likelihood" title="Link to this heading">#</a></h3>
+<p><strong>Problem.</strong> Fit the exponential distribution (Eq. 2.21) to the January rainfall (mm) of eight years, <span class="math notranslate nohighlight">\(x_i=24,\,41,\,18,\,66,\,35,\,52,\,29,\,47\)</span>, with the method of moments and with maximum likelihood.</p>
+<p><strong>Step 1, sample mean (2.36).</strong> <em>Why:</em> for the exponential the mean is the parameter (<span class="math notranslate nohighlight">\(\mu=\alpha\)</span>, Eq. 2.24).
+<span class="math notranslate nohighlight">\(\bar x=(24+41+18+66+35+52+29+47)/8=312/8=39.0\)</span> mm.</p>
+<p><strong>Step 2, moment estimate.</strong> <span class="math notranslate nohighlight">\(\hat\alpha=\bar x=39.0\)</span> mm.</p>
+<p><strong>Step 3, log-likelihood (2.40).</strong> <em>Why:</em> it is the sum of <span class="math notranslate nohighlight">\(\log f(x_i)\)</span> with <span class="math notranslate nohighlight">\(f=\frac1\alpha e^{-x/\alpha}\)</span>, so <span class="math notranslate nohighlight">\(\log f(x_i)=-\ln\alpha-x_i/\alpha\)</span> and
+<span class="math notranslate nohighlight">\(LL(\alpha)=-n\ln\alpha-\frac1\alpha\sum x_i\)</span>.</p>
+<p><strong>Step 4, find the maximum (2.39).</strong> <em>Why:</em> the peak is where the slope is zero.
+<span class="math notranslate nohighlight">\(dLL/d\alpha=-n/\alpha+\sum x_i/\alpha^2=0\)</span>, which gives <span class="math notranslate nohighlight">\(\hat\alpha=\sum x_i/n=312/8=39.0\)</span> mm (2.41). The maximum-likelihood estimate equals the moment estimate.</p>
+<p><strong>Step 5, numerical check of the peak.</strong> <span class="math notranslate nohighlight">\(LL(30)=-8\ln30-312/30=-27.21-10.40=-37.61\)</span>; <span class="math notranslate nohighlight">\(LL(39)=-8\ln39-312/39=-29.31-8.00=-37.31\)</span>; <span class="math notranslate nohighlight">\(LL(50)=-8\ln50-312/50=-31.30-6.24=-37.54\)</span>. The largest value is at <span class="math notranslate nohighlight">\(\alpha=39\)</span>.</p>
+<p><strong>Step 6, the gamma by moments (2.29, 2.30).</strong> <em>Why:</em> the gamma has two parameters, so we also need the variance. The distances from the mean are <span class="math notranslate nohighlight">\(-15,\,2,\,-21,\,27,\,-4,\,13,\,-10,\,8\)</span>, with squares <span class="math notranslate nohighlight">\(225,\,4,\,441,\,729,\,16,\,169,\,100,\,64\)</span> adding to <span class="math notranslate nohighlight">\(1748\)</span>, so <span class="math notranslate nohighlight">\(s^2=1748/7=249.71\)</span> mm<span class="math notranslate nohighlight">\(^2\)</span>. Then <span class="math notranslate nohighlight">\(\hat\beta=s^2/\bar x=249.71/39=6.403\)</span> mm and <span class="math notranslate nohighlight">\(\hat\alpha=\bar x/\hat\beta=39/6.403=6.091\)</span>.</p>
+<p><strong>Answer.</strong> Exponential <span class="math notranslate nohighlight">\(\hat\alpha=39.0\)</span> mm by both methods (<span class="math notranslate nohighlight">\(LL=-37.31\)</span>); gamma by moments <span class="math notranslate nohighlight">\(\hat\alpha=6.09\)</span>, <span class="math notranslate nohighlight">\(\hat\beta=6.40\)</span> mm. In plain words: the typical January is about 39 mm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x8</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">x_bar</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">x8</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x8</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">alpha_E</span> <span class="o">=</span> <span class="n">x_bar</span>                                          <span class="c1"># exponential, MOM = MLE</span>
+<span class="n">LL_E</span> <span class="o">=</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x8</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">alpha_E</span><span class="p">)</span> <span class="o">-</span> <span class="n">x8</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">alpha_E</span>
+<span class="n">beta_hat</span><span class="p">,</span> <span class="n">alpha_hat</span> <span class="o">=</span> <span class="n">s2</span> <span class="o">/</span> <span class="n">x_bar</span><span class="p">,</span> <span class="n">x_bar</span> <span class="o">/</span> <span class="p">(</span><span class="n">s2</span> <span class="o">/</span> <span class="n">x_bar</span><span class="p">)</span>   <span class="c1"># gamma MOM, Eqs. 2.29, 2.30</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"x_bar = </span><span class="si">{</span><span class="n">x_bar</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm,  s2 = </span><span class="si">{</span><span class="n">s2</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm^2,  alpha_E = </span><span class="si">{</span><span class="n">alpha_E</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm,  LL = </span><span class="si">{</span><span class="n">LL_E</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">a_try</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  trial alpha = </span><span class="si">{</span><span class="n">a_try</span><span class="si">}</span><span class="s2">: LL = </span><span class="si">{</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a_try</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x8</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">a_try</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gamma MOM: beta_hat = </span><span class="si">{</span><span class="n">beta_hat</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> mm, alpha_hat = </span><span class="si">{</span><span class="n">alpha_hat</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_bar = 39.00 mm,  s2 = 249.71 mm^2,  alpha_E = 39.00 mm,  LL = -37.31
+  trial alpha = 30: LL = -37.61
+  trial alpha = 39: LL = -37.31
+  trial alpha = 50: LL = -37.54
+gamma MOM: beta_hat = 6.403 mm, alpha_hat = 6.091
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gamma-by-maximum-likelihood-the-book-s-example-2-2-condensed">
+<h3>Gamma by maximum likelihood (the book’s Example 2.2, condensed)<a class="headerlink" href="#gamma-by-maximum-likelihood-the-book-s-example-2-2-condensed" title="Link to this heading">#</a></h3>
+<p>The same recipe for the gamma. The log-likelihood is
+<span class="math notranslate nohighlight">\(LL(\alpha,\beta)=-n\log\Gamma(\alpha)-n\alpha\log\beta+(\alpha-1)\sum\log x_i-\frac1\beta\sum x_i\)</span>.
+Setting its derivative with respect to <span class="math notranslate nohighlight">\(\beta\)</span> to zero gives
+$<span class="math notranslate nohighlight">\(\hat\beta=\frac{\bar x}{\hat\alpha}\qquad (2.42)\)</span><span class="math notranslate nohighlight">\(
+(the fitted mean \)</span>\alpha\beta<span class="math notranslate nohighlight">\( equals the sample mean). Substituting this into the derivative with respect to \)</span>\alpha<span class="math notranslate nohighlight">\( leaves one equation in \)</span>\alpha<span class="math notranslate nohighlight">\( (2.43),
+\)</span><span class="math notranslate nohighlight">\(\ln\alpha-\psi(\alpha)=\ln\bar x-\frac1n\sum_i\ln x_i,\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\psi=\Gamma’/\Gamma$ is the digamma function. It cannot be solved by hand, so a computer finds the root numerically. The next cell does this for the 26 January totals and compares with the moment fit.</p>
+<p><em>What this means for hydrology:</em> a fitted curve lets us read off rainfall values that were never observed, but the answer depends on the fitting rule, so we always compare the curve with the data (next section).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- parameter estimates for all 26 Januaries ------------------------------------------------------</span>
+<span class="n">x_bar</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean = </span><span class="si">{</span><span class="n">x_bar</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm, sd = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm, skewness = </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">alpha_E</span> <span class="o">=</span> <span class="n">x_bar</span>                                                    <span class="c1"># exponential (2.41)</span>
+<span class="n">beta_mom</span> <span class="o">=</span> <span class="n">s2</span> <span class="o">/</span> <span class="n">x_bar</span><span class="p">;</span> <span class="n">alpha_mom</span> <span class="o">=</span> <span class="n">x_bar</span> <span class="o">/</span> <span class="n">beta_mom</span>                <span class="c1"># gamma MOM (2.29, 2.30)</span>
+<span class="n">rhs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x_bar</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                             <span class="c1"># right side of Eq. 2.43</span>
+<span class="n">alpha_mle</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a_</span><span class="p">)</span> <span class="o">-</span> <span class="n">special</span><span class="o">.</span><span class="n">digamma</span><span class="p">(</span><span class="n">a_</span><span class="p">)</span> <span class="o">-</span> <span class="n">rhs</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">beta_mle</span> <span class="o">=</span> <span class="n">x_bar</span> <span class="o">/</span> <span class="n">alpha_mle</span>                                       <span class="c1"># Eq. 2.42</span>
+<span class="n">LL</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">dist</span><span class="p">:</span> <span class="n">dist</span><span class="o">.</span><span class="n">logpdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>                             <span class="c1"># Eq. 2.40</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"exponential: alpha = </span><span class="si">{</span><span class="n">alpha_E</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm, LL = </span><span class="si">{</span><span class="n">LL</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">alpha_E</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gamma MOM  : alpha = </span><span class="si">{</span><span class="n">alpha_mom</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, beta = </span><span class="si">{</span><span class="n">beta_mom</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm, LL = </span><span class="si">{</span><span class="n">LL</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">alpha_mom</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="o">=</span><span class="n">beta_mom</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gamma MLE  : alpha = </span><span class="si">{</span><span class="n">alpha_mle</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, beta = </span><span class="si">{</span><span class="n">beta_mle</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm, LL = </span><span class="si">{</span><span class="n">LL</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">alpha_mle</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="o">=</span><span class="n">beta_mle</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">a_sp</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">b_sp</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">floc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scipy gamma.fit check: alpha = </span><span class="si">{</span><span class="n">a_sp</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, beta = </span><span class="si">{</span><span class="n">b_sp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean = 45.18 mm, sd = 22.10 mm, skewness = 2.56
+exponential: alpha = 45.18 mm, LL = -125.08
+gamma MOM  : alpha = 4.179, beta = 10.81 mm, LL = -111.84
+gamma MLE  : alpha = 6.112, beta = 7.39 mm, LL = -110.96
+scipy gamma.fit check: alpha = 6.112, beta = 7.39
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="histogram-and-empirical-distribution-ch-2-1-5">
+<h2>2.1.5 Histogram and empirical distribution (Ch. 2.1.5)<a class="headerlink" href="#histogram-and-empirical-distribution-ch-2-1-5" title="Link to this heading">#</a></h2>
+<p><em>Plain gloss:</em> look at the data on their own before trusting a fitted curve. A <strong>histogram</strong> counts how many values fall in each class (bin). For <span class="math notranslate nohighlight">\(n\)</span> data in increasing order the book’s steps are: (1) find <span class="math notranslate nohighlight">\(x_{\min}\)</span> and <span class="math notranslate nohighlight">\(x_{\max}\)</span> (and leave a small margin, <span class="math notranslate nohighlight">\(x_{\rm Low}\)</span> to <span class="math notranslate nohighlight">\(x_{\rm Up}\)</span>); (2) choose the number of classes <span class="math notranslate nohighlight">\(n_c=1+3.3\log_{10}n\)</span> (2.44), rounded to a whole number, and the class width <span class="math notranslate nohighlight">\(\Delta x=(x_{\rm Up}-x_{\rm Low})/n_c\)</span> (2.45, see the note at the end); (3) count the number <span class="math notranslate nohighlight">\(n(i)\)</span> of data in class <span class="math notranslate nohighlight">\(i\)</span>. The relative frequency, empirical CDF and empirical density are</p>
+<div class="math notranslate nohighlight">
+\[\hat p(i)=\frac{n(i)}{n},\qquad \hat F(i)=\sum_{j=1}^{i}\hat p(j),\qquad \hat f(i)=\frac{\hat p(i)}{\Delta x}.\qquad (2.46\text{&amp;ndash;}2.48)\]</div>
+<p><span class="math notranslate nohighlight">\(\hat F(i)\)</span> is read at the upper edge of class <span class="math notranslate nohighlight">\(i\)</span>; its last value is exactly 1, which would say nothing larger can occur. For the sorted data <span class="math notranslate nohighlight">\(x_{(1)}\le\dots\le x_{(n)}\)</span> the book therefore uses the <strong>plotting position</strong></p>
+<div class="math notranslate nohighlight">
+\[\hat F(x_{(i)})=\frac{i}{n+1}\qquad (2.49)\]</div>
+<p>(for 26 values the largest gets <span class="math notranslate nohighlight">\(26/27=0.96\)</span> instead of 1). The next cell builds the histogram of the 26 January totals, as in the book’s Example 2.3, and compares it with the fitted curves: the closer a curve runs to the bars and to the dots, the better it describes the data. The gamma curves follow the data much better than the exponential, which is forced to have a standard deviation equal to its mean; the one very wet January (about 130 mm) inflates <span class="math notranslate nohighlight">\(s^2\)</span>, so the moment fit has a smaller shape and a longer tail than the maximum-likelihood fit.</p>
+<p><em>What this means for hydrology:</em> the same record can give different design values depending on the curve, which is why we look at the data first.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- histogram (2.44-2.48) -------------------------------------------------------------------------</span>
+<span class="n">n_c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">3.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+<span class="n">x_Low</span><span class="p">,</span> <span class="n">x_Up</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">136.0</span>
+<span class="n">delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_Up</span> <span class="o">-</span> <span class="n">x_Low</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_c</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">x_Low</span> <span class="o">+</span> <span class="n">delta_x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">n_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">p_hat_i</span> <span class="o">=</span> <span class="n">n_i</span> <span class="o">/</span> <span class="n">n</span>
+<span class="n">f_hat_i</span> <span class="o">=</span> <span class="n">p_hat_i</span> <span class="o">/</span> <span class="n">delta_x</span>
+<span class="n">F_hat_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">p_hat_i</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"lower"</span><span class="p">:</span> <span class="n">edges</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"upper"</span><span class="p">:</span> <span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s2">"n(i)"</span><span class="p">:</span> <span class="n">n_i</span><span class="p">,</span> <span class="s2">"p_hat(i)"</span><span class="p">:</span> <span class="n">p_hat_i</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+                    <span class="s2">"f_hat(i)"</span><span class="p">:</span> <span class="n">f_hat_i</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="s2">"F_hat(i)"</span><span class="p">:</span> <span class="n">F_hat_i</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)})</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">x_ord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="n">pp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>             <span class="c1"># plotting positions (2.49)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">edges</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">f_hat_i</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">delta_x</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"edge"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightsteelblue"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">hat f(i)$ (histogram)"</span><span class="p">)</span>
+<span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alpha_E</span><span class="p">),</span> <span class="s2">"tab:green"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"exponential"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">alpha_mle</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_mle</span><span class="p">),</span> <span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"gamma, MLE"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">alpha_mom</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_mom</span><span class="p">),</span> <span class="s2">"tab:orange"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"gamma, MOM"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"January rain $x$ [mm]"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"density [1/mm]"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Empirical density, $n_c$ = </span><span class="si">{</span><span class="n">n_c</span><span class="si">}</span><span class="s2">, $</span><span class="se">\\</span><span class="s2">Delta x$ = </span><span class="si">{</span><span class="n">delta_x</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">x_Low</span><span class="p">,</span> <span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">:]],</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">F_hat_i</span><span class="p">],</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">hat F(i)$ at class upper edges"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_ord</span><span class="p">,</span> <span class="n">pp</span><span class="p">,</span> <span class="s2">"k."</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"plotting position $i/(n+1)$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alpha_E</span><span class="p">),</span> <span class="s2">"tab:green"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"exponential"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">alpha_mle</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_mle</span><span class="p">),</span> <span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"gamma, MLE"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"January rain $x$ [mm]"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"cumulative probability"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Empirical CDF and fitted CDFs"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> lower  upper  n(i)  p_hat(i)  f_hat(i)  F_hat(i)
+  10.0   31.0     5     0.192    0.0092     0.192
+  31.0   52.0    14     0.538    0.0256     0.731
+  52.0   73.0     6     0.231    0.0110     0.962
+  73.0   94.0     0     0.000    0.0000     0.962
+  94.0  115.0     0     0.000    0.0000     0.962
+ 115.0  136.0     1     0.038    0.0018     1.000
+</pre></div>
+</div>
+<img alt="_images/7d33af9dbd727068c5e24e0dbee41b36f43e006fa163eb27d0f6e7b93894a5ca.png" src="_images/7d33af9dbd727068c5e24e0dbee41b36f43e006fa163eb27d0f6e7b93894a5ca.png" />
+</div>
+</div>
+</section>
+<section id="multivariate-random-variables-ch-2-2">
+<h2>2.2 Multivariate random variables (Ch. 2.2)<a class="headerlink" href="#multivariate-random-variables-ch-2-2" title="Link to this heading">#</a></h2>
+<section id="multivariate-normal-distribution-and-its-conditional-distribution">
+<h3>2.2.1 Multivariate normal distribution and its conditional distribution<a class="headerlink" href="#multivariate-normal-distribution-and-its-conditional-distribution" title="Link to this heading">#</a></h3>
+<p><em>Plain gloss:</em> if the model says a summer is hot, the station is probably hot too, but not exactly. The <span class="math notranslate nohighlight">\(p\)</span>-dimensional normal density for the vector <span class="math notranslate nohighlight">\(\mathbf X=[X_1,\dots,X_p]^T\)</span> is written <span class="math notranslate nohighlight">\(N_p(\boldsymbol\mu,\boldsymbol\Sigma)\)</span> (2.51), with mean vector <span class="math notranslate nohighlight">\(\boldsymbol\mu\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\boldsymbol\Sigma\)</span>. If <span class="math notranslate nohighlight">\(\mathbf Y=\mathbf y\)</span> is known, then <span class="math notranslate nohighlight">\(\mathbf X\)</span> is again normal with</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol\mu_{\mathbf X|\mathbf Y=\mathbf y}=\boldsymbol\mu_{\mathbf X}+\boldsymbol\Sigma_{\mathbf{XY}}\boldsymbol\Sigma_{\mathbf{YY}}^{-1}(\mathbf y-\boldsymbol\mu_{\mathbf Y}),\qquad \boldsymbol\Sigma_{\mathbf X|\mathbf Y}=\boldsymbol\Sigma_{\mathbf{XX}}-\boldsymbol\Sigma_{\mathbf{XY}}\boldsymbol\Sigma_{\mathbf{YY}}^{-1}\boldsymbol\Sigma_{\mathbf{YX}}\qquad(2.53,\ 2.54)\]</div>
+<p>and the covariance does not depend on the given <span class="math notranslate nohighlight">\(\mathbf y\)</span>, though the mean does. We use only the two-variable case <span class="math notranslate nohighlight">\(\mathbf X=[X_1,X_2]^T\)</span> (bivariate normal, 2.52), where <span class="math notranslate nohighlight">\(\mu_1,\sigma_1\)</span> are the mean and standard deviation of <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(\rho\)</span> is the correlation (next subsection). The conditional distribution of <span class="math notranslate nohighlight">\(X_1\)</span> given <span class="math notranslate nohighlight">\(X_2=x_2\)</span> is normal (2.55) with</p>
+<div class="math notranslate nohighlight">
+\[\text{mean}=\mu_1+\rho\,\frac{\sigma_1}{\sigma_2}(x_2-\mu_2),\qquad \text{variance}=\sigma_1^2(1-\rho^2).\]</div>
+<p>Here <span class="math notranslate nohighlight">\(X_1\)</span> is the <strong>station</strong> temperature (what we want) and <span class="math notranslate nohighlight">\(X_2\)</span> the <strong>model</strong> temperature (what we know). The mean is a straight line in <span class="math notranslate nohighlight">\(x_2\)</span> (Lecture 19 calls it a regression) and the spread is the same for every <span class="math notranslate nohighlight">\(x_2\)</span>.</p>
+</section>
+<section id="covariance-and-correlation">
+<h3>2.2.2 Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Link to this heading">#</a></h3>
+<p>The <strong>covariance</strong> is <span class="math notranslate nohighlight">\(\gamma_{12}=\mathrm{Cov}(X_1,X_2)=E[(X_1-\mu_1)(X_2-\mu_2)]\)</span> (2.56): the average product of the two distances from the means, positive when they rise and fall together. The <strong>correlation</strong> <span class="math notranslate nohighlight">\(\rho=\gamma_{12}/(\sigma_1\sigma_2)\)</span> (2.57) removes the units and lies between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. From <span class="math notranslate nohighlight">\(n\)</span> pairs, with sample means <span class="math notranslate nohighlight">\(\bar x_1,\bar x_2\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\hat\gamma_{12}=\frac1n\sum_i(x_{1,i}-\bar x_1)(x_{2,i}-\bar x_2),\qquad \hat\rho_{12}=\frac{\sum_i(x_{1,i}-\bar x_1)(x_{2,i}-\bar x_2)}{\sqrt{\sum_i(x_{1,i}-\bar x_1)^2}\sqrt{\sum_i(x_{2,i}-\bar x_2)^2}}.\qquad(2.58\text{ and }2.59)\]</div>
+<p>The cell below uses 40 synthetic seasons.</p>
+<p><em>What this means for hydrology:</em> a model value does not fix the local value; it shifts the local distribution and narrows it, and the leftover spread must not be forgotten when we generate local weather.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_bar_1</span><span class="p">,</span> <span class="n">x_bar_2</span> <span class="o">=</span> <span class="n">x_1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span> <span class="o">=</span> <span class="n">x_1</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">x_2</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gamma_12_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">x_1</span> <span class="o">-</span> <span class="n">x_bar_1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_2</span> <span class="o">-</span> <span class="n">x_bar_2</span><span class="p">))</span>                                                   <span class="c1"># Eq. 2.58</span>
+<span class="n">rho_12_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_1</span> <span class="o">-</span> <span class="n">x_bar_1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_2</span> <span class="o">-</span> <span class="n">x_bar_2</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_1</span> <span class="o">-</span> <span class="n">x_bar_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_2</span> <span class="o">-</span> <span class="n">x_bar_2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>   <span class="c1"># Eq. 2.59</span>
+<span class="n">x_2_given</span> <span class="o">=</span> <span class="mf">28.5</span>
+<span class="n">mean_cond</span> <span class="o">=</span> <span class="n">x_bar_1</span> <span class="o">+</span> <span class="n">rho_12_hat</span> <span class="o">*</span> <span class="n">s_1</span> <span class="o">/</span> <span class="n">s_2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_2_given</span> <span class="o">-</span> <span class="n">x_bar_2</span><span class="p">)</span>                                         <span class="c1"># mean of Eq. 2.55</span>
+<span class="n">sd_cond</span> <span class="o">=</span> <span class="n">s_1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rho_12_hat</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"x_bar_1 = </span><span class="si">{</span><span class="n">x_bar_1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, x_bar_2 = </span><span class="si">{</span><span class="n">x_bar_2</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> degC;  s_1 = </span><span class="si">{</span><span class="n">s_1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, s_2 = </span><span class="si">{</span><span class="n">s_2</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> degC"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gamma_12_hat = </span><span class="si">{</span><span class="n">gamma_12_hat</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> degC^2,  rho_12_hat = </span><span class="si">{</span><span class="n">rho_12_hat</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  (numpy: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span><span class="w"> </span><span class="n">x_2</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"given x_2 = </span><span class="si">{</span><span class="n">x_2_given</span><span class="si">}</span><span class="s2"> degC:  E[X_1|x_2] = </span><span class="si">{</span><span class="n">mean_cond</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> degC,  sd = </span><span class="si">{</span><span class="n">sd_cond</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> degC  (unconditional sd </span><span class="si">{</span><span class="n">s_1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"least-squares slope"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x_2</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">"= rho * s_1/s_2 ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">rho_12_hat</span> <span class="o">*</span> <span class="n">s_1</span> <span class="o">/</span> <span class="n">s_2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">))</span>
+<span class="n">xl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_2</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">x_2</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">x_bar_1</span> <span class="o">+</span> <span class="n">rho_12_hat</span> <span class="o">*</span> <span class="n">s_1</span> <span class="o">/</span> <span class="n">s_2</span> <span class="o">*</span> <span class="p">(</span><span class="n">xl</span> <span class="o">-</span> <span class="n">x_bar_2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_2</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"40 seasons (synthetic)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$E[X_1|x_2]$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">line</span> <span class="o">-</span> <span class="mf">1.645</span> <span class="o">*</span> <span class="n">sd_cond</span><span class="p">,</span> <span class="n">line</span> <span class="o">+</span> <span class="mf">1.645</span> <span class="o">*</span> <span class="n">sd_cond</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"90% band of $X_1|x_2$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"$x_2$, model temperature [degC]"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"$x_1$, station temperature [degC]"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Conditional mean is a straight line"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_bar_1</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">x_bar_1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s_1</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">x_bar_1</span><span class="p">,</span> <span class="n">s_1</span><span class="p">),</span> <span class="s2">"0.4"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$X_1$ alone"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">mean_cond</span><span class="p">,</span> <span class="n">sd_cond</span><span class="p">),</span> <span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"$X_1$ given $x_2$ = </span><span class="si">{</span><span class="n">x_2_given</span><span class="si">}</span><span class="s2"> degC"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"station temperature $x_1$ [degC]"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"density"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Knowing $x_2$ shifts and narrows the pdf (factor </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rho_12_hat</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_bar_1 = 28.870, x_bar_2 = 27.297 degC;  s_1 = 1.023, s_2 = 0.894 degC
+gamma_12_hat = 0.6256 degC^2,  rho_12_hat = 0.7012  (numpy: 0.7012)
+given x_2 = 28.5 degC:  E[X_1|x_2] = 29.835 degC,  sd = 0.729 degC  (unconditional sd 1.023)
+least-squares slope 0.8023 = rho * s_1/s_2 = 0.8023
+</pre></div>
+</div>
+<img alt="_images/7c915e8e8a06b5742b7460440d0c242169a5b36050477c054c07da4fad79b851.png" src="_images/7c915e8e8a06b5742b7460440d0c242169a5b36050477c054c07da4fad79b851.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="random-simulation-ch-2-3">
+<h2>2.3 Random simulation (Ch. 2.3)<a class="headerlink" href="#random-simulation-ch-2-3" title="Link to this heading">#</a></h2>
+<section id="monte-carlo-simulation-and-uniform-random-numbers">
+<h3>2.3.1 Monte Carlo simulation and uniform random numbers<a class="headerlink" href="#monte-carlo-simulation-and-uniform-random-numbers" title="Link to this heading">#</a></h3>
+<p><em>Plain gloss:</em> to test a method we often need many plausible Januaries. <strong>Monte Carlo simulation</strong> draws many random samples from a fitted curve and studies them. It starts from uniform random numbers, made by a <strong>linear congruential generator</strong> that calculates whole numbers by a fixed rule,</p>
+<div class="math notranslate nohighlight">
+\[x_j=(a+b\,x_{j-1})\bmod M,\qquad u_j=\frac{x_j}{M}\sim\mathrm{Unif}[0,1],\qquad (2.60,\ 2.62)\]</div>
+<p>with increment <span class="math notranslate nohighlight">\(a\)</span>, multiplier <span class="math notranslate nohighlight">\(b\)</span>, large integer <span class="math notranslate nohighlight">\(M\)</span> and a start value <span class="math notranslate nohighlight">\(x_0\)</span> (“mod <span class="math notranslate nohighlight">\(M\)</span>” keeps the remainder after dividing by <span class="math notranslate nohighlight">\(M\)</span>). The numbers repeat after at most <span class="math notranslate nohighlight">\(M\)</span> steps, so they are called pseudorandom; real generators use a very large <span class="math notranslate nohighlight">\(M\)</span> such as <span class="math notranslate nohighlight">\(2^{32}\)</span>, for example <span class="math notranslate nohighlight">\((a,b,M)=(1013904223,\,1664525,\,2^{32})\)</span>. <em>Small example by hand</em> with <span class="math notranslate nohighlight">\(a=3\)</span>, <span class="math notranslate nohighlight">\(b=5\)</span>, <span class="math notranslate nohighlight">\(M=16\)</span>, <span class="math notranslate nohighlight">\(x_0=7\)</span>:
+<span class="math notranslate nohighlight">\(x_1=(3+5\cdot7)\bmod16=38\bmod16=6\)</span>, <span class="math notranslate nohighlight">\(u_1=6/16=0.3750\)</span>;
+<span class="math notranslate nohighlight">\(x_2=(3+5\cdot6)\bmod16=33\bmod16=1\)</span>, <span class="math notranslate nohighlight">\(u_2=0.0625\)</span>;
+<span class="math notranslate nohighlight">\(x_3=(3+5\cdot1)\bmod16=8\)</span>, <span class="math notranslate nohighlight">\(u_3=0.5000\)</span>;
+<span class="math notranslate nohighlight">\(x_4=(3+5\cdot8)\bmod16=43\bmod16=11\)</span>, <span class="math notranslate nohighlight">\(u_4=0.6875\)</span>.</p>
+</section>
+<section id="simulation-of-probability-distributions">
+<h3>2.3.2 Simulation of probability distributions<a class="headerlink" href="#simulation-of-probability-distributions" title="Link to this heading">#</a></h3>
+<p>The easiest way to turn <span class="math notranslate nohighlight">\(u\)</span> into a draw from a target distribution is the <strong>inverse transform</strong>: because <span class="math notranslate nohighlight">\(u=F_X(X)\)</span> is uniform, a draw is <span class="math notranslate nohighlight">\(x=F_X^{-1}(u)\)</span>. <em>Plain gloss:</em> read <span class="math notranslate nohighlight">\(u\)</span> as a probability and take the rainfall that is not exceeded with that probability (the quantile). For the exponential the inverse is Eq. 2.23 with <span class="math notranslate nohighlight">\(F=u\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[x=-\alpha\ln(1-u).\qquad (2.66)\]</div>
+<p><em>Small example by hand,</em> using <span class="math notranslate nohighlight">\(\hat\alpha=39.0\)</span> mm from the worked example and the four <span class="math notranslate nohighlight">\(u\)</span> above:
+<span class="math notranslate nohighlight">\(u_1\)</span>: <span class="math notranslate nohighlight">\(-39\ln(0.625)=-39(-0.4700)=18.33\)</span> mm; <span class="math notranslate nohighlight">\(u_2\)</span>: <span class="math notranslate nohighlight">\(-39\ln(0.9375)=-39(-0.06454)=2.52\)</span> mm; <span class="math notranslate nohighlight">\(u_3\)</span>: <span class="math notranslate nohighlight">\(-39\ln(0.5)=-39(-0.6931)=27.03\)</span> mm; <span class="math notranslate nohighlight">\(u_4\)</span>: <span class="math notranslate nohighlight">\(-39\ln(0.3125)=-39(-1.1632)=45.36\)</span> mm.
+The draw for <span class="math notranslate nohighlight">\(u=0.5\)</span> is the median, 27 mm, below the mean 39 mm because a few wet Januaries pull the mean up. For the gamma the inverse has no formula and is computed numerically. The cell below repeats the hand example, then draws from the gamma fitted above with the full-size generator.</p>
+<p><em>What this means for hydrology:</em> once a curve is fitted we can create as many synthetic Januaries as we like; this is how weather generators (Lecture 21) and quantile mapping (Lecture 18) work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">lcg</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="c1"># x_j = (a + b x_{j-1}) mod M  (Eq. 2.60); returns the N integers x_1 ... x_N</span>
+    <span class="n">out</span><span class="p">,</span> <span class="n">x_j</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">x_0</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">x_j</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x_j</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_j</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+<span class="c1"># the hand example: integers, uniform numbers and exponential draws with alpha = 39 mm</span>
+<span class="n">x_lcg</span> <span class="o">=</span> <span class="n">lcg</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> <span class="n">u_hand</span> <span class="o">=</span> <span class="n">x_lcg</span> <span class="o">/</span> <span class="mi">16</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"x_j ="</span><span class="p">,</span> <span class="n">x_lcg</span><span class="p">,</span> <span class="s2">" u ="</span><span class="p">,</span> <span class="n">u_hand</span><span class="p">,</span> <span class="s2">" draws [mm] ="</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u_hand</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="c1"># the hand-example generator again, then the full-size generator (a, b, M) = (1013904223, 1664525, 2^32)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">u_all</span> <span class="o">=</span> <span class="n">lcg</span><span class="p">(</span><span class="mi">1013904223</span><span class="p">,</span> <span class="mi">1664525</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">,</span> <span class="mi">12345</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span>
+<span class="n">x_sim</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">u_all</span><span class="p">,</span> <span class="n">alpha_mle</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_mle</span><span class="p">)</span>           <span class="c1"># x = F^-1(u)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> draws: mean </span><span class="si">{</span><span class="n">x_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm (fitted alpha*beta = </span><span class="si">{</span><span class="n">alpha_mle</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">beta_mle</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">), "</span>
+      <span class="sa">f</span><span class="s2">"variance </span><span class="si">{</span><span class="n">x_sim</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> (fitted alpha*beta^2 = </span><span class="si">{</span><span class="n">alpha_mle</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">beta_mle</span><span class="o">**</span><span class="mi">2</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">),  F(x) back-check max error </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x_sim</span><span class="p">,</span><span class="w"> </span><span class="n">alpha_mle</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="o">=</span><span class="n">beta_mle</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">u_all</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"first eight draws [mm]:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x_sim</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">xc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">alpha_mle</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_mle</span><span class="p">),</span> <span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"fitted gamma CDF"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">u_</span><span class="p">,</span> <span class="n">x_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">u_all</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="n">x_sim</span><span class="p">[:</span><span class="mi">8</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">x_</span><span class="p">],</span> <span class="p">[</span><span class="n">u_</span><span class="p">,</span> <span class="n">u_</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.7"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_sim</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="n">u_all</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"8 draws $(F^{-1}(u),</span><span class="se">\\</span><span class="s2">,u)$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">140</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"$x$ [mm]"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"$u$"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Inverse transform: from $u$ across, then down"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"lower right"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x_sim</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">140</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightsteelblue"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> simulated draws"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">alpha_mle</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_mle</span><span class="p">),</span> <span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"fitted gamma pdf"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"simulated January rain $x$ [mm]"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"density [1/mm]"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Simulation reproduces the fitted pdf"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_j = [ 6  1  8 11]  u = [0.375  0.0625 0.5    0.6875]  draws [mm] = [18.33  2.52 27.03 45.36]
+10000 draws: mean 45.06 mm (fitted alpha*beta = 45.18), variance 331 (fitted alpha*beta^2 = 334),  F(x) back-check max error 1.4e-15
+first eight draws [mm]: [16.  15.2 44.7 49.1 71.1 24.7 42.6 44.9]
+</pre></div>
+</div>
+<img alt="_images/44a3d4afe81067e626919a695bb7d4afc7887b722bf449b0d46d3ad62aa6c065.png" src="_images/44a3d4afe81067e626919a695bb7d4afc7887b722bf449b0d46d3ad62aa6c065.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>A variable is described by its <strong>CDF</strong> (chance of being at most <span class="math notranslate nohighlight">\(x\)</span>) and its <strong>probability density</strong> (the curve); the mean, variance and skewness describe centre, spread and tail.</p></li>
+<li><p>Use the <strong>normal</strong> for temperature, <strong>exponential</strong> or <strong>gamma</strong> for rain amounts, <strong>lognormal</strong> for flows and <strong>GEV</strong> or <strong>Gumbel</strong> for yearly maxima. In the book’s GEV the shape is <span class="math notranslate nohighlight">\(\beta=-\xi\)</span> of the usual convention.</p></li>
+<li><p><strong>Moments</strong> match the mean and spread; <strong>maximum likelihood</strong> picks the parameter that makes the data most plausible. For the exponential both give <span class="math notranslate nohighlight">\(\hat\alpha=\bar x\)</span>.</p></li>
+<li><p>A <strong>histogram</strong> and plotting positions <span class="math notranslate nohighlight">\(i/(n+1)\)</span> show the data on their own; always compare a fitted curve with them.</p></li>
+<li><p>Given the model value <span class="math notranslate nohighlight">\(x_2\)</span>, the station value is normal with mean <span class="math notranslate nohighlight">\(\mu_1+\rho(\sigma_1/\sigma_2)(x_2-\mu_2)\)</span> and variance <span class="math notranslate nohighlight">\(\sigma_1^2(1-\rho^2)\)</span>.</p></li>
+<li><p>A congruential generator gives uniform numbers <span class="math notranslate nohighlight">\(u\)</span>, and <span class="math notranslate nohighlight">\(x=F_X^{-1}(u)\)</span> turns them into random draws from a fitted curve.</p></li>
+</ul>
+<p><strong>Companion workbook</strong> <code class="docutils literal notranslate"><span class="pre">data/downscaling/lec17/lec17_worked_examples.xlsx</span></code> (blue = input, black = formula): <code class="docutils literal notranslate"><span class="pre">Exp_hand</span></code> is the by-hand example above, <code class="docutils literal notranslate"><span class="pre">Fit_26yr</span></code> the histogram, plotting positions and fits of Section 4, <code class="docutils literal notranslate"><span class="pre">Bivariate</span></code> Section 5, and <code class="docutils literal notranslate"><span class="pre">Data</span></code> holds the inputs.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="check-your-understanding">
+<h1>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>An exponential curve has <span class="math notranslate nohighlight">\(\hat\alpha=40\)</span> mm. Use Eq. 2.66 with <span class="math notranslate nohighlight">\(u=0.9\)</span> to find the draw, and check it with <span class="math notranslate nohighlight">\(F_E(x)=1-e^{-x/\alpha}\)</span>. What does the answer mean in words?</p></li>
+<li><p>A sample has <span class="math notranslate nohighlight">\(\bar x=8\)</span> mm and <span class="math notranslate nohighlight">\(s=12\)</span> mm. Give the gamma moment estimates <span class="math notranslate nohighlight">\(\hat\beta\)</span> and <span class="math notranslate nohighlight">\(\hat\alpha\)</span>. Is the shape below or above 1, and what does the gamma figure in Section 2 show for that case?</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(\sigma_1=2\)</span>, <span class="math notranslate nohighlight">\(\sigma_2=1\)</span> degC and <span class="math notranslate nohighlight">\(\rho=0.5\)</span>, what are the slope <span class="math notranslate nohighlight">\(\rho\sigma_1/\sigma_2\)</span> of the conditional mean and the conditional standard deviation? By what fraction does knowing <span class="math notranslate nohighlight">\(x_2\)</span> reduce the variance of <span class="math notranslate nohighlight">\(X_1\)</span>?</p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="try-it-yourself">
+<h1>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">january_precip.csv</span></code> by a real monthly or seasonal rainfall series and compare the exponential, gamma MOM and gamma MLE fits with the histogram.</p></li>
+<li><p>Change the seed <code class="docutils literal notranslate"><span class="pre">12345</span></code> or the generator constants in Section 6 and check how the simulated mean and variance move.</p></li>
+<li><p>Fit a lognormal (<span class="math notranslate nohighlight">\(\hat\zeta\)</span> and <span class="math notranslate nohighlight">\(\hat\varsigma\)</span> are the mean and standard deviation of <span class="math notranslate nohighlight">\(\ln x\)</span>) to the 26 totals and add it to the figure of Section 4.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Where this lecture differs from the book</p>
+<ul class="simple">
+<li><p>Eq. 2.20 (lognormal) prints <span class="math notranslate nohighlight">\((x-\varsigma)^2\)</span> and swaps the roles of <span class="math notranslate nohighlight">\(\zeta\)</span> and <span class="math notranslate nohighlight">\(\varsigma\)</span> relative to the text below it; we use <span class="math notranslate nohighlight">\((\ln x-\zeta)^2/2\varsigma^2\)</span> with <span class="math notranslate nohighlight">\(\zeta=E(\ln X)\)</span>, <span class="math notranslate nohighlight">\(\varsigma=\sqrt{\mathrm{Var}(\ln X)}\)</span>.</p></li>
+<li><p>Eq. 2.45 divides by <span class="math notranslate nohighlight">\(n_c-1\)</span> but Example 2.3 then draws <span class="math notranslate nohighlight">\(n_c\)</span> classes; we use <span class="math notranslate nohighlight">\(\Delta x=(x_{\rm Up}-x_{\rm Low})/n_c\)</span> so that <span class="math notranslate nohighlight">\(n_c\)</span> classes cover the range.</p></li>
+<li><p>Section 2.3.2 writes <span class="math notranslate nohighlight">\(u=F^{-1}(x)\)</span>; the inverse transform is <span class="math notranslate nohighlight">\(x=F^{-1}(u)\)</span>. Eqs. 2.64–2.65 print the exponential inverse with a location term; we use Eq. 2.66.</p></li>
+<li><p>The book’s generator example (<span class="math notranslate nohighlight">\(a=2\)</span>, <span class="math notranslate nohighlight">\(b=1\)</span>, <span class="math notranslate nohighlight">\(M=7\)</span>) repeats after 7 numbers, so it only shows the recursion; we use <span class="math notranslate nohighlight">\((3,5,16)\)</span> by hand and a full-size generator for simulation.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>. Notation and method formulations follow Chapter 2 (Statistical background) of Lee, T., &amp; Singh, V. P. (2019). <em>Statistical Downscaling for Hydrological and Environmental Applications</em>. CRC Press: Section 2.1 (probability, distributions, moments and maximum likelihood, histogram and empirical distribution), Section 2.2 (multivariate normal, covariance, correlation) and Section 2.3 (Monte Carlo, uniform random numbers, inverse transform). The explanations, data, code and figures are original to this course; the book’s examples and data are not reproduced. The harmony search algorithm of Section 2.4 is not covered.</p>
+<p>All data are <strong>synthetic</strong>, generated with fixed random seeds (<code class="docutils literal notranslate"><span class="pre">data/downscaling/lec17/</span></code>), and do not describe any real station or model. The gamma-shape approximation in the spreadsheet is a standard closed-form approximation of the root of Eq. 2.43; the notebook solves the equation exactly.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-16-downscaling-problem-data-and-methods.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 16, Downscaling: the problem, the data and choosing a method</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-18-bias-correction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 18, Bias correction</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 17, Statistical background for downscaling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-words-you-need">Statistics words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-theory-ch-2-1-1">2.1.1 Probabilistic theory (Ch. 2.1.1)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density-function-and-cumulative-distribution-function">2.1.1.1 Probability density function and cumulative distribution function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptors-of-random-variables">2.1.1.2 Descriptors of random variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-probability-distributions-ch-2-1-2">2.1.2 Discrete probability distributions (Ch. 2.1.2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-probability-distributions-ch-2-1-3">2.1.3 Continuous probability distributions (Ch. 2.1.3)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-and-lognormal-distributions">2.1.3.1 Normal and lognormal distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-and-gamma-distributions">2.1.3.2 Exponential and gamma distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gev-and-gumbel-distributions">2.1.3.3 GEV and Gumbel distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation-for-probability-distributions-ch-2-1-4">2.1.4 Parameter estimation for probability distributions (Ch. 2.1.4)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-of-moments">2.1.4.1 Method of moments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">2.1.4.2 Maximum likelihood estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-exponential-fit-by-moments-and-by-maximum-likelihood">Worked example (by hand): exponential fit by moments and by maximum likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-by-maximum-likelihood-the-book-s-example-2-2-condensed">Gamma by maximum likelihood (the book’s Example 2.2, condensed)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-and-empirical-distribution-ch-2-1-5">2.1.5 Histogram and empirical distribution (Ch. 2.1.5)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-random-variables-ch-2-2">2.2 Multivariate random variables (Ch. 2.2)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distribution-and-its-conditional-distribution">2.2.1 Multivariate normal distribution and its conditional distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">2.2.2 Covariance and correlation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-simulation-ch-2-3">2.3 Random simulation (Ch. 2.3)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-simulation-and-uniform-random-numbers">2.3.1 Monte Carlo simulation and uniform random numbers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-of-probability-distributions">2.3.2 Simulation of probability distributions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
