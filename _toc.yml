@@ -29,6 +29,10 @@ parts:
     - file: lecture-21-weather-generators
     - file: lecture-22-weather-types-and-temporal-downscaling
     - file: lecture-23-spatial-downscaling
+    - file: lecture-24-floods-extremes-and-return-periods
+    - file: lecture-25-flood-frequency-analysis-and-design-floods
+    - file: lecture-26-droughts-definitions-and-indices
+    - file: lecture-27-drought-characteristics-frequency-and-management
   - caption: Exercise
     chapters:
     - file: exercise-03-introduction-to-python

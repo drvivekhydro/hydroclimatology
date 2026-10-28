@@ -18,9 +18,10 @@ notebook can be run in the browser through the 🚀 launch button (Google Colab 
 Binder) — no local installation required.
 
 ```{note}
-The notebook collection is under active development and currently focuses on
-**Module 2 (Modeling)**. Material for the observation, data-processing, impacts, and
-hydroclimatic-extremes modules will be added over the course of the semester.
+The notebook collection is under active development. It now covers Modules 1, 2 and 4
+(modeling, CMIP, downscaling) and the extremes modules 6 and 7 (droughts and floods).
+Material for the observation and impacts modules will be added over the course of the
+semester.
 ```
 
 ## Course information
@@ -67,6 +68,7 @@ impacts and extremes.
 Lectures 1–2 are conceptual; Lectures 3–12 support **Module 2 (Modeling)** and are
 hands-on Python notebooks. Lectures 13–23 support **Module 4 (Hydroclimatic data processing
 and analysis)**: the CMIP archive, gridded data, and downscaling and bias correction.
+Lectures 24–25 cover **Module 7 (floods)** and Lectures 26–27 **Module 6 (droughts)**.
 
 - **Lecture 1** — Course introduction: what applied hydroclimatology is, how the
   course is organised, and how it is assessed.
@@ -99,6 +101,14 @@ and analysis)**: the CMIP archive, gridded data, and downscaling and bias correc
   16 the problem, the data and choosing a method; 17 statistical background; 18 bias correction;
   19 regression downscaling; 20 predictor selection and neural networks; 21 weather generators;
   22 weather types and temporal downscaling; 23 spatial downscaling.
+- **Lecture 24** — Floods I: flood types, extreme-rainfall indices, annual maxima, return
+  periods and the risk of a flood during a design life.
+- **Lecture 25** — Floods II: flood frequency analysis (Gumbel, log-Pearson III), design
+  floods, climate change and floods, GLOFs and flood-risk management.
+- **Lecture 26** — Droughts I: types of drought, simple indicators, SPI, SPEI and a
+  streamflow index.
+- **Lecture 27** — Droughts II: theory of runs (duration, severity, intensity), drought
+  frequency, climate change and drought management in India.
 
 Each hands-on lecture (3&ndash;5, 7&ndash;10) has a companion **exercise notebook** with
 the data, model and plotting written out and the analysis code left as marked

@@ -46,10 +46,12 @@ of the Earth up to advection and diffusion in space and a calibrated catchment m
 | **Lectures 9–12** | Advection and diffusion: in 1-D, applied to river flood routing and transport; in 2-D for ocean heat, and for a pollutant in a reservoir |
 | **Lectures 13–15** | CMIP: history, design, scenarios, climate sensitivity, uncertainty and CMIP7; analysing gridded climate data with `xarray` |
 | **Lectures 16–23** | Statistical downscaling and bias correction for hydrology, with worked examples in spreadsheets (`data/downscaling/`) and Python |
+| **Lectures 24–25** | Floods: flood types, extreme-rainfall indices, return periods and risk; flood frequency analysis (Gumbel, log-Pearson III), design floods, climate change, GLOFs and flood-risk management |
+| **Lectures 26–27** | Droughts: types of drought, SPI, SPEI and streamflow indices; theory of runs, drought frequency, climate change and drought management in India |
 | **Exercises** | One scaffolded exercise notebook per hands-on lecture (3–5, 7–10); Exercise 9 analyses real Indian Ocean SST data |
 
-Material for the observation, impacts and extremes modules will be
-added through the semester.
+Lectures 24–27 have worked examples in spreadsheets (`data/extremes/`). Material for the
+observation and impacts modules will be added through the semester.
 
 ## Running the notebooks
 
@@ -81,7 +83,7 @@ Several lectures are adapted from the open course **[*Climate of the Ocean*](htt
 is itself a Python adaptation of **Henri Drake's climate lectures in
 [MIT *Introduction to Computational Thinking*](https://computationalthinking.mit.edu)**;
 Brian Rose's *[The Climate Laboratory](https://brian-rose.github.io/ClimateLaboratoryBook/)*
-was also consulted. Lectures 1, 2, 7, 8, 10, 12, 13, 14 and 16&ndash;23 are original to this course (Lectures 16&ndash;23 follow the structure of Lee & Singh (2019), *Statistical Downscaling for Hydrological and Environmental Applications*, CRC Press, with the explanations, derivations, data and figures written for this course).
+was also consulted. Lectures 1, 2, 7, 8, 10, 12, 13, 14 and 16&ndash;27 are original to this course (Lectures 16&ndash;23 follow the structure of Lee & Singh (2019), *Statistical Downscaling for Hydrological and Environmental Applications*, CRC Press, with the explanations, derivations, data and figures written for this course).
 
 Teaching content is licensed **[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)**
 and code additionally under the **MIT License**. Full per-lecture provenance is in

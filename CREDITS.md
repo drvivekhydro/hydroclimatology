@@ -68,6 +68,8 @@ Consulted for Lecture 4.
 | 14 — Scenarios, climate sensitivity and uncertainty, and CMIP7 | Vivek Gupta (reuses the Lecture 4 energy balance model); see the notebook for references | original |
 | 15 — Climate data analysis with xarray | ClimateMatch Academy and Project Pythia (see the notebook) | adapted |
 | 16&ndash;23 — Downscaling and bias correction (spreadsheets and Python) | Vivek Gupta; structure follows Lee & Singh (2019), CRC Press; explanations, derivations, synthetic data, spreadsheets and figures written for this course | original |
+| 24&ndash;25 — Floods: extremes, return periods, flood frequency analysis and design floods | Vivek Gupta; methods follow Chow, Maidment & Mays (1988), *Applied Hydrology*, Ch. 12, and the ETCCDI index definitions; Chattooga data as in Lectures 7 and 10 | original |
+| 26&ndash;27 — Droughts: types, indices, theory of runs and management | Vivek Gupta; SPI after McKee et al. (1993) and the WMO SPI User Guide (2012), runs after Yevjevich (1967), definitions after Mishra & Singh (2010); Chattooga data | original |
 | Exercises 3, 4, 5, 9 | *Climate of the Ocean* exercises, reworked and heavily scaffolded (Exercise 9 retargeted from the Baltic Sea to the Indian Ocean) | adapted |
 | Exercises 7, 8, 10 | Vivek Gupta | original |
 

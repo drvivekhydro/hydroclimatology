@@ -177,11 +177,13 @@ The syllabus is organised into seven modules; the full list is on the
 | 7 | Hydroclimatic extremes: floods |
 
 ```{note}
-The interactive notebooks on this site currently cover **Module 2 (Modeling)**.
-They are introduced by two conceptual lectures — this one and *Components of the
-climate system* — and are then built up in Python from a zero-dimensional energy
-balance model to advection–diffusion in space. Material for the other modules will be
-added through the semester.
+The interactive notebooks on this site cover **Module 2 (Modeling)**, **Module 4**
+(CMIP, gridded data, downscaling and bias correction) and the extremes modules,
+**6 (droughts)** and **7 (floods)**. They are introduced by two conceptual lectures —
+this one and *Components of the climate system* — and are then built up in Python from
+a zero-dimensional energy balance model to advection–diffusion in space, climate model
+data, downscaling, and flood and drought analysis. Material for the other modules will
+be added through the semester.
 ```
 
 ## Assessment
