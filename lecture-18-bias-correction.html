@@ -1,0 +1,1409 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 18, Bias correction &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-18-bias-correction';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 19, Regression downscaling" href="lecture-19-regression-downscaling.html" />
+    <link rel="prev" title="Lecture 17, Statistical background for downscaling" href="lecture-17-statistical-background-for-downscaling.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-24-floods-extremes-and-return-periods.html">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-25-flood-frequency-analysis-and-design-floods.html">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-26-droughts-definitions-and-indices.html">Lecture 26, Droughts I: definitions and drought indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-27-drought-characteristics-frequency-and-management.html">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-18-bias-correction.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-18-bias-correction.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-18-bias-correction.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-18-bias-correction.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 18, Bias correction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-words-you-need">Statistics words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-bias-correction">4.1 Why bias correction?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#occurrence-adjustment-for-precipitation-data">4.2 Occurrence adjustment for precipitation data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-occurrence-adjustment">Worked example (by hand): occurrence adjustment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-adjustment-delta-method">4.3 Empirical adjustment (delta method)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-mapping">4.4 Quantile mapping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-quantile-mapping">4.4.1 General quantile mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nonparametric-quantile-mapping">4.4.2 Nonparametric quantile mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-nonparametric-quantile-mapping">Worked example (by hand): nonparametric quantile mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-delta-mapping">4.4.3 Quantile delta mapping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-comparison">4.5 Summary and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-18-bias-correction">
+<h1>Lecture 18, Bias correction<a class="headerlink" href="#lecture-18-bias-correction" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Removing the systematic errors of a climate model before it is used in hydrology</p>
+</div></blockquote>
+<p>A climate model run does not match the rain gauges. It drizzles on too many days, its heavy rain is too weak, and its temperature is off. If we feed such rain into a flood model, the flood will be wrong before the hydrology even starts. Bias correction repairs these errors using the gauge record. The lecture follows Chapter 4 of Lee &amp; Singh (2019) section by section (4.1 to 4.5), with the section numbers in the headings.</p>
+<p>By the end of this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>say what <span class="math notranslate nohighlight">\(y_{obs}\)</span>, <span class="math notranslate nohighlight">\(x_{m,base}\)</span> and <span class="math notranslate nohighlight">\(x_{m,fut}\)</span> stand for,</p></li>
+<li><p>remove surplus drizzle from model rainfall with a wet-day threshold,</p></li>
+<li><p>apply the empirical adjustment (delta method) and quantile mapping,</p></li>
+<li><p>apply quantile delta mapping and say why it keeps the model’s projected change,</p></li>
+<li><p>solve a small quantile-mapping problem by hand and compare it with the code and the spreadsheet.</p></li>
+</ul>
+<p>The workbook <code class="docutils literal notranslate"><span class="pre">data/downscaling/lec18/lec18_worked_examples.xlsx</span></code> repeats the hand examples (sheet <code class="docutils literal notranslate"><span class="pre">Occ_QM</span></code>), the delta method (<code class="docutils literal notranslate"><span class="pre">Delta</span></code>) and QDM (<code class="docutils literal notranslate"><span class="pre">QDM</span></code>). All data are <strong>synthetic</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas scipy matplotlib
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"figure.dpi"</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">"axes.grid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"grid.alpha"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s2">"axes.spines.top"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"axes.spines.right"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="statistics-words-you-need">
+<h2>Statistics words you need<a class="headerlink" href="#statistics-words-you-need" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Mean</strong>: the average. The mean of 2, 4, 6 is 4.</p></li>
+<li><p><strong>Standard deviation</strong>: the typical distance of the values from their mean. For 2, 4, 6 it is 2, so ‘spread’ means the standard deviation.</p></li>
+<li><p><strong>Rank</strong>: the place of a value when the values are sorted from smallest. In 1.0, 3.5, 5.5, 8.0, 11.0 the value 5.5 has rank 3.</p></li>
+<li><p><strong>Empirical CDF (cumulative distribution function)</strong>: the share of the data at or below a value, estimated as rank/(number of values + 1). For 5.5 it is <span class="math notranslate nohighlight">\(3/6 = 0.5\)</span>: about half of the days are at or below 5.5 mm. We write it <span class="math notranslate nohighlight">\(\hat F\)</span>.</p></li>
+<li><p><strong>Quantile and percentile</strong>: the value that a given share of the data falls below. The 0.5 quantile (50th percentile) of the five numbers above is 5.5; the 0.8 quantile (80th percentile) is about 8 to 11. <span class="math notranslate nohighlight">\(F^{-1}\)</span> turns a share back into a value.</p></li>
+<li><p><strong>Wet-day threshold</strong>: the smallest amount of rain that still counts as a rainy day, for example 0.9 mm in the hand example.</p></li>
+</ul>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>The symbols follow Lee &amp; Singh (2019), Chapter 4. Rule for the code: drop the hat and the commas, write Greek letters out, and add <code class="docutils literal notranslate"><span class="pre">_hat</span></code> for an adjusted quantity. A sample sorted in increasing order is <span class="math notranslate nohighlight">\(x_{(i)}\)</span>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Book symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Code and spreadsheet</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(y_{obs}\)</span></p></td>
+<td class="text-left"><p>observed series</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">y_obs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(x_{m,base}\)</span></p></td>
+<td class="text-left"><p>model series, base (historical) period</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_m_base</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(x_{m,fut}\)</span></p></td>
+<td class="text-left"><p>model series, future period (the series to correct)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_m_fut</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\hat y_{m,fut}\)</span></p></td>
+<td class="text-left"><p>bias-corrected future model series</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">y_hat_m_fut</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mu_{m,fut}\)</span>, <span class="math notranslate nohighlight">\(\sigma_{m,fut}\)</span></p></td>
+<td class="text-left"><p>mean and standard deviation of <span class="math notranslate nohighlight">\(x_{m,fut}\)</span> (likewise <span class="math notranslate nohighlight">\(\mu_{obs}\)</span>, <span class="math notranslate nohighlight">\(\sigma_{obs}\)</span>, <span class="math notranslate nohighlight">\(\mu_{m,base}\)</span>, <span class="math notranslate nohighlight">\(\sigma_{m,base}\)</span>)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">mu_m_fut</span></code>, <code class="docutils literal notranslate"><span class="pre">sigma_m_fut</span></code>, …</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(z_{m,fut}\)</span></p></td>
+<td class="text-left"><p>standardised future value (Eq. 4.1)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">z_m_fut</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\hat\mu_{m,fut}\)</span>, <span class="math notranslate nohighlight">\(\hat\sigma_{m,fut}\)</span></p></td>
+<td class="text-left"><p>adjusted mean and standard deviation (Eqs. 4.3 to 4.5)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">mu_hat</span></code>, <code class="docutils literal notranslate"><span class="pre">sigma_hat</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(F_o\)</span>, <span class="math notranslate nohighlight">\(F_{m,base}\)</span>, <span class="math notranslate nohighlight">\(F_{m,fut}\)</span></p></td>
+<td class="text-left"><p>CDFs of the observed, model-base and model-future series</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">F_o</span></code>, <code class="docutils literal notranslate"><span class="pre">F_m_base</span></code>, <code class="docutils literal notranslate"><span class="pre">F_m_fut</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\hat F(x_{(i)}) = i/(N+1)\)</span></p></td>
+<td class="text-left"><p>empirical CDF (Eq. 4.8)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">/</span> <span class="pre">(N</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tau_{m,fut}\)</span></p></td>
+<td class="text-left"><p>probability of <span class="math notranslate nohighlight">\(x_{m,fut}\)</span> in its own CDF, <span class="math notranslate nohighlight">\(F_{m,fut}(x_{m,fut})\)</span> (Eq. 4.9)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">tau_m_fut</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\Delta_{m,fut}\)</span>, <span class="math notranslate nohighlight">\(\hat y_{o,fut}\)</span></p></td>
+<td class="text-left"><p>QDM relative change and observed quantile (Eqs. 4.10, 4.11)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Delta_m_fut</span></code>, <code class="docutils literal notranslate"><span class="pre">y_hat_o_fut</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span></p></td>
+<td class="text-left"><p>gamma shape and scale, <span class="math notranslate nohighlight">\(\beta = \sigma^2/\mu\)</span>, <span class="math notranslate nohighlight">\(\alpha = \mu/\beta\)</span>; the exponential parameter <span class="math notranslate nohighlight">\(\alpha\)</span> is the mean</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">a_o</span></code>, <code class="docutils literal notranslate"><span class="pre">beta_o</span></code>, <code class="docutils literal notranslate"><span class="pre">alpha_o</span></code> …</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(N\)</span>, <span class="math notranslate nohighlight">\(n_1\)</span></p></td>
+<td class="text-left"><p>number of values; number of values above zero</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">n1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="why-bias-correction">
+<h2>4.1 Why bias correction?<a class="headerlink" href="#why-bias-correction" title="Link to this heading">#</a></h2>
+<p>Think of a rain gauge that always reads a bit low. You would compare it with a good one and fix it. A climate model is the same: its outputs differ systematically from the gauge’s (convection schemes, unresolved orography, internal variability). The <strong>delta method</strong> fixes mean and variance; <strong>quantile mapping</strong> (QM) fixes all quantiles, from light to heavy rain.</p>
+<p>A model gives output for two periods. The <strong>base</strong> period is the one that matches the observations, and the <strong>future</strong> period is the one with climate forcings. The target to correct is the future model value <span class="math notranslate nohighlight">\(x_{m,fut}\)</span>. Using the observations <span class="math notranslate nohighlight">\(y_{obs}\)</span> and the base model value <span class="math notranslate nohighlight">\(x_{m,base}\)</span>, it is transformed (mapped) into the observation domain, and the result is <span class="math notranslate nohighlight">\(\hat y_{m,fut}\)</span>. The base period and the observed period are normally, but not necessarily, the same years. The method assumes that the model’s error stays the same in the future.</p>
+<p><em>What this means for hydrology:</em> a catchment model fed with uncorrected rain gives the wrong runoff.</p>
+</section>
+<section id="occurrence-adjustment-for-precipitation-data">
+<h2>4.2 Occurrence adjustment for precipitation data<a class="headerlink" href="#occurrence-adjustment-for-precipitation-data" title="Link to this heading">#</a></h2>
+<p>Models produce rain on more days than the gauge shows. To remove this difference, some fraction of the model’s rain values must be set to zero. This is done by comparing the number of observed and model values greater than zero. Plain idea: if the gauge was wet on 8 days out of 12, only the 8 heaviest model days should stay wet.</p>
+<ul class="simple">
+<li><p><strong>Same number of values:</strong> sort observed and model values in descending order and set the model values smaller than the <span class="math notranslate nohighlight">\(n_1\)</span>th largest to zero, where <span class="math notranslate nohighlight">\(n_1\)</span> is the number of observed values above zero.</p></li>
+<li><p><strong>Different numbers of values:</strong> estimate the occurrence probability of the observations, <span class="math notranslate nohighlight">\(n_1/N\)</span> (with <span class="math notranslate nohighlight">\(N\)</span> the number of values), and use the <span class="math notranslate nohighlight">\(100(1 - n_1/N)\)</span>th percentile of the model values as the threshold (the model value that a share <span class="math notranslate nohighlight">\(1 - n_1/N\)</span> of the model days fall below). Model values below it become zero.</p></li>
+</ul>
+<p>A small amount of model rain is thereby treated as no rain, as in a real gauge.</p>
+<p><em>What this means for hydrology:</em> the right number of dry days matters for soil moisture, droughts and baseflow.</p>
+<section id="worked-example-by-hand-occurrence-adjustment">
+<h3>Worked example (by hand): occurrence adjustment<a class="headerlink" href="#worked-example-by-hand-occurrence-adjustment" title="Link to this heading">#</a></h3>
+<p><strong>Problem.</strong> Daily rain (mm) on 12 days: observed <span class="math notranslate nohighlight">\(y_{obs}\)</span> = 0.0, 14.0, 0.0, 3.5, 22.0, 0.0, 8.0, 1.0, 0.0, 31.5, 5.5, 11.0; model base period <span class="math notranslate nohighlight">\(x_{m,base}\)</span> = 0.6, 2.9, 0.2, 1.4, 4.1, 0.9, 7.8, 0.3, 2.2, 1.1, 3.4, 0.5. The model rains on all 12 days, the gauge on 8. Adjust the occurrence of the model base series. All numbers are invented for this lecture; the workbook sheet <code class="docutils literal notranslate"><span class="pre">Occ_QM</span></code> (Part A) is the same problem with live formulas.</p>
+<ol class="arabic simple">
+<li><p>Count the wet days at the gauge (why: this says how often it really rains). <span class="math notranslate nohighlight">\(n_1 = 8\)</span> values above zero among <span class="math notranslate nohighlight">\(N = 12\)</span> days, so it rains on <span class="math notranslate nohighlight">\(n_1/N = 8/12 = 0.667\)</span> of the days.</p></li>
+<li><p>Sort the model values from largest to smallest (why: the days that really rained should be the model’s heaviest days): 7.8, 4.1, 3.4, 2.9, 2.2, 1.4, 1.1, 0.9, 0.6, 0.5, 0.3, 0.2.</p></li>
+<li><p>Keep as many model days as the gauge has wet days. The 8th largest value, 0.9 mm, is the wet-day threshold (the smallest model rain that still counts as rain; it is the 33.3 percentile, the value that 33.3 % of the model days fall below). Model values below it become zero: 0.6, 0.2, 0.3, 0.5.</p></li>
+<li><p>The adjusted model base series keeps 8 values (ascending): 0.9, 1.1, 1.4, 2.2, 2.9, 3.4, 4.1, 7.8.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Running example (same numbers as the hand example and the workbook sheet Data)</span>
+<span class="n">y_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">])</span>
+<span class="n">x_m_base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">x_m_fut</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">9.4</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">])</span>      <span class="c1"># wet-day values of the future run</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">occurrence_adjust</span><span class="p">(</span><span class="n">x_m_base</span><span class="p">,</span> <span class="n">y_obs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Section 4.2: the model keeps its n1 largest values (n1 = observed wet days); returns adjusted series and threshold."""</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y_obs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x_m_base</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x_m_base</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">x_m_base</span><span class="p">),</span> <span class="n">threshold</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">nearest_index</span><span class="p">(</span><span class="n">sorted_x</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sorted_x</span> <span class="o">-</span> <span class="n">value</span><span class="p">)))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">qm_empirical</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">x_m_base</span><span class="p">,</span> <span class="n">y_obs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Nonparametric QM, Eqs. 4.7 and 4.8 with the nearest-value rule of the book (wet values only)."""</span>
+    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x_m_base</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y_obs</span><span class="p">)</span>
+    <span class="n">F_m_base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">F_m_base</span><span class="p">[</span><span class="n">nearest_index</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">x</span><span class="p">)]</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ys</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">qdm</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">x_m_base</span><span class="p">,</span> <span class="n">y_obs</span><span class="p">,</span> <span class="n">additive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Quantile delta mapping, Eqs. 4.9 to 4.15, empirical CDFs. Returns y_hat_m_fut, tau_m_fut, Delta_m_fut, y_hat_o_fut."""</span>
+    <span class="n">x_m_fut</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x_m_base</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y_obs</span><span class="p">)</span>
+    <span class="n">tau_m_fut</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">),</span> <span class="n">x_m_fut</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>           <span class="c1"># Eq. 4.9</span>
+    <span class="n">inv_base</span> <span class="o">=</span> <span class="n">xs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">tau_m_fut</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>            <span class="c1"># F_m,base^-1(tau)</span>
+    <span class="n">y_hat_o_fut</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">tau_m_fut</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>         <span class="c1"># Eq. 4.11</span>
+    <span class="k">if</span> <span class="n">additive</span><span class="p">:</span>
+        <span class="n">Delta_m_fut</span> <span class="o">=</span> <span class="n">x_m_fut</span> <span class="o">-</span> <span class="n">inv_base</span>                                                               <span class="c1"># Eq. 4.14</span>
+        <span class="k">return</span> <span class="n">y_hat_o_fut</span> <span class="o">+</span> <span class="n">Delta_m_fut</span><span class="p">,</span> <span class="n">tau_m_fut</span><span class="p">,</span> <span class="n">Delta_m_fut</span><span class="p">,</span> <span class="n">y_hat_o_fut</span>                          <span class="c1"># Eq. 4.15</span>
+    <span class="n">Delta_m_fut</span> <span class="o">=</span> <span class="n">x_m_fut</span> <span class="o">/</span> <span class="n">inv_base</span>                                                                   <span class="c1"># Eq. 4.10</span>
+    <span class="k">return</span> <span class="n">y_hat_o_fut</span> <span class="o">*</span> <span class="n">Delta_m_fut</span><span class="p">,</span> <span class="n">tau_m_fut</span><span class="p">,</span> <span class="n">Delta_m_fut</span><span class="p">,</span> <span class="n">y_hat_o_fut</span>                              <span class="c1"># Eq. 4.12</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">delta_method</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">x_m_base</span><span class="p">,</span> <span class="n">y_obs</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Empirical adjustment, Eqs. 4.1 to 4.5 (sample standard deviations)."""</span>
+    <span class="n">mu_o</span><span class="p">,</span> <span class="n">mu_b</span><span class="p">,</span> <span class="n">mu_f</span> <span class="o">=</span> <span class="n">y_obs</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_m_base</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_m_fut</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">sigma_o</span><span class="p">,</span> <span class="n">sigma_b</span><span class="p">,</span> <span class="n">sigma_f</span> <span class="o">=</span> <span class="n">y_obs</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">x_m_base</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">x_m_fut</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">z_m_fut</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_m_fut</span> <span class="o">-</span> <span class="n">mu_f</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma_f</span>                                                               <span class="c1"># Eq. 4.1</span>
+    <span class="n">sigma_hat</span> <span class="o">=</span> <span class="n">sigma_o</span> <span class="o">/</span> <span class="n">sigma_b</span> <span class="o">*</span> <span class="n">sigma_f</span>                                                            <span class="c1"># Eq. 4.3</span>
+    <span class="n">mu_hat</span> <span class="o">=</span> <span class="n">mu_f</span> <span class="o">+</span> <span class="p">(</span><span class="n">mu_o</span> <span class="o">-</span> <span class="n">mu_b</span><span class="p">)</span> <span class="k">if</span> <span class="n">temperature</span> <span class="k">else</span> <span class="n">mu_o</span> <span class="o">/</span> <span class="n">mu_b</span> <span class="o">*</span> <span class="n">mu_f</span>                               <span class="c1"># Eq. 4.5 or 4.4</span>
+    <span class="k">return</span> <span class="n">z_m_fut</span> <span class="o">*</span> <span class="n">sigma_hat</span> <span class="o">+</span> <span class="n">mu_hat</span><span class="p">,</span> <span class="n">mu_hat</span><span class="p">,</span> <span class="n">sigma_hat</span>                                             <span class="c1"># Eq. 4.2</span>
+
+
+<span class="c1"># Part A: occurrence adjustment</span>
+<span class="n">x_m_base_adj</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">occurrence_adjust</span><span class="p">(</span><span class="n">x_m_base</span><span class="p">,</span> <span class="n">y_obs</span><span class="p">)</span>
+<span class="n">n1</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y_obs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_obs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"n1 = </span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s2">, N = </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">, n1/N = </span><span class="si">{</span><span class="n">n1</span><span class="o">/</span><span class="n">N</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, threshold = </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"adjusted x_m_base:"</span><span class="p">,</span> <span class="n">x_m_base_adj</span><span class="p">)</span>
+<span class="n">y_o_wet</span><span class="p">,</span> <span class="n">x_b_wet</span> <span class="o">=</span> <span class="n">y_obs</span><span class="p">[</span><span class="n">y_obs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x_m_base_adj</span><span class="p">[</span><span class="n">x_m_base_adj</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>         <span class="c1"># the 8 wet values of each series</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n1 = 8, N = 12, n1/N = 0.667, threshold = 0.9 mm
+adjusted x_m_base: [0.  2.9 0.  1.4 4.1 0.9 7.8 0.  2.2 1.1 3.4 0. ]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="empirical-adjustment-delta-method">
+<h2>4.3 Empirical adjustment (delta method)<a class="headerlink" href="#empirical-adjustment-delta-method" title="Link to this heading">#</a></h2>
+<p>Plain idea: stretch and shift the model’s future numbers until their average and spread look like the gauge’s. For precipitation, the future model value is first standardised (how many standard deviations it lies from the model’s own future mean),</p>
+<div class="math notranslate nohighlight">
+\[z_{m,fut} = \frac{x_{m,fut} - \mu_{m,fut}}{\sigma_{m,fut}}, \tag{4.1}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu_{m,fut}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{m,fut}\)</span> are the mean and standard deviation of the future model values. Then the adjusted mean and standard deviation are applied,</p>
+<div class="math notranslate nohighlight">
+\[\hat y_{m,fut} = z_{m,fut}\,\hat\sigma_{m,fut} + \hat\mu_{m,fut}, \tag{4.2}\]</div>
+<p>where the adjusted spread is the model’s future spread times the gauge-to-model ratio of the base period,</p>
+<div class="math notranslate nohighlight">
+\[\hat\sigma_{m,fut} = \frac{\sigma_{obs}}{\sigma_{m,base}}\,\sigma_{m,fut}, \tag{4.3}\]</div>
+<p>and the adjusted mean is</p>
+<div class="math notranslate nohighlight">
+\[\hat\mu_{m,fut} = \frac{\mu_{obs}}{\mu_{m,base}}\,\mu_{m,fut} \tag{4.4}\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[\hat\mu_{m,fut} = \mu_{m,fut} + (\mu_{obs} - \mu_{m,base}). \tag{4.5}\]</div>
+<p>Eq. 4.4 is used for precipitation and Eq. 4.5 for temperature. To keep the seasonal cycle, the means and standard deviations are computed for each month or season <span class="math notranslate nohighlight">\(j\)</span> and Eq. 4.2 is applied to each (Eq. 4.6). Two remarks: because the spread is stretched to the observed one, <span class="math notranslate nohighlight">\(\hat y_{m,fut}\)</span> can be negative for rainfall, and negative rain must be set to zero by hand; and the change-factor variant of Lecture 14 instead multiplies the gauge series by the model’s future-to-base ratio of means. The code below follows the book’s Example 4.2: standardise, adjust, apply.</p>
+<p><em>What this means for hydrology:</em> the delta method is quick and keeps averages right, but it can invent negative rain and does not target heavy storms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Section 4.3 on the eight wet-day values, in the book's order: standardise, adjusted mean and spread, apply</span>
+<span class="n">z_m_fut</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_m_fut</span> <span class="o">-</span> <span class="n">x_m_fut</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">x_m_fut</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                    <span class="c1"># Eq. 4.1</span>
+<span class="n">y_hat_delta</span><span class="p">,</span> <span class="n">mu_hat</span><span class="p">,</span> <span class="n">sigma_hat</span> <span class="o">=</span> <span class="n">delta_method</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">x_b_wet</span><span class="p">,</span> <span class="n">y_o_wet</span><span class="p">)</span>      <span class="c1"># Eqs. 4.3, 4.4, 4.2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"z_m_fut:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">z_m_fut</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mu_hat_m_fut = </span><span class="si">{</span><span class="n">mu_hat</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, sigma_hat_m_fut = </span><span class="si">{</span><span class="n">sigma_hat</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"y_hat_m_fut (delta):"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">y_hat_delta</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>z_m_fut: [-0.649  0.819 -1.058 -0.068 -0.444  1.912 -0.888  0.376]
+mu_hat_m_fut = 15.408, sigma_hat_m_fut = 13.316
+y_hat_m_fut (delta): [ 6.769 26.32   1.312 14.498  9.497 40.87   3.586 20.409]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quantile-mapping">
+<h2>4.4 Quantile mapping<a class="headerlink" href="#quantile-mapping" title="Link to this heading">#</a></h2>
+<section id="general-quantile-mapping">
+<h3>4.4.1 General quantile mapping<a class="headerlink" href="#general-quantile-mapping" title="Link to this heading">#</a></h3>
+<p>Plain idea: replace a model value by the gauge value of the same heaviness. If a model day is among the heaviest 10 % of model days, it becomes a day among the heaviest 10 % of gauge days. QM adjusts the distribution of the model values <span class="math notranslate nohighlight">\(x\)</span> to that of the observations <span class="math notranslate nohighlight">\(y\)</span> by matching the values of their cumulative distribution functions (CDF, <span class="math notranslate nohighlight">\(F\)</span>: the share of values at or below a given value). The traditional QM is</p>
+<div class="math notranslate nohighlight">
+\[\hat y_{m,fut} = F_o^{-1}\!\left(F_{m,base}(x_{m,fut})\right), \tag{4.7}\]</div>
+<p>where <span class="math notranslate nohighlight">\(F_o^{-1}\)</span> is the inverse CDF of the observations (it turns a share back into a value) and <span class="math notranslate nohighlight">\(F_{m,base}\)</span> is the CDF fitted to the model’s base-period output. Exponential, gamma or mixture distributions have been used. Following the book’s Example 4.3, only values above zero are used (so the occurrence adjustment comes first):</p>
+<ul class="simple">
+<li><p><strong>Exponential</strong>: the one parameter <span class="math notranslate nohighlight">\(\alpha\)</span> equals the mean, and Eq. 4.7 reduces to <span class="math notranslate nohighlight">\(\hat y_{m,fut} = (\alpha_o/\alpha_{m,base})\,x_{m,fut}\)</span>.</p></li>
+<li><p><strong>Gamma</strong>: shape <span class="math notranslate nohighlight">\(\alpha\)</span> and scale <span class="math notranslate nohighlight">\(\beta\)</span> from the method of moments, <span class="math notranslate nohighlight">\(\hat\beta = \sigma^2/\mu\)</span> and <span class="math notranslate nohighlight">\(\hat\alpha = \mu/\hat\beta\)</span>, for each series; then Eq. 4.7 is evaluated with the gamma CDF and its inverse.</p></li>
+</ul>
+<p>For the empirical CDF (ECDF) of a sorted sample, the <span class="math notranslate nohighlight">\(i\)</span>th smallest value <span class="math notranslate nohighlight">\(x_{(i)}\)</span> of <span class="math notranslate nohighlight">\(N\)</span> values gets</p>
+<div class="math notranslate nohighlight">
+\[\hat F(x_{(i)}) = \frac{i}{N+1}. \tag{4.8}\]</div>
+<p><em>What this means for hydrology:</em> QM repairs light, medium and heavy rain together, so flood peaks and low flows come out at gauge-like sizes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Section 4.4.1: exponential and gamma QM on the eight wet-day values</span>
+<span class="n">alpha_o</span><span class="p">,</span> <span class="n">alpha_m</span> <span class="o">=</span> <span class="n">y_o_wet</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_b_wet</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                              <span class="c1"># exponential: the parameter is the mean</span>
+<span class="n">y_hat_exp</span> <span class="o">=</span> <span class="n">alpha_o</span> <span class="o">/</span> <span class="n">alpha_m</span> <span class="o">*</span> <span class="n">x_m_fut</span>                                         <span class="c1"># Eq. 4.7 with exponential CDFs</span>
+<span class="n">beta_o</span><span class="p">,</span> <span class="n">beta_m</span> <span class="o">=</span> <span class="n">y_o_wet</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">y_o_wet</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_b_wet</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">x_b_wet</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>   <span class="c1"># method of moments</span>
+<span class="n">a_o</span><span class="p">,</span> <span class="n">a_m</span> <span class="o">=</span> <span class="n">y_o_wet</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">beta_o</span><span class="p">,</span> <span class="n">x_b_wet</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">beta_m</span>
+<span class="n">y_hat_gam</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">a_m</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_m</span><span class="p">),</span> <span class="n">a_o</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_o</span><span class="p">)</span>   <span class="c1"># Eq. 4.7 with gamma CDFs</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"exponential: alpha_o = </span><span class="si">{</span><span class="n">alpha_o</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, alpha_m_base = </span><span class="si">{</span><span class="n">alpha_m</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gamma: shape/scale obs = </span><span class="si">{</span><span class="n">a_o</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">beta_o</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, model base = </span><span class="si">{</span><span class="n">a_m</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">beta_m</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"exponential:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">y_hat_exp</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"gamma      :"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">y_hat_gam</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>exponential: alpha_o = 12.062, alpha_m_base = 2.975
+gamma: shape/scale obs = 1.383/8.725, model base = 1.739/1.711
+exponential: [ 7.704 25.139  2.838 14.597 10.137 38.113  4.866 19.868]
+gamma      : [ 7.021 26.675  2.165 14.563  9.627 42.013  4.107 20.561]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nonparametric-quantile-mapping">
+<h3>4.4.2 Nonparametric quantile mapping<a class="headerlink" href="#nonparametric-quantile-mapping" title="Link to this heading">#</a></h3>
+<p>The same mapping, but with the ECDF of Eq. 4.8 and no assumed curve. The book’s steps (Example 4.4) are:</p>
+<ol class="arabic simple">
+<li><p>Sort the observations and the base-period model output in increasing order.</p></li>
+<li><p>Estimate their ECDFs, <span class="math notranslate nohighlight">\(F_o\)</span> and <span class="math notranslate nohighlight">\(F_{m,base}\)</span>, with Eq. 4.8.</p></li>
+<li><p>For each future model value, (a) find the nearest value among the sorted base model output, (b) take its ECDF as <span class="math notranslate nohighlight">\(F_{m,base}\)</span>, and (c) take the observation that has the matching <span class="math notranslate nohighlight">\(F_o\)</span> as the bias-corrected value.</p></li>
+</ol>
+<p>The result is a staircase: corrected values never exceed the largest gauge value.</p>
+<p><em>What this means for hydrology:</em> no curve assumption is needed, but the method cannot produce a flood larger than the largest one on record.</p>
+</section>
+<section id="worked-example-by-hand-nonparametric-quantile-mapping">
+<h3>Worked example (by hand): nonparametric quantile mapping<a class="headerlink" href="#worked-example-by-hand-nonparametric-quantile-mapping" title="Link to this heading">#</a></h3>
+<p><strong>Problem.</strong> Using the 8 wet values left by the occurrence adjustment above, bias-correct the eight future wet-day values <span class="math notranslate nohighlight">\(x_{m,fut}\)</span> = 1.9, 6.2, 0.7, 3.6, 2.5, 9.4, 1.2, 4.9 mm. The workbook sheet <code class="docutils literal notranslate"><span class="pre">Occ_QM</span></code> (Part B) is the same problem with live formulas.</p>
+<p>Why: we want a model day that is, say, the third lightest to become the third lightest gauge day. With <span class="math notranslate nohighlight">\(n = 8\)</span> values, the rank-based probability is <span class="math notranslate nohighlight">\(\hat F(x_{(i)}) = i/(n+1) = i/9\)</span> (Eq. 4.8), where <span class="math notranslate nohighlight">\(i\)</span> is the rank (1 = smallest).</p>
+<ol class="arabic simple">
+<li><p>Sort both wet samples from smallest to largest and give each value its probability (why: the probability says what share of days are at or below that value):</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(i\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(y_{(i)}\)</span> (obs)</p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x_{(i)}\)</span> (model base)</p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(F_o = F_{m,base} = i/9\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1.0</p></td>
+<td class="text-right"><p>0.9</p></td>
+<td class="text-right"><p>1/9 = 0.111</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>3.5</p></td>
+<td class="text-right"><p>1.1</p></td>
+<td class="text-right"><p>2/9 = 0.222</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>5.5</p></td>
+<td class="text-right"><p>1.4</p></td>
+<td class="text-right"><p>3/9 = 0.333</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>8.0</p></td>
+<td class="text-right"><p>2.2</p></td>
+<td class="text-right"><p>4/9 = 0.444</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>11.0</p></td>
+<td class="text-right"><p>2.9</p></td>
+<td class="text-right"><p>5/9 = 0.556</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>14.0</p></td>
+<td class="text-right"><p>3.4</p></td>
+<td class="text-right"><p>6/9 = 0.667</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>7</p></td>
+<td class="text-right"><p>22.0</p></td>
+<td class="text-right"><p>4.1</p></td>
+<td class="text-right"><p>7/9 = 0.778</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>8</p></td>
+<td class="text-right"><p>31.5</p></td>
+<td class="text-right"><p>7.8</p></td>
+<td class="text-right"><p>8/9 = 0.889</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>For each future model value <span class="math notranslate nohighlight">\(x_{m,fut}\)</span> find the nearest model base value (why: that tells us how heavy this day is compared with the model’s past days), read its probability <span class="math notranslate nohighlight">\(F_{m,base}\)</span>, and take the gauge value with the same probability (why: the same rank in the gauge record, i.e. what the gauge would show on a day this heavy), <span class="math notranslate nohighlight">\(\hat y_{m,fut} = F_o^{-1}(F_{m,base}(x_{m,fut}))\)</span> (Eq. 4.7):</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 1.9\)</span>: <span class="math notranslate nohighlight">\(|1.9 - 1.4| = 0.5\)</span> and <span class="math notranslate nohighlight">\(|1.9 - 2.2| = 0.3\)</span>, so the nearest is <span class="math notranslate nohighlight">\(x_{(4)} = 2.2\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 4/9 = 0.444\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(4)} = 8.0\)</span> mm.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 6.2\)</span>: <span class="math notranslate nohighlight">\(|6.2 - 4.1| = 2.1\)</span> and <span class="math notranslate nohighlight">\(|6.2 - 7.8| = 1.6\)</span>, so the nearest is <span class="math notranslate nohighlight">\(x_{(8)} = 7.8\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 8/9 = 0.889\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(8)} = 31.5\)</span> mm.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 0.7\)</span>: the nearest is <span class="math notranslate nohighlight">\(x_{(1)} = 0.9\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 1/9 = 0.111\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(1)} = 1.0\)</span> mm.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 3.6\)</span>: <span class="math notranslate nohighlight">\(|3.6 - 3.4| = 0.2\)</span> and <span class="math notranslate nohighlight">\(|3.6 - 4.1| = 0.5\)</span>, so the nearest is <span class="math notranslate nohighlight">\(x_{(6)} = 3.4\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 6/9 = 0.667\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(6)} = 14.0\)</span> mm.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 2.5\)</span>: <span class="math notranslate nohighlight">\(|2.5 - 2.2| = 0.3\)</span> and <span class="math notranslate nohighlight">\(|2.5 - 2.9| = 0.4\)</span>, so the nearest is <span class="math notranslate nohighlight">\(x_{(4)} = 2.2\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 4/9 = 0.444\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(4)} = 8.0\)</span> mm.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 9.4\)</span>: the nearest is <span class="math notranslate nohighlight">\(x_{(8)} = 7.8\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 8/9 = 0.889\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(8)} = 31.5\)</span> mm.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 1.2\)</span>: <span class="math notranslate nohighlight">\(|1.2 - 1.1| = 0.1\)</span> and <span class="math notranslate nohighlight">\(|1.2 - 1.4| = 0.2\)</span>, so the nearest is <span class="math notranslate nohighlight">\(x_{(2)} = 1.1\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 2/9 = 0.222\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(2)} = 3.5\)</span> mm.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_{m,fut} = 4.9\)</span>: <span class="math notranslate nohighlight">\(|4.9 - 4.1| = 0.8\)</span> and <span class="math notranslate nohighlight">\(|4.9 - 7.8| = 2.9\)</span>, so the nearest is <span class="math notranslate nohighlight">\(x_{(7)} = 4.1\)</span>, <span class="math notranslate nohighlight">\(F_{m,base} = 7/9 = 0.778\)</span>, <span class="math notranslate nohighlight">\(\hat y_{m,fut} = y_{(7)} = 22.0\)</span> mm.</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Answer.</strong> The bias-corrected future values are 8.0, 31.5, 1.0, 14.0, 8.0, 31.5, 3.5, 22.0 mm (in the order of <span class="math notranslate nohighlight">\(x_{m,fut}\)</span>). Interpretation: the model’s weak rain has been stretched to gauge-sized rain. The model’s lightest future days map to the small observed values and its heaviest day (9.4 mm) to the largest observed value, 31.5 mm. Note that 1.9 and 2.5 both map to 8.0 mm, and 6.2 and 9.4 both to 31.5 mm: the empirical mapping is a staircase and cannot go beyond the observed maximum.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Section 4.4.2, Part B of the hand example: nonparametric QM on the wet values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"y_(i):"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y_o_wet</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"x_(i):"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x_b_wet</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"F = i/(n+1):"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">y_hat_m_fut_np</span> <span class="o">=</span> <span class="n">qm_empirical</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">x_b_wet</span><span class="p">,</span> <span class="n">y_o_wet</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"y_hat_m_fut (the hand answer):"</span><span class="p">,</span> <span class="n">y_hat_m_fut_np</span><span class="p">)</span>
+
+<span class="c1"># Figure 1: the hand example as two staircases, and the path of one future value through Eq. 4.7</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ys_</span><span class="p">,</span> <span class="n">xs_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y_o_wet</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x_b_wet</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">ys_</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s2">"post"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$F_o$ (observed)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">xs_</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s2">"post"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$F_{m,base}$ (model, base)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys_</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs_</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="mf">3.6</span><span class="p">;</span> <span class="n">k</span> <span class="o">=</span> <span class="n">nearest_index</span><span class="p">(</span><span class="n">xs_</span><span class="p">,</span> <span class="n">x0</span><span class="p">);</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">qm_empirical</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x_b_wet</span><span class="p">,</span> <span class="n">y_o_wet</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">F</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">F</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span> <span class="n">x0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">F</span><span class="p">[</span><span class="n">k</span><span class="p">]],</span> <span class="s2">"k:"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="s2">"$x_{m,fut}$ = 3.6"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">F</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.03</span><span class="p">,</span> <span class="s2">"$</span><span class="se">\\</span><span class="s2">hat y_{m,fut}$ = </span><span class="si">%.1f</span><span class="s2">"</span> <span class="o">%</span> <span class="n">y0</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"daily rain (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"empirical CDF, $i/(n+1)$"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"lower right"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Nonparametric QM of the hand example"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>y_(i): [ 1.   3.5  5.5  8.  11.  14.  22.  31.5]
+x_(i): [0.9 1.1 1.4 2.2 2.9 3.4 4.1 7.8]
+F = i/(n+1): [0.111 0.222 0.333 0.444 0.556 0.667 0.778 0.889]
+y_hat_m_fut (the hand answer): [ 8.  31.5  1.  14.   8.  31.5  3.5 22. ]
+</pre></div>
+</div>
+<img alt="_images/8ecb5037fa83d5f096612c3926b7f7f529f9e28995546882a08cc94df92f4cba.png" src="_images/8ecb5037fa83d5f096612c3926b7f7f529f9e28995546882a08cc94df92f4cba.png" />
+</div>
+</div>
+</section>
+<section id="quantile-delta-mapping">
+<h3>4.4.3 Quantile delta mapping<a class="headerlink" href="#quantile-delta-mapping" title="Link to this heading">#</a></h3>
+<p>It is critical to keep the relative change that the model projects. Quantile delta mapping (QDM, Cannon et al. 2015) does so. <strong>Plain idea: keep the change the model projects, but fix the starting distribution.</strong> If the model says the heavy rain gets 30 % heavier, the corrected series should also show 30 % heavier heavy rain. The book builds it as follows (Eqs. 4.9 to 4.13).</p>
+<p>The probability of the future model value in the ECDF of the future series (its heaviness among future days):</p>
+<div class="math notranslate nohighlight">
+\[\tau_{m,fut} = F_{m,fut}(x_{m,fut}). \tag{4.9}\]</div>
+<p>The relative change in quantiles between base and future at that probability (model future value divided by base value of the same probability):</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{m,fut} = \frac{F_{m,fut}^{-1}(\tau_{m,fut})}{F_{m,base}^{-1}(\tau_{m,fut})} = \frac{x_{m,fut}}{F_{m,base}^{-1}(\tau_{m,fut})}. \tag{4.10}\]</div>
+<p>The gauge value at that probability, from the inverse ECDF of the observations:</p>
+<div class="math notranslate nohighlight">
+\[\hat y_{o,fut} = F_o^{-1}(\tau_{m,fut}). \tag{4.11}\]</div>
+<p>The corrected value applies the model’s change to it:</p>
+<div class="math notranslate nohighlight">
+\[\hat y_{m,fut} = \hat y_{o,fut}\,\Delta_{m,fut}, \tag{4.12}\]</div>
+<p>or written out in one expression,</p>
+<div class="math notranslate nohighlight">
+\[\hat y_{m,fut} = F_o^{-1}\!\left[F_{m,fut}(x_{m,fut})\right]\,\frac{x_{m,fut}}{F_{m,base}^{-1}\!\left[F_{m,fut}(x_{m,fut})\right]}. \tag{4.13}\]</div>
+<p>The book’s Example 4.5 uses ECDFs for all three CDFs: sort the future values, get <span class="math notranslate nohighlight">\(\tau_{m,fut}\)</span> as <span class="math notranslate nohighlight">\(i/(N+1)\)</span>, find the base value and the gauge value of that probability by the nearest-ECDF rule, form <span class="math notranslate nohighlight">\(\Delta_{m,fut}\)</span>, then multiply. Instead of the ratio, an additive change can be used,</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{m,fut} = x_{m,fut} - F_{m,base}^{-1}(\tau_{m,fut}), \tag{4.14}\]</div>
+<div class="math notranslate nohighlight">
+\[\hat y_{m,fut} = \hat y_{o,fut} + \Delta_{m,fut}. \tag{4.15}\]</div>
+<p>The code below does these steps for the eight future values; Figure 3 (in 4.5) shows that QDM follows the model’s own change at every level.</p>
+<p><em>What this means for hydrology:</em> QDM keeps the model’s signal of heavier storms, which matters when we ask how much flood risk will change.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Section 4.4.3: QDM on the eight values (Eqs. 4.9 to 4.15), then all methods side by side</span>
+<span class="n">y_hat_qdm</span><span class="p">,</span> <span class="n">tau_m_fut</span><span class="p">,</span> <span class="n">Delta_m_fut</span><span class="p">,</span> <span class="n">y_hat_o_fut</span> <span class="o">=</span> <span class="n">qdm</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">x_b_wet</span><span class="p">,</span> <span class="n">y_o_wet</span><span class="p">)</span>
+<span class="n">y_hat_qdm_add</span> <span class="o">=</span> <span class="n">qdm</span><span class="p">(</span><span class="n">x_m_fut</span><span class="p">,</span> <span class="n">x_b_wet</span><span class="p">,</span> <span class="n">y_o_wet</span><span class="p">,</span> <span class="n">additive</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"x_m_fut"</span><span class="p">:</span> <span class="n">x_m_fut</span><span class="p">,</span> <span class="s2">"tau_m_fut"</span><span class="p">:</span> <span class="n">tau_m_fut</span><span class="p">,</span> <span class="s2">"Delta_m_fut"</span><span class="p">:</span> <span class="n">Delta_m_fut</span><span class="p">,</span> <span class="s2">"y_hat_o_fut"</span><span class="p">:</span> <span class="n">y_hat_o_fut</span><span class="p">,</span>
+                      <span class="s2">"delta (4.2)"</span><span class="p">:</span> <span class="n">y_hat_delta</span><span class="p">,</span> <span class="s2">"QM exp"</span><span class="p">:</span> <span class="n">y_hat_exp</span><span class="p">,</span> <span class="s2">"QM gamma"</span><span class="p">:</span> <span class="n">y_hat_gam</span><span class="p">,</span> <span class="s2">"QM empirical"</span><span class="p">:</span> <span class="n">y_hat_m_fut_np</span><span class="p">,</span> <span class="s2">"QDM (4.12)"</span><span class="p">:</span> <span class="n">y_hat_qdm</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean of the eight values: "</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">table</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"x_m_fut"</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">4</span><span class="p">:])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"additive QDM (Eq. 4.15):"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">y_hat_qdm_add</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">table</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean of the eight values: x_m_fut 3.80, delta (4.2) 15.41, QM exp 15.41, QM gamma 15.84, QM empirical 14.94, QDM (4.12) 15.78
+additive QDM (Eq. 4.15): [ 6.  24.1  0.8 11.7  8.3 33.1  3.6 15.5]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x_m_fut</th>
+      <th>tau_m_fut</th>
+      <th>Delta_m_fut</th>
+      <th>y_hat_o_fut</th>
+      <th>delta (4.2)</th>
+      <th>QM exp</th>
+      <th>QM gamma</th>
+      <th>QM empirical</th>
+      <th>QDM (4.12)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.9</td>
+      <td>0.333</td>
+      <td>1.357</td>
+      <td>5.5</td>
+      <td>6.769</td>
+      <td>7.704</td>
+      <td>7.021</td>
+      <td>8.0</td>
+      <td>7.464</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6.2</td>
+      <td>0.778</td>
+      <td>1.512</td>
+      <td>22.0</td>
+      <td>26.320</td>
+      <td>25.139</td>
+      <td>26.675</td>
+      <td>31.5</td>
+      <td>33.268</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.7</td>
+      <td>0.111</td>
+      <td>0.778</td>
+      <td>1.0</td>
+      <td>1.312</td>
+      <td>2.838</td>
+      <td>2.165</td>
+      <td>1.0</td>
+      <td>0.778</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3.6</td>
+      <td>0.556</td>
+      <td>1.241</td>
+      <td>11.0</td>
+      <td>14.498</td>
+      <td>14.597</td>
+      <td>14.563</td>
+      <td>14.0</td>
+      <td>13.655</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.5</td>
+      <td>0.444</td>
+      <td>1.136</td>
+      <td>8.0</td>
+      <td>9.497</td>
+      <td>10.137</td>
+      <td>9.627</td>
+      <td>8.0</td>
+      <td>9.091</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>9.4</td>
+      <td>0.889</td>
+      <td>1.205</td>
+      <td>31.5</td>
+      <td>40.870</td>
+      <td>38.113</td>
+      <td>42.013</td>
+      <td>31.5</td>
+      <td>37.962</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1.2</td>
+      <td>0.222</td>
+      <td>1.091</td>
+      <td>3.5</td>
+      <td>3.586</td>
+      <td>4.866</td>
+      <td>4.107</td>
+      <td>3.5</td>
+      <td>3.818</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>4.9</td>
+      <td>0.667</td>
+      <td>1.441</td>
+      <td>14.0</td>
+      <td>20.409</td>
+      <td>19.868</td>
+      <td>20.561</td>
+      <td>22.0</td>
+      <td>20.176</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="summary-and-comparison">
+<h2>4.5 Summary and comparison<a class="headerlink" href="#summary-and-comparison" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Occurrence adjustment</strong>: set the lightest model days to zero until the number of wet days matches the gauge.</p></li>
+<li><p><strong>Delta method</strong>: stretch and shift the model’s future series to the gauge’s mean and spread (Eqs. 4.2 to 4.5). Simple, but it can give negative rain.</p></li>
+<li><p><strong>Quantile mapping</strong> (Eq. 4.7): replace a model value by the gauge value of the same probability, with an exponential, gamma or empirical CDF. The empirical version needs no curve but stops at the largest gauge value.</p></li>
+<li><p><strong>Quantile delta mapping</strong> (Eq. 4.13): the gauge value of that probability times the model’s own future-to-base ratio, so the projected change survives.</p></li>
+<li><p>Which method is best depends on the use, and is rather subjective: a design flood needs reliable extremes, a drought study the small and medium values. The corrected series should be tested against the aim of the study. The table above puts the eight corrected values side by side; the cell below compares the methods on a larger synthetic sample, as the book’s Figure 4.2 does for its data. In Figure 3 the QDM line lies on the model’s own change, QM exaggerates it, and the delta method follows it only roughly (and gives negative rain on many days).</p></li>
+</ul>
+<div class="admonition-the-idea-to-remember admonition">
+<p class="admonition-title">The idea to remember</p>
+<p>Bias correction moves the model’s values to where the gauge says they should be. Whether the model’s projected change is believable is a separate question that no correction answers.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Section 4.5: a larger synthetic wet-day sample, to see the methods on a realistic number of values (not in the workbook); Figures 2 and 3</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">Y_obs</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>        <span class="c1"># observed wet-day rain, mean 12 mm</span>
+<span class="n">X_base</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>        <span class="c1"># model base, mean 3 mm: too light</span>
+<span class="n">X_fut</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>         <span class="c1"># model future: 36 % wetter than the model base</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">qm_gamma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_base</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">b_o</span><span class="p">,</span> <span class="n">b_m</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_base</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">x_base</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_base</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">b_m</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">b_m</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">b_o</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">b_o</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">qm_np_fast</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_base</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x_base</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">xs</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">),</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ys</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+
+<span class="n">methods</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"delta (4.2)"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">delta_method</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_base</span><span class="p">,</span> <span class="n">Y_obs</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"QM gamma"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">qm_gamma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_base</span><span class="p">,</span> <span class="n">Y_obs</span><span class="p">),</span>
+           <span class="s2">"QM empirical"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">qm_np_fast</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_base</span><span class="p">,</span> <span class="n">Y_obs</span><span class="p">),</span> <span class="s2">"QDM"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">qdm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_base</span><span class="p">,</span> <span class="n">Y_obs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"negative values from the delta method (Eq. 4.2):"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">methods</span><span class="p">[</span><span class="s2">"delta (4.2)"</span><span class="p">](</span><span class="n">X_fut</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s2">"of"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_fut</span><span class="p">))</span>
+
+<span class="c1"># Figure 2: empirical CDFs, and the mapping x_m_fut -&gt; y_hat_m_fut</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">601</span><span class="p">)</span> <span class="o">/</span> <span class="mi">601</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">((</span><span class="n">Y_obs</span><span class="p">,</span> <span class="s2">"$F_o$"</span><span class="p">,</span> <span class="s2">"tab:red"</span><span class="p">),</span> <span class="p">(</span><span class="n">X_base</span><span class="p">,</span> <span class="s2">"$F_{m,base}$"</span><span class="p">,</span> <span class="s2">"tab:blue"</span><span class="p">),</span> <span class="p">(</span><span class="n">X_fut</span><span class="p">,</span> <span class="s2">"$F_{m,fut}$"</span><span class="p">,</span> <span class="s2">"tab:green"</span><span class="p">)):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">q</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">lab</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"wet-day rain (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"empirical CDF"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"lower right"</span><span class="p">)</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">methods</span><span class="p">[</span><span class="s2">"delta (4.2)"</span><span class="p">](</span><span class="n">xx</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:orange"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"delta"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">methods</span><span class="p">[</span><span class="s2">"QM gamma"</span><span class="p">](</span><span class="n">xx</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:purple"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"QM gamma"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">methods</span><span class="p">[</span><span class="s2">"QM empirical"</span><span class="p">](</span><span class="n">xx</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"QM empirical"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"$x_{m,fut}$ (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"$</span><span class="se">\\</span><span class="s2">hat y_{m,fut}$ (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Figure 3: is the model's projected change kept? Ratio of quantiles, corrected future over corrected base</span>
+<span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">X_fut</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">X_base</span><span class="p">,</span> <span class="n">qs</span><span class="p">),</span> <span class="s2">"k-"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"model change by quantile"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">methods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">X_fut</span><span class="p">),</span> <span class="n">qs</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">X_base</span><span class="p">),</span> <span class="n">qs</span><span class="p">),</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"non-exceedance probability"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"quantile ratio, future / base"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Relative change kept by each method"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>negative values from the delta method (Eq. 4.2): 115 of 600
+</pre></div>
+</div>
+<img alt="_images/17ef2b4d80ae9a312a7fff3d5d00d7a04ff4c73b00d0bb2b3c82a8d73c744f93.png" src="_images/17ef2b4d80ae9a312a7fff3d5d00d7a04ff4c73b00d0bb2b3c82a8d73c744f93.png" />
+<img alt="_images/d2bea37baa81b7b4d3b86ac69143fa751ce7627377988d8b5c35d8b978d28d6d.png" src="_images/d2bea37baa81b7b4d3b86ac69143fa751ce7627377988d8b5c35d8b978d28d6d.png" />
+</div>
+</div>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>A model rains on 85 % of days and the gauge on 45 %. Why must the occurrence adjustment come before quantile mapping, and which percentile of the model values is the wet-day threshold for <span class="math notranslate nohighlight">\(N = 40\)</span> days and <span class="math notranslate nohighlight">\(n_1 = 18\)</span> wet days?</p></li>
+<li><p>In the hand example the future values 1.9 and 2.5 both become 8.0 mm. Why, and which method in the table avoids this staircase?</p></li>
+<li><p>If the model’s future series were identical to its base series, what would <span class="math notranslate nohighlight">\(\Delta_{m,fut}\)</span> be, and what would the QDM result be equal to?</p></li>
+</ol>
+</section>
+<section id="try-it-yourself">
+<h2>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Add a ninth wet day to <span class="math notranslate nohighlight">\(y_{obs}\)</span> and a ninth value to <span class="math notranslate nohighlight">\(x_{m,base}\)</span> and repeat the hand example: which corrected values change?</p></li>
+<li><p>Replace the ratio <span class="math notranslate nohighlight">\(\Delta_{m,fut}\)</span> by the difference (Eq. 4.14) on the larger sample and plot Figure 3 again.</p></li>
+<li><p>In the workbook, change one value of <span class="math notranslate nohighlight">\(x_{m,fut}\)</span> in <code class="docutils literal notranslate"><span class="pre">Data</span></code> and follow it through <code class="docutils literal notranslate"><span class="pre">Occ_QM</span></code>, <code class="docutils literal notranslate"><span class="pre">Delta</span></code> and <code class="docutils literal notranslate"><span class="pre">QDM</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Where this lecture differs from the book</p>
+<ul class="simple">
+<li><p>Eq. 4.1: the book’s worked line shows the variance (42.025) under the fraction; the table uses the standard deviation (6.483), and so does the lecture.</p></li>
+<li><p>Eqs. 4.3 and 4.4: the printed ratios were garbled; they are read as <span class="math notranslate nohighlight">\(\hat\sigma_{m,fut} = (\sigma_{obs}/\sigma_{m,base})\,\sigma_{m,fut}\)</span> and <span class="math notranslate nohighlight">\(\hat\mu_{m,fut} = (\mu_{obs}/\mu_{m,base})\,\mu_{m,fut}\)</span>, which Example 4.2 confirms numerically.</p></li>
+<li><p>QDM (Eqs. 4.9 to 4.15) was garbled in the extraction; the lecture reconstructs it from Example 4.5 and its captions as <span class="math notranslate nohighlight">\(\tau_{m,fut} = F_{m,fut}(x_{m,fut})\)</span>, <span class="math notranslate nohighlight">\(\Delta_{m,fut} = x_{m,fut}/F_{m,base}^{-1}(\tau_{m,fut})\)</span>, <span class="math notranslate nohighlight">\(\hat y_{o,fut} = F_o^{-1}(\tau_{m,fut})\)</span> and <span class="math notranslate nohighlight">\(\hat y_{m,fut} = \hat y_{o,fut}\Delta_{m,fut}\)</span>; the additive form is Eqs. 4.14 and 4.15.</p></li>
+<li><p>Section 4.2 gives the threshold as 2.44 mm and as 2.4 mm; the lecture uses the <span class="math notranslate nohighlight">\(n_1\)</span>th largest model value itself.</p></li>
+<li><p>The empirical mapping uses the book’s nearest-value rule; interpolation between values is a common refinement that is not used.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>. The reference is Lee, T., &amp; Singh, V. P. (2019). <em>Statistical Downscaling for Hydrological and Environmental Applications</em>. CRC Press, Chapter 4 (occurrence adjustment, Section 4.2; empirical adjustment, 4.3; quantile mapping, 4.4; summary and comparison, 4.5). Quantile delta mapping: Cannon, A. J., Sobie, S. R., &amp; Murdock, T. Q. (2015). <em>J. Climate, 28</em>, 6938–6959. The explanations, synthetic data, worked example, workbook and figures were made for this course and do not reproduce the book’s tables or examples. Related lectures: 14 (delta change), 16, 17, 19 to 23.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-17-statistical-background-for-downscaling.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 17, Statistical background for downscaling</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-19-regression-downscaling.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 19, Regression downscaling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-words-you-need">Statistics words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-bias-correction">4.1 Why bias correction?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#occurrence-adjustment-for-precipitation-data">4.2 Occurrence adjustment for precipitation data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-occurrence-adjustment">Worked example (by hand): occurrence adjustment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-adjustment-delta-method">4.3 Empirical adjustment (delta method)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-mapping">4.4 Quantile mapping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-quantile-mapping">4.4.1 General quantile mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nonparametric-quantile-mapping">4.4.2 Nonparametric quantile mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-nonparametric-quantile-mapping">Worked example (by hand): nonparametric quantile mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-delta-mapping">4.4.3 Quantile delta mapping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-comparison">4.5 Summary and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

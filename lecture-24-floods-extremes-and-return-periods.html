@@ -1,0 +1,1362 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-24-floods-extremes-and-return-periods';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 25, Floods II: flood frequency analysis, design floods and climate change" href="lecture-25-flood-frequency-analysis-and-design-floods.html" />
+    <link rel="prev" title="Lecture 23, Spatial downscaling" href="lecture-23-spatial-downscaling.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-25-flood-frequency-analysis-and-design-floods.html">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-26-droughts-definitions-and-indices.html">Lecture 26, Droughts I: definitions and drought indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-27-drought-characteristics-frequency-and-management.html">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-24-floods-extremes-and-return-periods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-24-floods-extremes-and-return-periods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-24-floods-extremes-and-return-periods.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-24-floods-extremes-and-return-periods.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-flood-and-what-kinds-are-there">1) What is a flood, and what kinds are there?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extreme-rainfall-indices-etccdi">2) Extreme-rainfall indices (ETCCDI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-annual-maximum-series">3) The annual maximum series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#return-period-plotting-position-and-risk">4) Return period, plotting position and risk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand">5) Worked example (by hand)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-positions-and-the-probability-plot-for-the-chattooga">6) Plotting positions and the probability plot for the Chattooga</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas scipy matplotlib
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="lecture-24-floods-i-flood-types-extreme-rainfall-indices-and-return-periods">
+<h1>Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods<a class="headerlink" href="#lecture-24-floods-i-flood-types-extreme-rainfall-indices-and-return-periods" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>How often does a flood this big come, and what is the chance it comes while our bridge is standing?</p>
+</div></blockquote>
+<p>This lecture opens Module 7 (floods). A flood is a rare event, so we cannot describe it by its average. We describe it by <strong>how big</strong> and <strong>how often</strong>: “a 100-year flood of 450 m<span class="math notranslate nohighlight">\(^3\)</span>/s”. This lecture builds the “how often” side. We first sort floods into types, then measure heavy rain with a set of standard indices, then pull the largest flow of every year out of a daily record, and finally turn ranks into return periods and risk. Lecture 25 then fits curves to these points to estimate design floods.</p>
+<p>The running example is the Chattooga River record of Lectures 7 and 10 (536 km<span class="math notranslate nohighlight">\(^2\)</span>, daily, 1991 to 2015). The method follows Chow, Maidment &amp; Mays (1988), <em>Applied Hydrology</em>, Chapter 12, and the rainfall indices follow the ETCCDI definitions (Zhang et al., 2011).</p>
+<p>By the end of this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>name the main flood types and give an Indian example of each,</p></li>
+<li><p>compute the extreme-rainfall indices Rx1day, Rx5day, R20mm, R95pTOT, CDD and CWD from daily rain,</p></li>
+<li><p>extract an annual maximum series from a daily discharge record,</p></li>
+<li><p>rank it, compute Weibull plotting positions and return periods, and draw a probability plot,</p></li>
+<li><p>compute the risk that a <span class="math notranslate nohighlight">\(T\)</span>-year flood occurs during a design life of <span class="math notranslate nohighlight">\(N\)</span> years.</p></li>
+</ul>
+<p>The workbook <code class="docutils literal notranslate"><span class="pre">data/extremes/lec24/lec24_worked_examples.xlsx</span></code> repeats the hand example (sheets <code class="docutils literal notranslate"><span class="pre">PlotPos</span></code> and <code class="docutils literal notranslate"><span class="pre">Risk</span></code>) with live formulas.</p>
+<section id="words-you-need">
+<h2>Words you need<a class="headerlink" href="#words-you-need" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Word</p></th>
+<th class="head"><p>Plain meaning</p></th>
+<th class="head"><p>Tiny example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>annual maximum</p></td>
+<td><p>the largest value in one year</p></td>
+<td><p>the biggest daily flow of 2004</p></td>
+</tr>
+<tr class="row-odd"><td><p>annual maximum series (AMS)</p></td>
+<td><p>the list of annual maxima, one per year</p></td>
+<td><p>25 numbers from 25 years</p></td>
+</tr>
+<tr class="row-even"><td><p>threshold</p></td>
+<td><p>a fixed level used to decide what counts</p></td>
+<td><p>“a heavy-rain day is 20 mm or more”</p></td>
+</tr>
+<tr class="row-odd"><td><p>percentile</p></td>
+<td><p>the value that a given share of the data stays below</p></td>
+<td><p>95 % of wet days are below the 95th percentile</p></td>
+</tr>
+<tr class="row-even"><td><p>rank <span class="math notranslate nohighlight">\(m\)</span></p></td>
+<td><p>the place of a value when sorted from <strong>largest</strong> down</p></td>
+<td><p>the largest flood has <span class="math notranslate nohighlight">\(m=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>exceedance probability <span class="math notranslate nohighlight">\(p\)</span></p></td>
+<td><p>the chance, in any one year, that the annual maximum is equal to or larger than a value</p></td>
+<td><p><span class="math notranslate nohighlight">\(p = 0.01\)</span> is a 1-in-100 chance per year</p></td>
+</tr>
+<tr class="row-even"><td><p>return period <span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td><p>the <strong>average</strong> number of years between floods at least this big; <span class="math notranslate nohighlight">\(T = 1/p\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p=0.01\)</span> gives <span class="math notranslate nohighlight">\(T=100\)</span> years</p></td>
+</tr>
+<tr class="row-odd"><td><p>plotting position</p></td>
+<td><p>an estimate of <span class="math notranslate nohighlight">\(p\)</span> for each ranked value of a short record</p></td>
+<td><p><span class="math notranslate nohighlight">\(m/(n+1)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>probability plot</p></td>
+<td><p>a graph of flood size against <span class="math notranslate nohighlight">\(p\)</span> or <span class="math notranslate nohighlight">\(T\)</span>, with a stretched axis so that rare floods are visible</p></td>
+<td><p>Figure 3</p></td>
+</tr>
+<tr class="row-odd"><td><p>independent</p></td>
+<td><p>one year’s flood does not change the chance of the next year’s</p></td>
+<td><p>needed for <span class="math notranslate nohighlight">\(T = 1/p\)</span> and for the risk formula</p></td>
+</tr>
+<tr class="row-even"><td><p>design life <span class="math notranslate nohighlight">\(N\)</span></p></td>
+<td><p>the number of years a structure must serve</p></td>
+<td><p>50 years for a bridge</p></td>
+</tr>
+<tr class="row-odd"><td><p>risk <span class="math notranslate nohighlight">\(R\)</span></p></td>
+<td><p>here: the chance that the <span class="math notranslate nohighlight">\(T\)</span>-year flood is equalled or exceeded at least once in <span class="math notranslate nohighlight">\(N\)</span> years</p></td>
+<td><p><span class="math notranslate nohighlight">\(R = 0.40\)</span> for <span class="math notranslate nohighlight">\(T=100\)</span>, <span class="math notranslate nohighlight">\(N=50\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A “100-year flood” does <strong>not</strong> come once every 100 years like a clock. It has a 1 % chance in <strong>every</strong> year, and two can come in two years running.</p>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>Rule for names in code: the symbol in plain letters, lower case.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Units</p></th>
+<th class="head text-left"><p>Code / spreadsheet</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(P\)</span></p></td>
+<td class="text-left"><p>daily rainfall</p></td>
+<td class="text-left"><p>mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">P</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(Q\)</span></p></td>
+<td class="text-left"><p>daily mean discharge, <span class="math notranslate nohighlight">\(Q = q \times 536/86.4\)</span> with <span class="math notranslate nohighlight">\(q\)</span> in mm/day</p></td>
+<td class="text-left"><p>m<span class="math notranslate nohighlight">\(^3\)</span>/s</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Q</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(x\)</span></p></td>
+<td class="text-left"><p>one value of the annual maximum series</p></td>
+<td class="text-left"><p>m<span class="math notranslate nohighlight">\(^3\)</span>/s</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">ams</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(n\)</span></p></td>
+<td class="text-left"><p>number of years in the record (length of the AMS)</p></td>
+<td class="text-left"><p>years</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(m\)</span></p></td>
+<td class="text-left"><p>rank, largest = 1</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(p\)</span></p></td>
+<td class="text-left"><p>exceedance probability, <span class="math notranslate nohighlight">\(P(X \ge x)\)</span> in one year</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td class="text-left"><p>return period, <span class="math notranslate nohighlight">\(T = 1/p\)</span></p></td>
+<td class="text-left"><p>years</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">T</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(x_T\)</span></p></td>
+<td class="text-left"><p>the <span class="math notranslate nohighlight">\(T\)</span>-year flood (or rain)</p></td>
+<td class="text-left"><p>m<span class="math notranslate nohighlight">\(^3\)</span>/s or mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_T</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(N\)</span></p></td>
+<td class="text-left"><p>design life</p></td>
+<td class="text-left"><p>years</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(R\)</span></p></td>
+<td class="text-left"><p>risk of at least one exceedance in <span class="math notranslate nohighlight">\(N\)</span> years</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">R</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(y_T\)</span></p></td>
+<td class="text-left"><p>Gumbel reduced variate, <span class="math notranslate nohighlight">\(-\ln[\ln(T/(T-1))]\)</span>, used only as the plot axis</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">y_T</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Rx1day, Rx5day, R20mm, R95pTOT, CDD, CWD</p></td>
+<td class="text-left"><p>ETCCDI rainfall indices (Section 2)</p></td>
+<td class="text-left"><p>mm or days</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rx1day</span></code>, …</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Chow et al. (1988) write the risk with <span class="math notranslate nohighlight">\(n\)</span> for the design life; we use <span class="math notranslate nohighlight">\(N\)</span> so that it is not mixed up with the record length <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"figure.dpi"</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">"axes.grid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"grid.alpha"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+                     <span class="s2">"axes.spines.top"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"axes.spines.right"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+
+<span class="n">URL</span> <span class="o">=</span> <span class="s2">"https://raw.githubusercontent.com/drvivekhydro/hydroclimatology/main/data/chattooga_daily.csv"</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/chattooga_daily.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"date"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>                      <span class="c1"># e.g. on Colab without the repository</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"date"</span><span class="p">)</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"prcp_mm"</span><span class="p">]</span>                              <span class="c1"># daily rain, mm</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"q_mm"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">536</span> <span class="o">/</span> <span class="mf">86.4</span>                    <span class="c1"># daily mean discharge, m3/s (536 km2 catchment)</span>
+<span class="n">year</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">year</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> years, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> days"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean annual rain </span><span class="si">{</span><span class="n">P</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm;  mean flow </span><span class="si">{</span><span class="n">Q</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> m3/s;  largest daily flow </span><span class="si">{</span><span class="n">Q</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> m3/s"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1991-01-01 to 2015-12-31: 25 years, 9131 days
+mean annual rain 1742 mm;  mean flow 17.9 m3/s;  largest daily flow 524 m3/s
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-a-flood-and-what-kinds-are-there">
+<h2>1) What is a flood, and what kinds are there?<a class="headerlink" href="#what-is-a-flood-and-what-kinds-are-there" title="Link to this heading">#</a></h2>
+<p>A <strong>flood</strong> is water covering land that is normally dry, or a river flow so high that it overtops its banks or its embankments. Hydrologists also use the word for the high-flow part of a river record, whether or not it caused damage. Floods differ in their cause, their speed and their size:</p>
+<ul class="simple">
+<li><p><strong>Riverine (fluvial) flood.</strong> A large river rises over days after widespread rain and spills onto its floodplain. <em>Example:</em> the Brahmaputra in Assam floods almost every monsoon. In Kerala in August 2018, very heavy monsoon rain over many days filled the rivers and the reservoirs together, and much of the state was flooded.</p></li>
+<li><p><strong>Flash flood.</strong> Intense rain on a small, steep catchment gives a sharp rise within minutes to a few hours, with little warning. <em>Example:</em> in July 2023 several days of very heavy rain sent flash floods down the Beas and its tributaries around Mandi and Kullu.</p></li>
+<li><p><strong>Pluvial (urban) flood.</strong> Rain falls faster than the ground and the drains can take it away, so water collects in streets, even far from a river. <em>Examples:</em> Mumbai on 26 July 2005, when Santacruz recorded about 944 mm in 24 hours, and Chennai in late 2015, where weeks of rain on a city built over lakes and channels ended in heavy rain and large releases from Chembarambakkam reservoir in early December.</p></li>
+<li><p><strong>Coastal flood.</strong> A cyclone pushes sea water onto the land (storm surge), often together with heavy rain. <em>Example:</em> the 1999 Odisha super cyclone drove a surge several metres high inland.</p></li>
+<li><p><strong>Glacial lake outburst flood (GLOF).</strong> A lake dammed by loose glacial debris (moraine) or ice breaks suddenly and empties into the valley. <em>Example:</em> South Lhonak lake in Sikkim burst in October 2023; the flood in the Teesta destroyed the Chungthang dam downstream. At Kedarnath in June 2013, extreme rain combined with the breach of Chorabari lake above the town.</p></li>
+<li><p><strong>Dam-break and debris floods.</strong> A dam fails, or a landslide or avalanche turns into a fast flood of water and debris. <em>Examples:</em> the failure of the Machchhu II dam at Morbi, Gujarat, in 1979, and the Chamoli disaster of February 2021, when a rock and ice avalanche became a debris flood in the Rishiganga and Dhauliganga valleys and destroyed two hydropower projects.</p></li>
+</ul>
+<p><strong>Hazard and risk.</strong> The <strong>hazard</strong> is the flood itself: how deep, how fast, how often. <strong>Exposure</strong> is what lies in its path (people, houses, crops, roads). <strong>Vulnerability</strong> is how badly the exposed things suffer (a mud house versus a raised concrete one, a warned village versus an unwarned one). In brief,</p>
+<div class="math notranslate nohighlight">
+\[
+\text{risk} = \text{hazard} \times \text{exposure} \times \text{vulnerability}.
+\]</div>
+<p>A big flood in an empty valley is a large hazard but a small risk. This lecture and the next measure the hazard, mostly through “how often”; reducing exposure and vulnerability is the topic of flood-risk management at the end of Lecture 25.</p>
+</section>
+<section id="extreme-rainfall-indices-etccdi">
+<h2>2) Extreme-rainfall indices (ETCCDI)<a class="headerlink" href="#extreme-rainfall-indices-etccdi" title="Link to this heading">#</a></h2>
+<p>Most floods start with heavy rain. To compare heavy rain between stations, decades or climate models, the WMO Expert Team on Climate Change Detection and Indices (ETCCDI) defined a short list of simple yearly indices (Zhang et al., 2011). A <strong>wet day</strong> has at least 1 mm of rain. Six of them:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Index</p></th>
+<th class="head text-left"><p>Plain meaning</p></th>
+<th class="head text-left"><p>Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Rx1day</p></td>
+<td class="text-left"><p>largest 1-day rain of the year</p></td>
+<td class="text-left"><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Rx5day</p></td>
+<td class="text-left"><p>largest rain total over 5 consecutive days in the year</p></td>
+<td class="text-left"><p>mm</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>R20mm</p></td>
+<td class="text-left"><p>number of days in the year with at least 20 mm (“very heavy rain days”)</p></td>
+<td class="text-left"><p>days</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>R95pTOT</p></td>
+<td class="text-left"><p>rain in the year that fell on very wet days, those above the 95th percentile of wet-day rain in a base period</p></td>
+<td class="text-left"><p>mm</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>CDD</p></td>
+<td class="text-left"><p>longest run of dry days (<span class="math notranslate nohighlight">\(P &lt; 1\)</span> mm) in the year (consecutive dry days)</p></td>
+<td class="text-left"><p>days</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>CWD</p></td>
+<td class="text-left"><p>longest run of wet days (<span class="math notranslate nohighlight">\(P \ge 1\)</span> mm) in the year (consecutive wet days)</p></td>
+<td class="text-left"><p>days</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Rx1day and Rx5day are the <strong>annual maxima of rain</strong>, the rain twin of the flood series in Section 3. Rx1day matters for a small, fast catchment and for city drains; Rx5day matters for a large river that collects several days of rain. CDD is a drought index, which we meet again in the drought lectures.</p>
+<p>Two simplifications here: the base period for the 95th percentile is the whole record (ETCCDI uses a fixed 30-year period, often 1961 to 1990), and spells are cut at the end of each calendar year. In India the same indices are computed from IMD gridded daily rainfall.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">longest_run</span><span class="p">(</span><span class="n">flags</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Longest run of True values in a sequence (used for CDD and CWD)."""</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="n">run</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">:</span>
+        <span class="n">run</span> <span class="o">=</span> <span class="n">run</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">f</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">best</span>
+
+<span class="n">p95</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">P</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.95</span><span class="p">)</span>                 <span class="c1"># 95th percentile of wet-day rain, whole record as base</span>
+<span class="n">ind</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Rx1day"</span><span class="p">:</span>  <span class="n">P</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="s2">"Rx5day"</span><span class="p">:</span>  <span class="n">P</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="s2">"R20mm"</span><span class="p">:</span>   <span class="p">(</span><span class="n">P</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+    <span class="s2">"R95pTOT"</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">P</span> <span class="o">&gt;</span> <span class="n">p95</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+    <span class="s2">"CDD"</span><span class="p">:</span>     <span class="p">(</span><span class="n">P</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">longest_run</span><span class="p">),</span>
+    <span class="s2">"CWD"</span><span class="p">:</span>     <span class="p">(</span><span class="n">P</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">longest_run</span><span class="p">)})</span>
+<span class="n">ind</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"year"</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"95th percentile of wet-day rain: </span><span class="si">{</span><span class="n">p95</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ind</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"...</span><span class="se">\n</span><span class="s2">mean over 25 years:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">ind</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>95th percentile of wet-day rain: 44.6 mm
+      Rx1day  Rx5day  R20mm  R95pTOT  CDD  CWD
+year                                          
+1991    52.2    99.7     25    103.5   16   11
+1992    70.9   143.3     37    327.4   16   10
+1993    50.0   100.4     21    187.6   19    6
+1994   119.7   237.0     33    355.5   11    7
+1995    98.7   188.2     31    382.7   16    6
+...
+mean over 25 years:
+Rx1day      84.7
+Rx5day     155.2
+R20mm       27.4
+R95pTOT    373.5
+CDD         18.9
+CWD          8.4
+</pre></div>
+</div>
+</div>
+</div>
+<p>On average the Chattooga’s wettest day of the year brings about 85 mm and its wettest 5 days about 155 mm. Some 27 days a year bring at least 20 mm, and about 370 mm of the roughly 1740 mm of annual rain (about a fifth) falls on the few days above the 95th percentile, 44.6 mm. The longest dry spell is about 19 days and the longest wet spell about 8 days. This is a wet humid catchment; a station in Rajasthan would show a much larger CDD and a smaller R20mm.</p>
+<p><strong>Is heavy rain increasing?</strong> Lecture 15 taught the Mann-Kendall test (is there a trend?) and Sen’s slope (how big is it?). We just apply them to the annual Rx1day.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yrs</span> <span class="o">=</span> <span class="n">ind</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">tau</span><span class="p">,</span> <span class="n">p_mk</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">kendalltau</span><span class="p">(</span><span class="n">yrs</span><span class="p">,</span> <span class="n">ind</span><span class="p">[</span><span class="s2">"Rx1day"</span><span class="p">])</span>
+<span class="n">sen</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">theilslopes</span><span class="p">(</span><span class="n">ind</span><span class="p">[</span><span class="s2">"Rx1day"</span><span class="p">],</span> <span class="n">yrs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Rx1day: Mann-Kendall tau = </span><span class="si">{</span><span class="n">tau</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">, p = </span><span class="si">{</span><span class="n">p_mk</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">;  Sen's slope = </span><span class="si">{</span><span class="mi">10</span><span class="o">*</span><span class="n">sen</span><span class="o">.</span><span class="n">slope</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2"> mm per decade"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">yrs</span><span class="p">,</span> <span class="n">ind</span><span class="p">[</span><span class="s2">"Rx1day"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Rx1day"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yrs</span><span class="p">,</span> <span class="n">sen</span><span class="o">.</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">sen</span><span class="o">.</span><span class="n">slope</span> <span class="o">*</span> <span class="n">yrs</span><span class="p">,</span> <span class="s2">"k--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Sen's slope </span><span class="si">{</span><span class="mi">10</span><span class="o">*</span><span class="n">sen</span><span class="o">.</span><span class="n">slope</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2"> mm/decade"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">ind</span><span class="p">[</span><span class="s2">"Rx1day"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"mean </span><span class="si">{</span><span class="n">ind</span><span class="p">[</span><span class="s1">'Rx1day'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"year"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"largest 1-day rain (mm)"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Figure 1. Annual Rx1day, Chattooga, 1991-2015"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rx1day: Mann-Kendall tau = +0.09, p = 0.56;  Sen's slope = +4.3 mm per decade
+</pre></div>
+</div>
+<img alt="_images/39f3e9535dfc3a2a7a273459c94757b768637430659961c563e8d0f4017f930f.png" src="_images/39f3e9535dfc3a2a7a273459c94757b768637430659961c563e8d0f4017f930f.png" />
+</div>
+</div>
+<p>The Sen slope is positive (about +4 mm per decade) but Mann-Kendall gives <span class="math notranslate nohighlight">\(p \approx 0.56\)</span>, far above 0.05: in 25 years the year-to-year swings (from 45 mm in 2001 to 164 mm in 2004) hide any trend this small. Detecting a change in extremes needs long records or many stations together, which is why the IPCC statements on heavier rain rest on global networks, not on one gauge.</p>
+</section>
+<section id="the-annual-maximum-series">
+<h2>3) The annual maximum series<a class="headerlink" href="#the-annual-maximum-series" title="Link to this heading">#</a></h2>
+<p>To study floods we need one list of “flood” values. There are two ways to build it:</p>
+<ul class="simple">
+<li><p><strong>Annual maximum series (AMS):</strong> take the single largest value of each year. It is simple, each year gives exactly one value, and the values are close to independent because they come from different years. Its weakness: a dry year still contributes its small maximum, and the second-largest flood of a very wet year is thrown away.</p></li>
+<li><p><strong>Peaks over threshold (POT, or partial duration series):</strong> keep every independent flood peak above a chosen level. It uses more of the data, but we must choose the threshold and make sure two peaks are not the same flood.</p></li>
+</ul>
+<p>From here on we use the <strong>AMS</strong>, as Chow Chapter 12 and most design practice do.</p>
+<p>Two notes on our record. We use <strong>daily mean</strong> discharge; the instantaneous peak of a small catchment is higher than the daily mean, so a design study would use instantaneous peaks from the gauging agency (in India, the Central Water Commission). And 25 years is a <strong>short</strong> record; Indian gauges of the CWC and IMD rainfall stations often offer longer ones.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ams</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>                    <span class="c1"># annual maximum series, x, m3/s</span>
+<span class="n">ams</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"year"</span>
+<span class="n">date_of_max</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ams</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> years;  mean </span><span class="si">{</span><span class="n">ams</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> m3/s;  smallest </span><span class="si">{</span><span class="n">ams</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ams</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span><span class="si">}</span><span class="s2">);  largest </span><span class="si">{</span><span class="n">ams</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ams</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span><span class="si">}</span><span class="s2">, on </span><span class="si">{</span><span class="n">date_of_max</span><span class="p">[</span><span class="n">ams</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.55"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"daily discharge $Q$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">date_of_max</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">ams</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"annual maximum $x$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"date"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"$Q$ (m$^3$/s, log scale)"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Figure 2. Daily discharge and the annual maximum series"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n = 25 years;  mean 136.4 m3/s;  smallest 36.0 (2001);  largest 523.7 (2004, on 2004-09-17)
+</pre></div>
+</div>
+<img alt="_images/96808ccc66f2000c7cab387deb398642b9bf6de2151d31c7d3fcd738700945df.png" src="_images/96808ccc66f2000c7cab387deb398642b9bf6de2151d31c7d3fcd738700945df.png" />
+</div>
+</div>
+</section>
+<section id="return-period-plotting-position-and-risk">
+<h2>4) Return period, plotting position and risk<a class="headerlink" href="#return-period-plotting-position-and-risk" title="Link to this heading">#</a></h2>
+<p><strong>Exceedance probability and return period.</strong> If <span class="math notranslate nohighlight">\(p\)</span> is the chance that the annual maximum reaches or exceeds a level <span class="math notranslate nohighlight">\(x_T\)</span> in any one year, the average waiting time between such years is</p>
+<div class="math notranslate nohighlight">
+\[
+T = \frac{1}{p}, \qquad p = P(X \ge x_T) = \frac{1}{T}.
+\]</div>
+<p>A flood with <span class="math notranslate nohighlight">\(p = 0.02\)</span> is the 50-year flood. This needs the years to be independent and the climate to stay the same (stationary); Lecture 25 asks what happens when it does not.</p>
+<p><strong>Plotting position.</strong> For a record we do not know <span class="math notranslate nohighlight">\(p\)</span>, we estimate it. Sort the <span class="math notranslate nohighlight">\(n\)</span> annual maxima from largest to smallest and give rank <span class="math notranslate nohighlight">\(m = 1\)</span> to the largest. The <strong>Weibull plotting position</strong> (one of the formulas listed by Chow, Section 12.3) is</p>
+<div class="math notranslate nohighlight">
+\[
+p = \frac{m}{n+1}, \qquad T = \frac{n+1}{m}.
+\]</div>
+<p><em>Why <span class="math notranslate nohighlight">\(n+1\)</span> and not <span class="math notranslate nohighlight">\(n\)</span>?</em> With <span class="math notranslate nohighlight">\(m/n\)</span> the smallest value would get <span class="math notranslate nohighlight">\(p = 1\)</span>, a certainty that every future year will beat it, and the largest would get <span class="math notranslate nohighlight">\(T = n\)</span> exactly. Dividing by <span class="math notranslate nohighlight">\(n + 1\)</span> leaves room for future floods larger than anything seen: the largest of 25 years gets <span class="math notranslate nohighlight">\(T = 26\)</span> years, not “the largest possible”.</p>
+<p><strong>Probability plot.</strong> We plot <span class="math notranslate nohighlight">\(x\)</span> against <span class="math notranslate nohighlight">\(T\)</span> on an axis stretched so that rare floods spread out. Here the stretch is the Gumbel reduced variate <span class="math notranslate nohighlight">\(y_T = -\ln[\ln(T/(T-1))]\)</span>; Lecture 25 shows why a Gumbel distribution plots as a straight line on this axis.</p>
+<p><strong>Risk over a design life.</strong> A bridge stands for <span class="math notranslate nohighlight">\(N\)</span> years. The chance that the <span class="math notranslate nohighlight">\(T\)</span>-year flood does <strong>not</strong> occur in one year is <span class="math notranslate nohighlight">\(1 - 1/T\)</span>; for <span class="math notranslate nohighlight">\(N\)</span> independent years it is <span class="math notranslate nohighlight">\((1 - 1/T)^N\)</span>. So the chance that it occurs <strong>at least once</strong> is</p>
+<div class="math notranslate nohighlight">
+\[
+R = 1 - \left(1 - \frac{1}{T}\right)^{N}.
+\]</div>
+<p>Turned around, the return period needed to keep the risk at <span class="math notranslate nohighlight">\(R\)</span> over <span class="math notranslate nohighlight">\(N\)</span> years is <span class="math notranslate nohighlight">\(T = 1/[1 - (1 - R)^{1/N}]\)</span>.</p>
+</section>
+<section id="worked-example-by-hand">
+<h2>5) Worked example (by hand)<a class="headerlink" href="#worked-example-by-hand" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Problem</p>
+<p>A small Himalayan river gauge (made-up numbers) has 10 years of annual maximum discharge, in m<span class="math notranslate nohighlight">\(^3\)</span>/s:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Year</p></th>
+<th class="head text-right"><p>2011</p></th>
+<th class="head text-right"><p>2012</p></th>
+<th class="head text-right"><p>2013</p></th>
+<th class="head text-right"><p>2014</p></th>
+<th class="head text-right"><p>2015</p></th>
+<th class="head text-right"><p>2016</p></th>
+<th class="head text-right"><p>2017</p></th>
+<th class="head text-right"><p>2018</p></th>
+<th class="head text-right"><p>2019</p></th>
+<th class="head text-right"><p>2020</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(x\)</span></p></td>
+<td class="text-right"><p>420</p></td>
+<td class="text-right"><p>285</p></td>
+<td class="text-right"><p>540</p></td>
+<td class="text-right"><p>350</p></td>
+<td class="text-right"><p>710</p></td>
+<td class="text-right"><p>300</p></td>
+<td class="text-right"><p>465</p></td>
+<td class="text-right"><p>385</p></td>
+<td class="text-right"><p>615</p></td>
+<td class="text-right"><p>330</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>(a) Rank the values and find the Weibull plotting position <span class="math notranslate nohighlight">\(p\)</span> and the empirical return period <span class="math notranslate nohighlight">\(T\)</span> of each.
+(b) What is the chance that the 2015 flood (710 m<span class="math notranslate nohighlight">\(^3\)</span>/s) is equalled or exceeded at least once in the next 5 years?
+(c) A bridge has a design life of <span class="math notranslate nohighlight">\(N = 50\)</span> years and is built for the 100-year flood. What is the risk <span class="math notranslate nohighlight">\(R\)</span>?
+(d) What <span class="math notranslate nohighlight">\(T\)</span> keeps the risk at 10 % over the same 50 years?</p>
+</div>
+<p><strong>(a) Rank and plotting position.</strong> <em>Why:</em> we have no formula for <span class="math notranslate nohighlight">\(p\)</span> yet, so we let the record speak: a value beaten only once in 10 years is roughly a 1-in-10 event. Here <span class="math notranslate nohighlight">\(n = 10\)</span>, so <span class="math notranslate nohighlight">\(n + 1 = 11\)</span>. Sort from largest down, <span class="math notranslate nohighlight">\(m = 1\)</span> for the largest:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(m\)</span></p></th>
+<th class="head text-left"><p>Year</p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x\)</span> (m<span class="math notranslate nohighlight">\(^3\)</span>/s)</p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(p = m/11\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(T = 11/m\)</span> (years)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-left"><p>2015</p></td>
+<td class="text-right"><p>710</p></td>
+<td class="text-right"><p>1/11 = 0.091</p></td>
+<td class="text-right"><p>11/1 = 11.0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-left"><p>2019</p></td>
+<td class="text-right"><p>615</p></td>
+<td class="text-right"><p>2/11 = 0.182</p></td>
+<td class="text-right"><p>11/2 = 5.50</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-left"><p>2013</p></td>
+<td class="text-right"><p>540</p></td>
+<td class="text-right"><p>3/11 = 0.273</p></td>
+<td class="text-right"><p>11/3 = 3.67</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-left"><p>2017</p></td>
+<td class="text-right"><p>465</p></td>
+<td class="text-right"><p>4/11 = 0.364</p></td>
+<td class="text-right"><p>11/4 = 2.75</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-left"><p>2011</p></td>
+<td class="text-right"><p>420</p></td>
+<td class="text-right"><p>5/11 = 0.455</p></td>
+<td class="text-right"><p>11/5 = 2.20</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-left"><p>2018</p></td>
+<td class="text-right"><p>385</p></td>
+<td class="text-right"><p>6/11 = 0.545</p></td>
+<td class="text-right"><p>11/6 = 1.83</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>7</p></td>
+<td class="text-left"><p>2014</p></td>
+<td class="text-right"><p>350</p></td>
+<td class="text-right"><p>7/11 = 0.636</p></td>
+<td class="text-right"><p>11/7 = 1.57</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>8</p></td>
+<td class="text-left"><p>2020</p></td>
+<td class="text-right"><p>330</p></td>
+<td class="text-right"><p>8/11 = 0.727</p></td>
+<td class="text-right"><p>11/8 = 1.38</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>9</p></td>
+<td class="text-left"><p>2016</p></td>
+<td class="text-right"><p>300</p></td>
+<td class="text-right"><p>9/11 = 0.818</p></td>
+<td class="text-right"><p>11/9 = 1.22</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>10</p></td>
+<td class="text-left"><p>2012</p></td>
+<td class="text-right"><p>285</p></td>
+<td class="text-right"><p>10/11 = 0.909</p></td>
+<td class="text-right"><p>11/10 = 1.10</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Check: <span class="math notranslate nohighlight">\(p\)</span> goes up by <span class="math notranslate nohighlight">\(1/11 = 0.091\)</span> each row, and <span class="math notranslate nohighlight">\(p \times T = 1\)</span> in every row. The median of the 10 values, <span class="math notranslate nohighlight">\((420 + 385)/2 = 402.5\)</span> m<span class="math notranslate nohighlight">\(^3\)</span>/s, sits between <span class="math notranslate nohighlight">\(T = 2.20\)</span> and <span class="math notranslate nohighlight">\(T = 1.83\)</span>, close to the “2-year flood”.</p>
+<p><strong>(b)</strong> <em>Why:</em> the 2015 flood is our estimate of an 11-year flood, and “next 5 years” is a design life of <span class="math notranslate nohighlight">\(N = 5\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+R = 1 - \left(1 - \tfrac{1}{11}\right)^{5} = 1 - (0.90909)^{5} = 1 - 0.62092 = 0.379.
+\]</div>
+<p>Step by step: <span class="math notranslate nohighlight">\(0.90909^2 = 0.82645\)</span>, <span class="math notranslate nohighlight">\(0.82645^2 = 0.68301\)</span>, <span class="math notranslate nohighlight">\(0.68301 \times 0.90909 = 0.62092\)</span>. A flood at least as big as 2015 has about a 38 % chance of coming back within 5 years.</p>
+<p><strong>(c)</strong> <span class="math notranslate nohighlight">\(R = 1 - (1 - 0.01)^{50} = 1 - 0.99^{50}\)</span>. With logarithms: <span class="math notranslate nohighlight">\(50 \ln 0.99 = 50 \times (-0.0100503) = -0.50252\)</span>, and <span class="math notranslate nohighlight">\(e^{-0.50252} = 0.60501\)</span>, so <span class="math notranslate nohighlight">\(R = 1 - 0.60501 = 0.395\)</span>. A “100-year” bridge has about a <strong>40 % chance</strong> of meeting its design flood during its life.</p>
+<p><strong>(d)</strong> <span class="math notranslate nohighlight">\((1 - R)^{1/N} = 0.90^{1/50}\)</span>: <span class="math notranslate nohighlight">\(\ln 0.90 = -0.105361\)</span>, divided by 50 gives <span class="math notranslate nohighlight">\(-0.0021072\)</span>, and <span class="math notranslate nohighlight">\(e^{-0.0021072} = 0.997895\)</span>. Then <span class="math notranslate nohighlight">\(1/T = 1 - 0.997895 = 0.0021050\)</span> and <span class="math notranslate nohighlight">\(T = 1/0.0021050 = 475\)</span> years. To be 90 % sure of not seeing the design flood in 50 years, design for about the <strong>475-year</strong> flood.</p>
+<p><strong>Answer.</strong> The largest flood (710 m<span class="math notranslate nohighlight">\(^3\)</span>/s) has <span class="math notranslate nohighlight">\(p = 0.091\)</span>, <span class="math notranslate nohighlight">\(T = 11\)</span> years, and the smallest (285 m<span class="math notranslate nohighlight">\(^3\)</span>/s) has <span class="math notranslate nohighlight">\(p = 0.909\)</span>, <span class="math notranslate nohighlight">\(T = 1.1\)</span> years; (b) <span class="math notranslate nohighlight">\(R = 0.379\)</span>; (c) <span class="math notranslate nohighlight">\(R = 0.395\)</span>; (d) <span class="math notranslate nohighlight">\(T = 475\)</span> years. The same small AMS is used again in Lecture 25 to fit a Gumbel distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The hand example in code; the same numbers are on sheets PlotPos and Risk of lec24_worked_examples.xlsx</span>
+<span class="n">x_hand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">420</span><span class="p">,</span> <span class="mi">285</span><span class="p">,</span> <span class="mi">540</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">710</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">465</span><span class="p">,</span> <span class="mi">385</span><span class="p">,</span> <span class="mi">615</span><span class="p">,</span> <span class="mi">330</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2021</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plotting_positions</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Rank from the largest (m = 1), Weibull p = m/(n+1) and T = 1/p (Chow, Section 12.3)."""</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"year"</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s2">"m"</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s2">"T"</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">p</span><span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">risk</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Chance that the T-year event is equalled or exceeded at least once in N years."""</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span><span class="p">)</span> <span class="o">**</span> <span class="n">N</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">plotting_positions</span><span class="p">(</span><span class="n">x_hand</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"(b) R(T = 11, N = 5)   = </span><span class="si">{</span><span class="n">risk</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"(c) R(T = 100, N = 50) = </span><span class="si">{</span><span class="n">risk</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"(d) T for R = 0.10, N = 50: </span><span class="si">{</span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.90</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="p">))</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> years"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> year   x  m     p      T
+ 2015 710  1 0.091 11.000
+ 2019 615  2 0.182  5.500
+ 2013 540  3 0.273  3.667
+ 2017 465  4 0.364  2.750
+ 2011 420  5 0.455  2.200
+ 2018 385  6 0.545  1.833
+ 2014 350  7 0.636  1.571
+ 2020 330  8 0.727  1.375
+ 2016 300  9 0.818  1.222
+ 2012 285 10 0.909  1.100
+(b) R(T = 11, N = 5)   = 0.379
+(c) R(T = 100, N = 50) = 0.395
+(d) T for R = 0.10, N = 50: 475.1 years
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-positions-and-the-probability-plot-for-the-chattooga">
+<h2>6) Plotting positions and the probability plot for the Chattooga<a class="headerlink" href="#plotting-positions-and-the-probability-plot-for-the-chattooga" title="Link to this heading">#</a></h2>
+<p>The same three lines of code now rank the 25 Chattooga annual maxima. The largest daily flow, 524 m<span class="math notranslate nohighlight">\(^3\)</span>/s on 17 September 2004, came when the remains of Hurricane Ivan crossed the southern Appalachians ten days after those of Hurricane Frances had soaked the ground; it gets <span class="math notranslate nohighlight">\(m = 1\)</span>, <span class="math notranslate nohighlight">\(p = 1/26 = 0.038\)</span> and <span class="math notranslate nohighlight">\(T = 26\)</span> years.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pp</span> <span class="o">=</span> <span class="n">plotting_positions</span><span class="p">(</span><span class="n">ams</span><span class="p">)</span>
+<span class="n">pp</span><span class="p">[</span><span class="s2">"y_T"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pp</span><span class="p">[</span><span class="s2">"T"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">pp</span><span class="p">[</span><span class="s2">"T"</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>          <span class="c1"># Gumbel reduced variate, the plot axis</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">));</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"..."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pp</span><span class="p">[</span><span class="s2">"y_T"</span><span class="p">],</span> <span class="n">pp</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Chattooga AMS, Weibull $p = m/(n+1)$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"Gumbel reduced variate $y_T$"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"annual maximum $x$ (m$^3$/s)"</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="s2">"Figure 3. Probability plot of the annual maximum series"</span><span class="p">)</span>
+<span class="n">T_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">secondary_xaxis</span><span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">functions</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="p">))</span>
+<span class="n">top</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_ticks</span> <span class="o">/</span> <span class="p">(</span><span class="n">T_ticks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))));</span> <span class="n">top</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T_ticks</span><span class="p">])</span>
+<span class="n">top</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"return period $T$ (years)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> year       x  m     p      T   y_T
+ 2004 523.737  1 0.038 26.000 3.239
+ 1994 272.060  2 0.077 13.000 2.525
+ 2015 208.928  3 0.115  8.667 2.099
+ 2009 200.153  4 0.154  6.500 1.789
+ 1998 195.906  5 0.192  5.200 1.544
+...
+ year      x  m     p     T    y_T
+ 2000 57.469 24 0.923 1.083 -0.942
+ 2001 35.954 25 0.962 1.040 -1.181
+</pre></div>
+</div>
+<img alt="_images/f67f75fc0796ea1e20e2a5cf4cf94726a039f44cc8b555dce87649730bfd69cf.png" src="_images/f67f75fc0796ea1e20e2a5cf4cf94726a039f44cc8b555dce87649730bfd69cf.png" />
+</div>
+</div>
+<p><strong>Reading Figure 3.</strong> The points rise slowly from the 1-year to the 10-year end and then the 2004 flood jumps far above the rest. The plot answers “how big is a flood with <span class="math notranslate nohighlight">\(T\)</span> = 5 years?” directly, around 195 m<span class="math notranslate nohighlight">\(^3\)</span>/s (the 1998 value has <span class="math notranslate nohighlight">\(T = 5.2\)</span>). It cannot answer “how big is the 100-year flood?”: the largest plotting position of a 25-year record is <span class="math notranslate nohighlight">\(T = 26\)</span>, and one unusual year decides where the top of the curve is. To go further we need a distribution fitted through all 25 points and extended, which is the <strong>flood frequency analysis</strong> of Lecture 25. The same plot, with fitted lines on top, will be Figure 1 there.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
+<span class="n">N_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"risk R for design life N:</span><span class="se">\n</span><span class="s2">  T     N=10   N=25   N=50   N=100"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="n">T_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s2">4d</span><span class="si">}</span><span class="s2">  "</span> <span class="o">+</span> <span class="s2">"  "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">risk</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="n">T_list</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">N_list</span><span class="p">,</span> <span class="n">risk</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">N_list</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"T = </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2"> years"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"0.4"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"design life $N$ (years)"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"risk $R$"</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+       <span class="n">title</span><span class="o">=</span><span class="s2">"Figure 4. Chance of at least one $T$-year flood in $N$ years"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>risk R for design life N:
+  T     N=10   N=25   N=50   N=100
+  10  0.651  0.928  0.995  1.000
+  25  0.335  0.640  0.870  0.983
+  50  0.183  0.397  0.636  0.867
+ 100  0.096  0.222  0.395  0.634
+ 500  0.020  0.049  0.095  0.181
+</pre></div>
+</div>
+<img alt="_images/b245b71d899de2e0b22e9edb36ca68bc606766018988e7c5c088a5d7cc9d9622.png" src="_images/b245b71d899de2e0b22e9edb36ca68bc606766018988e7c5c088a5d7cc9d9622.png" />
+</div>
+</div>
+<p><strong>Reading Figure 4.</strong> Over a 50-year life (dotted line) the 10-year flood is almost certain to occur (<span class="math notranslate nohighlight">\(R = 0.995\)</span>), the 50-year flood is more likely than not (<span class="math notranslate nohighlight">\(R = 0.636\)</span>), and even the 100-year flood has a 40 % chance. Only the 500-year flood stays below 10 % (<span class="math notranslate nohighlight">\(R = 0.095\)</span>). This is why the design return period of a structure is usually much longer than its life, and why the choice of <span class="math notranslate nohighlight">\(T\)</span> is a decision about acceptable risk, not only a hydrological number (Lecture 25, Section 7).</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Floods are riverine, flash, pluvial (urban), coastal, glacial lake outburst, or dam-break and debris floods; India has recent examples of each. Risk combines the hazard with exposure and vulnerability.</p></li>
+<li><p>ETCCDI indices (Rx1day, Rx5day, R20mm, R95pTOT, CDD, CWD) summarise heavy rain and dry spells year by year. For the Chattooga, Rx1day averages 85 mm and shows no significant trend in 25 years.</p></li>
+<li><p>The annual maximum series keeps the largest flow of each year. Rank it from the largest, <span class="math notranslate nohighlight">\(p = m/(n+1)\)</span> and <span class="math notranslate nohighlight">\(T = (n+1)/m\)</span>.</p></li>
+<li><p>A <span class="math notranslate nohighlight">\(T\)</span>-year flood has a <span class="math notranslate nohighlight">\(1/T\)</span> chance in every year. Over a design life of <span class="math notranslate nohighlight">\(N\)</span> years the risk is <span class="math notranslate nohighlight">\(R = 1 - (1 - 1/T)^N\)</span>: 0.395 for <span class="math notranslate nohighlight">\(T = 100\)</span> and <span class="math notranslate nohighlight">\(N = 50\)</span>.</p></li>
+<li><p>Empirical points stop at <span class="math notranslate nohighlight">\(T \approx n + 1\)</span>; estimating rarer floods needs a fitted distribution (Lecture 25).</p></li>
+</ul>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>A town has had no “50-year flood” for 49 years. Is it more likely to have one next year than a town that had one last year? Why?</p></li>
+<li><p>Why does the Weibull formula divide by <span class="math notranslate nohighlight">\(n + 1\)</span>? What return period does it give the largest value of a 40-year record?</p></li>
+<li><p>Why is Rx5day more useful than Rx1day for the Brahmaputra, and Rx1day more useful for Mumbai’s storm drains?</p></li>
+</ol>
+</section>
+<section id="try-it-yourself">
+<h2>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Add an eleventh year with <span class="math notranslate nohighlight">\(x = 800\)</span> m<span class="math notranslate nohighlight">\(^3\)</span>/s to the hand example (in the workbook or the code). How do the <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(T\)</span> of the 2015 flood change?</p></li>
+<li><p>Build a peaks-over-threshold series for the Chattooga: keep every day above 150 m<span class="math notranslate nohighlight">\(^3\)</span>/s that is the largest within 7 days either side. How many peaks per year do you get?</p></li>
+<li><p>Compute the ETCCDI indices for the first and last 12 years of the record and compare their means.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>. Return period, exceedance probability, risk and plotting positions follow Chow, V. T., Maidment, D. R., &amp; Mays, L. W. (1988). <em>Applied Hydrology</em>. McGraw-Hill, <strong>Chapter 12</strong> (Sections 12.1 and 12.3). Extreme-rainfall indices follow Zhang, X., Alexander, L., Hegerl, G. C., Jones, P., Klein Tank, A., Peterson, T. C., Trewin, B., &amp; Zwiers, F. W. (2011). Indices for monitoring changes in extremes based on daily temperature and precipitation data. <em>WIREs Climate Change, 2</em>, 851–870. The explanations, the hand example and its numbers, the workbook and the figures were made for this course and do not reproduce the book’s text, tables or examples.</p>
+<p><strong>Data.</strong> <code class="docutils literal notranslate"><span class="pre">data/chattooga_daily.csv</span></code>: Chattooga River near Clayton, GA (USGS 02177000), 536 km<span class="math notranslate nohighlight">\(^2\)</span>; rainfall from Daymet v4 (Thornton et al., 2022) and discharge from USGS NWIS (public domain). The hand-example data are made up. Related lectures: 7 and 10 (Chattooga record, routing), 15 (Mann-Kendall and Sen’s slope), 17 (distributions), 25 (flood frequency analysis).</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-23-spatial-downscaling.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 23, Spatial downscaling</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-25-flood-frequency-analysis-and-design-floods.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-flood-and-what-kinds-are-there">1) What is a flood, and what kinds are there?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extreme-rainfall-indices-etccdi">2) Extreme-rainfall indices (ETCCDI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-annual-maximum-series">3) The annual maximum series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#return-period-plotting-position-and-risk">4) Return period, plotting position and risk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand">5) Worked example (by hand)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-positions-and-the-probability-plot-for-the-chattooga">6) Plotting positions and the probability plot for the Chattooga</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

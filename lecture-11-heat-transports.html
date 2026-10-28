@@ -1,0 +1,1310 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 11, Heat transports &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-11-heat-transports';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 12, Contaminant transport in a reservoir" href="lecture-12-contaminant-transport-in-a-reservoir.html" />
+    <link rel="prev" title="Lecture 10, Advection and diffusion in a river" href="lecture-10-advection-diffusion-in-rivers.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-24-floods-extremes-and-return-periods.html">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-25-flood-frequency-analysis-and-design-floods.html">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-26-droughts-definitions-and-indices.html">Lecture 26, Droughts I: definitions and drought indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-27-drought-characteristics-frequency-and-management.html">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-11-heat-transports.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-11-heat-transports.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-11-heat-transports.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-11-heat-transports.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 11, Heat transports</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 11, Heat transports</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#background-two-dimensional-advection-diffusion">1) Background: two-dimensional advection-diffusion</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-advection-diffusion-equation">1.1) The two-dimensional advection-diffusion equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flux-form-shorthand-notation-and-the-advective-form">1.2) Flux form, shorthand notation, and the advective form</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-flux-form-to-the-advective-form">From the flux form to the advective form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-implementation">2) Numerical implementation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discretizing-advection-in-two-dimensions">2.1) Discretizing advection in two dimensions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discretizing-diffusion-in-two-dimensions">2.2) Discretizing diffusion in two dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#no-flux-boundary-conditions">2.3) No-flux boundary conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timestepping">2.4) Timestepping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-single-gyre-windfield">Create a single-gyre windfield</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-11-heat-transports">
+<h1>Lecture 11, Heat transports<a class="headerlink" href="#lecture-11-heat-transports" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Two-dimensional advection-diffusion of heat</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib scipy xarray netcdf4 pydap ipywidgets
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="background-two-dimensional-advection-diffusion">
+<h1>1) Background: two-dimensional advection-diffusion<a class="headerlink" href="#background-two-dimensional-advection-diffusion" title="Link to this heading">#</a></h1>
+<section id="the-two-dimensional-advection-diffusion-equation">
+<h2>1.1) The two-dimensional advection-diffusion equation<a class="headerlink" href="#the-two-dimensional-advection-diffusion-equation" title="Link to this heading">#</a></h2>
+<p>Recall from <strong>Lecture 9</strong> that the one-dimensional advection-diffusion equation is written as</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T(x,t)}{\partial t} = -U \frac{\partial T}{\partial x} + \kappa \frac{\partial^{2} T}{\partial x^{2}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(T(x, t)\)</span> is the temperature, <span class="math notranslate nohighlight">\(U\)</span> is a constant advective velocity and <span class="math notranslate nohighlight">\(\kappa\)</span> is the diffusivity.</p>
+<p>The two-dimensional advection-diffusion equation simply adds advection and diffusion operators acting in a second dimension <span class="math notranslate nohighlight">\(y\)</span> (orthogonal to <span class="math notranslate nohighlight">\(x\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T(x,y,t)}{\partial t} = - u(x,y) \frac{\partial T}{\partial x} - v(x,y) \frac{\partial T}{\partial y} + \kappa \left( \frac{\partial^{2} T}{\partial x^{2}} + \frac{\partial^{2} T}{\partial y^{2}} \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vec{u}(x,y) = (u, v) = u\,\mathbf{\hat{x}} + v\,\mathbf{\hat{y}}\)</span> is a velocity vector field.</p>
+<p>Throughout the rest of the Climate Modelling module, we will consider <span class="math notranslate nohighlight">\(x\)</span> to be the <em>longitudinal</em> direction (positive from west to east) and <span class="math notranslate nohighlight">\(y\)</span> to be the <em>latitudinal</em> direction (positive from south to north).</p>
+</section>
+<section id="flux-form-shorthand-notation-and-the-advective-form">
+<h2>1.2) Flux form, shorthand notation, and the advective form<a class="headerlink" href="#flux-form-shorthand-notation-and-the-advective-form" title="Link to this heading">#</a></h2>
+<p>Conventionally, the two-dimensional advection-diffusion equation is written more succinctly in its <strong>flux form</strong> (also called the <em>conservation form</em>):</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T(x,y,t)}{\partial t} = - \nabla \cdot (\vec{u}\,T) + \kappa \nabla^{2} T,\]</div>
+<p>using the following shorthand notation.</p>
+<p>The <strong>gradient</strong> operator is defined as</p>
+<div class="math notranslate nohighlight">
+\[\nabla \equiv \left(\frac{\partial}{\partial x}, \frac{\partial }{\partial y}\right)\]</div>
+<p>such that</p>
+<div class="math notranslate nohighlight">
+\[\nabla T = \left(\frac{\partial T}{\partial x}, \frac{\partial T}{\partial y}\right).\]</div>
+<p>The <strong>Laplacian</strong> operator <span class="math notranslate nohighlight">\(\nabla^{2}\)</span> (sometimes denoted <span class="math notranslate nohighlight">\(\Delta\)</span>) is defined as</p>
+<div class="math notranslate nohighlight">
+\[\nabla^{2} = \frac{\partial^{2}}{\partial x^{2}} + \frac{\partial^{2}}{\partial y^{2}}\]</div>
+<p>such that</p>
+<div class="math notranslate nohighlight">
+\[\nabla^{2} T = \frac{\partial^{2} T}{\partial x^{2}} + \frac{\partial^{2} T}{\partial y^{2}}.\]</div>
+<p>The <strong>divergence</strong> operator is defined as <span class="math notranslate nohighlight">\(\nabla \cdot [\quad]\)</span>, such that for a vector field <span class="math notranslate nohighlight">\((a, b)\)</span></p>
+<div class="math notranslate nohighlight">
+\[\nabla \cdot (a, b) = \left(\frac{\partial}{\partial x}, \frac{\partial}{\partial y} \right) \cdot (a, b) = \frac{\partial a}{\partial x} + \frac{\partial b}{\partial y}.\]</div>
+<p>In particular, the divergence of the advective flux <span class="math notranslate nohighlight">\(\vec{u}\,T = (uT, vT)\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\nabla \cdot (\vec{u}\,T) = \frac{\partial (uT)}{\partial x} + \frac{\partial (vT)}{\partial y},\]</div>
+<p>and the divergence of the velocity itself is <span class="math notranslate nohighlight">\(\nabla \cdot \vec{u} = \dfrac{\partial u}{\partial x} + \dfrac{\partial v}{\partial y}\)</span>.</p>
+<p>The flux form has a clear physical meaning: <span class="math notranslate nohighlight">\(\vec{u}\,T\)</span> is the flux of temperature carried by the flow and <span class="math notranslate nohighlight">\(-\kappa \nabla T\)</span> is the flux by diffusion, so <span class="math notranslate nohighlight">\(T\)</span> in a cell changes only because of the net flux through its edges.</p>
+<section id="from-the-flux-form-to-the-advective-form">
+<h3>From the flux form to the advective form<a class="headerlink" href="#from-the-flux-form-to-the-advective-form" title="Link to this heading">#</a></h3>
+<p><strong>Note:</strong> Since seawater is largely incompressible, we can approximate ocean currents as a <em>non-divergent flow</em>, with <span class="math notranslate nohighlight">\(\nabla \cdot \vec{u} = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0\)</span>. Among other implications, this lets us start from the advective term of the flux form, <span class="math notranslate nohighlight">\(\nabla \cdot (\vec{u}\,T)\)</span>, and reach the more familiar form <span class="math notranslate nohighlight">\(\vec{u} \cdot \nabla T\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\nabla \cdot (\vec{u}\,T) &amp;= \frac{\partial (uT)}{\partial x} + \frac{\partial (vT)}{\partial y} \\
+&amp;= \left( u\frac{\partial T}{\partial x} + T\frac{\partial u}{\partial x} \right) + \left( v\frac{\partial T}{\partial y} + T\frac{\partial v}{\partial y} \right) \\
+&amp;= u\frac{\partial T}{\partial x} + v\frac{\partial T}{\partial y} + T\left(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}\right) \\
+&amp;= \vec{u} \cdot \nabla T + T\,\nabla \cdot \vec{u} \\
+&amp;= \vec{u} \cdot \nabla T,
+\end{aligned}
+\end{split}\]</div>
+<p>where the second line uses the product rule (separately in both <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>), the fourth line uses</p>
+<div class="math notranslate nohighlight">
+\[\vec{u} \cdot \nabla T = (u, v) \cdot \left(\frac{\partial T}{\partial x}, \frac{\partial T}{\partial y}\right) = u \frac{\partial T}{\partial x} + v\frac{\partial T}{\partial y},\]</div>
+<p>and the last line uses <span class="math notranslate nohighlight">\(\nabla \cdot \vec{u} = 0\)</span>.</p>
+<p>This lets us finally re-write the two-dimensional advection-diffusion equation in its <strong>advective form</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T}{\partial t} = - \vec{u} \cdot \nabla T + \kappa \nabla^{2} T = - u\frac{\partial T}{\partial x} - v\frac{\partial T}{\partial y} + \kappa \left( \frac{\partial^{2} T}{\partial x^{2}} + \frac{\partial^{2} T}{\partial y^{2}} \right),\]</div>
+<p>which is the same as the equation of Section 1.1, and the form we will use in our numerical algorithm below.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="numerical-implementation">
+<h1>2) Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="discretizing-advection-in-two-dimensions">
+<h1>2.1) Discretizing advection in two dimensions<a class="headerlink" href="#discretizing-advection-in-two-dimensions" title="Link to this heading">#</a></h1>
+<p>In Lecture 9 we saw that in one dimension we can discretize a first-partial derivative in space using the <em>centered finite difference</em></p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T(x_{i}, t_{n})}{\partial x} \approx \frac{T_{i+1}^{n} - T_{i-1}^{n}}{2 \Delta x}.\]</div>
+<p>In two dimensions, we discretize the partial derivative the exact same way, except that we also need to keep track of the cell index <span class="math notranslate nohighlight">\(j\)</span> in the <span class="math notranslate nohighlight">\(y\)</span> dimension:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T(x_{i}, y_{j}, t_{n})}{\partial x} \approx \frac{T_{i+1,\, j}^{n} - T_{i-1,\,j}^{n}}{2 \Delta x}.\]</div>
+<p>The <em>x-gradient kernel</em> below, is shown below, and is reminiscent of the <em>edge-detection</em> or <em>sharpening</em> kernels used in image processing and machine learning:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1be3c3de22cf644408e9478121d9b0d3c08deaf8133b0732865736c4eec0f25f.png" src="_images/1be3c3de22cf644408e9478121d9b0d3c08deaf8133b0732865736c4eec0f25f.png" />
+</div>
+</div>
+<p>The first-order partial derivative in <span class="math notranslate nohighlight">\(y\)</span> is similarly discretized as:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial T(x_{i}, y_{j}, t_{n})}{\partial y} \approx \frac{T_{i,\, j+1}^{n} - T_{i,\,j-1}^{n}}{2 \Delta y}.\]</div>
+<p>Its kernel is shown below (row <span class="math notranslate nohighlight">\(j+1\)</span> lies to the north, so it is drawn at the top).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b65b829a4abefb6153d9a5936e0b1ebe98b15c77b1e3030dd24b864e65aec089.png" src="_images/b65b829a4abefb6153d9a5936e0b1ebe98b15c77b1e3030dd24b864e65aec089.png" />
+</div>
+</div>
+<p>Now that we have discretized the two derivative terms, we can write out the <em>advective tendency</em> for computing <span class="math notranslate nohighlight">\(T_{i,\, j}^{n+1}\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[-\left(u\frac{\partial T}{\partial x} + v\frac{\partial T}{\partial y}\right) \approx -\left( u_{i,\, j} \frac{T_{i+1,\, j}^{n} - T_{i-1,\,j}^{n}}{2 \Delta x} + v_{i,\, j} \frac{T_{i,\, j+1}^{n} - T_{i,\,j-1}^{n}}{2 \Delta y} \right).\]</div>
+<p>We implement this as the <code class="docutils literal notranslate"><span class="pre">advect</span></code> function. It computes the advective tendency of every interior grid cell <span class="math notranslate nohighlight">\((i,j)\)</span> by sliding the two kernels over the temperature field.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xkernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">xkernel</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ykernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">ykernel</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">advect</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">deltax</span><span class="p">,</span> <span class="n">deltay</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Advective tendency  -(u dT/dx + v dT/dy)  of the interior cells."""</span>
+    <span class="n">T_advect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">dTdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">xkernel</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">deltax</span><span class="p">)</span>
+            <span class="n">dTdy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ykernel</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">deltay</span><span class="p">)</span>
+            <span class="n">T_advect</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">dTdx</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">dTdy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">T_advect</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="discretizing-diffusion-in-two-dimensions">
+<h2>2.2) Discretizing diffusion in two dimensions<a class="headerlink" href="#discretizing-diffusion-in-two-dimensions" title="Link to this heading">#</a></h2>
+<p>Just as with advection, the process for discretizing the diffusion operators effectively consists of repeating the one-dimensional process for <span class="math notranslate nohighlight">\(x\)</span> in a second dimension <span class="math notranslate nohighlight">\(y\)</span>, separately:</p>
+<div class="math notranslate nohighlight">
+\[\kappa \left( \frac{\partial^{2} T}{\partial x^{2}} + \frac{\partial^{2} T}{\partial y^{2}} \right) = \kappa \left(
+\frac{T_{i+1,\;j}^{n} - 2T_{i,\;j}^{n} + T_{i-1,\;j}^{n}}{\left( \Delta x \right)^{2}} +
+\frac{T_{i,\;j+1}^{n} - 2T_{i,\;j}^{n} + T_{i,\;j-1}^{n}}{\left( \Delta y \right)^{2}}
+\right)\]</div>
+<p>The corresponding <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> second-derivative kernels are shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cd509b8e94139f6f49262ed7e5c089bb2f7cb872fdf2bb6c45fd8dfcd473f77a.png" src="_images/cd509b8e94139f6f49262ed7e5c089bb2f7cb872fdf2bb6c45fd8dfcd473f77a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/60fb3fd54ef47515781f6718f889ec11bc47d51c1fe6902a14b8afe9f2402a64.png" src="_images/60fb3fd54ef47515781f6718f889ec11bc47d51c1fe6902a14b8afe9f2402a64.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xkernel_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">xkernel_diff</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ykernel_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">ykernel_diff</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Just as we did with advection, we implement a <code class="docutils literal notranslate"><span class="pre">diffuse</span></code> function that slides these kernels over the temperature field:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">diffuse</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">kappa</span><span class="p">,</span> <span class="n">deltax</span><span class="p">,</span> <span class="n">deltay</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Diffusive tendency  kappa (d2T/dx2 + d2T/dy2)  of the interior cells."""</span>
+    <span class="n">T_diffuse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">d2Tdx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">xkernel_diff</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">deltax</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">d2Tdy2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ykernel_diff</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">deltay</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">T_diffuse</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">kappa</span> <span class="o">*</span> <span class="p">(</span><span class="n">d2Tdx2</span> <span class="o">+</span> <span class="n">d2Tdy2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">T_diffuse</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="no-flux-boundary-conditions">
+<h2>2.3) No-flux boundary conditions<a class="headerlink" href="#no-flux-boundary-conditions" title="Link to this heading">#</a></h2>
+<p>The ocean basin has walls, so the total flux of temperature through each boundary must vanish:</p>
+<p><span class="math notranslate nohighlight">\(u\,T - \kappa\dfrac{\partial T}{\partial x} = 0\)</span> at the <span class="math notranslate nohighlight">\(x\)</span> boundaries and</p>
+<p><span class="math notranslate nohighlight">\(v\,T - \kappa\dfrac{\partial T}{\partial y} = 0\)</span> at the <span class="math notranslate nohighlight">\(y\)</span> boundaries.</p>
+<p>The flow itself does not cross a wall (<span class="math notranslate nohighlight">\(u = 0\)</span> at the <span class="math notranslate nohighlight">\(x\)</span> boundaries and <span class="math notranslate nohighlight">\(v = 0\)</span> at the <span class="math notranslate nohighlight">\(y\)</span> boundaries), so these conditions reduce to <span class="math notranslate nohighlight">\(\partial T/\partial x = 0\)</span> and <span class="math notranslate nohighlight">\(\partial T/\partial y = 0\)</span> there.</p>
+<p>To impose this, we surround the basin with a ring of <em>ghost cells</em> (the outermost rows and columns of the array), which do not represent ocean but help us impose the boundary conditions. Discretely, the boundary flux between the first column (the ghost cell, <span class="math notranslate nohighlight">\(i=1\)</span>) and the second column (<span class="math notranslate nohighlight">\(i=2\)</span>) vanishes if</p>
+<p><span class="math notranslate nohighlight">\(\dfrac{T_{2,\,j}^{n} -T_{1,\,j}^{n}}{\Delta x} = 0\)</span> or</p>
+<p><span class="math notranslate nohighlight">\(T_{1,\,j}^{n} = T_{2,\,j}^{n}.\)</span></p>
+<p>Thus, we can implement the boundary conditions by updating the temperature of the ghost cells to match their interior-point neighbors:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">update_ghostcells</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+    <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">var</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">var</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">var</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">var</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Random field before updating the ghost cells"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/aee49788958849f2442c34e09cb89529ccb3b93da30c8f4938d923da73556513.png" src="_images/aee49788958849f2442c34e09cb89529ccb3b93da30c8f4938d923da73556513.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">update_ghostcells</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"After: the outer ring copies its inner neighbors"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/86c68aeb3b2c0c70c8d56e5297726e1c69588f61409566f68b5d324d50e91f83.png" src="_images/86c68aeb3b2c0c70c8d56e5297726e1c69588f61409566f68b5d324d50e91f83.png" />
+</div>
+</div>
+</section>
+<section id="timestepping">
+<h2>2.4) Timestepping<a class="headerlink" href="#timestepping" title="Link to this heading">#</a></h2>
+<p>With the two tendencies and the boundary condition in hand, we march the temperature forward in time with the <em>forward Euler</em> scheme used in Lecture 9:</p>
+<div class="math notranslate nohighlight">
+\[T_{i,j}^{n+1} = T_{i,j}^{n} + \Delta t \left[ \text{advect}(T^{n}) + \text{diffuse}(T^{n}) \right]_{i,j}.\]</div>
+<p>At every step the ghost cells are updated <strong>first</strong>, so that the tendencies are computed from a field that already satisfies the no-flux condition, and once more after the step. We wrap the algorithm in an <code class="docutils literal notranslate"><span class="pre">OceanModel</span></code> class that stores the whole history of the temperature field.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">OceanModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Temperature in a closed ocean basin, advected by the wind-driven flow (u, v) and diffused by kappa."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">windfield</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">kappa</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">windfield</span><span class="o">.</span><span class="n">u</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">windfield</span><span class="o">.</span><span class="n">v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">deltax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">deltay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span> <span class="o">=</span> <span class="n">deltat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kappa</span> <span class="o">=</span> <span class="n">kappa</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">advect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">advect</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">diffuse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">diffuse</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kappa</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">timestep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">update_ghostcells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>      <span class="c1"># impose no-flux before computing the tendencies</span>
+        <span class="n">tendencies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">advect</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffuse</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">T_new</span> <span class="o">=</span> <span class="n">update_ghostcells</span><span class="p">(</span><span class="n">T</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span> <span class="o">*</span> <span class="n">tendencies</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T_new</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">grid</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Creates the grid of the ocean model.</span>
+
+<span class="sd">    N: number of grid cells across the width of the basin (the basin is N x 2N cells)</span>
+<span class="sd">    L: width of the basin [m]; its length is 2L (y runs from -L to L)</span>
+<span class="sd">    """</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">L</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span> <span class="o">=</span> <span class="n">L</span> <span class="o">/</span> <span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span> <span class="o">=</span> <span class="n">L</span> <span class="o">/</span> <span class="n">N</span>
+        <span class="c1"># cell centers, including one ghost cell on every side</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xs</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ys</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">deltay</span> <span class="o">-</span> <span class="n">L</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Nx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ny</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">windfield</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Wind-driven ocean flow.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    ------</span>
+<span class="sd">    grid: class grid()</span>
+<span class="sd">    option: "zero" or "single_gyre"</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s2">"zero"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="s2">"zero"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="s2">"single_gyre"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">single_gyre</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">option</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Initialize a <span class="math notranslate nohighlight">\(10 \times 20\)</span> grid domain (10 cells across, 20 cells along) with <span class="math notranslate nohighlight">\(L=6000000\)</span> m and a windfield where all velocities are set to zero.
+This should result in diffusion only.</p>
+<p>Initialize the temperature field with a rectangular non-zero box.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_grid</span> <span class="o">=</span> <span class="n">grid</span><span class="p">(</span><span class="n">N</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">L</span> <span class="o">=</span> <span class="mf">6e6</span><span class="p">)</span>
+<span class="n">my_wind</span> <span class="o">=</span> <span class="n">windfield</span><span class="p">(</span><span class="n">my_grid</span><span class="p">,</span> <span class="n">option</span> <span class="o">=</span> <span class="s2">"zero"</span><span class="p">)</span>
+<span class="n">my_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">my_grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="n">my_temp</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(22, 12)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">xs</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">ys</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_temp</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">"Temperature anomaly [°C]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Kilometers North"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Kilometers East"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/88a219d8d5c28b9bca5b808adec127c88c2c6ad1ce6f9aa3d57400668922435b.png" src="_images/88a219d8d5c28b9bca5b808adec127c88c2c6ad1ce6f9aa3d57400668922435b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">deltat</span> <span class="o">=</span> <span class="mi">12</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span> <span class="c1"># 12 Hours</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_func</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">windfield</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">kappa</span><span class="p">,</span> <span class="n">anomaly</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="n">my_model</span> <span class="o">=</span> <span class="n">OceanModel</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span>
+                      <span class="n">deltat</span><span class="o">=</span><span class="n">deltat</span><span class="p">,</span>
+                      <span class="n">windfield</span><span class="o">=</span><span class="n">windfield</span><span class="p">,</span>
+                      <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span>
+                      <span class="n">kappa</span> <span class="o">=</span> <span class="n">kappa</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+        <span class="n">my_model</span><span class="o">.</span><span class="n">timestep</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">anomaly</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># change over the most recent time step</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">xs</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">ys</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_model</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">my_model</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu_r</span><span class="p">,</span>
+                  <span class="n">vmin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">shading</span> <span class="o">=</span> <span class="s2">"nearest"</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s2">"Change per time step [°C]"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">xs</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">ys</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_model</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shading</span> <span class="o">=</span> <span class="s2">"nearest"</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s2">"Temperature anomaly [°C]"</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">windfield</span><span class="o">.</span><span class="n">u</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">X</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">Y</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">windfield</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="n">windfield</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Kilometers North"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Kilometers East"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Time: </span><span class="si">{:.1f}</span><span class="s2"> days"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">my_model</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="n">plot_func</span><span class="p">,</span>
+         <span class="n">temp</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">my_temp</span><span class="p">),</span>
+         <span class="n">deltat</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">deltat</span><span class="p">),</span>
+         <span class="n">windfield</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">my_wind</span><span class="p">),</span>
+         <span class="n">grid</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">my_grid</span><span class="p">),</span>
+         <span class="n">kappa</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="mf">1e4</span><span class="p">),</span>
+         <span class="n">anomaly</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s2">"Anomaly"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+         <span class="n">steps</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Timesteps"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4975bfe4583c4ad68113ea8ffd47dbbf", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="create-a-single-gyre-windfield">
+<h2>Create a single-gyre windfield<a class="headerlink" href="#create-a-single-gyre-windfield" title="Link to this heading">#</a></h2>
+<p>The flow is derived from a <em>streamfunction</em> <span class="math notranslate nohighlight">\(\psi\)</span> by <span class="math notranslate nohighlight">\(u = \partial \psi / \partial y\)</span> and <span class="math notranslate nohighlight">\(v = -\partial \psi / \partial x\)</span>. Any flow defined this way is automatically non-divergent, <span class="math notranslate nohighlight">\(\partial u/\partial x + \partial v/\partial y = 0\)</span>, as assumed in Section 1.2.</p>
+<p>The walls of the basin must also be impermeable, so that the flow carries no temperature through the no-flux boundaries of Section 2.3. This is guaranteed if <span class="math notranslate nohighlight">\(\psi\)</span> is <strong>zero along all four walls</strong>, because a wall is then a streamline. A simple choice is</p>
+<div class="math notranslate nohighlight">
+\[\psi(x,y) = -\psi_0 \,\sin\!\left(\frac{\pi x}{L}\right)\sin\!\left(\frac{\pi (y+L)}{2L}\right),\]</div>
+<p>which gives one clockwise gyre filling the basin. We evaluate <span class="math notranslate nohighlight">\(\psi\)</span> at the cell corners, so that differencing it gives velocities at the cell centers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">diagnose_velocities</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Cell-center velocities u = d(stream)/dy, v = -d(stream)/dx from a corner-based streamfunction."""</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">stream</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">stream</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">G</span><span class="o">.</span><span class="n">deltax</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">stream</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="n">G</span><span class="o">.</span><span class="n">deltay</span>
+
+    <span class="n">u</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">dy</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">dx</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+
+    <span class="k">return</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">impose_no_flux</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">u</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">u</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">single_gyre</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">psi0</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Single gyre filling the basin; psi0 [m2/s] sets its strength (peak speed is about pi*psi0/L)."""</span>
+    <span class="n">xc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">xs</span> <span class="o">-</span> <span class="n">G</span><span class="o">.</span><span class="n">deltax</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">G</span><span class="o">.</span><span class="n">deltax</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># cell corners</span>
+    <span class="n">yc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">ys</span> <span class="o">-</span> <span class="n">G</span><span class="o">.</span><span class="n">deltay</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">G</span><span class="o">.</span><span class="n">deltay</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">stream</span> <span class="o">=</span> <span class="o">-</span><span class="n">psi0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">xc</span> <span class="o">/</span> <span class="n">G</span><span class="o">.</span><span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">yc</span> <span class="o">+</span> <span class="n">G</span><span class="o">.</span><span class="n">L</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">L</span><span class="p">))</span>
+
+    <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">diagnose_velocities</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">impose_no_flux</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_wind</span> <span class="o">=</span> <span class="n">windfield</span><span class="p">(</span><span class="n">my_grid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s2">"single_gyre"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">X</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">Y</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_wind</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> <span class="n">my_wind</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Kilometers East"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Kilometers North"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Single-gyre windfield"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2c5d30d14570fdc4f46c46bf039b1d17c26224214bed27d30db7e45d5b445925.png" src="_images/2c5d30d14570fdc4f46c46bf039b1d17c26224214bed27d30db7e45d5b445925.png" />
+</div>
+</div>
+<p>Before running the gyre we check the numerical scheme. Forward Euler with centered differences is only conditionally stable. The <strong>diffusion number</strong> <span class="math notranslate nohighlight">\(\mathrm{d} = \kappa\,\Delta t\,(1/\Delta x^{2} + 1/\Delta y^{2})\)</span> must be below <span class="math notranslate nohighlight">\(1/2\)</span>, and the <strong>grid Péclet number</strong> <span class="math notranslate nohighlight">\(\mathrm{Pe} = |\vec{u}|\,\Delta x / \kappa\)</span> should be below about <span class="math notranslate nohighlight">\(2\)</span>, otherwise the centered advection scheme produces spurious oscillations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kappa</span> <span class="o">=</span> <span class="mf">3e4</span>     <span class="c1"># diffusivity [m2/s]</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">my_wind</span><span class="o">.</span><span class="n">u</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">my_wind</span><span class="o">.</span><span class="n">v</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"peak speed          = </span><span class="si">{</span><span class="n">speed</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> cm/s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"diffusion number d  = </span><span class="si">{</span><span class="n">kappa</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">deltat</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">my_grid</span><span class="o">.</span><span class="n">deltax</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="n">my_grid</span><span class="o">.</span><span class="n">deltay</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   (must be &lt; 0.5)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid Peclet number  = </span><span class="si">{</span><span class="n">speed</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">my_grid</span><span class="o">.</span><span class="n">deltax</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">kappa</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">   (should be &lt; 2)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>peak speed          = 5.1 cm/s
+diffusion number d  = 0.007   (must be &lt; 0.5)
+grid Peclet number  = 1.02   (should be &lt; 2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">my_grid</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="n">my_temp</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">my_grid</span><span class="o">.</span><span class="n">xs</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_grid</span><span class="o">.</span><span class="n">ys</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">my_temp</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">"Temperature anomaly [°C]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Kilometers North"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Kilometers East"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/63121a9f7a992e6e92f08aa5cd1e1405eecf7c727b245f45f6b06507e2caae37.png" src="_images/63121a9f7a992e6e92f08aa5cd1e1405eecf7c727b245f45f6b06507e2caae37.png" />
+</div>
+</div>
+<p>Move the sliders to watch the band of warm water being carried round the basin by the gyre while diffusion smooths it. The stability check above used <span class="math notranslate nohighlight">\(\kappa = 3\times10^{4}\)</span> m<span class="math notranslate nohighlight">\(^2\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span>. If you lower <span class="math notranslate nohighlight">\(\kappa\)</span> to <span class="math notranslate nohighlight">\(10^{4}\)</span> m<span class="math notranslate nohighlight">\(^2\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span> the grid Péclet number rises to about 3, and the temperature develops small spurious over- and undershoots (values slightly below 0 or above 1) next to the sharp edges of the band.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="n">plot_func</span><span class="p">,</span>
+         <span class="n">temp</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">my_temp</span><span class="p">),</span>
+         <span class="n">deltat</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">deltat</span><span class="p">),</span>
+         <span class="n">windfield</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">my_wind</span><span class="p">),</span>
+         <span class="n">grid</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">my_grid</span><span class="p">),</span>
+         <span class="n">kappa</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"kappa"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mf">3e4</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">readout_format</span><span class="o">=</span><span class="s2">".0f"</span><span class="p">),</span>
+         <span class="n">anomaly</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s2">"Anomaly"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+         <span class="n">steps</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Timesteps"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8ea259bd55c04afe8ad8a56305bf8da6", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>Optional: create two gyres! Replace <span class="math notranslate nohighlight">\(\sin(\pi(y+L)/2L)\)</span> in the streamfunction by <span class="math notranslate nohighlight">\(\sin(\pi(y+L)/L)\)</span>, which gives two counter-rotating cells, and check that the temperature stays confined to the basin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Adapted from the 2-D advection–diffusion / ocean-heat-transport lecture in the MIT
+course
+<a class="reference external" href="https://computationalthinking.mit.edu"><em>Introduction to Computational Thinking</em></a>
+(Edelman, Sanders &amp; van der Plas; climate lectures by Henri Drake — original
+code, in Julia:
+<a class="reference external" href="https://github.com/hdrake/simplEarth/blob/master/4_ocean_heat_transport.jl">simplEarth</a>),
+by way of the
+<a class="reference external" href="https://github.com/florianboergel/climateoftheocean"><em>Climate of the Ocean</em></a> course,
+for <strong>CE524 Applied Hydroclimatology</strong>.</p>
+<p>Text under CC BY-SA 4.0; full attribution and per-lecture provenance in
+<a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-10-advection-diffusion-in-rivers.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 10, Advection and diffusion in a river</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-12-contaminant-transport-in-a-reservoir.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 12, Contaminant transport in a reservoir</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 11, Heat transports</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#background-two-dimensional-advection-diffusion">1) Background: two-dimensional advection-diffusion</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-advection-diffusion-equation">1.1) The two-dimensional advection-diffusion equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flux-form-shorthand-notation-and-the-advective-form">1.2) Flux form, shorthand notation, and the advective form</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-flux-form-to-the-advective-form">From the flux form to the advective form</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-implementation">2) Numerical implementation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discretizing-advection-in-two-dimensions">2.1) Discretizing advection in two dimensions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discretizing-diffusion-in-two-dimensions">2.2) Discretizing diffusion in two dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#no-flux-boundary-conditions">2.3) No-flux boundary conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timestepping">2.4) Timestepping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-single-gyre-windfield">Create a single-gyre windfield</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

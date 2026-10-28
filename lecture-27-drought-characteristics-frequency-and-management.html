@@ -1,0 +1,1216 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-27-drought-characteristics-frequency-and-management';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercise 3, Python for data analysis" href="exercise-03-introduction-to-python.html" />
+    <link rel="prev" title="Lecture 26, Droughts I: definitions and drought indices" href="lecture-26-droughts-definitions-and-indices.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-24-floods-extremes-and-return-periods.html">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-25-flood-frequency-analysis-and-design-floods.html">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-26-droughts-definitions-and-indices.html">Lecture 26, Droughts I: definitions and drought indices</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-27-drought-characteristics-frequency-and-management.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-27-drought-characteristics-frequency-and-management.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-27-drought-characteristics-frequency-and-management.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-27-drought-characteristics-frequency-and-management.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-theory-of-runs">1) The theory of runs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drought-events-on-the-chattooga">2) Drought events on the Chattooga</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drought-frequency">3) Drought frequency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-change-and-droughts">4) Climate change and droughts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drought-declaration-and-management-in-india">5) Drought declaration and management in India</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-27-droughts-ii-theory-of-runs-drought-frequency-climate-change-and-management-in-india">
+<h1>Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India<a class="headerlink" href="#lecture-27-droughts-ii-theory-of-runs-drought-frequency-climate-change-and-management-in-india" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Turning an index into drought events, asking how often they come back, how warming changes them, and how India declares and manages them</p>
+</div></blockquote>
+<p>Lecture 26 gave us drought indices: a number for every month that says how dry it was. A manager needs more: <em>when did the drought start and end, how much water was missing in total, and how often should we expect a drought this bad?</em> The <strong>theory of runs</strong> of Yevjevich (1967) answers the first two questions, simple frequency analysis the third. We then see how a warmer climate makes droughts worse even without less rain, and how the Government of India declares and manages a drought.</p>
+<p>By the end of this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>identify drought events in a monthly series with a threshold and compute their duration <span class="math notranslate nohighlight">\(D\)</span>, severity <span class="math notranslate nohighlight">\(S\)</span>, intensity <span class="math notranslate nohighlight">\(I\)</span> and inter-arrival time <span class="math notranslate nohighlight">\(L\)</span>,</p></li>
+<li><p>estimate the return period of a drought from the record and from a fitted exponential distribution,</p></li>
+<li><p>explain, with the SPEI, why warming makes droughts more severe even when rainfall is unchanged,</p></li>
+<li><p>describe the indicators, triggers and roles in India’s Manual for Drought Management.</p></li>
+</ul>
+<p>The workbook <code class="docutils literal notranslate"><span class="pre">data/extremes/lec27/lec27_worked_examples.xlsx</span></code> repeats the hand example (sheet <code class="docutils literal notranslate"><span class="pre">Runs</span></code>) and the frequency analysis of the Chattooga streamflow droughts (sheet <code class="docutils literal notranslate"><span class="pre">Frequency</span></code>). The running dataset is the Chattooga River record of Lectures 7, 10 and 26.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas scipy matplotlib
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">gamma</span> <span class="k">as</span> <span class="n">gamma_fn</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"figure.dpi"</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">"axes.grid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"grid.alpha"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s2">"axes.spines.top"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"axes.spines.right"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="words-you-need">
+<h2>Words you need<a class="headerlink" href="#words-you-need" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Threshold</strong> <span class="math notranslate nohighlight">\(x_0\)</span>: the line that separates “drought” from “not drought”, for example SPI <span class="math notranslate nohighlight">\(=-1\)</span> or a low flow.</p></li>
+<li><p><strong>Run</strong>: an unbroken sequence of months on the same side of the threshold. A <em>negative run</em> (below the threshold) is a drought event.</p></li>
+<li><p><strong>Deficit</strong>: how far one month falls below the threshold, <span class="math notranslate nohighlight">\(x_0-x_t\)</span>. Adding the deficits of a run gives the <strong>severity</strong>.</p></li>
+<li><p><strong>Percentile and Q80</strong>: the flow that is exceeded in 80 % of months (the 20th percentile of the flows). It is a common low-flow threshold.</p></li>
+<li><p><strong>Return period</strong> <span class="math notranslate nohighlight">\(T\)</span>: the average time between events at least as severe as a given one. “A 25-year drought” is expected once in 25 years on average, not once every 25 years like a clock.</p></li>
+<li><p><strong>Exponential distribution</strong>: the simplest curve for positive amounts where small values are common and large ones rare; it has one parameter, its mean (Lecture 17).</p></li>
+<li><p><strong>Copula</strong>: a tool that joins two distributions (here duration and severity) into one joint probability. We only name it.</p></li>
+</ul>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>The run symbols follow Yevjevich (1967) and Mishra &amp; Singh (2010); the index symbols are those of Lecture 26.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Units</p></th>
+<th class="head text-left"><p>Code / spreadsheet</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(x_t\)</span></p></td>
+<td class="text-left"><p>the drought variable in month <span class="math notranslate nohighlight">\(t\)</span> (SPI-3, or monthly flow)</p></td>
+<td class="text-left"><p>-, mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(x_0\)</span></p></td>
+<td class="text-left"><p>threshold</p></td>
+<td class="text-left"><p>-, mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x0</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(j\)</span></p></td>
+<td class="text-left"><p>event number</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">j</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(D_j\)</span></p></td>
+<td class="text-left"><p>duration: number of months in run <span class="math notranslate nohighlight">\(j\)</span></p></td>
+<td class="text-left"><p>months</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">D</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(S_j\)</span></p></td>
+<td class="text-left"><p>severity: cumulative deficit, <span class="math notranslate nohighlight">\(\sum (x_0-x_t)\)</span> over the run</p></td>
+<td class="text-left"><p>-, mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">S</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(I_j\)</span></p></td>
+<td class="text-left"><p>intensity, <span class="math notranslate nohighlight">\(S_j/D_j\)</span></p></td>
+<td class="text-left"><p>-, mm/month</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">I</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(L_j\)</span></p></td>
+<td class="text-left"><p>inter-arrival time: months from the start of event <span class="math notranslate nohighlight">\(j\)</span> to the start of event <span class="math notranslate nohighlight">\(j+1\)</span></p></td>
+<td class="text-left"><p>months</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">L</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(t_c\)</span></p></td>
+<td class="text-left"><p>pooling gap: events separated by <span class="math notranslate nohighlight">\(t_c\)</span> months or less are merged</p></td>
+<td class="text-left"><p>months</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">tc</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(N_y\)</span>, <span class="math notranslate nohighlight">\(n_e\)</span></p></td>
+<td class="text-left"><p>record length; number of events</p></td>
+<td class="text-left"><p>years, -</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Ny</span></code>, <code class="docutils literal notranslate"><span class="pre">ne</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\lambda=n_e/N_y\)</span></p></td>
+<td class="text-left"><p>events per year</p></td>
+<td class="text-left"><p>1/yr</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">lam</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(m\)</span></p></td>
+<td class="text-left"><p>number of events with severity at least <span class="math notranslate nohighlight">\(s\)</span></p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td class="text-left"><p>return period</p></td>
+<td class="text-left"><p>years</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">T</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar S\)</span></p></td>
+<td class="text-left"><p>mean severity, the exponential parameter</p></td>
+<td class="text-left"><p>-, mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">S_bar</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(s_T\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(T\)</span>-year severity</p></td>
+<td class="text-left"><p>-, mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">s_T</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(W=P-PET\)</span>, <span class="math notranslate nohighlight">\(\Delta T\)</span></p></td>
+<td class="text-left"><p>water balance (Lecture 26); warming</p></td>
+<td class="text-left"><p>mm, degC</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">W</span></code>, <code class="docutils literal notranslate"><span class="pre">dT</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For flow, <span class="math notranslate nohighlight">\(x_t\)</span> is the monthly runoff depth in mm, so <span class="math notranslate nohighlight">\(S\)</span> is a missing water depth over the catchment; 1 mm over 536 km2 is 0.536 million m3.</p>
+</section>
+<section id="the-theory-of-runs">
+<h2>1) The theory of runs<a class="headerlink" href="#the-theory-of-runs" title="Link to this heading">#</a></h2>
+<p>Yevjevich (1967) proposed a simple way to cut a time series into events. Draw a horizontal line at the threshold <span class="math notranslate nohighlight">\(x_0\)</span>. Every unbroken stretch of months <strong>below</strong> the line is a drought event (a negative run). For event <span class="math notranslate nohighlight">\(j\)</span>:</p>
+<ul class="simple">
+<li><p><strong>duration</strong> <span class="math notranslate nohighlight">\(D_j\)</span> = the number of months in the run,</p></li>
+<li><p><strong>severity</strong> <span class="math notranslate nohighlight">\(S_j\)</span> = the sum of the monthly deficits,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[S_j=\sum_{t\,\in\,\text{run } j}\left(x_0-x_t\right),\]</div>
+<ul class="simple">
+<li><p><strong>intensity</strong> <span class="math notranslate nohighlight">\(I_j=S_j/D_j\)</span>, the average deficit per month,</p></li>
+<li><p><strong>inter-arrival time</strong> <span class="math notranslate nohighlight">\(L_j\)</span> = the time from the start of one event to the start of the next.</p></li>
+</ul>
+<p>The choice of <span class="math notranslate nohighlight">\(x_0\)</span> decides everything. With the SPI, <span class="math notranslate nohighlight">\(x_0=-1\)</span> (moderately dry) is common, and <span class="math notranslate nohighlight">\(x_0=0\)</span> is also used. With flow, a fixed low-flow percentile such as Q80 or Q90 is common; a threshold that changes with the calendar month is a refinement used when the seasonal cycle is strong.</p>
+<p>Two practical rules. <strong>Pooling:</strong> two runs separated by a short wet spell (here <span class="math notranslate nohighlight">\(t_c=1\)</span> month or less) are really one drought, so they are merged; the merged event runs from the start of the first to the end of the second, and its severity is the sum of the two severities (the inter-event time method). <strong>Minor events:</strong> one-month runs with a tiny deficit are often dropped, because they inflate the number of events without mattering.</p>
+<div class="tip admonition">
+<p class="admonition-title">Worked example (by hand): drought events in 18 months of runoff</p>
+<p><strong>Problem.</strong> Monthly runoff (mm) of an invented small catchment, months <span class="math notranslate nohighlight">\(t=1\)</span> to 18: <strong>52, 41, 27, 22, 35, 48, 60, 33, 26, 18, 12, 21, 29, 44, 38, 24, 31, 55</strong>. The threshold is <span class="math notranslate nohighlight">\(x_0=30\)</span> mm. Find the drought events, their <span class="math notranslate nohighlight">\(D\)</span>, <span class="math notranslate nohighlight">\(S\)</span>, <span class="math notranslate nohighlight">\(I\)</span> and <span class="math notranslate nohighlight">\(L\)</span>, the largest event, and its empirical return period. (Workbook: sheet <code class="docutils literal notranslate"><span class="pre">Runs</span></code>.)</p>
+<p><strong>Step 1, mark the months below the threshold.</strong> <em>Why:</em> these are the drought months. Below 30 mm: <span class="math notranslate nohighlight">\(t=3\)</span> (27), 4 (22), 9 (26), 10 (18), 11 (12), 12 (21), 13 (29) and 16 (24).</p>
+<p><strong>Step 2, group them into runs.</strong> <em>Why:</em> an event is an unbroken stretch. Run 1 = months 3 to 4; run 2 = months 9 to 13; run 3 = month 16. The gaps between them (4 and 2 months) are longer than <span class="math notranslate nohighlight">\(t_c=1\)</span>, so nothing is pooled.</p>
+<p><strong>Step 3, deficits <span class="math notranslate nohighlight">\(x_0-x_t\)</span> and severity.</strong>
+Event 1: <span class="math notranslate nohighlight">\((30-27)+(30-22)=3+8=11\)</span> mm.
+Event 2: <span class="math notranslate nohighlight">\((30-26)+(30-18)+(30-12)+(30-21)+(30-29)=4+12+18+9+1=44\)</span> mm.
+Event 3: <span class="math notranslate nohighlight">\(30-24=6\)</span> mm.</p>
+<p><strong>Step 4, duration and intensity.</strong> Event 1: <span class="math notranslate nohighlight">\(D=2\)</span>, <span class="math notranslate nohighlight">\(I=11/2=5.5\)</span> mm/month. Event 2: <span class="math notranslate nohighlight">\(D=5\)</span>, <span class="math notranslate nohighlight">\(I=44/5=8.8\)</span> mm/month. Event 3: <span class="math notranslate nohighlight">\(D=1\)</span>, <span class="math notranslate nohighlight">\(I=6/1=6.0\)</span> mm/month.</p>
+<p><strong>Step 5, inter-arrival times.</strong> Starts at <span class="math notranslate nohighlight">\(t=3\)</span>, 9, 16, so <span class="math notranslate nohighlight">\(L_1=9-3=6\)</span> and <span class="math notranslate nohighlight">\(L_2=16-9=7\)</span> months.</p>
+<p><strong>Step 6, the largest event.</strong> Event 2 is the longest, the most severe and the most intense: 5 months, 44 mm, 8.8 mm/month.</p>
+<p><strong>Step 7, empirical return period.</strong> <em>Why:</em> how often is an event at least this severe? With record length <span class="math notranslate nohighlight">\(N_y=18/12=1.5\)</span> years and <span class="math notranslate nohighlight">\(m\)</span> events with <span class="math notranslate nohighlight">\(S\ge s\)</span>, <span class="math notranslate nohighlight">\(T=N_y/m\)</span>. For <span class="math notranslate nohighlight">\(s=44\)</span> mm, <span class="math notranslate nohighlight">\(m=1\)</span> and <span class="math notranslate nohighlight">\(T=1.5\)</span> years; for <span class="math notranslate nohighlight">\(s=11\)</span> mm, <span class="math notranslate nohighlight">\(m=2\)</span> and <span class="math notranslate nohighlight">\(T=0.75\)</span> years. (A record of 18 months is far too short for real frequency work; the point is the arithmetic.)</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">runs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Theory of runs: drought events (negative runs below x0) of a monthly series with its date index."""</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dropna</span><span class="p">();</span> <span class="n">below</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">x0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">events</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="p">[],</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">below</span><span class="p">[</span><span class="n">t</span><span class="p">]:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">t</span>
+            <span class="k">while</span> <span class="n">u</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="n">below</span><span class="p">[</span><span class="n">u</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">u</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"start"</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="s2">"end"</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">u</span><span class="p">],</span> <span class="s2">"D"</span><span class="p">:</span> <span class="n">u</span> <span class="o">-</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"S"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x0</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">t</span><span class="p">:</span><span class="n">u</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))})</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">u</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">ev</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+    <span class="n">ev</span><span class="p">[</span><span class="s2">"I"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">S</span> <span class="o">/</span> <span class="n">ev</span><span class="o">.</span><span class="n">D</span>
+    <span class="k">return</span> <span class="n">ev</span>
+
+<span class="c1"># Hand example: months 1..18 as the index</span>
+<span class="n">x_hand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">52</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">))</span>
+<span class="n">ev_hand</span> <span class="o">=</span> <span class="n">runs</span><span class="p">(</span><span class="n">x_hand</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">)</span>
+<span class="n">ev_hand</span><span class="p">[</span><span class="s2">"L"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ev_hand</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">ev_hand</span><span class="o">.</span><span class="n">start</span>            <span class="c1"># inter-arrival time (months)</span>
+<span class="n">Ny</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_hand</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
+<span class="n">ev_hand</span><span class="p">[</span><span class="s2">"T_emp"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">Ny</span> <span class="o">/</span> <span class="p">(</span><span class="n">ev_hand</span><span class="o">.</span><span class="n">S</span> <span class="o">&gt;=</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ev_hand</span><span class="o">.</span><span class="n">S</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ev_hand</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> start  end  D    S   I   L  T_emp
+     3    4  2 11.0 5.5 6.0   0.75
+     9   13  5 44.0 8.8 7.0   1.50
+    16   16  1  6.0 6.0 NaN   0.50
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Figure 1: the hand example</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_hand</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">x_hand</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x_hand</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">"tab:red"</span><span class="p">,</span> <span class="s2">"tab:blue"</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="s2">"$x_0$ = 30 mm"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">ev_hand</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s2">"D=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">D</span><span class="p">)</span><span class="si">}</span><span class="s2">, S=</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">S</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="p">((</span><span class="n">e</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">end</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">63</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"month $t$"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"runoff $x_t$ (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_hand</span><span class="o">.</span><span class="n">index</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">68</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/82d1ae977fe77a4048ea56cd8b7d3b2c692507603c4fdf2bc096e6f5fc1edb2f.png" src="_images/82d1ae977fe77a4048ea56cd8b7d3b2c692507603c4fdf2bc096e6f5fc1edb2f.png" />
+</div>
+</div>
+</section>
+<section id="drought-events-on-the-chattooga">
+<h2>2) Drought events on the Chattooga<a class="headerlink" href="#drought-events-on-the-chattooga" title="Link to this heading">#</a></h2>
+<p>We apply the runs to two variables from Lecture 26: the <strong>SPI-3</strong> with <span class="math notranslate nohighlight">\(x_0=-1\)</span> (meteorological drought) and the <strong>monthly runoff</strong> with <span class="math notranslate nohighlight">\(x_0=\)</span> Q80 (hydrological drought). The SPI code is the one of Lecture 26.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/chattooga_daily.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"date"</span><span class="p">)</span>
+<span class="n">mon</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s2">"prcp_mm"</span><span class="p">:</span> <span class="s2">"sum"</span><span class="p">,</span> <span class="s2">"tmean_c"</span><span class="p">:</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"pet_mm"</span><span class="p">:</span> <span class="s2">"sum"</span><span class="p">,</span> <span class="s2">"q_mm"</span><span class="p">:</span> <span class="s2">"sum"</span><span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">spi_values</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                       <span class="c1"># Lecture 26: Thom's gamma fit, zeros, transform to z</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="n">xp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">ok</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xp</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xp</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">A</span> <span class="o">/</span> <span class="mi">3</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ok</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">xp</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">alpha</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">spi</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">xk</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">();</span> <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">series</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">xk</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="n">month</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span> <span class="o">=</span> <span class="n">spi_values</span><span class="p">(</span><span class="n">xk</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="n">spi3</span> <span class="o">=</span> <span class="n">spi</span><span class="p">(</span><span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ev_spi</span> <span class="o">=</span> <span class="n">runs</span><span class="p">(</span><span class="n">spi3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">mon</span><span class="o">.</span><span class="n">q_mm</span>
+<span class="n">x0_q</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.20</span><span class="p">)</span>                  <span class="c1"># Q80: flow exceeded in 80 % of months</span>
+<span class="n">ev_q</span> <span class="o">=</span> <span class="n">runs</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">x0_q</span><span class="p">)</span>
+<span class="n">Ny</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SPI-3, x0 = -1: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ev_spi</span><span class="p">)</span><span class="si">}</span><span class="s2"> events, </span><span class="si">{</span><span class="p">(</span><span class="n">ev_spi</span><span class="o">.</span><span class="n">D</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> of them one month long; largest:"</span><span class="p">)</span>
+<span class="n">big_spi</span> <span class="o">=</span> <span class="n">ev_spi</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ev_spi</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">big_spi</span><span class="o">.</span><span class="n">start</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">big_spi</span><span class="o">.</span><span class="n">end</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2">, D = </span><span class="si">{</span><span class="n">big_spi</span><span class="o">.</span><span class="n">D</span><span class="si">}</span><span class="s2">, S = </span><span class="si">{</span><span class="n">big_spi</span><span class="o">.</span><span class="n">S</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, I = </span><span class="si">{</span><span class="n">big_spi</span><span class="o">.</span><span class="n">I</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Flow, x0 = Q80 = </span><span class="si">{</span><span class="n">x0_q</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm/month: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ev_q</span><span class="p">)</span><span class="si">}</span><span class="s2"> events in </span><span class="si">{</span><span class="n">Ny</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> years"</span><span class="p">)</span>
+<span class="n">show</span> <span class="o">=</span> <span class="n">ev_q</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">ev_q</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="n">ev_q</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">show</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">big</span> <span class="o">=</span> <span class="n">ev_q</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ev_q</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"largest: </span><span class="si">{</span><span class="n">big</span><span class="o">.</span><span class="n">start</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">big</span><span class="o">.</span><span class="n">end</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2">, D = </span><span class="si">{</span><span class="n">big</span><span class="o">.</span><span class="n">D</span><span class="si">}</span><span class="s2"> months, S = </span><span class="si">{</span><span class="n">big</span><span class="o">.</span><span class="n">S</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm "</span>
+      <span class="sa">f</span><span class="s2">"= </span><span class="si">{</span><span class="n">big</span><span class="o">.</span><span class="n">S</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.536</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> million m3, I = </span><span class="si">{</span><span class="n">big</span><span class="o">.</span><span class="n">I</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm/month"</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ev_q</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">ev_q</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean inter-arrival time L = </span><span class="si">{</span><span class="n">L</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> months"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SPI-3, x0 = -1: 27 events, 17 of them one month long; largest:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2006-03 to 2006-07, D = 5, S = 3.45, I = 0.69
+
+Flow, x0 = Q80 = 43.6 mm/month: 20 events in 25 years
+  start     end  D     S    I
+1993-07 1993-11  5  61.9 12.4
+1996-07 1996-07  1   0.1  0.1
+1997-09 1997-09  1   1.3  1.3
+1998-08 1998-11  4  32.1  8.0
+1999-08 1999-09  2  32.4 16.2
+2000-06 2000-12  7 105.7 15.1
+2001-05 2001-08  4  29.1  7.3
+2001-10 2001-11  2  13.8  6.9
+2002-06 2002-08  3  34.5 11.5
+2006-05 2006-08  4  39.4  9.9
+2007-05 2007-12  8 128.8 16.1
+2008-06 2008-11  6 103.9 17.3
+2009-08 2009-08  1   6.3  6.3
+2010-09 2010-10  2  10.1  5.1
+2011-08 2011-10  3  52.7 17.6
+2012-06 2012-06  1   7.4  7.4
+2012-08 2012-08  1   1.9  1.9
+2012-11 2012-11  1   7.3  7.3
+2014-09 2014-09  1   5.2  5.2
+2015-07 2015-09  3  33.9 11.3
+largest: 2007-05 to 2007-12, D = 8 months, S = 128.8 mm = 69 million m3, I = 16.1 mm/month
+mean inter-arrival time L = 13.9 months
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Figure 2: the runs on the Chattooga, rain (SPI-3) and river (monthly runoff)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spi3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">spi3</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">spi3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">spi3</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="s2">"mid"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"SPI-3"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Drought events: red = deficit below the threshold"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">x0_q</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">x0_q</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">q</span> <span class="o">&lt;</span> <span class="n">x0_q</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="s2">"mid"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"runoff (mm/month), axis cut at 200"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a5f07fa49bbeadc650fb6fec40ae20552d9d67a1c11b08c16f71af60762cbf9c.png" src="_images/a5f07fa49bbeadc650fb6fec40ae20552d9d67a1c11b08c16f71af60762cbf9c.png" />
+</div>
+</div>
+<p>The rain index produces many short events: 27 runs below SPI-3 <span class="math notranslate nohighlight">\(=-1\)</span>, 17 of them a single month. The river filters them out. With Q80 the flow gives 20 events in 25 years, mostly in late summer and autumn, when the flow is lowest anyway. The largest, May to December 2007, lasted 8 months with a deficit of 128.8 mm, about 69 million m3 of water that the river did not carry; 2000 and 2008 come next. These are the known south-eastern US droughts we saw in Lecture 26. The mean inter-arrival time is about 14 months, but the events cluster in dry years.</p>
+<p>Pooling with <span class="math notranslate nohighlight">\(t_c=1\)</span> month merges the runs that are separated by a single month above the threshold:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pool</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="n">tc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Merge events separated by tc months or less (inter-event time method): D spans both, S is the sum."""</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">ev</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][[</span><span class="s2">"start"</span><span class="p">,</span> <span class="s2">"end"</span><span class="p">,</span> <span class="s2">"S"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">ev</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">gap</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">"end"</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">"end"</span><span class="p">]</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">gap</span> <span class="o">&lt;=</span> <span class="n">tc</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">"end"</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">end</span><span class="p">;</span> <span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">"S"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">e</span><span class="o">.</span><span class="n">S</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">[[</span><span class="s2">"start"</span><span class="p">,</span> <span class="s2">"end"</span><span class="p">,</span> <span class="s2">"S"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">p</span><span class="p">[</span><span class="s2">"D"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">p</span><span class="p">[</span><span class="s2">"I"</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">D</span>
+    <span class="k">return</span> <span class="n">p</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"SPI-3"</span><span class="p">,</span> <span class="n">ev_spi</span><span class="p">),</span> <span class="p">(</span><span class="s2">"flow"</span><span class="p">,</span> <span class="n">ev_q</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span><span class="si">}</span><span class="s2"> events before pooling, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pool</span><span class="p">(</span><span class="n">ev</span><span class="p">))</span><span class="si">}</span><span class="s2"> after (tc = 1 month)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SPI-3: 27 events before pooling, 22 after (tc = 1 month)
+flow: 20 events before pooling, 18 after (tc = 1 month)
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the river, pooling changes little (two pairs merge: 2001 and 2012). For SPI-3 it matters more, because the rain index crosses the threshold back and forth. From here on we use the 20 unpooled streamflow events.</p>
+</section>
+<section id="drought-frequency">
+<h2>3) Drought frequency<a class="headerlink" href="#drought-frequency" title="Link to this heading">#</a></h2>
+<p><strong>Empirical return period.</strong> Sort the events by severity. If <span class="math notranslate nohighlight">\(m\)</span> events in <span class="math notranslate nohighlight">\(N_y\)</span> years had a severity of at least <span class="math notranslate nohighlight">\(s\)</span>, an event that severe happens on average every</p>
+<div class="math notranslate nohighlight">
+\[T=\frac{N_y}{m}\ \text{years}.\]</div>
+<p>The same rule works for duration (count events with <span class="math notranslate nohighlight">\(D\)</span> at least <span class="math notranslate nohighlight">\(d\)</span>).</p>
+<p><strong>A fitted distribution.</strong> To read severities rarer than the record, fit a distribution to the event severities. The simplest is the exponential (Lecture 17), whose only parameter is the mean severity <span class="math notranslate nohighlight">\(\bar S\)</span>: the chance that an event exceeds <span class="math notranslate nohighlight">\(s\)</span> is <span class="math notranslate nohighlight">\(\exp(-s/\bar S)\)</span>. With <span class="math notranslate nohighlight">\(\lambda=n_e/N_y\)</span> events per year, events larger than <span class="math notranslate nohighlight">\(s\)</span> occur <span class="math notranslate nohighlight">\(\lambda\exp(-s/\bar S)\)</span> times a year, so</p>
+<div class="math notranslate nohighlight">
+\[T(s)=\frac{1}{\lambda\,\exp(-s/\bar S)}\qquad\Longleftrightarrow\qquad s_T=\bar S\,\ln(\lambda T)\quad(\lambda T&gt;1).\]</div>
+<p>A gamma or a Weibull often fits severities better; the exponential keeps the arithmetic visible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ne</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ev_q</span><span class="p">);</span> <span class="n">lam</span> <span class="o">=</span> <span class="n">ne</span> <span class="o">/</span> <span class="n">Ny</span><span class="p">;</span> <span class="n">S_bar</span> <span class="o">=</span> <span class="n">ev_q</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">S_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">ev_q</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">values</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">T_emp</span> <span class="o">=</span> <span class="n">Ny</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ne</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>                          <span class="c1"># m = 1 for the largest</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"n_e = </span><span class="si">{</span><span class="n">ne</span><span class="si">}</span><span class="s2">, N_y = </span><span class="si">{</span><span class="n">Ny</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> yr, lambda = </span><span class="si">{</span><span class="n">lam</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> events/yr, S_bar = </span><span class="si">{</span><span class="n">S_bar</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"check with scipy (exponential MLE, loc = 0): scale ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ev_q</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="n">floc</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"T = </span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2"> yr: s_T = </span><span class="si">{</span><span class="n">S_bar</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">lam</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">T</span><span class="p">)</span><span class="si">:</span><span class="s2">6.1f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"largest event, S = </span><span class="si">{</span><span class="n">S_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm: empirical T = </span><span class="si">{</span><span class="n">T_emp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> yr, exponential T = </span><span class="si">{</span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">lam</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">S_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">S_bar</span><span class="p">))</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> yr"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"events with D &gt;= 6 months: </span><span class="si">{</span><span class="p">(</span><span class="n">ev_q</span><span class="o">.</span><span class="n">D</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">, empirical T = </span><span class="si">{</span><span class="n">Ny</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">ev_q</span><span class="o">.</span><span class="n">D</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> yr"</span><span class="p">)</span>
+
+<span class="c1"># Figure 3: severity against return period</span>
+<span class="n">TT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">lam</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">T_emp</span><span class="p">,</span> <span class="n">S_sorted</span><span class="p">,</span> <span class="s2">"ko"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"events, $T=N_y/m$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">TT</span><span class="p">,</span> <span class="n">S_bar</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">TT</span><span class="p">),</span> <span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">"exponential, $s_T=\bar S\ln(\lambda T)$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"return period $T$ (years)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"severity $S$ (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Chattooga streamflow droughts below Q80"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n_e = 20, N_y = 25 yr, lambda = 0.80 events/yr, S_bar = 35.4 mm
+check with scipy (exponential MLE, loc = 0): scale = 35.4
+T =  2 yr: s_T =   16.6 mm
+T =  5 yr: s_T =   49.1 mm
+T = 10 yr: s_T =   73.6 mm
+T = 25 yr: s_T =  106.0 mm
+T = 50 yr: s_T =  130.6 mm
+largest event, S = 128.8 mm: empirical T = 25 yr, exponential T = 48 yr
+events with D &gt;= 6 months: 3, empirical T = 8.3 yr
+</pre></div>
+</div>
+<img alt="_images/7d3ed6639705497514189a2e6075abf988ef82d1d36ea3973158cad3c5ad81c4.png" src="_images/7d3ed6639705497514189a2e6075abf988ef82d1d36ea3973158cad3c5ad81c4.png" />
+</div>
+</div>
+<p>The exponential follows the small and medium events but lies below the three largest (2000, 2007, 2008), a sign that the tail is heavier than exponential. It gives a 10-year severity of about 74 mm and a 25-year severity of about 106 mm. The largest event (129 mm) sits at <span class="math notranslate nohighlight">\(T=25\)</span> years by the plotting rule, while the exponential puts it near 48 years: with one event in 25 years, either answer is very uncertain. In practice we would want a longer record, several stations, or regional pooling.</p>
+<p>Duration and severity are linked (long droughts are usually severe), so a full analysis asks for their <em>joint</em> probability. This bivariate analysis is usually done with copulas (Shiau 2006), which join the two distributions into one.</p>
+</section>
+<section id="climate-change-and-droughts">
+<h2>4) Climate change and droughts<a class="headerlink" href="#climate-change-and-droughts" title="Link to this heading">#</a></h2>
+<p>Warming changes droughts in two ways. Rainfall may change (up or down, depending on the region; Lectures 14 and 18 show how to get such changes from scenarios). And <strong>evaporation demand rises with temperature everywhere</strong>, so the same rain leaves less water. The SPI sees only rain and misses the second effect; the SPEI of Lecture 26 sees both.</p>
+<p>A simple illustration with our data. The PET in the dataset is the Oudin et al. (2005) formula, which is proportional to <span class="math notranslate nohighlight">\(T+5\)</span> (with <span class="math notranslate nohighlight">\(T\)</span> in degC, and zero when <span class="math notranslate nohighlight">\(T\le -5\)</span>). Warming every day by <span class="math notranslate nohighlight">\(\Delta T\)</span> therefore multiplies each day’s PET by <span class="math notranslate nohighlight">\((T+5+\Delta T)/(T+5)\)</span>. We add <span class="math notranslate nohighlight">\(\Delta T=2\)</span> degC, keep the rain unchanged, and compute the SPEI-12 of the warmer climate <strong>with the distribution fitted to the present climate</strong>, so that the index measures dryness relative to today. <em>This is an illustration, not a projection:</em> real PET also depends on humidity, wind and plants, and temperature-only formulas tend to overstate the increase.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">loglogistic_fit</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>                 <span class="c1"># Lecture 26: log-logistic by probability-weighted moments</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">w</span><span class="p">);</span> <span class="n">F</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">w0</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">F</span><span class="p">)</span> <span class="o">**</span> <span class="n">s</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w1</span> <span class="o">-</span> <span class="n">w0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">w1</span> <span class="o">-</span> <span class="n">w0</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">w2</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">gamma_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">gamma_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">shape</span><span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">w0</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w1</span><span class="p">)</span> <span class="o">*</span> <span class="n">shape</span> <span class="o">/</span> <span class="n">g</span>
+    <span class="k">return</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">w0</span> <span class="o">-</span> <span class="n">scale</span> <span class="o">*</span> <span class="n">g</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">spei</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">W_fit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""SPEI-k of W, with one log-logistic per calendar month fitted to W_fit (the present climate)."""</span>
+    <span class="n">wk</span><span class="p">,</span> <span class="n">wf</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">W_fit</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">W</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">wk</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="n">month</span>
+        <span class="n">scale</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">loc</span> <span class="o">=</span> <span class="n">loglogistic_fit</span><span class="p">(</span><span class="n">wf</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">fisk</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">wk</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">),</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">1e-6</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="n">dT</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tmean_c</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tmean_c</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">dT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tmean_c</span> <span class="o">+</span> <span class="mi">5</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">pet_warm</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">pet_mm</span> <span class="o">*</span> <span class="n">factor</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">W_now</span><span class="p">,</span> <span class="n">W_warm</span> <span class="o">=</span> <span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span> <span class="o">-</span> <span class="n">mon</span><span class="o">.</span><span class="n">pet_mm</span><span class="p">,</span> <span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span> <span class="o">-</span> <span class="n">pet_warm</span>
+<span class="n">spei_now</span><span class="p">,</span> <span class="n">spei_warm</span> <span class="o">=</span> <span class="n">spei</span><span class="p">(</span><span class="n">W_now</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">W_now</span><span class="p">),</span> <span class="n">spei</span><span class="p">(</span><span class="n">W_warm</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">W_now</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"annual PET: </span><span class="si">{</span><span class="n">mon</span><span class="o">.</span><span class="n">pet_mm</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Ny</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm now, </span><span class="si">{</span><span class="n">pet_warm</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Ny</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm with +</span><span class="si">{</span><span class="n">dT</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> degC (</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">pet_warm</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mon</span><span class="o">.</span><span class="n">pet_mm</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> %)"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"now"</span><span class="p">,</span> <span class="n">spei_now</span><span class="p">),</span> <span class="p">(</span><span class="s2">"+2 degC"</span><span class="p">,</span> <span class="n">spei_warm</span><span class="p">)):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">runs</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SPEI-12 </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2">: mean </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">, months &lt;= -1: </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> %, "</span>
+          <span class="sa">f</span><span class="s2">"events </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">, drought months </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">D</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">, longest </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">D</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> months, largest S </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Figure 4</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spei_now</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SPEI-12, present climate"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spei_warm</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SPEI-12, same rain, +2 degC"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"SPEI-12"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>annual PET: 974 mm now, 1064 mm with +2 degC (9.2 %)
+SPEI-12 now     : mean +0.01, months &lt;= -1: 18 %, events 11, drought months 53, longest 24 months, largest S 10.8
+SPEI-12 +2 degC : mean -0.27, months &lt;= -1: 28 %, events 13, drought months 82, longest 33 months, largest S 20.4
+</pre></div>
+</div>
+<img alt="_images/d06a6aa93e16e0f095f5eefd661a66786d26e99a57fbbcedb58d94e92857f237.png" src="_images/d06a6aa93e16e0f095f5eefd661a66786d26e99a57fbbcedb58d94e92857f237.png" />
+</div>
+</div>
+<p>Two degrees of warming raise the annual PET by about 9 %. With exactly the same rain, the SPEI-12 shifts down by about 0.28 on average, the share of months at or below <span class="math notranslate nohighlight">\(-1\)</span> rises from 18 % to 28 %, and the 2000 to 2002 drought grows into one run of 33 months (24 months now) whose severity is about twice the present largest. The SPI would show no change at all, because the rain did not change. This is why drought studies under climate change use indices that include evaporation demand, and why <em>invisible</em> drought (Lecture 26) becomes more common in a warmer world. To add a rainfall change as well, scale the monthly rain by the change from a scenario (the delta change of Lectures 14 and 18) before computing <span class="math notranslate nohighlight">\(W\)</span>.</p>
+</section>
+<section id="drought-declaration-and-management-in-india">
+<h2>5) Drought declaration and management in India<a class="headerlink" href="#drought-declaration-and-management-in-india" title="Link to this heading">#</a></h2>
+<p>India’s procedure is set out in the <strong>Manual for Drought Management</strong> (Ministry of Agriculture and Farmers Welfare, Government of India, 2016, updated in 2020). It replaced older practice, which leaned mostly on rainfall deficit and crop-yield estimates, with a stepwise check of several indicators. The outline below describes the structure; the exact thresholds, weights and dates differ between editions, so use the current manual for real decisions.</p>
+<ol class="arabic simple">
+<li><p><strong>Mandatory indicators (rainfall).</strong> For each district or block: the rainfall departure from normal (the IMD classes of Lecture 26) and the dry spell (a long run of days or weeks with very little rain during the season); the 2016 edition also lists the SPI. If these indicators show a deficit, the drought trigger is set and the next step follows.</p></li>
+<li><p><strong>Impact indicators</strong>, in four groups:</p>
+<ul class="simple">
+<li><p><em>agriculture</em>: area sown compared with normal, crop condition;</p></li>
+<li><p><em>remote sensing of vegetation</em>: NDVI (a satellite measure of how green the vegetation is), VCI (NDVI compared with its own range in past years at that place), and a water index;</p></li>
+<li><p><em>soil moisture</em>: for example a moisture adequacy index;</p></li>
+<li><p><em>hydrology</em>: reservoir storage, groundwater levels, streamflow.</p></li>
+</ul>
+</li>
+<li><p><strong>Severity.</strong> If enough impact indicators also show drought, the area is assessed as in <strong>moderate</strong> or <strong>severe</strong> drought, depending on how many of them reach the severe range.</p></li>
+<li><p><strong>Ground truthing.</strong> A field survey of sample villages checks crop condition and loss before the final decision, especially for severe drought.</p></li>
+<li><p><strong>Declaration.</strong> The <strong>state government</strong> declares drought by notification for the affected districts, talukas or blocks, within the season’s time limits (for kharif and rabi separately). A declaration opens relief from the State Disaster Response Fund; for severe drought the state can ask for central assistance from the National Disaster Response Fund, after a central team has assessed the situation.</p></li>
+</ol>
+<p><strong>Who does what.</strong> IMD supplies rainfall, normals, departures, dry spells, SPI maps and forecasts. The Mahalanobis National Crop Forecast Centre supplies satellite-based crop and vegetation assessments. The Central Water Commission reports reservoir storage and the Central Ground Water Board groundwater levels. The <strong>district</strong> administration collects the indicators, carries out the field survey and runs relief; the <strong>state</strong> declares; the <strong>Ministry of Agriculture and Farmers Welfare</strong> coordinates at the national level.</p>
+<p><strong>Mitigation</strong>, before and during a drought:</p>
+<ul class="simple">
+<li><p><em>crop contingency plans</em> for each district (prepared with ICAR-CRIDA), listing alternative crops and varieties if the monsoon is late or breaks;</p></li>
+<li><p><em>drinking water first</em>: tankers, deeper or new wells, protected reservoir reserves;</p></li>
+<li><p><em>groundwater</em>: limits on pumping, recharge structures, community management;</p></li>
+<li><p><em>drought proofing</em>: watershed development, farm ponds and check dams, micro-irrigation, afforestation, often through rural employment works, so that the next drought hurts less;</p></li>
+<li><p><em>risk transfer and support</em>: crop insurance, fodder banks and cattle camps, employment and food programmes.</p></li>
+</ul>
+<p>The indices of Lectures 26 and 27 sit inside this procedure: rainfall departure and SPI start it, vegetation and hydrological indicators confirm it, and duration, severity and return period tell planners how much storage and support to prepare.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The theory of runs turns an index into events: below a threshold <span class="math notranslate nohighlight">\(x_0\)</span>, each run has duration <span class="math notranslate nohighlight">\(D\)</span>, severity <span class="math notranslate nohighlight">\(S=\sum(x_0-x_t)\)</span>, intensity <span class="math notranslate nohighlight">\(I=S/D\)</span> and inter-arrival time <span class="math notranslate nohighlight">\(L\)</span>; short gaps can be pooled. Hand example: three events, the largest with <span class="math notranslate nohighlight">\(D=5\)</span> months, <span class="math notranslate nohighlight">\(S=44\)</span> mm, <span class="math notranslate nohighlight">\(I=8.8\)</span> mm/month and <span class="math notranslate nohighlight">\(T=1.5\)</span> years.</p></li>
+<li><p>On the Chattooga, the river gives 20 droughts below Q80 in 25 years; the largest (2007) lasted 8 months with a 128.8 mm deficit.</p></li>
+<li><p>Return period: <span class="math notranslate nohighlight">\(T=N_y/m\)</span> from the record; with an exponential, <span class="math notranslate nohighlight">\(s_T=\bar S\ln(\lambda T)\)</span>. The 25-year severity is about 106 mm; single extreme events remain very uncertain.</p></li>
+<li><p>With the same rain, 2 degC of warming raises PET by about 9 % and makes the SPEI-12 drought months rise from 18 % to 28 %.</p></li>
+<li><p>India declares drought in steps: rainfall indicators trigger, impact indicators confirm, field surveys verify, the state declares; mitigation ranges from contingency crop plans to long-term drought proofing.</p></li>
+</ul>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>In the hand example, what happens to the events if the threshold is raised to 35 mm? Which quantity, <span class="math notranslate nohighlight">\(D\)</span> or <span class="math notranslate nohighlight">\(S\)</span>, is more sensitive to the threshold?</p></li>
+<li><p>Why does the rain index (SPI-3) give more and shorter events than the streamflow series?</p></li>
+<li><p>With <span class="math notranslate nohighlight">\(\lambda=0.8\)</span> events a year and <span class="math notranslate nohighlight">\(\bar S=35.4\)</span> mm, what is the 50-year severity? Why does the formula fail for <span class="math notranslate nohighlight">\(T\)</span> below <span class="math notranslate nohighlight">\(1/\lambda\)</span>?</p></li>
+</ol>
+</section>
+<section id="try-it-yourself">
+<h2>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Repeat the Chattooga analysis with Q90 and with <span class="math notranslate nohighlight">\(x_0=0\)</span> for the SPI-3. How do the number of events and the largest severity change?</p></li>
+<li><p>Replace the exponential by a gamma (<code class="docutils literal notranslate"><span class="pre">stats.gamma.fit(S,</span> <span class="pre">floc=0)</span></code>) and compare the 25-year severity.</p></li>
+<li><p>Change the rain by <span class="math notranslate nohighlight">\(-10\)</span> % together with <span class="math notranslate nohighlight">\(+2\)</span> degC (a simple delta change, Lecture 18) and recompute the share of SPEI-12 months at or below <span class="math notranslate nohighlight">\(-1\)</span>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>. Theory of runs: Yevjevich, V. (1967). <em>An objective approach to definitions and investigations of continental hydrologic droughts</em>. Hydrology Paper 23, Colorado State University; Mishra, A. K., &amp; Singh, V. P. (2010). A review of drought concepts. <em>J. Hydrology, 391</em>, 202–216. Pooling: Tallaksen, L. M., Madsen, H., &amp; Clausen, B. (1997). On the definition and modelling of streamflow drought duration and deficit volume. <em>Hydrological Sciences Journal, 42</em>, 15–33. Copulas: Shiau, J. T. (2006). Fitting drought duration and severity with two-dimensional copulas. <em>Water Resources Management, 20</em>, 795–815. SPI and SPEI: McKee et al. (1993), WMO (2012) and Vicente-Serrano et al. (2010), see Lecture 26. PET: Oudin, L., et al. (2005). Which potential evapotranspiration input for a lumped rainfall-runoff model? <em>J. Hydrology, 303</em>, 290–306. India: Ministry of Agriculture and Farmers Welfare, Government of India (2016; updated 2020). <em>Manual for Drought Management</em>. New Delhi. Data: Chattooga River, Daymet v4 and USGS NWIS (see Lecture 7). The explanations, hand example, workbook and figures were made for this course. Related lectures: 14, 17, 18, 26.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-26-droughts-definitions-and-indices.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 26, Droughts I: definitions and drought indices</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="exercise-03-introduction-to-python.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exercise 3, Python for data analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-theory-of-runs">1) The theory of runs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drought-events-on-the-chattooga">2) Drought events on the Chattooga</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drought-frequency">3) Drought frequency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-change-and-droughts">4) Climate change and droughts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drought-declaration-and-management-in-india">5) Drought declaration and management in India</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

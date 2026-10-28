@@ -1,0 +1,1209 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 16, Downscaling: the problem, the data and choosing a method &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-16-downscaling-problem-data-and-methods';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 17, Statistical background for downscaling" href="lecture-17-statistical-background-for-downscaling.html" />
+    <link rel="prev" title="Lecture 15, Climate data analysis with xarray" href="lecture-15-climate-data-analysis-with-xarray.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-24-floods-extremes-and-return-periods.html">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-25-flood-frequency-analysis-and-design-floods.html">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-26-droughts-definitions-and-indices.html">Lecture 26, Droughts I: definitions and drought indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-27-drought-characteristics-frequency-and-management.html">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-16-downscaling-problem-data-and-methods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-16-downscaling-problem-data-and-methods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-16-downscaling-problem-data-and-methods.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-16-downscaling-problem-data-and-methods.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 16, Downscaling: the problem, the data and choosing a method</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 16, Downscaling: the problem, the data and choosing a method</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-statistical-downscaling-ch-1-1">1.1 Why statistical downscaling? (Ch. 1.1)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-models-ch-1-2">1.2 Climate models (Ch. 1.2)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-downscaling-ch-1-3">1.3 Statistical downscaling (Ch. 1.3)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-of-model-scheme-ch-1-4">1.4 Selection of model scheme (Ch. 1.4)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gcm-data-ch-3-1">3.1 GCM data (Ch. 3.1)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reanalysis-data-ch-3-2">3.2 Reanalysis data (Ch. 3.2)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rcm-data-ch-3-3">3.3 RCM data (Ch. 3.3)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand">Worked example (by hand)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-a-synthetic-gcm-reanalysis-and-gauge">Hands-on: a synthetic GCM, reanalysis and gauge</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-16-downscaling-the-problem-the-data-and-choosing-a-method">
+<h1>Lecture 16, Downscaling: the problem, the data and choosing a method<a class="headerlink" href="#lecture-16-downscaling-the-problem-the-data-and-choosing-a-method" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Why a global climate model is not enough for a catchment, what data we have, and how to pick a scheme</p>
+</div></blockquote>
+<p>Lectures 13 and 14 showed how climate models produce projections. A catchment engineer cannot use those numbers directly. The model gives one number for a box hundreds of kilometres wide, and that number is not the rain or temperature at the gauge. <strong>Downscaling</strong> is the set of methods that closes this gap. Lectures 16 to 23 cover them one by one. This first lecture follows Chapters 1 and 3 of Lee and Singh (2019) in the book’s order: sections 1.1 to 1.4, then 3.1 to 3.3.</p>
+<p>By the end of this lecture you should be able to:</p>
+<ol class="arabic simple">
+<li><p>explain why a GCM value is not a catchment value, and name the three parts of the gap (scale, bias, timing),</p></li>
+<li><p>say what GCM, reanalysis, RCM and observed data are, and what a file name such as <code class="docutils literal notranslate"><span class="pre">pr_day_..._r1i1p1_...nc</span></code> tells you,</p></li>
+<li><p>convert GCM rain from kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span> to mm/day and temperature from K to <span class="math notranslate nohighlight">\(^\circ\)</span>C, and handle a 360-day calendar,</p></li>
+<li><p>use the book’s logic (Section 1.4) to choose between bias correction, regression, weather generator and weather typing, with temporal and spatial downscaling added when needed.</p></li>
+</ol>
+<p>A spreadsheet with the same numbers is in <code class="docutils literal notranslate"><span class="pre">data/downscaling/lec16/lec16_worked_examples.xlsx</span></code>. <strong>All data in this lecture are synthetic</strong>, with the problems built in on purpose.</p>
+<section id="words-you-need">
+<h2>Words you need<a class="headerlink" href="#words-you-need" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Grid cell and resolution.</strong> A model covers the Earth with boxes (“grid cells”) and keeps one number per box. <em>Resolution</em> is the box size, for example 2.5<span class="math notranslate nohighlight">\(^\circ\)</span>, about 280 km.</p></li>
+<li><p><strong>Bias.</strong> A steady error. If the model says 600 mm per year and the gauge says 500 mm, the bias is <span class="math notranslate nohighlight">\(+100\)</span> mm (difference) or <span class="math notranslate nohighlight">\(600/500=1.2\)</span> times (ratio). We use the difference for temperature and the ratio for rain.</p></li>
+<li><p><strong>Predictor and predictand.</strong> The <em>predictor</em> is the large-scale variable we start from (for example air temperature of the reanalysis). The <em>predictand</em> is the local variable we want (for example temperature at one station).</p></li>
+<li><p><strong>Flux.</strong> An amount per second through one square metre. GCM rain is given as a flux, in kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span>.</p></li>
+<li><p><strong>Free-running.</strong> A model that makes its own weather. Its 12 July 2005 is not the real 12 July 2005.</p></li>
+<li><p><strong>Stationary.</strong> A relation that stays the same in the future. If the model is 1 K too warm today, a stationary correction assumes it is also 1 K too warm in 2080.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib scipy
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpatches</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"figure.dpi"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>The book gives no formulas in these two chapters, so we only name the quantities we need. The subscripts follow the book’s later chapters (Chapters 1 and 3 themselves have only Eqs. 1.1 and 1.2) (<code class="docutils literal notranslate"><span class="pre">o</span></code> observed, <code class="docutils literal notranslate"><span class="pre">m</span></code> model); the code uses the same letters, and so do the spreadsheet headers.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Unit</p></th>
+<th class="head text-left"><p>Code and sheet name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(pr_f\)</span></p></td>
+<td class="text-left"><p>rain as a flux (the CMIP variable <code class="docutils literal notranslate"><span class="pre">pr</span></code>)</p></td>
+<td class="text-left"><p>kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pr_f_m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(P_o\)</span>, <span class="math notranslate nohighlight">\(P_m\)</span>, <span class="math notranslate nohighlight">\(P_r\)</span></p></td>
+<td class="text-left"><p>daily rain: observed, model (GCM), reanalysis</p></td>
+<td class="text-left"><p>mm/day</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">P_o</span></code>, <code class="docutils literal notranslate"><span class="pre">P_m</span></code>, <code class="docutils literal notranslate"><span class="pre">P_r</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(T_o\)</span>, <span class="math notranslate nohighlight">\(T_m\)</span></p></td>
+<td class="text-left"><p>temperature: observed, model</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(^\circ\)</span>C (model file: K)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">T_o</span></code>, <code class="docutils literal notranslate"><span class="pre">T_m</span></code>, <code class="docutils literal notranslate"><span class="pre">T_m_K</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(b_T\)</span></p></td>
+<td class="text-left"><p>temperature bias, <span class="math notranslate nohighlight">\(T_m-T_o\)</span></p></td>
+<td class="text-left"><p>K</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">b_T</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(S_0\)</span>, <span class="math notranslate nohighlight">\(\alpha_p\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>, <span class="math notranslate nohighlight">\(T_e\)</span></p></td>
+<td class="text-left"><p>solar energy, planetary albedo, Stefan-Boltzmann constant, effective temperature (Eq. 1.1, 1.2)</p></td>
+<td class="text-left"><p>W/m<span class="math notranslate nohighlight">\(^2\)</span>, none, W/m<span class="math notranslate nohighlight">\(^2\)</span>/K<span class="math notranslate nohighlight">\(^4\)</span>, K</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">S0</span></code>, <code class="docutils literal notranslate"><span class="pre">alpha_p</span></code>, <code class="docutils literal notranslate"><span class="pre">sigma</span></code>, <code class="docutils literal notranslate"><span class="pre">T_e</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(b_P\)</span></p></td>
+<td class="text-left"><p>rain bias, <span class="math notranslate nohighlight">\(P_m/P_o\)</span> (1 means no bias)</p></td>
+<td class="text-left"><p>none</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">b_P</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="why-statistical-downscaling-ch-1-1">
+<h1>1.1 Why statistical downscaling? (Ch. 1.1)<a class="headerlink" href="#why-statistical-downscaling-ch-1-1" title="Link to this heading">#</a></h1>
+<p>Climate models predict how rising greenhouse gases change temperature and rain, but their grid is too coarse for hydrological and environmental models (floods, droughts). A GCM cuts the atmosphere into boxes 100 to 250 km wide today (the book quotes 250 to 600 km for the models of its time). The rain it reports for a box is the <strong>average over the whole box</strong>. A 2.5<span class="math notranslate nohighlight">\(^\circ\)</span> box at 32<span class="math notranslate nohighlight">\(^\circ\)</span>N is about 280 km by 235 km, roughly 65 000 km<span class="math notranslate nohighlight">\(^2\)</span>; a 1000 km<span class="math notranslate nohighlight">\(^2\)</span> catchment fills only 1.5 % of it.</p>
+<p>The book’s remedy, in its order:</p>
+<ul class="simple">
+<li><p><strong>RCMs</strong> (regional climate models) are run inside a GCM on a finer grid, 10 to 20 km in the book. They are still too coarse for a small watershed or a single field, where site-specific scenarios are needed.</p></li>
+<li><p><strong>Statistical downscaling</strong> builds a statistical link between large-scale atmospheric patterns and observed local weather. It is cheaper and easier than an RCM. Once the link is built, future large-scale patterns from the climate model give future local weather.</p></li>
+<li><p>The link must remain valid in the future, which is called <strong>stationary</strong>. This is uncertain under a different climate, and is the weak point of statistical downscaling. Example: the model is 1.35 K too warm today, so we subtract 1.35 K. If the real climate warms 3 K but the model only 2.4 K, the same subtraction leaves the projection 0.6 K too cool.</p></li>
+</ul>
+<p>The gap between what the model gives and what the hydrologist needs has three parts: <strong>scale</strong> (a box average is not the value at the catchment), <strong>bias</strong> (the model climate differs from the real one) and <strong>timing</strong> (a free-running model makes its own weather, so only its statistics mean something). Catchments respond nonlinearly: 20 mm in one storm can make a flood, 20 mm as drizzle over 40 days makes almost none. Downscaling must get the <em>pattern</em> of local weather right.</p>
+<p><em>What this means for hydrology: a raw GCM series gives the wrong flood and the wrong recharge, even if its annual total looks fine.</em></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="climate-models-ch-1-2">
+<h1>1.2 Climate models (Ch. 1.2)<a class="headerlink" href="#climate-models-ch-1-2" title="Link to this heading">#</a></h1>
+<p>The book sorts climate models into three groups by complexity: (1) <strong>energy balance models</strong>, (2) intermediate complexity models, (3) <strong>GCMs</strong>. The simplest idea comes first: the Earth absorbs sunlight and sends out heat, and the two must balance. With solar energy <span class="math notranslate nohighlight">\(S_0\)</span>, Earth radius <span class="math notranslate nohighlight">\(R\)</span>, planetary albedo <span class="math notranslate nohighlight">\(\alpha_p\)</span> (the fraction of sunlight reflected), the Stefan–Boltzmann constant <span class="math notranslate nohighlight">\(\sigma\)</span> and the effective temperature <span class="math notranslate nohighlight">\(T_e\)</span> (Eq. 1.1):</p>
+<div class="math notranslate nohighlight">
+\[(1-\alpha_p)\,S_0\,\pi R^2 = 4\pi R^2\,\sigma\,T_e^4 .\]</div>
+<p>The left side is sunlight absorbed by the disc the Earth presents to the Sun; the right side is heat emitted by the whole sphere. Solving for <span class="math notranslate nohighlight">\(T_e\)</span> (Eq. 1.2) the radius cancels:</p>
+<div class="math notranslate nohighlight">
+\[T_e = \left[\frac{(1-\alpha_p)\,S_0}{4\,\sigma}\right]^{1/4}.\]</div>
+<p>The book obtains 255 K (<span class="math notranslate nohighlight">\(-18^\circ\)</span>C), colder than the real surface, because greenhouse gases add an increment <span class="math notranslate nohighlight">\(\Delta T\)</span> (<span class="math notranslate nohighlight">\(T=T_e+\Delta T\)</span>). Radiative–convective models add layers in the atmosphere; <strong>GCMs</strong> calculate the full three-dimensional atmosphere and ocean from the conservation laws of momentum, mass and energy, on a three-dimensional grid. This is where the box size of Section 1.1 comes from.</p>
+<p><em>What this means for hydrology: GCMs are physics on a grid; the grid, not the physics, limits their use for catchments.</em></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="statistical-downscaling-ch-1-3">
+<h1>1.3 Statistical downscaling (Ch. 1.3)<a class="headerlink" href="#statistical-downscaling-ch-1-3" title="Link to this heading">#</a></h1>
+<p>The book groups statistical downscaling into three families.</p>
+<ul class="simple">
+<li><p><strong>Regression downscaling (transfer function).</strong> A statistical relation between the observed local variable and GCM (or RCM) variables. Because a GCM does not reproduce the real past weather, the relation is <em>fitted with reanalysis</em>. It is used when a specific site needs an assessment. Its weakness is that some variables, rain above all, have no useful relation.</p></li>
+<li><p><strong>Weather generator.</strong> A random simulation of local weather whose parameters summarise the observations; the parameters are then changed according to the climate model. It gives many scenarios, including natural variability, in little time. Its drawbacks: there are endless series, so choosing a representative one is hard, and the climate signal enters only indirectly, through the parameters.</p></li>
+<li><p><strong>Weather typing.</strong> Sort the circulation patterns into a number of types and link the types to local variables (mainly rain). A future scenario takes the type that resembles the GCM circulation. Drawbacks: the link to rain is often weak, and future circulation may differ from anything observed.</p></li>
+</ul>
+<p><em>What this means for hydrology: each family answers a different question, so no one of them is best for everything.</em></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="selection-of-model-scheme-ch-1-4">
+<h1>1.4 Selection of model scheme (Ch. 1.4)<a class="headerlink" href="#selection-of-model-scheme-ch-1-4" title="Link to this heading">#</a></h1>
+<p>The book’s rule: the scheme depends on <strong>which output is needed</strong>. Following its text:</p>
+<ol class="arabic simple">
+<li><p>The <em>future change</em> of a variable (temperature, rain) at a site for impact assessment? <strong>Bias correction</strong> (Chapter 4, Lecture 18) is sometimes good enough.</p></li>
+<li><p>The future <em>evolution</em> of a local variable, especially temperature, affected by climate variables? <strong>Regression downscaling</strong> (Chapter 5, Lectures 19-20): fit the regression with reanalysis variables, then predict with the GCM scenario.</p></li>
+<li><p>The variable too random to relate to other variables? <strong>Weather generator</strong> (Chapter 6, Lecture 21): fit a stochastic model to the observations, then update its parameters from the GCM scenario.</p></li>
+<li><p>Large-scale circulation sorted into a few categories that condition local rain? <strong>Weather typing</strong> (Chapter 7, Lecture 22), followed by a stochastic simulation model.</p></li>
+<li><p>A fine time step needed (hourly rain for small or urban watersheds)? <strong>Temporal downscaling</strong> (Chapter 8, Lecture 22) applied to bias-corrected GCM or RCM output.</p></li>
+<li><p>A grid too coarse for a hydrological simulation? <strong>Spatial downscaling</strong> (Chapter 9, Lecture 23) applied to bias-corrected coarse grid data.</p></li>
+</ol>
+<p>The code and figure below encode this logic in the same order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">choose_scheme</span><span class="p">(</span><span class="n">change_only</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">circulation</span><span class="p">,</span> <span class="n">subdaily</span><span class="p">,</span> <span class="n">fine_grid</span><span class="p">):</span>
+    <span class="c1"># the decision order of Section 1.4: change only -&gt; predictors -&gt; circulation or random -&gt; add-ons</span>
+    <span class="k">if</span> <span class="n">change_only</span><span class="p">:</span>    <span class="n">core</span> <span class="o">=</span> <span class="s2">"Bias correction (Lecture 18)"</span>
+    <span class="k">elif</span> <span class="n">predictors</span><span class="p">:</span>   <span class="n">core</span> <span class="o">=</span> <span class="s2">"Regression downscaling (Lectures 19-20)"</span>
+    <span class="k">elif</span> <span class="n">circulation</span><span class="p">:</span>  <span class="n">core</span> <span class="o">=</span> <span class="s2">"Weather typing + stochastic model (Lectures 22, 21)"</span>
+    <span class="k">else</span><span class="p">:</span>              <span class="n">core</span> <span class="o">=</span> <span class="s2">"Weather generator (Lecture 21)"</span>
+    <span class="n">add</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">flag</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">((</span><span class="n">subdaily</span><span class="p">,</span> <span class="s2">"temporal downscaling (22)"</span><span class="p">),</span> <span class="p">(</span><span class="n">fine_grid</span><span class="p">,</span> <span class="s2">"spatial downscaling (23)"</span><span class="p">))</span> <span class="k">if</span> <span class="n">flag</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">core</span><span class="p">,</span> <span class="p">(</span><span class="s2">" + "</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">add</span><span class="p">))</span> <span class="k">if</span> <span class="n">add</span> <span class="k">else</span> <span class="s2">"none"</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">));</span> <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">qs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Only the future change</span><span class="se">\n</span><span class="s2">at a site needed?"</span><span class="p">,</span> <span class="s2">"Local variable follows climate</span><span class="se">\n</span><span class="s2">variables (strong predictors)?"</span><span class="p">,</span> <span class="s2">"Rain conditioned by</span><span class="se">\n</span><span class="s2">circulation patterns?"</span><span class="p">]</span>
+<span class="n">outs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Bias correction</span><span class="se">\n</span><span class="s2">(Lecture 18)"</span><span class="p">,</span> <span class="s2">"Regression downscaling</span><span class="se">\n</span><span class="s2">(Lectures 19-20)"</span><span class="p">,</span> <span class="s2">"Weather typing</span><span class="se">\n</span><span class="s2">(Lecture 22)"</span><span class="p">]</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.58</span><span class="p">,</span> <span class="mf">0.31</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">box</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">fc</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">mpatches</span><span class="o">.</span><span class="n">FancyBboxPatch</span><span class="p">((</span><span class="n">xc</span> <span class="o">-</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">yc</span> <span class="o">-</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">boxstyle</span><span class="o">=</span><span class="s2">"round,pad=0.01"</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s2">"0.3"</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">outs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)):</span>
+    <span class="n">box</span><span class="p">(</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">,</span> <span class="mf">0.17</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="s2">"#dbe9f6"</span><span class="p">);</span> <span class="n">box</span><span class="p">(</span><span class="mf">0.62</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="s2">"#e2f0d9"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.48</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.41</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">));</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.445</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.025</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mf">0.135</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mf">0.09</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">));</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.235</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mf">0.115</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">box</span><span class="p">(</span><span class="mf">0.22</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="s2">"Weather generator (Lecture 21)"</span><span class="p">,</span> <span class="s2">"#fde9d9"</span><span class="p">)</span>
+<span class="n">box</span><span class="p">(</span><span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.58</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="s2">"Then add if needed:</span><span class="se">\n\n</span><span class="s2">hourly output:</span><span class="se">\n</span><span class="s2">temporal</span><span class="se">\n</span><span class="s2">downscaling</span><span class="se">\n</span><span class="s2">(Lecture 22)</span><span class="se">\n\n</span><span class="s2">fine grid:</span><span class="se">\n</span><span class="s2">spatial</span><span class="se">\n</span><span class="s2">downscaling</span><span class="se">\n</span><span class="s2">(Lecture 23)"</span><span class="p">,</span> <span class="s2">"#fff2cc"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Choosing a scheme (after Section 1.4 of the book)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">cases</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"Change in mean seasonal reservoir inflow, one site, 2070-2100"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"Daily temperature at a station for a crop model (strong link to reanalysis)"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"Rain at a hill station tied to monsoon circulation patterns"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"Drought risk: thousands of random 30-year rainfall series"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"Hourly design storms, 20 km2 urban catchment"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"Distributed model on a 1 km grid"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">choose_scheme</span><span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cases</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"project"</span><span class="p">,</span> <span class="s2">"core scheme"</span><span class="p">,</span> <span class="s2">"add-ons"</span><span class="p">])</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/44c75985611e43685485642d04eb37856ec5d894c4d66c5e5512428bd19773af.png" src="_images/44c75985611e43685485642d04eb37856ec5d894c4d66c5e5512428bd19773af.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                    project                                         core scheme                      add-ons
+              Change in mean seasonal reservoir inflow, one site, 2070-2100                        Bias correction (Lecture 18)                         none
+Daily temperature at a station for a crop model (strong link to reanalysis)             Regression downscaling (Lectures 19-20)                         none
+                Rain at a hill station tied to monsoon circulation patterns Weather typing + stochastic model (Lectures 22, 21)                         none
+                  Drought risk: thousands of random 30-year rainfall series                      Weather generator (Lecture 21)                         none
+                               Hourly design storms, 20 km2 urban catchment                        Bias correction (Lecture 18)  + temporal downscaling (22)
+                                           Distributed model on a 1 km grid                        Bias correction (Lecture 18)   + spatial downscaling (23)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gcm-data-ch-3-1">
+<h1>3.1 GCM data (Ch. 3.1)<a class="headerlink" href="#gcm-data-ch-3-1" title="Link to this heading">#</a></h1>
+<p>GCM output for the IPCC assessments comes from the CMIP experiments and is downloaded from data portals after a login. A file name carries the description of the data. The book’s pattern is <code class="docutils literal notranslate"><span class="pre">variable_frequency_model_scenario_ensemble_period.nc</span></code>. A CMIP6-style example is <code class="docutils literal notranslate"><span class="pre">pr_day_&lt;model&gt;_ssp245_r1i1p1f1_gn_20150101-21001230.nc</span></code>: <code class="docutils literal notranslate"><span class="pre">pr</span></code> is precipitation, <code class="docutils literal notranslate"><span class="pre">day</span></code> is daily, then the model name, the scenario, the ensemble member, the grid label and the period. The end date <code class="docutils literal notranslate"><span class="pre">1230</span></code> hints at a 360-day calendar.</p>
+<p>The format is mostly <strong>NetCDF</strong> (<code class="docutils literal notranslate"><span class="pre">.nc</span></code>), an open standard that can be read from C, Fortran, R, Matlab, Java and Python (Lecture 15 uses <code class="docutils literal notranslate"><span class="pre">xarray</span></code>). Three checks before using a file:</p>
+<ul>
+<li><p><strong>Units.</strong> GCM rain is a flux in kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span> and temperature is in K; observations are in mm/day and <span class="math notranslate nohighlight">\(^\circ\)</span>C. Water is 1000 kg m<span class="math notranslate nohighlight">\(^{-3}\)</span>, so 1 kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> is a layer 1 mm deep, and a day has 86 400 s:</p>
+<div class="math notranslate nohighlight">
+\[P\ [\mathrm{mm/day}] = pr_f \times 86\,400, \qquad T\ [^\circ\mathrm{C}] = T\ [\mathrm{K}] - 273.15 .\]</div>
+</li>
+<li><p><strong>Calendar.</strong> Some models use a <strong>360-day</strong> year of twelve 30-day months, others a 365-day year. A rate in mm/day does not depend on the calendar, but a total does: a model month has 30 days.</p></li>
+<li><p><strong>Grid.</strong> Each model has its own grid (the book’s Table 3.1 lists them), so the box that contains the catchment must be chosen, for example the nearest cell centre.</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="reanalysis-data-ch-3-2">
+<h1>3.2 Reanalysis data (Ch. 3.2)<a class="headerlink" href="#reanalysis-data-ch-3-2" title="Link to this heading">#</a></h1>
+<p>A reanalysis describes the past climate by combining a model with observations, for air temperature, pressure, wind and surface fields, worldwide and over decades. A regular GCM does not simulate the real past weather, only a virtual weather. So the relation between a local variable and large-scale variables is fitted with <strong>observations and reanalysis</strong>; then GCM output <em>replaces</em> the reanalysis to predict the future.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="rcm-data-ch-3-3">
+<h1>3.3 RCM data (Ch. 3.3)<a class="headerlink" href="#rcm-data-ch-3-3" title="Link to this heading">#</a></h1>
+<p>RCMs are forced by time-dependent boundary conditions from a GCM or reanalysis. <strong>CORDEX</strong> divides the globe into domains (South Asia, East Asia, Europe, …) and provides RCM output. Statistical downscaling should still be applied to RCM output when a site is needed, and an hourly step is still too coarse for small urban watersheds.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Data</p></th>
+<th class="head text-left"><p>What it is</p></th>
+<th class="head text-left"><p>Role in downscaling</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>GCM</p></td>
+<td class="text-left"><p>global model, free-running</p></td>
+<td class="text-left"><p>future projections; its own weather and bias</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Reanalysis</p></td>
+<td class="text-left"><p>model corrected by observations</p></td>
+<td class="text-left"><p>predictors fitted to real weather</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>RCM (CORDEX)</p></td>
+<td class="text-left"><p>regional model on a finer grid</p></td>
+<td class="text-left"><p>finer fields, still biased</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Observations</p></td>
+<td class="text-left"><p>gauge or gridded measurements</p></td>
+<td class="text-left"><p>the target</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>What this means for hydrology: a wrong unit or calendar gives an error of a factor 86 400 or of a few percent in every flood and water-balance number that follows.</em></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="worked-example-by-hand">
+<h1>Worked example (by hand)<a class="headerlink" href="#worked-example-by-hand" title="Link to this heading">#</a></h1>
+<p>The book’s chapters have no numbered example, so we follow its order of ideas with new numbers: effective temperature (Section 1.2), unit and calendar conversion of GCM data (Section 3.1), and choice of scheme (Section 1.4).</p>
+<p><strong>Problem.</strong> (a) A planet has <span class="math notranslate nohighlight">\(S_0=1370\)</span> W/m<span class="math notranslate nohighlight">\(^2\)</span> and <span class="math notranslate nohighlight">\(\alpha_p=0.25\)</span>; find <span class="math notranslate nohighlight">\(T_e\)</span> in <span class="math notranslate nohighlight">\(^\circ\)</span>C. (b) A GCM cell gives monthly mean rain fluxes in a 360-day calendar (every month 30 days): June <span class="math notranslate nohighlight">\(3.0\times10^{-5}\)</span>, July <span class="math notranslate nohighlight">\(1.1\times10^{-4}\)</span>, August <span class="math notranslate nohighlight">\(9.0\times10^{-5}\)</span> kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span>; the gauge gives 3.4, 8.1 and 7.5 mm/day. The model’s July temperature is 301.4 K, the gauge’s is 26.9 <span class="math notranslate nohighlight">\(^\circ\)</span>C. Compare the season rain totals and the temperatures. (c) A farm board needs <em>daily</em> future temperature at one station that follows reanalysis temperature closely (<span class="math notranslate nohighlight">\(r=0.9\)</span>). Which scheme?</p>
+<p><strong>Step 1 (Eq. 1.2).</strong> With <span class="math notranslate nohighlight">\(\sigma=5.67\times10^{-8}\)</span>: <span class="math notranslate nohighlight">\((1-0.25)\times1370=1027.5\)</span>; <span class="math notranslate nohighlight">\(4\sigma=2.268\times10^{-7}\)</span>; ratio <span class="math notranslate nohighlight">\(=4.530\times10^{9}\)</span>; fourth root <span class="math notranslate nohighlight">\(T_e=259.4\)</span> K; <span class="math notranslate nohighlight">\(259.4-273.15=-13.7\)</span> <span class="math notranslate nohighlight">\(^\circ\)</span>C. (Absorbed sunlight balances emitted heat; the fourth root undoes <span class="math notranslate nohighlight">\(T^4\)</span>.)</p>
+<p><strong>Step 2 (flux to depth).</strong> 1 kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> is 1 mm, a day has 86 400 s: June <span class="math notranslate nohighlight">\(3.0\times10^{-5}\times86\,400=2.592\)</span>; July <span class="math notranslate nohighlight">\(1.1\times10^{-4}\times86\,400=9.504\)</span>; August <span class="math notranslate nohighlight">\(9.0\times10^{-5}\times86\,400=7.776\)</span> mm/day.</p>
+<p><strong>Step 3 (totals).</strong> Rate times 30 days: model <span class="math notranslate nohighlight">\(77.76,\ 285.12,\ 233.28\)</span>, sum <span class="math notranslate nohighlight">\(596.16\)</span> mm; gauge <span class="math notranslate nohighlight">\(102,\ 243,\ 225\)</span>, sum <span class="math notranslate nohighlight">\(570\)</span> mm (same 30 days so the totals are comparable).</p>
+<p><strong>Step 4 (bias).</strong> Rain uses the ratio: <span class="math notranslate nohighlight">\(b_P=596.16/570=1.046\)</span> (4.6 % too wet, <span class="math notranslate nohighlight">\(+26.16\)</span> mm); by month <span class="math notranslate nohighlight">\(0.76,\ 1.17,\ 1.04\)</span>. Temperature uses the difference, in <span class="math notranslate nohighlight">\(^\circ\)</span>C first: <span class="math notranslate nohighlight">\(301.4-273.15=28.25\)</span>; <span class="math notranslate nohighlight">\(b_T=28.25-26.9=+1.35\)</span> K.</p>
+<p><strong>Step 5 (Section 1.4).</strong> Only the future change needed? No, a daily series. Does the local variable follow climate variables? Yes, <span class="math notranslate nohighlight">\(r=0.9\)</span>. So <strong>regression downscaling</strong> with reanalysis predictors (Lecture 19).</p>
+<p><strong>Answer.</strong> <span class="math notranslate nohighlight">\(T_e=-13.7^\circ\)</span>C; <span class="math notranslate nohighlight">\(b_P=1.046\)</span>; <span class="math notranslate nohighlight">\(b_T=+1.35\)</span> K; regression downscaling. <em>Interpretation: the 4.6 % season bias hides monthly errors of <span class="math notranslate nohighlight">\(-24\)</span> %, <span class="math notranslate nohighlight">\(+17\)</span> % and <span class="math notranslate nohighlight">\(+4\)</span> %, because a wet month cancels a dry one.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the same by-hand example in code (compare with sheet Hand_example)</span>
+<span class="n">S0</span><span class="p">,</span> <span class="n">alpha_p</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mf">1370.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">5.67e-8</span>
+<span class="n">T_e</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">S0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.25</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"T_e = </span><span class="si">{</span><span class="n">T_e</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> K = </span><span class="si">{</span><span class="n">T_e</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">273.15</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> degC"</span><span class="p">)</span>
+<span class="n">pr_f_ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0e-5</span><span class="p">,</span> <span class="mf">1.1e-4</span><span class="p">,</span> <span class="mf">9.0e-5</span><span class="p">])</span>         <span class="c1"># kg m-2 s-1, Jun, Jul, Aug</span>
+<span class="n">P_o_ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.4</span><span class="p">,</span> <span class="mf">8.1</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">])</span>                    <span class="c1"># mm/day</span>
+<span class="n">days</span> <span class="o">=</span> <span class="mi">30</span>                                             <span class="c1"># 360-day calendar</span>
+<span class="n">P_m_ex</span> <span class="o">=</span> <span class="n">pr_f_ex</span> <span class="o">*</span> <span class="mi">86400</span>
+<span class="n">tot_m</span><span class="p">,</span> <span class="n">tot_o</span> <span class="o">=</span> <span class="n">P_m_ex</span> <span class="o">*</span> <span class="n">days</span><span class="p">,</span> <span class="n">P_o_ex</span> <span class="o">*</span> <span class="n">days</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"P_m [mm/day]       :"</span><span class="p">,</span> <span class="n">P_m_ex</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"model totals [mm]  :"</span><span class="p">,</span> <span class="n">tot_m</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s2">" sum"</span><span class="p">,</span> <span class="n">tot_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"gauge totals [mm]  :"</span><span class="p">,</span> <span class="n">tot_o</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s2">" sum"</span><span class="p">,</span> <span class="n">tot_o</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"b_P season = </span><span class="si">{</span><span class="n">tot_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">tot_o</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  (+</span><span class="si">{</span><span class="n">tot_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tot_o</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm);  by month </span><span class="si">{</span><span class="p">(</span><span class="n">P_m_ex</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">P_o_ex</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">T_m_ex</span> <span class="o">=</span> <span class="mf">301.4</span> <span class="o">-</span> <span class="mf">273.15</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"T_m = </span><span class="si">{</span><span class="n">T_m_ex</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> degC,  b_T = </span><span class="si">{</span><span class="n">T_m_ex</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">26.9</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2"> K"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"scheme:"</span><span class="p">,</span> <span class="n">choose_scheme</span><span class="p">(</span><span class="n">change_only</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">predictors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">circulation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">subdaily</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fine_grid</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T_e = 259.4 K = -13.7 degC
+P_m [mm/day]       : [2.592 9.504 7.776]
+model totals [mm]  : [ 77.76 285.12 233.28]  sum 596.16
+gauge totals [mm]  : [102. 243. 225.]  sum 570.0
+b_P season = 1.046  (+26.16 mm);  by month [0.76 1.17 1.04]
+T_m = 28.25 degC,  b_T = +1.35 K
+scheme: Regression downscaling (Lectures 19-20)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="hands-on-a-synthetic-gcm-reanalysis-and-gauge">
+<h1>Hands-on: a synthetic GCM, reanalysis and gauge<a class="headerlink" href="#hands-on-a-synthetic-gcm-reanalysis-and-gauge" title="Link to this heading">#</a></h1>
+<p>Now the same ideas on daily data for 10 years where we <strong>know the truth</strong>. The cell below builds a gauge series (real calendar), a reanalysis series that follows the gauge weather, and a 4 <span class="math notranslate nohighlight">\(\times\)</span> 4 grid of 2.5<span class="math notranslate nohighlight">\(^\circ\)</span> GCM cells (360-day calendar, units kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span> and K). The GCM has its own weather, a monsoon 15 days late, too many light-rain days and a temperature 2 K too warm. You do not need to read the generator; to use real data, replace <code class="docutils literal notranslate"><span class="pre">P_o</span></code>, <code class="docutils literal notranslate"><span class="pre">P_r</span></code> and the GCM arrays by series from gauges or IMD rainfall, ERA5 and a CMIP6 file (for example with <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, Lecture 15).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># synthetic "world" for Lecture 16 (shared by the notebook cell and the workbook builder)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">gamma</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">lfilter</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">YEARS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">2011</span><span class="p">)</span>                              <span class="c1"># 10 years</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ar1</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""unit-variance AR(1) noise along axis 0 (gives day-to-day persistence)"""</span>
+    <span class="k">return</span> <span class="n">lfilter</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">rho</span><span class="p">],</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">season</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">peak</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>                                <span class="c1"># monsoon shape, f = day of year on a 365-day scale</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">f</span> <span class="o">-</span> <span class="n">peak</span><span class="p">)</span> <span class="o">/</span> <span class="n">width</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rain_from_z</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">mean_amt</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""z -&gt; daily rain [mm/day]: wet with probability p, gamma amount when wet"""</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z</span><span class="p">);</span> <span class="n">wet</span> <span class="o">=</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="n">u</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">))</span> <span class="o">/</span> <span class="n">p</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">1e-9</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">wet</span><span class="p">,</span> <span class="n">gamma</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">mean_amt</span> <span class="o">/</span> <span class="n">shape</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1"># calendars: observations and reanalysis use the real calendar, the GCM a 360-day calendar</span>
+<span class="n">t_std</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2001-01-01"</span><span class="p">,</span> <span class="s2">"2010-12-31"</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"D"</span><span class="p">)</span>
+<span class="n">f_std</span> <span class="o">=</span> <span class="n">t_std</span><span class="o">.</span><span class="n">day_of_year</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="mf">365.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">t_std</span><span class="o">.</span><span class="n">is_leap_year</span><span class="p">,</span> <span class="mf">366.0</span><span class="p">,</span> <span class="mf">365.0</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">360</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">YEARS</span><span class="p">))</span>
+<span class="n">g_year</span><span class="p">,</span> <span class="n">g_doy</span> <span class="o">=</span> <span class="mi">2001</span> <span class="o">+</span> <span class="n">k</span> <span class="o">//</span> <span class="mi">360</span><span class="p">,</span> <span class="n">k</span> <span class="o">%</span> <span class="mi">360</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">g_month</span><span class="p">,</span> <span class="n">g_day</span> <span class="o">=</span> <span class="p">(</span><span class="n">g_doy</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">g_doy</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">f_360</span> <span class="o">=</span> <span class="n">g_doy</span> <span class="o">*</span> <span class="mf">365.0</span> <span class="o">/</span> <span class="mf">360.0</span>
+
+<span class="c1"># observations at the catchment (real weather)</span>
+<span class="n">z_o</span> <span class="o">=</span> <span class="n">ar1</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_std</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">);</span> <span class="n">zT_o</span> <span class="o">=</span> <span class="n">ar1</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_std</span><span class="p">),</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">season</span><span class="p">(</span><span class="n">f_std</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
+<span class="n">P_o</span> <span class="o">=</span> <span class="n">rain_from_z</span><span class="p">(</span><span class="n">z_o</span><span class="p">,</span> <span class="mf">0.12</span> <span class="o">+</span> <span class="mf">0.68</span> <span class="o">*</span> <span class="n">M</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">7.0</span> <span class="o">*</span> <span class="n">M</span><span class="p">)</span>                          <span class="c1"># mm/day</span>
+<span class="n">T_o</span> <span class="o">=</span> <span class="mi">18</span> <span class="o">+</span> <span class="mi">9</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">f_std</span> <span class="o">-</span> <span class="mi">190</span><span class="p">)</span> <span class="o">/</span> <span class="mi">365</span><span class="p">)</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">zT_o</span>            <span class="c1"># degC</span>
+<span class="c1"># reanalysis: its weather follows the real weather (correlated), small bias</span>
+<span class="n">z_r</span> <span class="o">=</span> <span class="mf">0.85</span> <span class="o">*</span> <span class="n">z_o</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.85</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ar1</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_std</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">zT_r</span> <span class="o">=</span> <span class="mf">0.92</span> <span class="o">*</span> <span class="n">zT_o</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.92</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ar1</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_std</span><span class="p">),</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">P_r</span> <span class="o">=</span> <span class="n">rain_from_z</span><span class="p">(</span><span class="n">z_r</span><span class="p">,</span> <span class="mf">0.15</span> <span class="o">+</span> <span class="mf">0.66</span> <span class="o">*</span> <span class="n">M</span><span class="p">,</span> <span class="mf">2.2</span> <span class="o">+</span> <span class="mf">7.0</span> <span class="o">*</span> <span class="n">M</span><span class="p">)</span>
+<span class="n">T_r</span> <span class="o">=</span> <span class="n">T_o</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="p">(</span><span class="n">zT_r</span> <span class="o">-</span> <span class="n">zT_o</span><span class="p">)</span>
+<span class="c1"># GCM: 4 x 4 coarse cells, 2.5 degree, own weather, monsoon 15 days late, too many light-rain days, 2 K too warm</span>
+<span class="n">glat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">27.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">]);</span> <span class="n">glon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">72.5</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">77.5</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">])</span>
+<span class="n">Mg</span> <span class="o">=</span> <span class="n">season</span><span class="p">(</span><span class="n">f_360</span><span class="p">,</span> <span class="mi">215</span><span class="p">,</span> <span class="mi">40</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">shared</span> <span class="o">=</span> <span class="n">ar1</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">];</span> <span class="n">sharedT</span> <span class="o">=</span> <span class="n">ar1</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="mf">0.7</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">zc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span> <span class="o">*</span> <span class="n">shared</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span> <span class="o">*</span> <span class="n">ar1</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">zT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span> <span class="o">*</span> <span class="n">sharedT</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span> <span class="o">*</span> <span class="n">ar1</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">gcm_pr_f</span> <span class="o">=</span> <span class="n">rain_from_z</span><span class="p">(</span><span class="n">zc</span><span class="p">,</span> <span class="mf">0.28</span> <span class="o">+</span> <span class="mf">0.47</span> <span class="o">*</span> <span class="n">Mg</span><span class="p">,</span> <span class="mf">1.7</span> <span class="o">+</span> <span class="mf">6.8</span> <span class="o">*</span> <span class="n">Mg</span><span class="p">)</span> <span class="o">/</span> <span class="mf">86400.0</span>          <span class="c1"># kg m-2 s-1</span>
+<span class="n">gcm_tas</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">+</span> <span class="mf">7.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">f_360</span> <span class="o">-</span> <span class="mi">190</span><span class="p">)</span> <span class="o">/</span> <span class="mi">365</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">zT</span> <span class="o">+</span> <span class="mf">273.15</span>   <span class="c1"># K</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1) pick the GCM cell that contains the catchment (31.75 N, 77.0 E): the nearest cell centre</span>
+<span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">glat</span> <span class="o">-</span> <span class="mf">31.75</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">glon</span> <span class="o">-</span> <span class="mf">77.0</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="mf">111.2</span> <span class="o">*</span> <span class="mf">2.5</span><span class="p">;</span> <span class="n">ew</span> <span class="o">=</span> <span class="n">ns</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">glat</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cell centre </span><span class="si">{</span><span class="n">glat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> N, </span><span class="si">{</span><span class="n">glon</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s2"> E;  </span><span class="si">{</span><span class="n">ns</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">ew</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> km = </span><span class="si">{</span><span class="n">ns</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ew</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> km2; a 1000 km2 catchment is </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">ns</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ew</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> % of it"</span><span class="p">)</span>
+<span class="n">pr_f_m</span><span class="p">,</span> <span class="n">T_m_K</span> <span class="o">=</span> <span class="n">gcm_pr_f</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">gcm_tas</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"raw GCM file values: pr_f_m mean </span><span class="si">{</span><span class="n">pr_f_m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> kg m-2 s-1, T_m_K mean </span><span class="si">{</span><span class="n">T_m_K</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> K"</span><span class="p">)</span>
+
+<span class="c1"># 2) units and calendar</span>
+<span class="n">P_m</span><span class="p">,</span> <span class="n">T_m</span> <span class="o">=</span> <span class="n">pr_f_m</span> <span class="o">*</span> <span class="mi">86400</span><span class="p">,</span> <span class="n">T_m_K</span> <span class="o">-</span> <span class="mf">273.15</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"after conversion   : P_m mean </span><span class="si">{</span><span class="n">P_m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm/day, T_m mean </span><span class="si">{</span><span class="n">T_m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> degC"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"GCM year has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">P_m</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">YEARS</span><span class="p">)</span><span class="si">}</span><span class="s2"> days; annual total </span><span class="si">{</span><span class="n">P_m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">360</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm (360 days) but </span><span class="si">{</span><span class="n">P_m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">365</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm if we wrongly use 365"</span><span class="p">)</span>
+<span class="n">g_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"year"</span><span class="p">:</span> <span class="n">g_year</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">:</span> <span class="n">g_month</span><span class="p">,</span> <span class="s2">"day"</span><span class="p">:</span> <span class="n">g_day</span><span class="p">}),</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"GCM days that do not exist in the real calendar (29 and 30 February):"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">g_date</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s2">"of"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">g_date</span><span class="p">))</span>
+
+<span class="n">P_m_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">P_m</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">g_date</span><span class="p">);</span> <span class="n">P_m_date</span> <span class="o">=</span> <span class="n">P_m_date</span><span class="p">[</span><span class="n">P_m_date</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>     <span class="c1"># GCM series on real dates</span>
+
+<span class="c1"># 3) monthly means (calendar-independent), rounded as in the Data sheet</span>
+<span class="n">mo_o</span><span class="p">,</span> <span class="n">mo_g</span> <span class="o">=</span> <span class="n">t_std</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">g_month</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"P_o"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">P_o</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mo_o</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="s2">"pr_f_m"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pr_f_m</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mo_g</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">"</span><span class="p">)),</span>
+    <span class="s2">"T_o"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">T_o</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mo_o</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s2">"T_m_K"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">T_m_K</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mo_g</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)})</span>
+<span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"month"</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">"P_m"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pr_f_m</span> <span class="o">*</span> <span class="mi">86400</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">"T_m"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T_m_K</span> <span class="o">-</span> <span class="mf">273.15</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">"b_T"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T_m</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">T_o</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">round</span><span class="p">({</span><span class="s2">"P_m"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"T_m"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"b_T"</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">formatters</span><span class="o">=</span><span class="p">{</span><span class="s2">"pr_f_m"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{:.3e}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">}))</span>
+<span class="n">b_P</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">P_m</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">P_o</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">rain bias b_P = </span><span class="si">{</span><span class="n">b_P</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">;  mean temperature bias b_T = </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">b_T</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2"> K"</span><span class="p">)</span>
+<span class="n">days_o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">31</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"annual total: gauge </span><span class="si">{</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">P_o</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">days_o</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm (real month lengths), GCM </span><span class="si">{</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">P_m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mm (30-day months)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cell centre 32.5 N, 77.5 E;  278 x 234 km = 65,181 km2; a 1000 km2 catchment is 1.5 % of it
+raw GCM file values: pr_f_m mean 2.13e-05 kg m-2 s-1, T_m_K mean 293.16 K
+after conversion   : P_m mean 1.84 mm/day, T_m mean 20.01 degC
+GCM year has 360 days; annual total 662 mm (360 days) but 671 mm if we wrongly use 365
+GCM days that do not exist in the real calendar (29 and 30 February): 18 of 3600
+         P_o    pr_f_m    T_o   T_m_K    P_m    T_m   b_T
+month                                                    
+1      0.128 6.721e-06   9.05  286.11  0.581  12.96  3.91
+2      0.297 3.477e-06  10.48  287.38  0.300  14.23  3.75
+3      0.256 5.771e-06  14.44  290.57  0.499  17.42  2.98
+4      0.333 5.534e-06  18.99  293.62  0.478  20.47  1.48
+5      0.816 1.463e-05  23.64  297.88  1.264  24.73  1.09
+6      3.463 3.082e-05  26.11  299.82  2.663  26.67  0.56
+7      7.269 6.261e-05  26.86  300.66  5.410  27.51  0.65
+8      4.290 6.283e-05  25.05  299.03  5.429  25.88  0.83
+9      1.145 4.091e-05  21.18  295.80  3.535  22.65  1.47
+10     0.404 9.807e-06  16.60  292.07  0.847  18.92  2.32
+11     0.202 7.461e-06  12.45  288.54  0.645  15.39  2.94
+12     0.282 4.847e-06  10.04  286.38  0.419  13.23  3.19
+
+rain bias b_P = 1.169;  mean temperature bias b_T = +2.10 K
+annual total: gauge 579.4 mm (real month lengths), GCM 662.0 mm (30-day months)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">P_o</span><span class="p">,</span> <span class="s2">"k-"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$P_o$ gauge"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">P_r</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mo_o</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">"b--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$P_r$ reanalysis"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">P_m</span><span class="p">,</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$P_m$ GCM"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"mean rain [mm/day]"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"(a) Rain, monthly means"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">T_o</span><span class="p">,</span> <span class="s2">"k-"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$T_o$ gauge"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">T_m</span><span class="p">,</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$T_m$ GCM"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"temperature [$^</span><span class="se">\\</span><span class="s2">circ$C]"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"(b) Temperature, monthly means"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">t_std</span> <span class="o">&gt;=</span> <span class="s2">"2005-07-01"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t_std</span> <span class="o">&lt;=</span> <span class="s2">"2005-09-30"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_std</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">P_o</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$P_o$"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_std</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">P_r</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="s2">"b--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$P_r$"</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">P_m_date</span><span class="p">[(</span><span class="n">P_m_date</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="s2">"2005-07-01"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P_m_date</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;=</span> <span class="s2">"2005-09-30"</span><span class="p">)]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$P_m$"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">"rain [mm/day]"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"(c) Jul-Sep 2005, day by day"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># day-by-day agreement, matched by date, after removing each series' own monthly means</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"P_o"</span><span class="p">:</span> <span class="n">P_o</span><span class="p">,</span> <span class="s2">"P_r"</span><span class="p">:</span> <span class="n">P_r</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">t_std</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">P_m_date</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"P_m"</span><span class="p">))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="o">~</span><span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">an</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"daily correlation with the gauge: reanalysis </span><span class="si">{</span><span class="n">an</span><span class="o">.</span><span class="n">P_o</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">an</span><span class="o">.</span><span class="n">P_r</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, GCM </span><span class="si">{</span><span class="n">an</span><span class="o">.</span><span class="n">P_o</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">an</span><span class="o">.</span><span class="n">P_m</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5a60464741f04d02fc717bdd6b2a1b8047421b8763a1870f55a03fcf1c7bcca3.png" src="_images/5a60464741f04d02fc717bdd6b2a1b8047421b8763a1870f55a03fcf1c7bcca3.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>daily correlation with the gauge: reanalysis 0.80, GCM 0.01
+</pre></div>
+</div>
+</div>
+</div>
+<p>Reading the figure and numbers:</p>
+<ul class="simple">
+<li><p><strong>(a)</strong> The GCM monsoon peaks too late and runs wetter than the gauge, so the rain bias <span class="math notranslate nohighlight">\(b_P\)</span> is above 1 and changes from month to month. A single number would hide this.</p></li>
+<li><p><strong>(b)</strong> The GCM is too warm in every month, by about 2 K on average: <span class="math notranslate nohighlight">\(b_T\)</span> is positive. Part of such a bias in real models is simply the box being lower than the catchment (the scale part of the gap).</p></li>
+<li><p><strong>(c)</strong> The reanalysis rises and falls with the real storms; the GCM makes its own storms on other days. The daily correlation is high for the reanalysis and close to zero for the GCM. This is the timing part of the gap, and it is why reanalysis, not the GCM, is used to fit relations day by day.</p></li>
+<li><p>The 360-day year gives a total of the model’s own year; using 365 days would add 1.4 % that the model never produced.</p></li>
+</ul>
+<p><em>What this means for hydrology: before any downscaling, check units, calendar and which cell you took, and look at the monthly bias; only then choose a scheme.</em></p>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A GCM box averages over terrain that a catchment resolves. The gap has three parts: <strong>scale</strong>, <strong>bias</strong> and <strong>timing</strong>.</p></li>
+<li><p><strong>GCM</strong> (free-running, gives the future), <strong>reanalysis</strong> (follows real weather, gives predictors), <strong>RCM</strong> (finer, still biased) and <strong>observations</strong> (the target) play different roles.</p></li>
+<li><p>Convert GCM data first: flux <span class="math notranslate nohighlight">\(\times\)</span> 86 400 = mm/day, K <span class="math notranslate nohighlight">\(-\)</span> 273.15 = <span class="math notranslate nohighlight">\(^\circ\)</span>C, and use 30 days per month in a 360-day calendar.</p></li>
+<li><p>The families are regression (transfer function), weather generator and weather typing, plus bias correction, temporal and spatial downscaling. All statistical methods assume <strong>stationarity</strong>.</p></li>
+<li><p>The choice of scheme follows the output you need (Section 1.4 of the book).</p></li>
+</ul>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>A model gives <span class="math notranslate nohighlight">\(pr_f=2.0\times10^{-5}\)</span> kg m<span class="math notranslate nohighlight">\(^{-2}\)</span> s<span class="math notranslate nohighlight">\(^{-1}\)</span> for a 30-day month. What are the daily rate in mm/day and the monthly total in mm?</p></li>
+<li><p>Why is the day-by-day correlation between a free-running GCM and a gauge about zero, and why is that not a fault of the model? Which dataset do you use to fit a regression?</p></li>
+<li><p>Choose a scheme for (a) the change in mean seasonal inflow of one reservoir by 2100, and (b) hourly design storms for a 20 km<span class="math notranslate nohighlight">\(^2\)</span> urban catchment.</p></li>
+</ol>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="try-it-yourself">
+<h1>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Change the seed in <code class="docutils literal notranslate"><span class="pre">default_rng(16)</span></code> and rerun: how much do <span class="math notranslate nohighlight">\(b_P\)</span> and <span class="math notranslate nohighlight">\(b_T\)</span> change over 10 years?</p></li>
+<li><p>Take another GCM cell (change <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>) and compare its monthly <span class="math notranslate nohighlight">\(P_m\)</span> with the cell above.</p></li>
+<li><p>In the spreadsheet sheet <code class="docutils literal notranslate"><span class="pre">Method_guide</span></code>, add your own project in the last row and read off the scheme.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Where this lecture differs from the book</p>
+<ul class="simple">
+<li><p>The book quotes GCM grids of 250 to 600 km (the AR5 models); current CMIP6 models have about 100 to 250 km, which is what this lecture uses.</p></li>
+<li><p>The footnote of the book’s Table 3.1 gives T42 as “around 5.61” at the equator; T42 corresponds to about 2.8<span class="math notranslate nohighlight">\(^\circ\)</span> (a 64 <span class="math notranslate nohighlight">\(\times\)</span> 128 grid).</p></li>
+<li><p>The book quotes RCM resolution of 10 to 20 km; CORDEX South Asia is mostly 0.44<span class="math notranslate nohighlight">\(^\circ\)</span> (about 50 km) and finer.</p></li>
+<li><p>The book’s data links point to CMIP5 sites; CMIP6 data are now served through ESGF nodes.</p></li>
+<li><p>The book gives no calendar or unit conversions; Section 3.1 and the by-hand example add them because the hands-on part needs them.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>. The structure and terms follow the reference book below; the explanations, synthetic data, code and figures here are our own.</p>
+<p><strong>Main reference.</strong> Lee, T., &amp; Singh, V. P. (2019). <em>Statistical Downscaling for Hydrological and Environmental Applications</em>. CRC Press. Chapter 1 (Sections 1.1 to 1.4: why downscale, the three statistical families, selection of a model scheme) and Chapter 3 (Sections 3.1 to 3.3: GCM, reanalysis and RCM data and formats).</p>
+<p><strong>Further reading.</strong> Maraun, D., et al. (2010). Precipitation downscaling under climate change. <em>Reviews of Geophysics, 48</em>, RG3003. · Maraun, D., &amp; Widmann, M. (2018). <em>Statistical Downscaling and Bias Correction for Climate Research</em>. Cambridge University Press. · Eyring, V., et al. (2016). Overview of CMIP6 experimental design and organization. <em>Geoscientific Model Development, 9</em>, 1937–1958. · Hersbach, H., et al. (2020). The ERA5 global reanalysis. <em>Quarterly Journal of the Royal Meteorological Society, 146</em>, 1999–2049.</p>
+<p>All data are synthetic; the catchment and the model biases are illustrative. The spreadsheet formulas were checked against an independent Python calculation but not recalculated in desktop Excel. All figures are drawn for this course.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-15-climate-data-analysis-with-xarray.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 15, Climate data analysis with xarray</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-17-statistical-background-for-downscaling.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 17, Statistical background for downscaling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lecture 16, Downscaling: the problem, the data and choosing a method</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-statistical-downscaling-ch-1-1">1.1 Why statistical downscaling? (Ch. 1.1)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-models-ch-1-2">1.2 Climate models (Ch. 1.2)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-downscaling-ch-1-3">1.3 Statistical downscaling (Ch. 1.3)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-of-model-scheme-ch-1-4">1.4 Selection of model scheme (Ch. 1.4)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gcm-data-ch-3-1">3.1 GCM data (Ch. 3.1)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reanalysis-data-ch-3-2">3.2 Reanalysis data (Ch. 3.2)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rcm-data-ch-3-3">3.3 RCM data (Ch. 3.3)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand">Worked example (by hand)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-a-synthetic-gcm-reanalysis-and-gauge">Hands-on: a synthetic GCM, reanalysis and gauge</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

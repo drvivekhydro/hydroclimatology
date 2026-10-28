@@ -1,0 +1,1329 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 26, Droughts I: definitions and drought indices &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-26-droughts-definitions-and-indices';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India" href="lecture-27-drought-characteristics-frequency-and-management.html" />
+    <link rel="prev" title="Lecture 25, Floods II: flood frequency analysis, design floods and climate change" href="lecture-25-flood-frequency-analysis-and-design-floods.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-23-spatial-downscaling.html">Lecture 23, Spatial downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-24-floods-extremes-and-return-periods.html">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-25-flood-frequency-analysis-and-design-floods.html">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 26, Droughts I: definitions and drought indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-27-drought-characteristics-frequency-and-management.html">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-26-droughts-definitions-and-indices.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-26-droughts-definitions-and-indices.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-26-droughts-definitions-and-indices.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-26-droughts-definitions-and-indices.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 26, Droughts I: definitions and drought indices</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-drought">1) What is a drought?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-drought">2) Types of drought</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-what-runs-short-the-four-classic-types">2.1 By what runs short: the four classic types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-how-it-behaves-in-time-thornthwaite-s-classes">2.2 By how it behaves in time (Thornthwaite’s classes)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newer-terms">2.3 Newer terms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-indicators-first">3) Simple indicators first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-standardized-precipitation-index-spi">4) The Standardized Precipitation Index (SPI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spi-3-and-spi-12-for-the-chattooga">5) SPI-3 and SPI-12 for the Chattooga</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spei-adding-the-evaporation-demand">6) SPEI: adding the evaporation demand</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-streamflow-index-and-drought-propagation">7) A streamflow index and drought propagation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-26-droughts-i-definitions-and-drought-indices">
+<h1>Lecture 26, Droughts I: definitions and drought indices<a class="headerlink" href="#lecture-26-droughts-i-definitions-and-drought-indices" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>What a drought is, the kinds of drought, and how one number (the SPI) says how dry a period was</p>
+</div></blockquote>
+<p>A drought is the slowest of the natural hazards. It has no clear start, no clear end and no single place where it strikes, yet in India it has cost more crops and livelihoods than any flood. Before we can manage a drought we need to measure it, and to measure it we must first agree what it is. This lecture defines drought, sorts it into types, and builds the drought indices used worldwide, ending with the <strong>Standardized Precipitation Index (SPI)</strong> of McKee et al. (1993) as described in the WMO SPI User Guide (2012). Lecture 27 uses these indices to describe drought events and their frequency.</p>
+<p>By the end of this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>tell a drought apart from aridity and from water scarcity, and name the main types of drought and how one leads to the next,</p></li>
+<li><p>compute the percent of normal, the rainfall departure (with the IMD classes) and the decile of a rainfall total,</p></li>
+<li><p>compute the SPI by hand from a short record: fit a gamma distribution with Thom’s formulas, handle zero totals, and convert to the standard normal,</p></li>
+<li><p>compute SPI-3 and SPI-12 for a real catchment, and say what the SPEI and a streamflow index add.</p></li>
+</ul>
+<p>The workbook <code class="docutils literal notranslate"><span class="pre">data/extremes/lec26/lec26_worked_examples.xlsx</span></code> repeats the hand example with live formulas (sheets <code class="docutils literal notranslate"><span class="pre">Indicators</span></code> and <code class="docutils literal notranslate"><span class="pre">SPI</span></code>). The running dataset is the Chattooga River record used in Lectures 7 and 10.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas scipy matplotlib
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">gamma</span> <span class="k">as</span> <span class="n">gamma_fn</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"figure.dpi"</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">"axes.grid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"grid.alpha"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s2">"axes.spines.top"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"axes.spines.right"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="words-you-need">
+<h2>Words you need<a class="headerlink" href="#words-you-need" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Normal (rainfall)</strong>: the long-term average for that place and that time of year, ideally over 30 years. IMD calls the all-India seasonal normal the long period average (LPA).</p></li>
+<li><p><strong>Accumulation period <span class="math notranslate nohighlight">\(k\)</span></strong>: the number of months added together. A 3-month total for March is the rain of January + February + March.</p></li>
+<li><p><strong>Distribution</strong>: a curve that says which values are common and which are rare. The <strong>gamma distribution</strong> (Lecture 17) suits rain totals: never negative, with a long tail of wet values. It has a <strong>shape</strong> <span class="math notranslate nohighlight">\(\alpha\)</span> and a <strong>scale</strong> <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+<li><p><strong>Cumulative probability (CDF)</strong>: the share of years with a total at or below a value. If 12 % of years are drier than this one, its cumulative probability is 0.12.</p></li>
+<li><p><strong>Standard normal distribution</strong>: the bell curve with mean 0 and standard deviation 1. A value on it is called a <strong>z-score</strong>; <span class="math notranslate nohighlight">\(z=-1\)</span> is one standard deviation below the mean, and only about 16 % of values lie below it.</p></li>
+<li><p><strong>Decile</strong>: split the sorted record into ten equal groups; decile 1 holds the driest tenth of years.</p></li>
+<li><p><strong>Maximum likelihood</strong>: the way of fitting a distribution that picks the parameters under which the observed data are most likely (Lecture 17). Thom’s formulas are a quick approximation of it for the gamma.</p></li>
+</ul>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>The SPI symbols follow McKee et al. (1993) and the WMO SPI User Guide (2012); the gamma parameters are those of Lecture 17. Lecture 27 keeps the same symbols.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Units</p></th>
+<th class="head text-left"><p>Code / spreadsheet</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+<td class="text-left"><p>accumulation period</p></td>
+<td class="text-left"><p>months</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">k</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(x\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(k\)</span>-month precipitation total for one calendar month and year</p></td>
+<td class="text-left"><p>mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(m\)</span></p></td>
+<td class="text-left"><p>number of totals in the record; number of non-zero totals</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(q\)</span></p></td>
+<td class="text-left"><p>probability of a zero total, <span class="math notranslate nohighlight">\(q=(n-m)/n\)</span></p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">q</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar x\)</span></p></td>
+<td class="text-left"><p>mean of the non-zero totals</p></td>
+<td class="text-left"><p>mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_bar</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(A\)</span></p></td>
+<td class="text-left"><p>Thom’s statistic, <span class="math notranslate nohighlight">\(A=\ln\bar x-\overline{\ln x}\)</span></p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span></p></td>
+<td class="text-left"><p>gamma shape and scale</p></td>
+<td class="text-left"><p>-, mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">beta</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(G(x)\)</span></p></td>
+<td class="text-left"><p>gamma CDF of the non-zero totals</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">G</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(H(x)\)</span></p></td>
+<td class="text-left"><p>cumulative probability including zeros</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">H</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\Phi^{-1}\)</span></p></td>
+<td class="text-left"><p>inverse of the standard normal CDF</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">stats.norm.ppf</span></code>, <code class="docutils literal notranslate"><span class="pre">NORM.S.INV</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>SPI-<span class="math notranslate nohighlight">\(k\)</span></p></td>
+<td class="text-left"><p>standardized precipitation index, <span class="math notranslate nohighlight">\(\text{SPI}=\Phi^{-1}(H)\)</span></p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">spi3</span></code>, <code class="docutils literal notranslate"><span class="pre">spi12</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(PET\)</span>, <span class="math notranslate nohighlight">\(W=P-PET\)</span></p></td>
+<td class="text-left"><p>potential evapotranspiration; climatic water balance</p></td>
+<td class="text-left"><p>mm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pet_mm</span></code>, <code class="docutils literal notranslate"><span class="pre">W</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>SPEI-<span class="math notranslate nohighlight">\(k\)</span>, SSI-<span class="math notranslate nohighlight">\(k\)</span></p></td>
+<td class="text-left"><p>the same index built on <span class="math notranslate nohighlight">\(W\)</span>, or on streamflow <span class="math notranslate nohighlight">\(Q\)</span></p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">spei12</span></code>, <code class="docutils literal notranslate"><span class="pre">ssi3</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Vicente-Serrano et al. (2010) write the water balance as <span class="math notranslate nohighlight">\(D\)</span>; we write <span class="math notranslate nohighlight">\(W\)</span> because <span class="math notranslate nohighlight">\(D\)</span> is the drought duration in Lecture 27.</p>
+</section>
+<section id="what-is-a-drought">
+<h2>1) What is a drought?<a class="headerlink" href="#what-is-a-drought" title="Link to this heading">#</a></h2>
+<p>A <strong>drought</strong> is a period when water is unusually short <em>compared with what is normal for that place and season</em>. Three ideas are often mixed up:</p>
+<ul class="simple">
+<li><p><strong>Aridity</strong> is a permanent feature of the climate. Western Rajasthan gets little rain every year; that is its normal, not a drought.</p></li>
+<li><p><strong>Drought</strong> is temporary: a departure below the local normal. A year with 1,500 mm in coastal Karnataka can be a drought year, while 400 mm in Jaisalmer is a normal one.</p></li>
+<li><p><strong>Water scarcity</strong> means that people use more water than is reliably available, year after year. It is caused by demand (cities, irrigation, over-pumping of groundwater) and can exist without any drought; a drought makes it worse.</p></li>
+</ul>
+<p>Mishra &amp; Singh (2010) review the many definitions; they agree that a drought is defined relative to a normal and that it is felt through its impacts. India knows them well: the monsoon rainfall of 2002 and of 2009 was about 19 % and 22 % below the long period average, and Marathwada in Maharashtra went through several dry years in a row around 2012 to 2016, ending with reservoirs so low in 2016 that drinking water was sent to Latur by train.</p>
+</section>
+<section id="types-of-drought">
+<h2>2) Types of drought<a class="headerlink" href="#types-of-drought" title="Link to this heading">#</a></h2>
+<section id="by-what-runs-short-the-four-classic-types">
+<h3>2.1 By what runs short: the four classic types<a class="headerlink" href="#by-what-runs-short-the-four-classic-types" title="Link to this heading">#</a></h3>
+<p>Mishra &amp; Singh (2010), following earlier work, group droughts by the part of the water cycle that runs short. A rain deficit travels through the system, and at each step it is delayed, smoothed and sometimes made worse by people.</p>
+<ol class="arabic simple">
+<li><p><strong>Meteorological drought</strong>: less rain (or snow) than normal over weeks to months. <em>Example:</em> the failed monsoon of 2009, about 22 % below the long period average for India as a whole.</p></li>
+<li><p><strong>Agricultural (soil-moisture) drought</strong>: the root zone dries out and crops suffer, usually 1 to 3 months after the rain fails. A dry spell in July, at sowing time, can hurt more than a dry October. <em>Example:</em> the kharif season of 2002, when a very dry July cut the crop (a well-known case; check the details in the sources).</p></li>
+<li><p><strong>Hydrological drought</strong>: low streamflow, low reservoir and lake levels, falling groundwater. It lags the rainfall by months (rivers) to years (aquifers) and lasts longer, because stores drain slowly and refill slowly. <em>Example:</em> the empty reservoirs of Marathwada in 2015 to 2016.</p></li>
+<li><p><strong>Socioeconomic drought</strong>: the supply of a water-dependent good (drinking water, food, hydropower, jobs) falls below demand. It depends on people as much as on rain. <em>Example:</em> the water crisis of Chennai in 2019, when the city’s main reservoirs nearly dried up after a weak north-east monsoon.</p></li>
+</ol>
+<p>The chain <strong>meteorological -&gt; agricultural -&gt; hydrological -&gt; socioeconomic</strong> is called <strong>drought propagation</strong>. Along the chain, short dry spells are filtered out (a river does not notice one dry week), dry spells close together merge into one long drought, and the drought ends later than the rain deficit. We will see this on the Chattooga data in Section 7.</p>
+</section>
+<section id="by-how-it-behaves-in-time-thornthwaite-s-classes">
+<h3>2.2 By how it behaves in time (Thornthwaite’s classes)<a class="headerlink" href="#by-how-it-behaves-in-time-thornthwaite-s-classes" title="Link to this heading">#</a></h3>
+<p>Thornthwaite (1947) grouped dry conditions by their timing.</p>
+<ul class="simple">
+<li><p><strong>Permanent</strong>: the climate is always dry, as in a desert. This is <em>aridity</em>, not drought, because nothing departs from normal; we expect it and plan for it.</p></li>
+<li><p><strong>Seasonal</strong>: a dry season that comes every year, such as the Indian months outside the monsoon. It is predictable, so farmers and reservoir operators plan for it; it becomes a problem only if the wet season fails to refill the stores.</p></li>
+<li><p><strong>Contingent</strong>: irregular, unpredictable failure of the rain, such as a failed monsoon. This is drought in the usual sense and the hardest to plan for.</p></li>
+<li><p><strong>Invisible</strong>: rain is close to normal, but heat and dry air raise the evaporation demand, so deficits in soil and rivers build up quietly. A warming climate makes this kind more common (Lecture 27).</p></li>
+</ul>
+</section>
+<section id="newer-terms">
+<h3>2.3 Newer terms<a class="headerlink" href="#newer-terms" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Flash drought</strong>: a drought that develops in a few weeks rather than months, driven by heat, sunshine, wind and dry air that pull water out of the soil quickly. A long break in the monsoon with a heat wave can produce one.</p></li>
+<li><p><strong>Groundwater drought</strong>: below-normal groundwater levels or recharge. It is the slowest type: it can begin a year after the rain fails and persist for years.</p></li>
+<li><p><strong>Snow drought</strong>: a thin snowpack, or snow that melts too early, so that spring and summer river flow is low even if total precipitation was normal. It matters for Himalayan rivers that depend on snowmelt; weak winter snowfall in the western Himalaya has been reported in some recent years.</p></li>
+<li><p><strong>Ecological drought</strong>: a water shortage that pushes ecosystems (forests, wetlands, fish) past their limits, whatever its effect on people.</p></li>
+<li><p><strong>Multi-year drought and megadrought</strong>: droughts that last many years; a megadrought lasts a decade or more, as in south-western North America since 2000.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>What runs short</p></th>
+<th class="head text-left"><p>Typical indicator</p></th>
+<th class="head text-left"><p>Typical time scale</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>meteorological</p></td>
+<td class="text-left"><p>rain, snow</p></td>
+<td class="text-left"><p>rainfall departure, SPI-1 to SPI-6</p></td>
+<td class="text-left"><p>weeks to months</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>agricultural</p></td>
+<td class="text-left"><p>soil moisture in the root zone</p></td>
+<td class="text-left"><p>soil moisture, vegetation index (NDVI), SPI-3, SPEI-3</p></td>
+<td class="text-left"><p>1 to 6 months</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>hydrological</p></td>
+<td class="text-left"><p>streamflow, reservoirs</p></td>
+<td class="text-left"><p>streamflow index (SSI), reservoir storage, SPI-6 to SPI-12</p></td>
+<td class="text-left"><p>months to a few years</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>groundwater</p></td>
+<td class="text-left"><p>aquifer storage</p></td>
+<td class="text-left"><p>well levels, SPI-12 to SPI-24</p></td>
+<td class="text-left"><p>one to several years</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>socioeconomic</p></td>
+<td class="text-left"><p>water-dependent goods</p></td>
+<td class="text-left"><p>supply versus demand</p></td>
+<td class="text-left"><p>any</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>flash</p></td>
+<td class="text-left"><p>soil moisture, fast</p></td>
+<td class="text-left"><p>rapid drop of soil moisture or SPEI</p></td>
+<td class="text-left"><p>weeks</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>snow</p></td>
+<td class="text-left"><p>snowpack, melt water</p></td>
+<td class="text-left"><p>snow water equivalent, snow cover</p></td>
+<td class="text-left"><p>one winter to spring</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The running dataset: Chattooga River (536 km2, USA), daily 1991-2015, as in Lectures 7 and 10</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/chattooga_daily.csv"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"date"</span><span class="p">)</span>
+<span class="n">mon</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s2">"prcp_mm"</span><span class="p">:</span> <span class="s2">"sum"</span><span class="p">,</span> <span class="s2">"tmean_c"</span><span class="p">:</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"pet_mm"</span><span class="p">:</span> <span class="s2">"sum"</span><span class="p">,</span> <span class="s2">"q_mm"</span><span class="p">:</span> <span class="s2">"sum"</span><span class="p">})</span>   <span class="c1"># monthly totals (mm)</span>
+<span class="n">ann</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">"prcp_mm"</span><span class="p">,</span> <span class="s2">"pet_mm"</span><span class="p">,</span> <span class="s2">"q_mm"</span><span class="p">]]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"YS"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">ann</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ann</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mon</span><span class="p">)</span><span class="si">}</span><span class="s2"> months; mean annual P = </span><span class="si">{</span><span class="n">ann</span><span class="o">.</span><span class="n">prcp_mm</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm, PET = </span><span class="si">{</span><span class="n">ann</span><span class="o">.</span><span class="n">pet_mm</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm, Q = </span><span class="si">{</span><span class="n">ann</span><span class="o">.</span><span class="n">q_mm</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"months with zero rain:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">mon</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>300 months; mean annual P = 1742 mm, PET = 974 mm, Q = 1051 mm
+months with zero rain: ['2000-10']
+</pre></div>
+</div>
+</div>
+</div>
+<p>Twenty-five years is short for drought work: the WMO guide asks for at least 30 years for the SPI, and in India we would use IMD gridded rainfall and Central Water Commission (CWC) gauges. The Chattooga record is used here because it is complete, has rain, temperature, PET and flow together, and covers two well-known droughts of the south-eastern United States (around 1998 to 2002 and 2007 to 2008).</p>
+</section>
+</section>
+<section id="simple-indicators-first">
+<h2>3) Simple indicators first<a class="headerlink" href="#simple-indicators-first" title="Link to this heading">#</a></h2>
+<p><strong>Percent of normal</strong> compares a total <span class="math notranslate nohighlight">\(x\)</span> with the normal <span class="math notranslate nohighlight">\(\bar x_N\)</span> of the same period: <span class="math notranslate nohighlight">\(100\,x/\bar x_N\)</span>. The <strong>rainfall departure</strong> is the same idea as a percentage above or below normal:</p>
+<div class="math notranslate nohighlight">
+\[\text{departure} = 100\,\frac{x-\bar x_N}{\bar x_N}\ \%.\]</div>
+<p>IMD uses the departure to label the rainfall of a district or a week:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Departure from normal</p></th>
+<th class="head text-left"><p>IMD class</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>+60 % or more</p></td>
+<td class="text-left"><p>large excess</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>+20 to +59 %</p></td>
+<td class="text-left"><p>excess</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>-19 to +19 %</p></td>
+<td class="text-left"><p>normal</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>-20 to -59 %</p></td>
+<td class="text-left"><p>deficient</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>-60 to -99 %</p></td>
+<td class="text-left"><p>large deficient</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>-100 %</p></td>
+<td class="text-left"><p>no rain</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For the all-India monsoon season IMD uses narrower bands around the long period average (a season below 90 % of it is called deficient). <strong>Deciles</strong> (Gibbs &amp; Maher 1967) rank the total among all years: sort the record, give each total its cumulative probability rank/(n + 1) as in Lecture 17, and multiply by 10 and round up. Deciles 1 to 2 are <em>much below normal</em>, 3 to 4 <em>below normal</em>, 5 to 6 <em>near normal</em>, 7 to 8 <em>above normal</em>, 9 to 10 <em>much above normal</em>.</p>
+<p>Both are easy to explain to a farmer or a district officer. Their weakness: the same departure means different things in different places and seasons. A 50 % deficit is common in a dry month with 10 mm normal, and very rare in a wet monsoon month; percent of normal cannot tell these apart. The SPI can.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Annual Chattooga rainfall: percent of normal, departure, IMD class and decile (normal = the 25-year mean)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">imd_class</span><span class="p">(</span><span class="n">dep</span><span class="p">):</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">100.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">59.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">19.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">,</span> <span class="mf">59.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"no rain"</span><span class="p">,</span> <span class="s2">"large deficient"</span><span class="p">,</span> <span class="s2">"deficient"</span><span class="p">,</span> <span class="s2">"normal"</span><span class="p">,</span> <span class="s2">"excess"</span><span class="p">,</span> <span class="s2">"large excess"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">names</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">dep</span><span class="p">))]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">decile</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"min"</span><span class="p">)</span>                       <span class="c1"># rank 1 = driest</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">ind</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"P_mm"</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">prcp_mm</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)})</span>
+<span class="n">ind</span><span class="p">[</span><span class="s2">"pct_normal"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">ann</span><span class="o">.</span><span class="n">prcp_mm</span> <span class="o">/</span> <span class="n">ann</span><span class="o">.</span><span class="n">prcp_mm</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">ind</span><span class="p">[</span><span class="s2">"departure"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind</span><span class="o">.</span><span class="n">pct_normal</span> <span class="o">-</span> <span class="mi">100</span>
+<span class="n">ind</span><span class="p">[</span><span class="s2">"IMD_class"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">imd_class</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ind</span><span class="o">.</span><span class="n">departure</span><span class="p">]</span>
+<span class="n">ind</span><span class="p">[</span><span class="s2">"decile"</span><span class="p">]</span> <span class="o">=</span> <span class="n">decile</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">prcp_mm</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"normal annual rainfall = </span><span class="si">{</span><span class="n">ann</span><span class="o">.</span><span class="n">prcp_mm</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ind</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"P_mm"</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>normal annual rainfall = 1742 mm
+        P_mm  pct_normal  departure  IMD_class  decile
+date                                                  
+2000  1239.0        71.1      -28.9  deficient       1
+2001  1254.0        72.0      -28.0  deficient       1
+2007  1315.0        75.5      -24.5  deficient       2
+1993  1437.0        82.5      -17.5     normal       2
+2012  1466.0        84.1      -15.9     normal       2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-standardized-precipitation-index-spi">
+<h2>4) The Standardized Precipitation Index (SPI)<a class="headerlink" href="#the-standardized-precipitation-index-spi" title="Link to this heading">#</a></h2>
+<p>The SPI turns any rain total into a z-score: <em>how unusual is this total for this place, this calendar month and this accumulation period?</em> An SPI of -1.5 means the same rarity in Cherrapunji and in Jaisalmer, in July and in January. The steps (McKee et al. 1993; WMO 2012):</p>
+<p><strong>Step 1, accumulate.</strong> Add the monthly rain over <span class="math notranslate nohighlight">\(k\)</span> months ending in the month of interest: SPI-1 and SPI-3 follow soil moisture and crops, SPI-6 to SPI-12 follow rivers, reservoirs and groundwater. Treat each calendar month separately: the March 3-month totals of all years form one sample of <span class="math notranslate nohighlight">\(n\)</span> values.</p>
+<p><strong>Step 2, fit a gamma distribution</strong> (Lecture 17) to the <span class="math notranslate nohighlight">\(m\)</span> non-zero totals. The usual route, used by McKee et al. and the SPI programs referred to in the WMO guide, is Thom’s (1958) approximation to maximum likelihood:</p>
+<div class="math notranslate nohighlight">
+\[A=\ln\bar x-\frac{1}{m}\sum_{i=1}^{m}\ln x_i,\qquad \alpha=\frac{1+\sqrt{1+4A/3}}{4A},\qquad \beta=\frac{\bar x}{\alpha}.\]</div>
+<p><span class="math notranslate nohighlight">\(A\)</span> is always positive (the log of a mean exceeds the mean of the logs) and gets smaller when the totals are less spread out, which gives a larger shape <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
+<p><strong>Step 3, handle zeros.</strong> The gamma cannot produce a zero, but a dry-season total can be zero. With <span class="math notranslate nohighlight">\(q=(n-m)/n\)</span> the share of zero totals, the cumulative probability is</p>
+<div class="math notranslate nohighlight">
+\[H(x)=q+(1-q)\,G(x),\]</div>
+<p>where <span class="math notranslate nohighlight">\(G(x)\)</span> is the gamma CDF with <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> (<code class="docutils literal notranslate"><span class="pre">GAMMA.DIST(x,</span> <span class="pre">alpha,</span> <span class="pre">beta,</span> <span class="pre">TRUE)</span></code> in a spreadsheet).</p>
+<p><strong>Step 4, transform to the standard normal.</strong> The SPI is the z-score with the same cumulative probability:</p>
+<div class="math notranslate nohighlight">
+\[\text{SPI}=\Phi^{-1}\bigl(H(x)\bigr),\]</div>
+<p>read from a normal table or with <code class="docutils literal notranslate"><span class="pre">NORM.S.INV(H)</span></code>. The SPI therefore has mean 0 and standard deviation 1 at every place and season.</p>
+<p><strong>Step 5, classify</strong> (McKee et al. 1993):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>SPI</p></th>
+<th class="head text-left"><p>Class</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>2.0 or more</p></td>
+<td class="text-left"><p>extremely wet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>1.5 to 1.99</p></td>
+<td class="text-left"><p>very wet</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>1.0 to 1.49</p></td>
+<td class="text-left"><p>moderately wet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>-0.99 to 0.99</p></td>
+<td class="text-left"><p>near normal</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>-1.0 to -1.49</p></td>
+<td class="text-left"><p>moderately dry</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>-1.5 to -1.99</p></td>
+<td class="text-left"><p>severely dry</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>-2.0 or less</p></td>
+<td class="text-left"><p>extremely dry</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A drought event in the McKee sense starts when the SPI first falls below 0 and reaches -1 or less; Lecture 27 makes event definitions precise with the theory of runs.</p>
+<div class="tip admonition">
+<p class="admonition-title">Worked example (by hand): SPI-3 for one March</p>
+<p><strong>Problem.</strong> An invented rain gauge in a dry part of the Deccan plateau has the following January-to-March totals (so <span class="math notranslate nohighlight">\(k=3\)</span>, the SPI-3 for March) for 12 years, in mm: <strong>0, 14, 38, 9, 57, 23, 4, 45, 18, 71, 29, 11</strong>. Find the SPI of the year with 4 mm and classify it. Compare with the percent of normal. (Workbook: sheets <code class="docutils literal notranslate"><span class="pre">Indicators</span></code> and <code class="docutils literal notranslate"><span class="pre">SPI</span></code>.)</p>
+<p><strong>Step 0, the simple indicators.</strong> <em>Why:</em> to see what the SPI adds. The mean of all 12 totals is <span class="math notranslate nohighlight">\(319/12=26.58\)</span> mm. Percent of normal <span class="math notranslate nohighlight">\(=100\times4/26.58=15.0\)</span> %, a departure of <span class="math notranslate nohighlight">\(-85\)</span> %: <strong>large deficient</strong> in the IMD classes. Sorted, 4 mm is the 2nd driest, so its probability is <span class="math notranslate nohighlight">\(2/13=0.154\)</span> and its decile is <span class="math notranslate nohighlight">\(\lceil 1.54\rceil = 2\)</span>, <em>much below normal</em>.</p>
+<p><strong>Step 1, zeros.</strong> <em>Why:</em> the gamma cannot hold zeros. <span class="math notranslate nohighlight">\(n=12\)</span>, one zero, so <span class="math notranslate nohighlight">\(m=11\)</span> and <span class="math notranslate nohighlight">\(q=1/12=0.0833\)</span>.</p>
+<p><strong>Step 2, mean of the non-zero totals and its log.</strong> <span class="math notranslate nohighlight">\(\bar x=319/11=29.0\)</span> mm, <span class="math notranslate nohighlight">\(\ln\bar x=\ln 29.0=3.3673\)</span>.</p>
+<p><strong>Step 3, mean of the logs.</strong> The logs of 14, 38, 9, 57, 23, 4, 45, 18, 71, 29, 11 are 2.6391, 3.6376, 2.1972, 4.0431, 3.1355, 1.3863, 3.8067, 2.8904, 4.2627, 3.3673, 2.3979. Their sum is 33.7636, so <span class="math notranslate nohighlight">\(\overline{\ln x}=33.7636/11=3.0694\)</span>.</p>
+<p><strong>Step 4, Thom’s statistic.</strong> <span class="math notranslate nohighlight">\(A=3.3673-3.0694=0.2979\)</span>.</p>
+<p><strong>Step 5, shape and scale.</strong> <em>Why:</em> these fix the gamma curve.
+<span class="math notranslate nohighlight">\(\alpha=\dfrac{1+\sqrt{1+4(0.2979)/3}}{4(0.2979)}=\dfrac{1+\sqrt{1.3972}}{1.1915}=\dfrac{1+1.1820}{1.1915}=1.831\)</span>, and <span class="math notranslate nohighlight">\(\beta=29.0/1.831=15.84\)</span> mm.</p>
+<p><strong>Step 6, gamma probability.</strong> <span class="math notranslate nohighlight">\(G(4)=\)</span> <code class="docutils literal notranslate"><span class="pre">GAMMA.DIST(4,</span> <span class="pre">1.831,</span> <span class="pre">15.84,</span> <span class="pre">TRUE)</span></code> <span class="math notranslate nohighlight">\(=0.0398\)</span>: about 4 % of the <em>non-zero</em> years are drier than 4 mm. (The gamma CDF has no short formula, so use a spreadsheet or the code.)</p>
+<p><strong>Step 7, add the zeros.</strong> <span class="math notranslate nohighlight">\(H(4)=0.0833+(1-0.0833)(0.0398)=0.0833+0.0365=0.1198\)</span>.</p>
+<p><strong>Step 8, to the standard normal.</strong> From a table, <span class="math notranslate nohighlight">\(\Phi(-1.18)=0.1190\)</span> and <span class="math notranslate nohighlight">\(\Phi(-1.17)=0.1210\)</span>, so SPI <span class="math notranslate nohighlight">\(\approx-1.18\)</span> (<code class="docutils literal notranslate"><span class="pre">NORM.S.INV(0.1198)</span></code> <span class="math notranslate nohighlight">\(=-1.176\)</span>).</p>
+<p><strong>Step 9, classify.</strong> <span class="math notranslate nohighlight">\(-1.18\)</span> lies between <span class="math notranslate nohighlight">\(-1.0\)</span> and <span class="math notranslate nohighlight">\(-1.49\)</span>: <strong>moderately dry</strong>.</p>
+<p><strong>The zero year</strong> has <span class="math notranslate nohighlight">\(H(0)=q=0.0833\)</span> and SPI <span class="math notranslate nohighlight">\(=\Phi^{-1}(0.0833)=-1.38\)</span>, also moderately dry. With one zero in 12 years, no year can score below <span class="math notranslate nohighlight">\(-1.38\)</span>: short records with zeros cap the SPI.</p>
+<p><strong>What this tells us.</strong> By percent of normal the year with 4 mm looks like a disaster (<span class="math notranslate nohighlight">\(-85\)</span> %); the SPI says it is only moderately dry, because in this dry season such small totals happen about one year in eight. The SPI measures <em>rarity</em>, not the size of the shortfall in mm.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hand example: Thom's fit, zero handling and the SPI, step by step</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">])</span>     <span class="c1"># Jan-Mar totals (mm), 12 years</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">thom_fit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Gamma shape and scale by Thom's approximation, from the non-zero values."""</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xp</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xp</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">A</span> <span class="o">/</span> <span class="mi">3</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">xp</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">A</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">spi_values</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""SPI of every value in one sample (one calendar month, one k); NaN stays NaN."""</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ok</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">thom_fit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ok</span><span class="p">])</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">spi_class</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"extremely dry"</span><span class="p">,</span> <span class="s2">"severely dry"</span><span class="p">,</span> <span class="s2">"moderately dry"</span><span class="p">,</span> <span class="s2">"near normal"</span><span class="p">,</span> <span class="s2">"moderately wet"</span><span class="p">,</span> <span class="s2">"very wet"</span><span class="p">,</span> <span class="s2">"extremely wet"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">names</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">))]</span>       <span class="c1"># -1.0 counts as moderately dry, as in the table</span>
+
+<span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">thom_fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"pct of normal = </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> %, decile = </span><span class="si">{</span><span class="n">decile</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"q = </span><span class="si">{</span><span class="n">q</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, x_bar = </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm, mean ln x = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, A = </span><span class="si">{</span><span class="n">A</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"alpha = </span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, beta = </span><span class="si">{</span><span class="n">beta</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mm"</span><span class="p">)</span>
+<span class="n">G4</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta</span><span class="p">);</span> <span class="n">H4</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">G4</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"G(4) = </span><span class="si">{</span><span class="n">G4</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, H(4) = </span><span class="si">{</span><span class="n">H4</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, SPI = </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">H4</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">spi_class</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">H4</span><span class="p">))</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"zero year: SPI = </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"check, exact maximum likelihood (scipy):"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">],</span> <span class="n">floc</span><span class="o">=</span><span class="mi">0</span><span class="p">)[::</span><span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"SPI"</span><span class="p">:</span> <span class="n">spi_values</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)})</span>
+<span class="n">table</span><span class="p">[</span><span class="s2">"class"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">spi_class</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">SPI</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pct of normal = 15.0 %, decile = 2
+q = 0.0833, x_bar = 29.00 mm, mean ln x = 3.0694, A = 0.2979
+alpha = 1.831, beta = 15.84 mm
+G(4) = 0.0398, H(4) = 0.1198, SPI = -1.176 (moderately dry)
+zero year: SPI = -1.383
+check, exact maximum likelihood (scipy): [ 1.828 15.868]
+x                 0.0         14.0         38.0          9.0            57.0         23.0             4.0         45.0         18.0      71.0         29.0         11.0
+SPI             -1.38        -0.44          0.7        -0.79            1.31         0.06           -1.18         0.94         -0.2      1.69         0.34        -0.64
+class  moderately dry  near normal  near normal  near normal  moderately wet  near normal  moderately dry  near normal  near normal  very wet  near normal  near normal
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Figure 1: the SPI as a probability match, for the hand example</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">q</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta</span><span class="p">),</span> <span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$H(x)=q+(1-q)G(x)$"</span><span class="p">)</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="o">/</span> <span class="mi">13</span><span class="p">,</span> <span class="s2">"ko"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"data, rank/(n+1)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">H4</span><span class="p">,</span> <span class="n">H4</span><span class="p">],</span> <span class="s2">"r--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Jan-Mar total $x$ (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"cumulative probability"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">zz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zz</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">zz</span><span class="p">),</span> <span class="s2">"tab:green"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"standard normal $</span><span class="se">\\</span><span class="s2">Phi(z)$"</span><span class="p">)</span>
+<span class="n">z4</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">H4</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">z4</span><span class="p">,</span> <span class="n">z4</span><span class="p">],</span> <span class="p">[</span><span class="n">H4</span><span class="p">,</span> <span class="n">H4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">"r--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"SPI = </span><span class="si">{</span><span class="n">z4</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"SPI (z-score)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Same probability on both curves: 4 mm becomes SPI = -1.18"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9459d6cf26adae429de5f19dd05c8c8952633eff74056f3084fbd4bfa4bfcf28.png" src="_images/9459d6cf26adae429de5f19dd05c8c8952633eff74056f3084fbd4bfa4bfcf28.png" />
+</div>
+</div>
+<p>The scipy maximum-likelihood fit gives almost the same shape and scale as Thom’s formulas, so the approximation is good enough. The data points follow the fitted curve on the left, and the red line carries the probability 0.12 across to the right panel.</p>
+</section>
+<section id="spi-3-and-spi-12-for-the-chattooga">
+<h2>5) SPI-3 and SPI-12 for the Chattooga<a class="headerlink" href="#spi-3-and-spi-12-for-the-chattooga" title="Link to this heading">#</a></h2>
+<p>The simple indicators already flag the dry years: 2000 and 2001 were about 29 % and 28 % below the 25-year normal of 1,742 mm (IMD: deficient; decile 1), and 2007 about 25 % below. Now the SPI function of the hand example runs on the real record. For each calendar month we collect the <span class="math notranslate nohighlight">\(k\)</span>-month totals of all 25 years, fit a gamma to them, and convert each total to an SPI. SPI-3 follows short dry spells; SPI-12 follows the slow, year-long deficits that matter for rivers and reservoirs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">spi</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""SPI-k of a monthly series: k-month totals, one gamma fit per calendar month (WMO 2012)."""</span>
+    <span class="n">xk</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">series</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">xk</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="n">month</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span> <span class="o">=</span> <span class="n">spi_values</span><span class="p">(</span><span class="n">xk</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="n">spi3</span><span class="p">,</span> <span class="n">spi12</span> <span class="o">=</span> <span class="n">spi</span><span class="p">(</span><span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">spi</span><span class="p">(</span><span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"SPI-3"</span><span class="p">,</span> <span class="n">spi3</span><span class="p">),</span> <span class="p">(</span><span class="s2">"SPI-12"</span><span class="p">,</span> <span class="n">spi12</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: mean </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">, sd </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, share of months &lt;= -1: </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> %, "</span>
+          <span class="sa">f</span><span class="s2">"lowest </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"SPI-1 of October 2000 (the zero month):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">spi</span><span class="p">(</span><span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s2">"2000-10-01"</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Figure 2: SPI-3 and SPI-12</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">((</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">spi3</span><span class="p">,</span> <span class="s2">"SPI-3"</span><span class="p">),</span> <span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">spi12</span><span class="p">,</span> <span class="s2">"SPI-12"</span><span class="p">)):</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">values</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"tab:red"</span><span class="p">,</span> <span class="s2">"tab:blue"</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">lev</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">):</span> <span class="n">a</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">lev</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">name</span><span class="p">);</span> <span class="n">a</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"year"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Chattooga River: dotted lines at -1, -1.5, -2 (moderate, severe, extreme)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SPI-3: mean -0.00, sd 1.00, share of months &lt;= -1: 16.8 %, lowest -2.27 in 2006-04
+SPI-12: mean -0.00, sd 1.00, share of months &lt;= -1: 18.0 %, lowest -2.12 in 2001-04
+SPI-1 of October 2000 (the zero month): -1.75
+</pre></div>
+</div>
+<img alt="_images/ecb0acf41709618b6a0a4f63615e9b94ff0357d7340db83950a7eafa71c4f04f.png" src="_images/ecb0acf41709618b6a0a4f63615e9b94ff0357d7340db83950a7eafa71c4f04f.png" />
+</div>
+</div>
+<p>Both indices have mean about 0 and standard deviation about 1, as they should, and about one month in six has an SPI of -1 or below (for a normal variable it would be 16 %). SPI-3 flickers from month to month; SPI-12 shows the long dry periods clearly: 1998 to 2002 (lowest SPI-12, -2.12, in April 2001) and 2006 to 2008, the two known droughts of the region. The single dry month, October 2000 with no rain at all, gets an SPI-1 of only -1.75: with one zero in 25 Octobers, <span class="math notranslate nohighlight">\(q=0.04\)</span> caps the index, just as in the hand example.</p>
+</section>
+<section id="spei-adding-the-evaporation-demand">
+<h2>6) SPEI: adding the evaporation demand<a class="headerlink" href="#spei-adding-the-evaporation-demand" title="Link to this heading">#</a></h2>
+<p>Rain is only the supply. A hot month evaporates more, so the same rain leaves less water. The <strong>Standardized Precipitation Evapotranspiration Index</strong> (SPEI; Vicente-Serrano et al. 2010) applies the SPI recipe to the climatic water balance <span class="math notranslate nohighlight">\(W=P-PET\)</span> instead of <span class="math notranslate nohighlight">\(P\)</span>. Because <span class="math notranslate nohighlight">\(W\)</span> can be negative, the gamma cannot be used; the original SPEI fits a three-parameter <strong>log-logistic</strong> distribution by probability-weighted moments, which the code below does in a few lines. Everything else (k-month sums, one fit per calendar month, conversion to z) is unchanged. Here PET is the Oudin estimate stored in the dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">loglogistic_fit</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Log-logistic scale, shape and location by probability-weighted moments (Vicente-Serrano et al. 2010)."""</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">w</span><span class="p">);</span> <span class="n">F</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">w0</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">F</span><span class="p">)</span> <span class="o">**</span> <span class="n">s</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w1</span> <span class="o">-</span> <span class="n">w0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">w1</span> <span class="o">-</span> <span class="n">w0</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">w2</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">gamma_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">gamma_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">shape</span><span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">w0</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w1</span><span class="p">)</span> <span class="o">*</span> <span class="n">shape</span> <span class="o">/</span> <span class="n">g</span>
+    <span class="k">return</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">w0</span> <span class="o">-</span> <span class="n">scale</span> <span class="o">*</span> <span class="n">g</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">spei</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">wk</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">W</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">wk</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="n">month</span>
+        <span class="n">scale</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">loc</span> <span class="o">=</span> <span class="n">loglogistic_fit</span><span class="p">(</span><span class="n">wk</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">fisk</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">wk</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>   <span class="c1"># fisk = log-logistic in scipy</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">1e-6</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="n">W</span> <span class="o">=</span> <span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span> <span class="o">-</span> <span class="n">mon</span><span class="o">.</span><span class="n">pet_mm</span>
+<span class="n">spei12</span> <span class="o">=</span> <span class="n">spei</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"correlation SPI-12 vs SPEI-12: </span><span class="si">{</span><span class="n">spi12</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">spei12</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">; lowest SPEI-12 </span><span class="si">{</span><span class="n">spei12</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">spei12</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Figure 3: SPI-12 and SPEI-12</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spi12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SPI-12 (rain only)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spei12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:orange"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SPEI-12 (rain minus PET)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"index"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>correlation SPI-12 vs SPEI-12: 0.995; lowest SPEI-12 -1.95 in 2006-08
+</pre></div>
+</div>
+<img alt="_images/39c21d480829aafb9594fdb77a04a0f97ee7f0c174c3c4935cac2f3183b092d5.png" src="_images/39c21d480829aafb9594fdb77a04a0f97ee7f0c174c3c4935cac2f3183b092d5.png" />
+</div>
+</div>
+<p>In this humid catchment the two indices move almost together (correlation 0.995): year-to-year swings in rain are much larger than swings in PET, while PET changes little from year to year (its annual total stays between about 930 and 1,020 mm). The SPEI becomes important when temperature changes, which is the climate-change question of Lecture 27.</p>
+</section>
+<section id="a-streamflow-index-and-drought-propagation">
+<h2>7) A streamflow index and drought propagation<a class="headerlink" href="#a-streamflow-index-and-drought-propagation" title="Link to this heading">#</a></h2>
+<p>For <strong>hydrological drought</strong> we apply the same recipe to monthly streamflow: the <strong>standardized streamflow index</strong> (SSI; e.g. Vicente-Serrano et al. 2012) is the SPI recipe with <span class="math notranslate nohighlight">\(Q\)</span> in place of <span class="math notranslate nohighlight">\(P\)</span>. Flow is never zero in this river, so <span class="math notranslate nohighlight">\(q=0\)</span>, and we keep the gamma for simplicity (other distributions are also used for flow). Comparing SSI-3 with the SPI shows how a rain deficit propagates into the river.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ssi3</span> <span class="o">=</span> <span class="n">spi</span><span class="p">(</span><span class="n">mon</span><span class="o">.</span><span class="n">q_mm</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>                          <span class="c1"># same function, flow instead of rain</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span>
+<span class="n">r_k</span> <span class="o">=</span> <span class="p">[</span><span class="n">spi</span><span class="p">(</span><span class="n">mon</span><span class="o">.</span><span class="n">prcp_mm</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">ssi3</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">]</span>
+<span class="n">r_lag</span> <span class="o">=</span> <span class="p">[</span><span class="n">spi3</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">ssi3</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">lag</span><span class="p">))</span> <span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"corr(SPI-k, SSI-3):"</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ks</span><span class="p">,</span> <span class="n">r_k</span><span class="p">)})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"corr(SPI-3 now, SSI-3 'lag' months later):"</span><span class="p">,</span> <span class="p">{</span><span class="n">lag</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">lag</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">r_lag</span><span class="p">)})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"lowest SSI-3: </span><span class="si">{</span><span class="n">ssi3</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">ssi3</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Figure 4: propagation from rain to river</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">"width_ratios"</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+<span class="n">sl</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">"1998-01"</span><span class="p">,</span> <span class="s2">"2009-12"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spi3</span><span class="p">[</span><span class="n">sl</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SPI-3 (rain)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ssi3</span><span class="p">[</span><span class="n">sl</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SSI-3 (river flow)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"index"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">],</span> <span class="n">r_k</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:gray"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"$k$ of SPI-$k$ (months)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"correlation with SSI-3"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>corr(SPI-k, SSI-3): {1: 0.36, 3: 0.76, 6: 0.86, 9: 0.84, 12: 0.77, 18: 0.68, 24: 0.61}
+corr(SPI-3 now, SSI-3 'lag' months later): {0: 0.76, 1: 0.81, 2: 0.72, 3: 0.57, 4: 0.45, 5: 0.37, 6: 0.28}
+lowest SSI-3: -2.04 in 2001-02
+</pre></div>
+</div>
+<img alt="_images/c02333954a073cce23279c577693cc8eef6113696cf17bd136412aa952a34239.png" src="_images/c02333954a073cce23279c577693cc8eef6113696cf17bd136412aa952a34239.png" />
+</div>
+</div>
+<p>Two signs of propagation appear. First, SSI-3 matches the rain of the past <strong>six</strong> months best (correlation 0.86 with SPI-6, against 0.76 with SPI-3): the soil and groundwater store remember rain for months, so the river responds to a longer accumulation than its own 3-month window. Second, SPI-3 agrees best with the SSI-3 of <strong>one month later</strong> (0.81, against 0.76 for the same month): the river lags the rain. In the figure the short dips of SPI-3 are often missing from the flow, while the long deficits of 1999 to 2002 and 2007 to 2008 show up strongly in it and last longer. That is exactly the chain of Section 2.1, seen in data.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A drought is a temporary shortage relative to the local normal; aridity is permanent, and water scarcity is caused by demand.</p></li>
+<li><p>By impact: meteorological, agricultural, hydrological and socioeconomic drought, linked by propagation with growing lags. By timing (Thornthwaite): permanent, seasonal, contingent and invisible. Newer terms: flash, groundwater, snow, ecological drought and megadrought.</p></li>
+<li><p>Percent of normal, departure (IMD classes) and deciles are simple but do not account for how variable the rain is.</p></li>
+<li><p>SPI-<span class="math notranslate nohighlight">\(k\)</span>: <span class="math notranslate nohighlight">\(k\)</span>-month totals per calendar month, gamma fit (Thom: <span class="math notranslate nohighlight">\(A=\ln\bar x-\overline{\ln x}\)</span>, <span class="math notranslate nohighlight">\(\alpha=(1+\sqrt{1+4A/3})/(4A)\)</span>, <span class="math notranslate nohighlight">\(\beta=\bar x/\alpha\)</span>), <span class="math notranslate nohighlight">\(H=q+(1-q)G\)</span>, SPI <span class="math notranslate nohighlight">\(=\Phi^{-1}(H)\)</span>. Hand example: 4 mm gives SPI <span class="math notranslate nohighlight">\(=-1.18\)</span>, moderately dry, although it is only 15 % of normal.</p></li>
+<li><p>SPEI applies the recipe to <span class="math notranslate nohighlight">\(W=P-PET\)</span>, the SSI to streamflow. On the Chattooga the river follows the rain of the past six months, one month late.</p></li>
+</ul>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Jaisalmer gets 200 mm in a year with a normal of 210 mm; Mumbai gets 1,800 mm with a normal of 2,400 mm. Which, if either, is in drought, and which indicator in this lecture would you use to compare them fairly?</p></li>
+<li><p>In the hand example, why can no year score an SPI below <span class="math notranslate nohighlight">\(-1.38\)</span>? What would that floor be with two zeros in 12 years?</p></li>
+<li><p>Why does the streamflow index match SPI-6 better than SPI-3, and which SPI would you expect to match a groundwater index?</p></li>
+</ol>
+</section>
+<section id="try-it-yourself">
+<h2>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In the workbook, change the 4 mm year to 2 mm and to 8 mm. How do the percent of normal and the SPI change? Which changes more?</p></li>
+<li><p>Compute SPI-6 and SPI-24 for the Chattooga and plot them with SPI-3 and SPI-12. Which one shows the 2007 to 2008 drought most clearly?</p></li>
+<li><p>Recompute SPI-3 with the exact maximum-likelihood gamma (<code class="docutils literal notranslate"><span class="pre">stats.gamma.fit(x,</span> <span class="pre">floc=0)</span></code>) instead of Thom’s formulas, and plot the difference.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+Written for <strong>CE524 Applied Hydroclimatology</strong>. Definitions and types: Mishra, A. K., &amp; Singh, V. P. (2010). A review of drought concepts. <em>J. Hydrology, 391</em>, 202–216; Thornthwaite, C. W. (1947). Climate and moisture conservation. <em>Annals of the Association of American Geographers, 37</em>, 87–100; Van Loon, A. F. (2015). Hydrological drought explained. <em>WIREs Water, 2</em>, 359–392; Otkin, J. A., et al. (2018). Flash droughts: a review and assessment of the challenges imposed by rapid-onset droughts in the United States. <em>BAMS, 99</em>, 911–919. Indices: McKee, T. B., Doesken, N. J., &amp; Kleist, J. (1993). The relationship of drought frequency and duration to time scales. <em>8th Conf. on Applied Climatology</em>, AMS, 179–184; World Meteorological Organization (2012). <em>Standardized Precipitation Index User Guide</em> (WMO-No. 1090); Edwards, D. C., &amp; McKee, T. B. (1997). <em>Characteristics of 20th century drought in the United States at multiple time scales</em>. Colorado State University, Climatology Report 97-2; Thom, H. C. S. (1958). A note on the gamma distribution. <em>Monthly Weather Review, 86</em>, 117–122; Gibbs, W. J., &amp; Maher, J. V. (1967). <em>Rainfall deciles as drought indicators</em>. Bureau of Meteorology Bulletin 48, Melbourne; Vicente-Serrano, S. M., Begueria, S., &amp; Lopez-Moreno, J. I. (2010). A multiscalar drought index sensitive to global warming: the SPEI. <em>J. Climate, 23</em>, 1696–1718; Vicente-Serrano, S. M., et al. (2012). Accurate computation of a streamflow drought index. <em>J. Hydrologic Engineering, 17</em>, 318–332. Rainfall departure classes: India Meteorological Department. Data: Chattooga River, Daymet v4 and USGS NWIS (see Lecture 7). The explanations, hand example, workbook and figures were made for this course. Related lectures: 7, 10, 14, 17, 27.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-25-flood-frequency-analysis-and-design-floods.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-27-drought-characteristics-frequency-and-management.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-drought">1) What is a drought?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-drought">2) Types of drought</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-what-runs-short-the-four-classic-types">2.1 By what runs short: the four classic types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-how-it-behaves-in-time-thornthwaite-s-classes">2.2 By how it behaves in time (Thornthwaite’s classes)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newer-terms">2.3 Newer terms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-indicators-first">3) Simple indicators first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-standardized-precipitation-index-spi">4) The Standardized Precipitation Index (SPI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spi-3-and-spi-12-for-the-chattooga">5) SPI-3 and SPI-12 for the Chattooga</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spei-adding-the-evaporation-demand">6) SPEI: adding the evaporation demand</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-streamflow-index-and-drought-propagation">7) A streamflow index and drought propagation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

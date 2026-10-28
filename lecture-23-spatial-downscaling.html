@@ -1,0 +1,1249 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lecture 23, Spatial downscaling &#8212; Applied Hydroclimatology (CE524)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture-23-spatial-downscaling';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods" href="lecture-24-floods-extremes-and-return-periods.html" />
+    <link rel="prev" title="Lecture 22, Weather types and temporal downscaling" href="lecture-22-weather-types-and-temporal-downscaling.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Applied Hydroclimatology (CE524)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Applied Hydroclimatology (CE524)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lecture-01-course-introduction.html">Lecture 1, Course introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-02-components-of-climate.html">Lecture 2, Components of the climate system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-03-introduction-to-python.html">Lecture 3, Introduction to Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-04-zero-dimensional-ebm.html">Lecture 4, A “zero-dimensional” energy balance model of Earth’s climate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-05-snowball-earth-ice-albedo-feedback.html">Lecture 5, Snowball Earth, the ice-albedo feedback, and multiple equilibria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-06-climate-vegetation-hydrology.html">Lecture 6, Coupling vegetation and hydrology in a zero-dimensional climate model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-07-lumped-hydrological-model.html">Lecture 7, A lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-08-hydrological-model-calibration.html">Lecture 8, Calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-09-evolution-in-time-and-space.html">Lecture 9, Evolution in time and space</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-10-advection-diffusion-in-rivers.html">Lecture 10, Advection and diffusion in a river</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-11-heat-transports.html">Lecture 11, Heat transports</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-12-contaminant-transport-in-a-reservoir.html">Lecture 12, Contaminant transport in a reservoir</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-13-cmip-history-and-design.html">Lecture 13, The Coupled Model Intercomparison Project: history and design</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-14-scenarios-sensitivity-uncertainty-cmip7.html">Lecture 14, Scenarios, climate sensitivity and uncertainty, and CMIP7</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-15-climate-data-analysis-with-xarray.html">Lecture 15, Climate data analysis with xarray</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-16-downscaling-problem-data-and-methods.html">Lecture 16, Downscaling: the problem, the data and choosing a method</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-17-statistical-background-for-downscaling.html">Lecture 17, Statistical background for downscaling</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-18-bias-correction.html">Lecture 18, Bias correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-19-regression-downscaling.html">Lecture 19, Regression downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-20-predictor-selection-and-neural-networks.html">Lecture 20, Predictor selection and nonlinear regression</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="lecture-21-weather-generators.html">Lecture 21, Weather generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-22-weather-types-and-temporal-downscaling.html">Lecture 22, Weather types and temporal downscaling</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 23, Spatial downscaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-24-floods-extremes-and-return-periods.html">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-25-flood-frequency-analysis-and-design-floods.html">Lecture 25, Floods II: flood frequency analysis, design floods and climate change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-26-droughts-definitions-and-indices.html">Lecture 26, Droughts I: definitions and drought indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecture-27-drought-characteristics-frequency-and-management.html">Lecture 27, Droughts II: theory of runs, drought frequency, climate change and management in India</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exercise-03-introduction-to-python.html">Exercise 3, Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-04-zero-dimensional-ebm.html">Exercise 4, the zero-dimensional energy balance model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-05-snowball-earth.html">Exercise 5, Snowball Earth and the ice–albedo feedback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-07-lumped-hydrological-model.html">Exercise 7, the lumped hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-08-hydrological-model-calibration.html">Exercise 8, calibrating a hydrological model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-09-indian-ocean-sst.html">Exercise 9, the Indian Ocean from gridded SST data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-10-advection-diffusion-in-rivers.html">Exercise 10, advection and diffusion in a river</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/drvivekhydro/hydroclimatology/main?urlpath=tree/lecture-23-spatial-downscaling.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/drvivekhydro/hydroclimatology/blob/main/lecture-23-spatial-downscaling.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/drvivekhydro/hydroclimatology/issues/new?title=Issue%20on%20page%20%2Flecture-23-spatial-downscaling.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lecture-23-spatial-downscaling.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 23, Spatial downscaling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-background">9.1 Mathematical background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bilinear-interpolation">9.1.1 Bilinear interpolation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-in-the-style-of-example-9-1">Worked example (by hand), in the style of Example 9.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbour-interpolation">9.1.2 Nearest-neighbour interpolation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-correction-and-spatial-downscaling-bcsd">9.2 Bias correction and spatial downscaling (BCSD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-in-the-style-of-example-9-2">Worked example (by hand), in the style of Example 9.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-9-2-continued-a-data-set-for-bcsd-bcca-and-bcsa">Example 9.2 continued: a data set for BCSD, BCCA and BCSA</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-correction-and-constructed-analogues-bcca">9.3 Bias correction and constructed analogues (BCCA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-correction-and-stochastic-analogue-bcsa">9.4 Bias correction and stochastic analogue (BCSA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-comparison">9.5 Summary and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-23-spatial-downscaling">
+<h1>Lecture 23, Spatial downscaling<a class="headerlink" href="#lecture-23-spatial-downscaling" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>From a coarse model grid to a fine grid: interpolation, BCSD, BCCA and BCSA</p>
+</div></blockquote>
+<p>A climate model gives one rainfall number for a whole block of land, often 100 to 250 km wide. A catchment needs many numbers inside that block: the windward slope is wet and the valley behind it is dry. Spatial downscaling is the step from the few coarse numbers to many fine ones. We follow Chapter 9 of Lee and Singh (2019) in its own order: 9.1 interpolation, 9.2 BCSD, 9.3 BCCA, 9.4 BCSA and 9.5 a summary and comparison. The last three are named for what they do: <em>bias correction</em> of the model, followed by a spatial step.</p>
+<p>By the end of this lecture you should be able to:</p>
+<ul class="simple">
+<li><p>fill in a fine-grid value from the four nearest coarse cells, by <strong>bilinear</strong> and <strong>nearest-neighbour</strong> interpolation (Section 9.1);</p></li>
+<li><p>do a <strong>BCSD</strong> step by hand: compare today with normal at coarse scale, spread that factor over the fine cells, and apply it to the fine normal (Section 9.2);</p></li>
+<li><p>explain in words what <strong>BCCA</strong> (a mix of similar past years) and <strong>BCSA</strong> (a random but realistic map) do (Sections 9.3 and 9.4);</p></li>
+<li><p>say which of the three gives smooth maps and which keep the extremes (Section 9.5).</p></li>
+</ul>
+<p>All data are <strong>synthetic</strong>. The companion workbook <code class="docutils literal notranslate"><span class="pre">data/downscaling/lec23/lec23_worked_examples.xlsx</span></code> repeats the hand-solved example with live formulas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Google Colab setup: install the packages this notebook uses.</span>
+<span class="c1"># Runs only on Colab; skipped in Binder or a local Jupyter install.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">"google.colab"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib scipy
+</pre></div>
+</div>
+</div>
+</div>
+<section id="words-you-need">
+<h2>Words you need<a class="headerlink" href="#words-you-need" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Coarse and fine grid.</strong> The coarse grid is the model’s big blocks, the fine grid is the small cells we want. Here: 4 coarse cells and 16 fine cells.</p></li>
+<li><p><strong>Interpolation.</strong> Estimating a value between known points from the points around it. Example: a point halfway between a 2 mm cell and a 4 mm cell gets about 3 mm.</p></li>
+<li><p><strong>Climatology.</strong> The long-term average of a place. Example: 2, 4 and 3 mm/day in three Januaries give a climatology of 3 mm/day.</p></li>
+<li><p><strong>Bias factor (ratio).</strong> Today’s value divided by the climatology. Example: 3.0 mm today and 2.5 mm normal give 1.2, that is 20 % wetter than normal.</p></li>
+<li><p><strong>Analogue.</strong> A past year whose coarse map looks like today’s. We borrow its fine-scale map.</p></li>
+<li><p><strong>Regression weights.</strong> Numbers that say how much of each past year to mix. Example: 0.7 of year A plus 0.3 of year B.</p></li>
+<li><p><strong>Correlation.</strong> How closely two places rise and fall together: 1 means always together, 0 means unrelated.</p></li>
+<li><p><strong>Replicate.</strong> One random fine-scale map made by the computer, with the same spatial behaviour as the observations.</p></li>
+</ul>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<p>The symbols follow the book. Uppercase letters (<span class="math notranslate nohighlight">\(Y\)</span>, <span class="math notranslate nohighlight">\(X\)</span>) stand for unknown variables, lowercase (<span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(x\)</span>) for known ones. Code names are ASCII: the subscripts come after an underscore in the book’s order, <code class="docutils literal notranslate"><span class="pre">mu_</span></code> is <span class="math notranslate nohighlight">\(\mu\)</span>, <code class="docutils literal notranslate"><span class="pre">til</span></code> is a tilde.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Book symbol</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Code and workbook</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(H\)</span></p></td>
+<td class="text-left"><p>number of coarse cells, fine cells, observed years (<span class="math notranslate nohighlight">\(p &gt; q\)</span>)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">q</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">H</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(z(a,b)\)</span></p></td>
+<td class="text-left"><p>longitude, latitude, the interpolated value</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mathbf{y}_{\text{obs}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}_{\text{obs}}\)</span></p></td>
+<td class="text-left"><p>observed coarse (<span class="math notranslate nohighlight">\(q\)</span> cells) and fine (<span class="math notranslate nohighlight">\(p\)</span> cells) fields, one per year</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">y_obs</span></code> (<span class="math notranslate nohighlight">\(H\times q\)</span>), <code class="docutils literal notranslate"><span class="pre">x_obs</span></code> (<span class="math notranslate nohighlight">\(H\times p\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mathbf{y}_{\text{GCM}}\)</span></p></td>
+<td class="text-left"><p>coarse GCM field to downscale (already bias corrected, as in the book’s examples)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">y_GCM</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mathbf{X}_{\text{GCM}}\)</span></p></td>
+<td class="text-left"><p>unknown fine field we want</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">X_GCM</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mu_{y_{\text{obs}},i}\)</span>, <span class="math notranslate nohighlight">\(\mu_{x_{\text{obs}},j}\)</span></p></td>
+<td class="text-left"><p>mean over the <span class="math notranslate nohighlight">\(H\)</span> years of coarse cell <span class="math notranslate nohighlight">\(i\)</span> and of fine cell <span class="math notranslate nohighlight">\(j\)</span> (Eqs. 9.5, 9.7)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">mu_y_obs</span></code>, <code class="docutils literal notranslate"><span class="pre">mu_x_obs</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(R_i\)</span>, <span class="math notranslate nohighlight">\(R_j\)</span></p></td>
+<td class="text-left"><p>ratio at coarse cell <span class="math notranslate nohighlight">\(i\)</span> (Eq. 9.4) and its interpolation to fine cell <span class="math notranslate nohighlight">\(j\)</span></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">R_i</span></code>, <code class="docutils literal notranslate"><span class="pre">R_j</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\text{RMSE}_h\)</span>, <span class="math notranslate nohighlight">\(K\)</span>, <span class="math notranslate nohighlight">\(\mathbf{A}\)</span></p></td>
+<td class="text-left"><p>distance of year <span class="math notranslate nohighlight">\(h\)</span> to the target, number of analogues, regression vector (Eqs. 9.8, 9.9)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rmse_h</span></code>, <code class="docutils literal notranslate"><span class="pre">K</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mathbf{y}_{\text{obs}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}_{\text{obs}}\)</span> as matrices</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(q\times(K+1)\)</span> and <span class="math notranslate nohighlight">\(p\times(K+1)\)</span> matrices with a first column of ones (the book reuses the symbols)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">y_mat</span></code>, <code class="docutils literal notranslate"><span class="pre">x_mat</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(F_{x_o}\)</span>, <span class="math notranslate nohighlight">\(F_{y_o}\)</span>, <span class="math notranslate nohighlight">\(\Phi^{-1}\)</span></p></td>
+<td class="text-left"><p>fitted gamma CDFs of the fine and coarse observations, inverse standard normal CDF</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">gamma.cdf</span></code>, <code class="docutils literal notranslate"><span class="pre">norm.ppf</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tilde x_{\text{obs},i}\)</span>, <span class="math notranslate nohighlight">\(\tilde y_{\text{GCM},j}\)</span></p></td>
+<td class="text-left"><p>normal scores (Eqs. 9.12, 9.13)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">x_til_obs</span></code>, <code class="docutils literal notranslate"><span class="pre">y_til_GCM</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\boldsymbol\rho\)</span>, <span class="math notranslate nohighlight">\(N_G\)</span>, <span class="math notranslate nohighlight">\(\mathbf{X}_n\)</span></p></td>
+<td class="text-left"><p>correlation matrix of the fine scores, number of replicates, replicate <span class="math notranslate nohighlight">\(n\)</span> (Eqs. 9.14, 9.15)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rho</span></code>, <code class="docutils literal notranslate"><span class="pre">N_G</span></code>, <code class="docutils literal notranslate"><span class="pre">X_n</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Grid and order.</strong> Coarse cells are <span class="math notranslate nohighlight">\(Y_1, Y_2\)</span> (south, west to east) and <span class="math notranslate nohighlight">\(Y_3, Y_4\)</span> (north). Fine cells <span class="math notranslate nohighlight">\(X_1,\dots,X_{16}\)</span> run row by row from the south-west corner: <span class="math notranslate nohighlight">\(X_j\)</span> has <span class="math notranslate nohighlight">\(j = 4(\text{row}-1)+\text{column}\)</span>. A coarse cell is 1 degree wide and a fine cell 0.5 degree. In the gamma distribution of Section 9.4, <span class="math notranslate nohighlight">\(\beta\)</span> is the <strong>scale</strong> and <span class="math notranslate nohighlight">\(\alpha\)</span> the shape, as in the book.</p>
+</section>
+<section id="mathematical-background">
+<h2>9.1 Mathematical background<a class="headerlink" href="#mathematical-background" title="Link to this heading">#</a></h2>
+<section id="bilinear-interpolation">
+<h3>9.1.1 Bilinear interpolation<a class="headerlink" href="#bilinear-interpolation" title="Link to this heading">#</a></h3>
+<p><strong>In plain words:</strong> bilinear interpolation is a distance-weighted average of the four nearest coarse cells: the closer a coarse cell, the more it counts. Example: a fine point very close to a 4 mm cell and far from three 8 mm cells gets a value near 5 mm, not 6.</p>
+<p>The book knows the value <span class="math notranslate nohighlight">\(z(a,b)\)</span> at four corner points, <span class="math notranslate nohighlight">\(z(a_1,b_1)\)</span>, <span class="math notranslate nohighlight">\(z(a_1,b_2)\)</span>, <span class="math notranslate nohighlight">\(z(a_2,b_1)\)</span>, <span class="math notranslate nohighlight">\(z(a_2,b_2)\)</span>, where <span class="math notranslate nohighlight">\(a\)</span> is the longitude and <span class="math notranslate nohighlight">\(b\)</span> the latitude (here <span class="math notranslate nohighlight">\(z\)</span> is rainfall), and wants it at the point <span class="math notranslate nohighlight">\((a_p,b_p)\)</span>. First it finds the values at <span class="math notranslate nohighlight">\((a_p,b_1)\)</span> and <span class="math notranslate nohighlight">\((a_p,b_2)\)</span>, that is, along the longitude on the southern and on the northern edge:</p>
+<div class="math notranslate nohighlight">
+\[z(a_p,b_1)=\frac{a_2-a_p}{a_2-a_1}\,z(a_1,b_1)+\frac{a_p-a_1}{a_2-a_1}\,z(a_2,b_1) \qquad \text{(9.1)}\]</div>
+<div class="math notranslate nohighlight">
+\[z(a_p,b_2)=\frac{a_2-a_p}{a_2-a_1}\,z(a_1,b_2)+\frac{a_p-a_1}{a_2-a_1}\,z(a_2,b_2) \qquad \text{(9.2)}\]</div>
+<p><em>Gloss:</em> each fraction is a weight; the weights of the two cells on an edge add to 1, and the nearer cell has the larger weight. Then it interpolates between these two edge values along the latitude:</p>
+<div class="math notranslate nohighlight">
+\[z(a_p,b_p)=\frac{b_2-b_p}{b_2-b_1}\,z(a_p,b_1)+\frac{b_p-b_1}{b_2-b_1}\,z(a_p,b_2) \qquad \text{(9.3)}\]</div>
+<p>The book also writes (9.3) as one matrix product, <span class="math notranslate nohighlight">\(z(a_p,b_p)=\dfrac{1}{(a_2-a_1)(b_2-b_1)}\,[\,a_2-a_p,\; a_p-a_1\,]\begin{bmatrix} z(a_1,b_1) &amp; z(a_1,b_2)\\ z(a_2,b_1) &amp; z(a_2,b_2)\end{bmatrix}\begin{bmatrix} b_2-b_p\\ b_p-b_1\end{bmatrix}\)</span>. The result always lies between the smallest and the largest corner value, so interpolation smooths and cannot make a new extreme.</p>
+<p><em>What this means for hydrology:</em> an interpolated rainfall map looks smooth and reasonable, but it will never show the wet ridge or the flood peak that lies inside one coarse cell.</p>
+</section>
+<section id="worked-example-by-hand-in-the-style-of-example-9-1">
+<h3>Worked example (by hand), in the style of Example 9.1<a class="headerlink" href="#worked-example-by-hand-in-the-style-of-example-9-1" title="Link to this heading">#</a></h3>
+<p><strong>Problem.</strong> A <span class="math notranslate nohighlight">\(2\times2\)</span> coarse grid has cell centres at <span class="math notranslate nohighlight">\(a_1=77.5\)</span>, <span class="math notranslate nohighlight">\(a_2=78.5\)</span> (degrees E) and <span class="math notranslate nohighlight">\(b_1=29.5\)</span>, <span class="math notranslate nohighlight">\(b_2=30.5\)</span> (degrees N). The model values are <span class="math notranslate nohighlight">\(Y_1=z(a_1,b_1)=3.0\)</span>, <span class="math notranslate nohighlight">\(Y_2=z(a_2,b_1)=5.0\)</span>, <span class="math notranslate nohighlight">\(Y_3=z(a_1,b_2)=4.5\)</span>, <span class="math notranslate nohighlight">\(Y_4=z(a_2,b_2)=2.0\)</span> mm/day. Find the value at the fine cell <span class="math notranslate nohighlight">\(X_7\)</span> with centre <span class="math notranslate nohighlight">\((a_p,b_p)=(78.25,\,29.75)\)</span>.</p>
+<ul class="simple">
+<li><p><em>Fractions first, they say how far across the box the point is.</em> Along <span class="math notranslate nohighlight">\(a\)</span>: <span class="math notranslate nohighlight">\((a_2-a_p)/(a_2-a_1)=(78.5-78.25)/1.0=0.25\)</span> and <span class="math notranslate nohighlight">\((a_p-a_1)/(a_2-a_1)=0.75\)</span>. Along <span class="math notranslate nohighlight">\(b\)</span>: <span class="math notranslate nohighlight">\((b_2-b_p)/(b_2-b_1)=(30.5-29.75)/1.0=0.75\)</span> and <span class="math notranslate nohighlight">\((b_p-b_1)/(b_2-b_1)=0.25\)</span>. The point lies near the eastern side and the southern side.</p></li>
+<li><p><em>Eq. 9.1, the southern edge, the eastern cell counting more:</em> <span class="math notranslate nohighlight">\(z(a_p,b_1)=0.25\times3.0+0.75\times5.0=0.75+3.75=4.50\)</span>.</p></li>
+<li><p><em>Eq. 9.2, the northern edge in the same way:</em> <span class="math notranslate nohighlight">\(z(a_p,b_2)=0.25\times4.5+0.75\times2.0=1.125+1.50=2.625\)</span>.</p></li>
+<li><p><em>Eq. 9.3, between the two edges, the southern one counting more:</em> <span class="math notranslate nohighlight">\(z(a_p,b_p)=0.75\times4.50+0.25\times2.625=3.375+0.656=4.031\)</span> mm/day.</p></li>
+<li><p><em>Check:</em> the weight of each cell is the product of its two fractions, <span class="math notranslate nohighlight">\(0.1875\)</span>, <span class="math notranslate nohighlight">\(0.5625\)</span>, <span class="math notranslate nohighlight">\(0.0625\)</span>, <span class="math notranslate nohighlight">\(0.1875\)</span>. They add to 1, and <span class="math notranslate nohighlight">\(0.1875\times3.0+0.5625\times5.0+0.0625\times4.5+0.1875\times2.0=4.031\)</span>.</p></li>
+</ul>
+<p><strong>Answer.</strong> <span class="math notranslate nohighlight">\(z(a_p,b_p)\approx4.03\)</span> mm/day, a blend dominated by the eastern southern cell <span class="math notranslate nohighlight">\(Y_2\)</span>.</p>
+</section>
+<section id="nearest-neighbour-interpolation">
+<h3>9.1.2 Nearest-neighbour interpolation<a class="headerlink" href="#nearest-neighbour-interpolation" title="Link to this heading">#</a></h3>
+<p>The point simply takes the value of the closest coarse cell. For the same point <span class="math notranslate nohighlight">\(X_7\)</span> the closest cell centre is <span class="math notranslate nohighlight">\((a_2,b_1)\)</span>, so <span class="math notranslate nohighlight">\(z(a_p,b_p)=Y_2=5.0\)</span> mm/day. The map is blocky, but no new values appear.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">norm</span>
+
+<span class="c1"># grid: a = longitude, b = latitude; row 0 is the southern row, column 0 the western column</span>
+<span class="n">a_c</span><span class="p">,</span> <span class="n">b_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">78.5</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">])</span>                                   <span class="c1"># coarse centres, q = 4</span>
+<span class="n">a_f</span><span class="p">,</span> <span class="n">b_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">77.25</span><span class="p">,</span> <span class="mf">77.75</span><span class="p">,</span> <span class="mf">78.25</span><span class="p">,</span> <span class="mf">78.75</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">29.25</span><span class="p">,</span> <span class="mf">29.75</span><span class="p">,</span> <span class="mf">30.25</span><span class="p">,</span> <span class="mf">30.75</span><span class="p">])</span>   <span class="c1"># fine centres, p = 16</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">bilinear_point</span><span class="p">(</span><span class="n">a_p</span><span class="p">,</span> <span class="n">b_p</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="c1"># Eq. 9.3 in matrix form; z[row = b index, column = a index], so z.T = [[z11, z12], [z21, z22]]</span>
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span> <span class="o">=</span> <span class="n">a_c</span><span class="p">;</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b_c</span>
+    <span class="n">a_p</span><span class="p">,</span> <span class="n">b_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">a_p</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">b_p</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span>           <span class="c1"># outside the coarse centres: nearest value</span>
+    <span class="n">wa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a2</span> <span class="o">-</span> <span class="n">a_p</span><span class="p">,</span> <span class="n">a_p</span> <span class="o">-</span> <span class="n">a1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">a2</span> <span class="o">-</span> <span class="n">a1</span><span class="p">)</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">b2</span> <span class="o">-</span> <span class="n">b_p</span><span class="p">,</span> <span class="n">b_p</span> <span class="o">-</span> <span class="n">b1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">b2</span> <span class="o">-</span> <span class="n">b1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wa</span> <span class="o">@</span> <span class="n">z</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">wb</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">interp_grid</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>                                                  <span class="c1"># 2 x 2 coarse -&gt; 4 x 4 fine, bilinear</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">bilinear_point</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">a_f</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">b_f</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">nearest_grid</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>                                                 <span class="c1"># each coarse value copied to its 2 x 2 fine cells</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># ---- the hand-solved example (fine cell X7)</span>
+<span class="n">y_GCM_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>                             <span class="c1"># Y1..Y4</span>
+<span class="n">a_p</span><span class="p">,</span> <span class="n">b_p</span> <span class="o">=</span> <span class="mf">78.25</span><span class="p">,</span> <span class="mf">29.75</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">y_GCM_h</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"bilinear z(a_p, b_p) ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">bilinear_point</span><span class="p">(</span><span class="n">a_p</span><span class="p">,</span> <span class="n">b_p</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">"  nearest neighbour ="</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bilinear z(a_p, b_p) = 4.03125   nearest neighbour = 5.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bias-correction-and-spatial-downscaling-bcsd">
+<h2>9.2 Bias correction and spatial downscaling (BCSD)<a class="headerlink" href="#bias-correction-and-spatial-downscaling-bcsd" title="Link to this heading">#</a></h2>
+<p><strong>In plain words:</strong> The coarse model tells us how much wetter or drier than normal a place is. The fine observations tell us what normal looks like in detail. BCSD joins the two. Example: the model says a coarse cell is 20 % wetter than normal. A ridge cell that normally gets 6 mm/day then gets 7.2 mm/day, and a valley cell that normally gets 2 mm/day gets 2.4 mm/day.</p>
+<p>BCSD uses observed data at coarse and fine resolution and the coarse GCM field. First the coarse GCM output is <strong>bias corrected</strong> by quantile mapping against the observed coarse data (Lecture 18); the book’s worked example skips this step and so do we, taking <span class="math notranslate nohighlight">\(\mathbf{y}_{\text{GCM}}\)</span> (the coarse model values) as already corrected. The <strong>spatial</strong> step has three parts, for <span class="math notranslate nohighlight">\(q\)</span> coarse cells and <span class="math notranslate nohighlight">\(p\)</span> fine cells:</p>
+<ol class="arabic">
+<li><p><strong>Ratio</strong> (bias factor) at each coarse cell: the model value divided by the observed mean <span class="math notranslate nohighlight">\(\mu_{y_{\text{obs}},i}\)</span> over the <span class="math notranslate nohighlight">\(H\)</span> years:</p>
+<div class="math notranslate nohighlight">
+\[R_i=\frac{y_{\text{GCM},i}}{\mu_{y_{\text{obs}},i}},\quad i=1,\dots,q, \qquad \mu_{y_{\text{obs}},i}=\frac1H\sum_{h=1}^{H}y_{\text{obs},i}^{\,h} \qquad \text{(9.4, 9.5)}\]</div>
+</li>
+<li><p><strong>Interpolate</strong> the ratios <span class="math notranslate nohighlight">\(R_i\)</span> to the fine cells with a rule of Section 9.1. The result is <span class="math notranslate nohighlight">\(R_j\)</span>, one ratio per fine cell <span class="math notranslate nohighlight">\(j=1,\dots,p\)</span>.</p></li>
+<li><p><strong>Rescale</strong>: multiply each fine ratio by the observed fine mean <span class="math notranslate nohighlight">\(\mu_{x_{\text{obs}},j}\)</span> of that cell:</p>
+<div class="math notranslate nohighlight">
+\[X_{\text{GCM},j}=R_j\,\mu_{x_{\text{obs}},j},\quad j=1,\dots,p, \qquad \mu_{x_{\text{obs}},j}=\frac1H\sum_{h=1}^{H}x_{\text{obs},j}^{\,h} \qquad \text{(9.6, 9.7)}\]</div>
+</li>
+</ol>
+<p><strong>Why a ratio and not the rainfall itself?</strong> Interpolating the rainfall would blur the ridge away. A ratio stays close to 1 everywhere, so smoothing it does little harm, and the sharp pattern comes from the fine mean, which is never smoothed.</p>
+<p><em>What this means for hydrology:</em> BCSD keeps the observed wet and dry pattern of a catchment and only scales it up or down with the model’s change, which is why it is so common in climate-impact studies.</p>
+<section id="worked-example-by-hand-in-the-style-of-example-9-2">
+<h3>Worked example (by hand), in the style of Example 9.2<a class="headerlink" href="#worked-example-by-hand-in-the-style-of-example-9-2" title="Link to this heading">#</a></h3>
+<p><strong>Problem.</strong> Same grid as above. The bias-corrected model values are <span class="math notranslate nohighlight">\(y_{\text{GCM}}=(Y_1,Y_2,Y_3,Y_4)=(3.0,\,5.0,\,4.5,\,2.0)\)</span> mm/day, the observed coarse means (over the <span class="math notranslate nohighlight">\(H\)</span> years) are <span class="math notranslate nohighlight">\(\mu_{y_{\text{obs}}}=(2.5,\,4.0,\,3.0,\,2.5)\)</span> mm/day, and the fine cell <span class="math notranslate nohighlight">\(X_7\)</span> (centre <span class="math notranslate nohighlight">\((78.25,\,29.75)\)</span>) has an observed mean <span class="math notranslate nohighlight">\(\mu_{x_{\text{obs}},7}=3.6\)</span> mm/day. Find <span class="math notranslate nohighlight">\(X_{\text{GCM},7}\)</span>.</p>
+<ol class="arabic simple">
+<li><p><em>Ratios at the coarse cells (Eq. 9.4); they say how today compares with normal:</em> <span class="math notranslate nohighlight">\(R_1=3.0/2.5=1.20\)</span>, <span class="math notranslate nohighlight">\(R_2=5.0/4.0=1.25\)</span>, <span class="math notranslate nohighlight">\(R_3=4.5/3.0=1.50\)</span>, <span class="math notranslate nohighlight">\(R_4=2.0/2.5=0.80\)</span>.</p></li>
+<li><p><em>Interpolate the ratios to <span class="math notranslate nohighlight">\(X_7\)</span>; the fine cell lies between the coarse cells, so it gets a blend of their ratios.</em> The fractions are those of Example 9.1: <span class="math notranslate nohighlight">\(R(a_p,b_1)=0.25\times1.20+0.75\times1.25=0.30+0.9375=1.2375\)</span>, <span class="math notranslate nohighlight">\(R(a_p,b_2)=0.25\times1.50+0.75\times0.80=0.375+0.600=0.975\)</span>, so <span class="math notranslate nohighlight">\(R_7=0.75\times1.2375+0.25\times0.975=0.9281+0.2438=1.1719\)</span>.</p></li>
+<li><p><em>Multiply by the observed fine mean (Eq. 9.6); this puts the detailed local normal back:</em> <span class="math notranslate nohighlight">\(X_{\text{GCM},7}=R_7\,\mu_{x_{\text{obs}},7}=1.1719\times3.6=4.219\)</span> mm/day.</p></li>
+</ol>
+<p><strong>Answer.</strong> BCSD gives 4.22 mm/day at <span class="math notranslate nohighlight">\(X_7\)</span>, plain interpolation 4.03 mm/day. The period is about 17 % wetter than normal there, and BCSD applies that to the local normal of 3.6 mm/day, which is higher than the smooth value 3.375 mm/day obtained by interpolating the coarse means. BCSD thus keeps the cell wetter than its surroundings.</p>
+<p>The next cell checks the numbers and gives all 16 fine cells (sheets <code class="docutils literal notranslate"><span class="pre">Bilinear</span></code> and <code class="docutils literal notranslate"><span class="pre">BCSD</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bcsd</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">,</span> <span class="n">mu_y_obs</span><span class="p">,</span> <span class="n">mu_x_obs</span><span class="p">):</span>
+    <span class="n">R_i</span> <span class="o">=</span> <span class="n">y_GCM</span> <span class="o">/</span> <span class="n">mu_y_obs</span>                                                                  <span class="c1"># Step 1, Eq. 9.4</span>
+    <span class="n">R_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">interp_grid</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">R_i</span><span class="p">)])</span>      <span class="c1"># Step 2, bilinear</span>
+    <span class="k">return</span> <span class="n">R_j</span> <span class="o">*</span> <span class="n">mu_x_obs</span>                                                                   <span class="c1"># Step 3, Eq. 9.6</span>
+
+<span class="n">mu_y_h</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>
+<span class="n">mu_x_h</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.6</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">R_i</span> <span class="o">=</span> <span class="n">y_GCM_h</span> <span class="o">/</span> <span class="n">mu_y_h</span>
+<span class="n">R_j</span> <span class="o">=</span> <span class="n">interp_grid</span><span class="p">(</span><span class="n">R_i</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">X_GCM_h</span> <span class="o">=</span> <span class="n">R_j</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="n">mu_x_h</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"R_i ="</span><span class="p">,</span> <span class="n">R_i</span><span class="p">,</span> <span class="s2">"  R_7 ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">R_j</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"  X_GCM,7 ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">X_GCM_h</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"plain interpolation of mu_y_obs at X7:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">bilinear_point</span><span class="p">(</span><span class="n">a_p</span><span class="p">,</span> <span class="n">b_p</span><span class="p">,</span> <span class="n">mu_y_h</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"all 16 fine cells, X_GCM (rows from the south):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">X_GCM_h</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>R_i = [1.2  1.25 1.5  0.8 ]   R_7 = 1.171875   X_GCM,7 = 4.21875
+plain interpolation of mu_y_obs at X7: 3.375
+all 16 fine cells, X_GCM (rows from the south):
+[[1.92  4.122 5.198 4.75 ]
+ [2.422 3.846 4.219 5.005]
+ [3.42  4.928 2.185 2.281]
+ [3.3   4.77  1.852 2.8  ]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-9-2-continued-a-data-set-for-bcsd-bcca-and-bcsa">
+<h3>Example 9.2 continued: a data set for BCSD, BCCA and BCSA<a class="headerlink" href="#example-9-2-continued-a-data-set-for-bcsd-bcca-and-bcsa" title="Link to this heading">#</a></h3>
+<p>The book uses one data set for Examples 9.2 to 9.4, and so do we. We need many years of fine data. The synthetic region has a <span class="math notranslate nohighlight">\(4\times4\)</span> fine grid (<span class="math notranslate nohighlight">\(p=16\)</span>) inside a <span class="math notranslate nohighlight">\(2\times2\)</span> coarse grid (<span class="math notranslate nohighlight">\(q=4\)</span>), with a wetter east and a wetter second column. We generate spatially linked January mean rainfall (mm/day) for <span class="math notranslate nohighlight">\(H=30\)</span> observed years and 5 target years. The observed coarse value of a cell is the average of its four fine cells. For the target years we use the coarse averages as the (bias-corrected) model field <span class="math notranslate nohighlight">\(\mathbf{y}_{\text{GCM}}\)</span>, so the true fine field is known and we can see how well each method recovers it. A real model does not match observed years one to one; the book’s own examples also check against observed years.</p>
+<p>Averaging to the coarse grid removes the detail: the fine mean map varies from about 1 to 3.5 mm/day across its 16 cells, the coarse map has only four values. BCSD puts the detail back through <span class="math notranslate nohighlight">\(\mu_{x_{\text{obs}},j}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BASE</span> <span class="o">=</span> <span class="s2">"data/downscaling/lec23/"</span>
+<span class="n">RAW</span> <span class="o">=</span> <span class="s2">"https://raw.githubusercontent.com/drvivekhydro/hydroclimatology/main/data/downscaling/lec23/"</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1"># header-less CSV matrix from the repository folder, or from GitHub (e.g. on Colab)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BASE</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">RAW</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">to_coarse</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                                                    <span class="c1"># (n, 16) fine -&gt; (n, 4) coarse: mean of each 2 x 2 block</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="n">x_obs</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="s2">"fine_obs.csv"</span><span class="p">)</span>                  <span class="c1"># H x p, observed years</span>
+<span class="n">x_target</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="s2">"fine_target.csv"</span><span class="p">)</span>            <span class="c1"># T x p, true fine fields of the 5 target years</span>
+<span class="n">y_obs</span><span class="p">,</span> <span class="n">y_GCM</span> <span class="o">=</span> <span class="n">to_coarse</span><span class="p">(</span><span class="n">x_obs</span><span class="p">),</span> <span class="n">to_coarse</span><span class="p">(</span><span class="n">x_target</span><span class="p">)</span>
+<span class="n">H</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">x_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">;</span> <span class="n">q</span> <span class="o">=</span> <span class="n">y_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">)</span>
+<span class="n">mu_y_obs</span><span class="p">,</span> <span class="n">mu_x_obs</span> <span class="o">=</span> <span class="n">y_obs</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">x_obs</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                    <span class="c1"># Eqs. 9.5, 9.7</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">4</span>                                                                <span class="c1"># the wettest target year, used in the maps</span>
+
+<span class="n">ext</span> <span class="o">=</span> <span class="p">[</span><span class="mi">77</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">vmax</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"lower"</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">ext</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"YlGnBu"</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"a (longitude, deg E)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"b (latitude, deg N)"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">im</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">show</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu_x_obs</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\mu_{x_</span><span class="si">{obs}</span><span class="s2">}$ (fine mean, mm/day)"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mu_y_obs</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\mu_{y_</span><span class="si">{obs}</span><span class="s2">}$ (coarse mean, mm/day)"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.85</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"H = </span><span class="si">{</span><span class="n">H</span><span class="si">}</span><span class="s2"> years, q = </span><span class="si">{</span><span class="n">q</span><span class="si">}</span><span class="s2"> coarse cells, p = </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> fine cells, T = </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2"> target years"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/66b8c7642097d94e02000cf4baf4bb35140fb27c9aa491ec5a157e281341bac1.png" src="_images/66b8c7642097d94e02000cf4baf4bb35140fb27c9aa491ec5a157e281341bac1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>H = 30 years, q = 4 coarse cells, p = 16 fine cells, T = 5 target years
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_nearest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">nearest_grid</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_GCM</span><span class="p">])</span>       <span class="c1"># Section 9.1, no bias correction needed here</span>
+<span class="n">X_bilinear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">interp_grid</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_GCM</span><span class="p">])</span>
+<span class="n">X_bcsd</span> <span class="o">=</span> <span class="n">bcsd</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">,</span> <span class="n">mu_y_obs</span><span class="p">,</span> <span class="n">mu_x_obs</span><span class="p">)</span>                                            <span class="c1"># Eqs. 9.4 to 9.7</span>
+<span class="n">R_i</span> <span class="o">=</span> <span class="n">y_GCM</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="n">mu_y_obs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"target year"</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">": y_GCM ="</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">" R_i ="</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">R_i</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"BCSD fine field (rows from the south):"</span><span class="p">);</span> <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">X_bcsd</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>target year 5 : y_GCM = [4.82 9.09 5.49 5.73]  R_i = [2.45 2.91 2.31 2.78]
+BCSD fine field (rows from the south):
+[[2.91 6.96 9.33 8.98]
+ [3.63 6.25 7.78 9.37]
+ [4.39 7.37 4.63 5.47]
+ [4.08 6.96 4.42 8.12]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bias-correction-and-constructed-analogues-bcca">
+<h2>9.3 Bias correction and constructed analogues (BCCA)<a class="headerlink" href="#bias-correction-and-constructed-analogues-bcca" title="Link to this heading">#</a></h2>
+<p><strong>In plain words:</strong> look through the past years for the ones whose coarse map looks most like the target map. Mix their fine maps so that the mixed coarse map matches the target. Example: if the target looks 70 % like year A and 30 % like year B, the fine map is 0.7 times the fine map of A plus 0.3 times that of B. The fine pattern is then made of patterns that really happened.</p>
+<p>The book states three conditions: (i) the new coarse pattern <span class="math notranslate nohighlight">\(\mathbf{y}_{\text{GCM}}\)</span> is known and the fine pattern is unknown; (ii) a subset of a historical library of patterns is used, chosen for similarity of the coarse patterns; (iii) a linear combination of the fine patterns gives a least-squares fit. Steps, for <span class="math notranslate nohighlight">\(q\)</span> coarse cells, <span class="math notranslate nohighlight">\(p\)</span> fine cells and <span class="math notranslate nohighlight">\(H\)</span> observed years:</p>
+<ol class="arabic">
+<li><p><strong>Find the closest patterns.</strong> For each observed year <span class="math notranslate nohighlight">\(h=1,\dots,H\)</span> compute the RMSE between the target and that year’s coarse field (the square root of the mean squared difference; example: target 2 and 4, year <span class="math notranslate nohighlight">\(h\)</span> has 3 and 3, differences 1 and 1, RMSE <span class="math notranslate nohighlight">\(=1\)</span>; small means similar):</p>
+<div class="math notranslate nohighlight">
+\[\text{RMSE}_h=\sqrt{\frac1q\sum_{i=1}^{q}\bigl(y_{\text{GCM},i}-y_{\text{obs},i}^{\,h}\bigr)^2} \qquad \text{(9.8)}\]</div>
+</li>
+<li><p><strong>Select the <span class="math notranslate nohighlight">\(K\)</span> years</strong> with the smallest <span class="math notranslate nohighlight">\(\text{RMSE}_h\)</span>, call them <span class="math notranslate nohighlight">\((1),\dots,(K)\)</span>, and collect their coarse fields. The book suggests <span class="math notranslate nohighlight">\(K=30\)</span> for big grids; we have only <span class="math notranslate nohighlight">\(q=4\)</span> coarse cells and use <span class="math notranslate nohighlight">\(K=2\)</span>, as the book’s example does.</p></li>
+<li><p><strong>Fit the mixing weights.</strong> Multiple linear regression (least squares) of the target on the selected coarse fields, with an intercept, that is, a constant weight <span class="math notranslate nohighlight">\(A_0\)</span> for a column of ones. The weights are the vector <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> with <span class="math notranslate nohighlight">\(K+1\)</span> entries; <span class="math notranslate nohighlight">\(\mathbf{y}_{\text{obs}}\)</span> here is the <span class="math notranslate nohighlight">\(q\times(K+1)\)</span> matrix whose first column is ones and whose other columns are the selected coarse fields (code <code class="docutils literal notranslate"><span class="pre">y_mat</span></code>):</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{A}=\bigl(\mathbf y_{\text{obs}}^{T}\mathbf y_{\text{obs}}\bigr)^{-1}\mathbf y_{\text{obs}}^{T}\,\mathbf y_{\text{GCM}} \qquad \text{(9.9)}\]</div>
+</li>
+<li><p><strong>Apply the weights to the fine fields</strong> of the same years. <span class="math notranslate nohighlight">\(\mathbf{x}_{\text{obs}}\)</span> is the <span class="math notranslate nohighlight">\(p\times(K+1)\)</span> matrix with a first column of ones and the selected fine fields (code <code class="docutils literal notranslate"><span class="pre">x_mat</span></code>):</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}_{\text{GCM}}=\mathbf{x}_{\text{obs}}\,\mathbf{A} \qquad \text{(9.10, 9.11)}\]</div>
+</li>
+</ol>
+<p>Repeat Steps 1 to 4 for every target year. The weights are not forced to be positive, so a fine cell can come out slightly below zero. (Some codes add a ridge term to Step 3 for stability; the book’s version does not.)</p>
+<p><em>What this means for hydrology:</em> BCCA gives fine rainfall maps that look like real storms, but it needs a long library of fine maps, and an occasional negative rainfall has to be set to zero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bcca</span><span class="p">(</span><span class="n">y_GCM_t</span><span class="p">,</span> <span class="n">y_obs</span><span class="p">,</span> <span class="n">x_obs</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+    <span class="n">rmse_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">y_GCM_t</span> <span class="o">-</span> <span class="n">y_obs</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>                           <span class="c1"># Step 1, Eq. 9.8</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">rmse_h</span><span class="p">)[:</span><span class="n">K</span><span class="p">]</span>                                                 <span class="c1"># Step 2: the K closest years, (1), ..., (K)</span>
+    <span class="n">y_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_GCM_t</span><span class="p">))]</span> <span class="o">+</span> <span class="p">[</span><span class="n">y_obs</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">])</span>   <span class="c1"># q x (K+1)</span>
+    <span class="n">x_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="o">+</span> <span class="p">[</span><span class="n">x_obs</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">])</span> <span class="c1"># p x (K+1)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">y_mat</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y_mat</span><span class="p">,</span> <span class="n">y_mat</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y_GCM_t</span><span class="p">)</span>                      <span class="c1"># Step 3, Eq. 9.9</span>
+    <span class="k">return</span> <span class="n">x_mat</span> <span class="o">@</span> <span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">rmse_h</span>                                             <span class="c1"># Step 4, Eq. 9.10</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">X_bcca</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bcca</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_obs</span><span class="p">,</span> <span class="n">x_obs</span><span class="p">,</span> <span class="n">K</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_GCM</span><span class="p">])</span>
+<span class="n">X_t</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">rmse_h</span> <span class="o">=</span> <span class="n">bcca</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">y_obs</span><span class="p">,</span> <span class="n">x_obs</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"target year </span><span class="si">{</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: closest years h = </span><span class="si">{</span><span class="n">sel</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">, RMSE_h = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rmse_h</span><span class="p">[</span><span class="n">sel</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">, A = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"lowest value of the BCCA fields over the 5 target years: </span><span class="si">%.2f</span><span class="s2"> mm/day"</span> <span class="o">%</span> <span class="n">X_bcca</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+<span class="c1"># same computation as the sheet BCCA: the first 8 years as library and target year 1</span>
+<span class="n">X_s</span><span class="p">,</span> <span class="n">A_s</span><span class="p">,</span> <span class="n">sel_s</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">bcca</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_obs</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="n">x_obs</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="n">K</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"sheet BCCA: h ="</span><span class="p">,</span> <span class="n">sel_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">" A ="</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">A_s</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">" X_GCM,1..4 ="</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">X_s</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>target year 5: closest years h = [14 25], RMSE_h = [1.788 2.064], A = [2.598 0.802 0.004]
+lowest value of the BCCA fields over the 5 target years: -0.55 mm/day
+sheet BCCA: h = [1 4]  A = [ 4.889 -1.669  0.305]  X_GCM,1..4 = [1.873 0.163 1.11  3.605]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bias-correction-and-stochastic-analogue-bcsa">
+<h2>9.4 Bias correction and stochastic analogue (BCSA)<a class="headerlink" href="#bias-correction-and-stochastic-analogue-bcsa" title="Link to this heading">#</a></h2>
+<p><strong>In plain words:</strong> instead of mixing past maps, let the computer draw many random fine maps that behave like the observations (wet cells tend to be wet together), and keep the one whose overall average fits the target. Example: draw 10,000 random maps and keep the one whose domain average is closest to the average the model suggests.</p>
+<p>The book (after Hwang and Graham, 2013) states three conditions: (i) quantile mapping turns the observed fine data into a standard normal variable, cell by cell (this is the bias correction); (ii) spatially correlated replicates are generated and transformed back to the observed distributions; (iii) the replicate whose spatial mean is closest to the spatial mean of the target is selected. Steps:</p>
+<ol class="arabic">
+<li><p><strong>Normal scores.</strong> Fit a distribution to each fine cell of <span class="math notranslate nohighlight">\(x_{\text{obs}}\)</span> (CDF <span class="math notranslate nohighlight">\(F_{x_o}\)</span>) and to each coarse cell of <span class="math notranslate nohighlight">\(y_{\text{obs}}\)</span> (CDF <span class="math notranslate nohighlight">\(F_{y_o}\)</span>); the book uses the gamma distribution, a skewed shape typical for rainfall, with shape <span class="math notranslate nohighlight">\(\alpha\)</span> and scale <span class="math notranslate nohighlight">\(\beta\)</span> from the mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> as <span class="math notranslate nohighlight">\(\beta=\sigma^2/\mu\)</span>, <span class="math notranslate nohighlight">\(\alpha=\mu/\beta\)</span> (example: <span class="math notranslate nohighlight">\(\mu=2.4\)</span>, <span class="math notranslate nohighlight">\(\sigma=1.2\)</span> give <span class="math notranslate nohighlight">\(\beta=0.6\)</span>, <span class="math notranslate nohighlight">\(\alpha=4\)</span>). Then replace every value by its <em>normal score</em>, the value with the same probability on the standard normal curve (<span class="math notranslate nohighlight">\(\Phi^{-1}\)</span> is its inverse CDF; an average value gets a score near 0, a very wet one a large positive score):</p>
+<div class="math notranslate nohighlight">
+\[\tilde x_{\text{obs},i}=\Phi^{-1}\bigl(F_{x_o}(x_{\text{obs},i})\bigr),\ i=1,\dots,p \quad \text{(9.12)}\qquad \tilde y_{\text{GCM},j}=\Phi^{-1}\bigl(F_{y_o}(y_{\text{GCM},j})\bigr),\ j=1,\dots,q \quad \text{(9.13)}\]</div>
+<p><span class="math notranslate nohighlight">\(F_{y_o}\)</span> must be fitted to the <strong>observed</strong> coarse data <span class="math notranslate nohighlight">\(y_{\text{obs},j}\)</span>, not to <span class="math notranslate nohighlight">\(y_{\text{GCM},j}\)</span>.</p>
+</li>
+<li><p><strong>Correlation</strong> between the normal scores of every pair of fine cells (1 means they rise and fall together, 0 unrelated); the result is a <span class="math notranslate nohighlight">\(p\times p\)</span> matrix:</p>
+<div class="math notranslate nohighlight">
+\[\rho_{ij}=\operatorname{corr}\bigl(\tilde x_{\text{obs},i},\tilde x_{\text{obs},j}\bigr),\quad i,j=1,\dots,p \qquad \text{(9.14)}\]</div>
+</li>
+<li><p><strong>Simulate <span class="math notranslate nohighlight">\(N_G\)</span> replicates</strong> (random maps of scores) with zero mean and exactly this correlation, from the multivariate normal distribution. The book recommends at least <span class="math notranslate nohighlight">\(10^4\)</span> (its hand example uses 30):</p>
+<div class="math notranslate nohighlight">
+\[\mathbf X_n\sim\text{MVN}(\mathbf 0,\boldsymbol\rho),\quad n=1,\dots,N_G \qquad \text{(9.15)}\]</div>
+</li>
+<li><p><strong>Select</strong> the replicate whose spatial mean <span class="math notranslate nohighlight">\(\overline{\mathbf X_n}\)</span> is closest to the spatial mean of the target scores:</p>
+<div class="math notranslate nohighlight">
+\[n^{*}=\arg\min_{n}\bigl|\,\overline{\mathbf X_n}-\overline{\tilde{\mathbf y}_{\text{GCM}}}\,\bigr| \qquad \text{(9.16)}\]</div>
+</li>
+<li><p><strong>Back-transform</strong> the chosen replicate to rainfall, cell by cell: <span class="math notranslate nohighlight">\(X_{\text{GCM},i}=F_{x_o,i}^{-1}\bigl(\Phi(\tilde X_{\text{GCM},i})\bigr)\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,p\)</span>.</p></li>
+<li><p><strong>Repeat</strong> Steps 4 and 5 for every target year.</p></li>
+</ol>
+<p>The field looks like real rainfall, but the selection uses only one number, the domain mean, so <em>where</em> the wet cells lie is largely luck.</p>
+<p><em>What this means for hydrology:</em> BCSA keeps realistic variability and peaks, so it suits studies where extremes matter; but one map is one possibility among many.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gamma_mom</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                                    <span class="c1"># method of moments: beta = sigma^2 / mu (scale), alpha = mu / beta</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sd</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">mu</span>
+    <span class="k">return</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">beta</span><span class="p">,</span> <span class="n">beta</span>
+
+<span class="n">alpha_y</span><span class="p">,</span> <span class="n">beta_y</span> <span class="o">=</span> <span class="n">gamma_mom</span><span class="p">(</span><span class="n">y_obs</span><span class="p">)</span>                   <span class="c1"># coarse cells</span>
+<span class="n">alpha_x</span><span class="p">,</span> <span class="n">beta_x</span> <span class="o">=</span> <span class="n">gamma_mom</span><span class="p">(</span><span class="n">x_obs</span><span class="p">)</span>                   <span class="c1"># fine cells</span>
+<span class="n">x_til_obs</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x_obs</span><span class="p">,</span> <span class="n">alpha_x</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_x</span><span class="p">))</span>        <span class="c1"># Step 1, Eq. 9.12</span>
+<span class="n">y_til_GCM</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">gamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">,</span> <span class="n">alpha_y</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_y</span><span class="p">))</span>        <span class="c1"># Step 1, Eq. 9.13 (F_yo fitted to y_obs)</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x_til_obs</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>                                       <span class="c1"># Step 2, Eq. 9.14</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="n">N_G</span> <span class="o">=</span> <span class="mi">10_000</span>
+<span class="n">X_bcsa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>                                                   <span class="c1"># Step 6: every target year</span>
+    <span class="n">X_n</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">rho</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N_G</span><span class="p">)</span>        <span class="c1"># Step 3, Eq. 9.15</span>
+    <span class="n">n_star</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X_n</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_til_GCM</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>    <span class="c1"># Step 4, Eq. 9.16</span>
+    <span class="n">X_bcsa</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">X_n</span><span class="p">[</span><span class="n">n_star</span><span class="p">]),</span> <span class="n">alpha_x</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_x</span><span class="p">)</span>   <span class="c1"># Step 5, back-transform</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"target year </span><span class="si">{</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: mean score of y_GCM </span><span class="si">{</span><span class="n">y_til_GCM</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, selected replicate </span><span class="si">{</span><span class="n">n_star</span><span class="si">}</span><span class="s2"> with mean </span><span class="si">{</span><span class="n">X_n</span><span class="p">[</span><span class="n">n_star</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"BCSA fine field, target year"</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"(rows from the south):"</span><span class="p">);</span> <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">X_bcsa</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>target year 5: mean score of y_GCM 2.287, selected replicate 636 with mean 2.289
+BCSA fine field, target year 5 (rows from the south):
+[[ 2.61  9.28 11.44 10.74]
+ [ 3.26  6.38  9.13  9.71]
+ [ 5.38 12.05  6.22  3.48]
+ [ 5.98  7.3   4.26  6.75]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary-and-comparison">
+<h2>9.5 Summary and comparison<a class="headerlink" href="#summary-and-comparison" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-left"><p><strong>BCSD</strong></p></th>
+<th class="head text-left"><p><strong>BCCA</strong></p></th>
+<th class="head text-left"><p><strong>BCSA</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Spatial information from</strong></p></td>
+<td class="text-left"><p>interpolated ratio times the fine mean</p></td>
+<td class="text-left"><p>least-squares blend of <span class="math notranslate nohighlight">\(K\)</span> real fine fields</p></td>
+<td class="text-left"><p>correlated random replicate chosen by the domain mean</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Character of the field</strong></p></td>
+<td class="text-left"><p>smooth</p></td>
+<td class="text-left"><p>rougher, with real patterns</p></td>
+<td class="text-left"><p>rough, realistic variability</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Skill for the particular year</strong></p></td>
+<td class="text-left"><p>best of the three</p></td>
+<td class="text-left"><p>in between</p></td>
+<td class="text-left"><p>low: the pattern is largely random</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Extremes</strong></p></td>
+<td class="text-left"><p>tend to be damped by the smoothing</p></td>
+<td class="text-left"><p>better preserved; coefficients can give small negatives</p></td>
+<td class="text-left"><p>preserved</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Needs</strong></p></td>
+<td class="text-left"><p>fine mean and coarse observations</p></td>
+<td class="text-left"><p>library of observed fine fields</p></td>
+<td class="text-left"><p>fine and coarse observations, correlation matrix, many replicates</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The figure shows one target year for all methods, including the plain interpolations of Section 9.1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fields</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"true fine field"</span><span class="p">,</span> <span class="n">x_target</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span> <span class="p">(</span><span class="sa">r</span><span class="s2">"$y_</span><span class="si">{GCM}</span><span class="s2">$ (coarse)"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">y_GCM</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))),</span>
+          <span class="p">(</span><span class="s2">"nearest neighbour"</span><span class="p">,</span> <span class="n">X_nearest</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"bilinear"</span><span class="p">,</span> <span class="n">X_bilinear</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"BCSD"</span><span class="p">,</span> <span class="n">X_bcsd</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span>
+          <span class="p">(</span><span class="sa">f</span><span class="s2">"BCCA (K = </span><span class="si">{</span><span class="n">K</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="n">X_bcca</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"BCSA"</span><span class="p">,</span> <span class="n">X_bcsa</span><span class="p">[</span><span class="n">t</span><span class="p">])]</span>
+<span class="n">vmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">fields</span><span class="p">):</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">show</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">"$X_</span><span class="si">{GCM}</span><span class="s2">$ [mm/day]"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"domain maximum (mm/day):"</span><span class="p">,</span> <span class="p">{</span><span class="n">n</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"$"</span><span class="p">,</span> <span class="s2">""</span><span class="p">):</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">fields</span><span class="p">[</span><span class="mi">2</span><span class="p">:]})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/598a9b5c2564af7dd54848785134462e7d55c3127416d24a950aa4de6fc76cc0.png" src="_images/598a9b5c2564af7dd54848785134462e7d55c3127416d24a950aa4de6fc76cc0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>domain maximum (mm/day): {'true fine field': 12.28, 'nearest neighbour': 9.09, 'bilinear': 9.09, 'BCSD': 9.37, 'BCCA (K = 2)': 10.53, 'BCSA': 12.05}
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this synthetic year the BCSD map is the smoothest and its maximum is below the true one. BCCA and BCSA reach larger values, as the chapter says of rough methods. BCSA gets the overall level right through the domain mean, but where the wet cells sit is partly luck. The details change with the random numbers; Section 9.5 of the book makes the same points for a real Florida example.</p>
+<p><em>What this means for hydrology:</em> use BCSD for long-term water balance (means), and BCCA or BCSA (preferably several maps) when peak rainfall or the spread of wet cells matters.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Spatial downscaling turns a few coarse cells into many fine cells; the model bias is removed first (Lecture 18).</p></li>
+<li><p><strong>Bilinear interpolation</strong> is a distance-weighted average of four coarse cells (Eqs. 9.1 to 9.3). It is smooth and adds no information. Nearest neighbour copies the closest cell.</p></li>
+<li><p><strong>BCSD</strong>: today-to-normal ratio <span class="math notranslate nohighlight">\(R_i\)</span> at coarse scale, interpolate it to <span class="math notranslate nohighlight">\(R_j\)</span>, multiply by the fine mean <span class="math notranslate nohighlight">\(\mu_{x_{\text{obs}},j}\)</span> (Eqs. 9.4 to 9.7).</p></li>
+<li><p><strong>BCCA</strong>: mix the fine maps of the <span class="math notranslate nohighlight">\(K\)</span> most similar past years with least-squares weights and an intercept (Eqs. 9.8 to 9.11).</p></li>
+<li><p><strong>BCSA</strong>: random correlated maps made from normal scores; keep the one whose mean fits the target (Eqs. 9.12 to 9.16).</p></li>
+<li><p>BCSD is smoothest and closest to the year; BCCA and BCSA are rougher and keep extremes.</p></li>
+</ul>
+</section>
+<section id="check-your-understanding">
+<h2>Check your understanding<a class="headerlink" href="#check-your-understanding" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>A fine point lies exactly in the middle of four coarse cells with values 4, 8, 12 and 20 mm/day. Use the rule of Section 9.1: what are the four weights and the interpolated value? Could the value be 22 mm/day?</p></li>
+<li><p>In the hand example of Section 9.2 the coarse cell <span class="math notranslate nohighlight">\(Y_4\)</span> has <span class="math notranslate nohighlight">\(y_{\text{GCM}}=2.0\)</span> and <span class="math notranslate nohighlight">\(\mu_{y_{\text{obs}}}=2.5\)</span>. What is its ratio <span class="math notranslate nohighlight">\(R_4\)</span>, and what does it say? A fine cell inside <span class="math notranslate nohighlight">\(Y_4\)</span> has a fine mean of 3.5 mm/day and (to keep it simple) takes the ratio <span class="math notranslate nohighlight">\(R_4\)</span>: what does BCSD give?</p></li>
+<li><p>From the comparison table: which method would you choose to study the largest daily rainfall at a catchment cell, and what should you not trust about the result for one particular year?</p></li>
+</ol>
+</section>
+<section id="try-it-yourself">
+<h2>Try it yourself<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">K</span></code> in <code class="docutils literal notranslate"><span class="pre">bcca</span></code> (1, 2, 3) and watch the weights <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and the lowest value of the fields.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">N_G</span> <span class="pre">=</span> <span class="pre">30</span></code>, as in the book’s hand example, and rerun BCSA. How much does the map change?</p></li>
+<li><p>Regenerate the data with <code class="docutils literal notranslate"><span class="pre">make_lec23_data.py</span></code> (another seed) and compare the maps again.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Where this lecture differs from the book</p>
+<ul class="simple">
+<li><p>Eqs. 9.12 and 9.13: the text mixes “fine” and “coarse”. We read them consistently: <span class="math notranslate nohighlight">\(\tilde x_{\text{obs},i}\)</span> uses the fine CDF <span class="math notranslate nohighlight">\(F_{x_o}\)</span>; <span class="math notranslate nohighlight">\(\tilde y_{\text{GCM},j}\)</span> is the transform of the <strong>coarse</strong> <span class="math notranslate nohighlight">\(y_{\text{GCM},j}\)</span> with <span class="math notranslate nohighlight">\(F_{y_o}\)</span> fitted to <span class="math notranslate nohighlight">\(y_{\text{obs},j}\)</span>.</p></li>
+<li><p>Example 9.2 weights the bilinear interpolation by Haversine distance in km. On a regular grid this is inconsistent with Eqs. 9.1 to 9.3, which use coordinate differences in degrees; we use the equations.</p></li>
+<li><p>Eq. 9.9: the text calls the entries of <span class="math notranslate nohighlight">\(\mathbf y_{\text{obs}}\)</span> “selected GCM outputs”; they are the selected <strong>observed</strong> coarse fields. The book reuses <span class="math notranslate nohighlight">\(\mathbf y_{\text{obs}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf x_{\text{obs}}\)</span> for the matrices with a column of ones (<code class="docutils literal notranslate"><span class="pre">y_mat</span></code>, <code class="docutils literal notranslate"><span class="pre">x_mat</span></code>).</p></li>
+<li><p>Table 9.4 labels the downscaled estimates <span class="math notranslate nohighlight">\(Y_{\text{GCM}}\)</span>; they are <span class="math notranslate nohighlight">\(X_{\text{GCM}}\)</span> (Eq. 9.6).</p></li>
+<li><p>Eq. 9.16 speaks of spatial mean “vectors”; we compare scalar domain means. Fine cells outside the coarse centres take the nearest coarse value (the book does not say).</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sources
+<strong>Reference for the methods.</strong> Lee, T., &amp; Singh, V. P. (2019). <em>Statistical Downscaling for Hydrological and Environmental Applications</em>. CRC Press, Chapter 9 (Sections 9.1 to 9.5). The notation and the formulation of each method follow the book; the explanations, the synthetic data, the worked example and the figures are our own.</p>
+<p><strong>Original method papers.</strong> Wood, A. W., Leung, L. R., Sridhar, V., &amp; Lettenmaier, D. P. (2004). <em>Climatic Change, 62</em>, 189–216 (BCSD). · Hidalgo, H. G., Dettinger, M. D., &amp; Cayan, D. R. (2008). Downscaling with constructed analogues. California Energy Commission PIER report. · Maurer, E. P., et al. (2010). <em>Hydrol. Earth Syst. Sci., 14</em>, 1125–1138 (BCCA). · Hwang, S., &amp; Graham, W. D. (2013). <em>Hydrol. Earth Syst. Sci., 17</em> (BCSA).</p>
+<p><strong>Data.</strong> All arrays are synthetic (<code class="docutils literal notranslate"><span class="pre">data/downscaling/lec23/</span></code>, generated by <code class="docutils literal notranslate"><span class="pre">make_lec23_data.py</span></code> with a fixed seed). For real data use gridded rainfall (for example IMD, 0.25 degree) as the fine observations and a bias-corrected CMIP6 field as the coarse model.</p>
+<p>Text under CC BY-SA 4.0, code additionally under the MIT License; full attribution in <a class="reference external" href="https://github.com/drvivekhydro/hydroclimatology/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecture-22-weather-types-and-temporal-downscaling.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 22, Weather types and temporal downscaling</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lecture-24-floods-extremes-and-return-periods.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lecture 24, Floods I: flood types, extreme-rainfall indices and return periods</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words-you-need">Words you need</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-background">9.1 Mathematical background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bilinear-interpolation">9.1.1 Bilinear interpolation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-in-the-style-of-example-9-1">Worked example (by hand), in the style of Example 9.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbour-interpolation">9.1.2 Nearest-neighbour interpolation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-correction-and-spatial-downscaling-bcsd">9.2 Bias correction and spatial downscaling (BCSD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-by-hand-in-the-style-of-example-9-2">Worked example (by hand), in the style of Example 9.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-9-2-continued-a-data-set-for-bcsd-bcca-and-bcsa">Example 9.2 continued: a data set for BCSD, BCCA and BCSA</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-correction-and-constructed-analogues-bcca">9.3 Bias correction and constructed analogues (BCCA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-correction-and-stochastic-analogue-bcsa">9.4 Bias correction and stochastic analogue (BCSA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-comparison">9.5 Summary and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">Check your understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try it yourself</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vivek Gupta, IIT Mandi (adapted from 'Climate of the Ocean' by Meier, Börgel & Karsten, IOW)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
